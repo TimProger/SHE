@@ -1,0 +1,10 @@
+@import "styles/colors";
+
+.header{
+  width: 100%;
+  background: green;
+
+  &__h1{
+    color: $daw;
+  }
+}
