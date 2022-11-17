@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next'
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation, WithTranslation} from "next-i18next";
 import {withTranslation} from "next-i18next";
+import {useRouter} from "next/router";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
@@ -13,12 +14,16 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   }
 }
 
-function Main({t}: WithTranslation ) {
+function Main() {
+  const { locale, locales, push } = useRouter()
+  const { t } = useTranslation('main')
   return (
-    <Layout title={t('main:title')}>
-      <div>{t('main:welcome')}</div>
+    <Layout title={t('title')}>
+      <h1>Locale: {locale}</h1>
+
+      <div>{t('welcome')}</div>
     </Layout>
   )
 }
 
-export default withTranslation('main')(Main)
+export default Main

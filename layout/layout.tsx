@@ -27,8 +27,10 @@ const Layout: React.FC<MainLayoutProps>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
             <Header />
-            <div className={styles.wrapper}>
+            <div className={styles.app}>
+              <div className={styles.wrapper}>
                 {children}
+              </div>
             </div>
         </>
     );
