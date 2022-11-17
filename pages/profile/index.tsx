@@ -11,14 +11,14 @@ import {IProfileProps} from "../../types/Profile.types";
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['profile'])),
+      ...(await serverSideTranslations(locale as string, ['profile', 'header'])),
     }
   }
 }
 
 const Profile: React.FC<IProfileProps> = () => {
   const { isAuth } = useTypedSelector(state => state.auth)
-  const {t, i18n} = useTranslation('profile');
+  const {t, i18n} = useTranslation();
   const dispatch = useDispatch();
 
   const addNewUser = () => {
@@ -36,7 +36,7 @@ const Profile: React.FC<IProfileProps> = () => {
   let title = `${t('profile:title')}`
 
   return (
-    <Layout title={title}>
+    <Layout btns={[t('header:home'),t('header:profile')]} title={t('profile:title')}>
       <div>
         <button onClick={()=>changeLanguage()}>Change</button>
         <button onClick={()=>addNewUser()}>{isAuth ? 'LogOut' : 'LogIn'}</button>

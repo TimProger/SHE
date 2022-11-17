@@ -2,20 +2,23 @@ import React from 'react';
 import Header from "../components/Header";
 import Head from "next/head";
 import styles from '../styles/layout.module.scss'
+import Container from "../components/Container";
 
 interface MainLayoutProps {
-    children: React.ReactNode;
-    title?: string;
-    description?: string;
-    keywords?: string;
+  btns: string[];
+  children: React.ReactNode;
+  title?: string;
+  description?: string;
+  keywords?: string;
 }
 
 const Layout: React.FC<MainLayoutProps>
     = ({
-           children,
-           title,
-           description,
-           keywords
+          btns,
+          children,
+          title,
+          description,
+          keywords
        }) => {
     return (
         <>
@@ -26,12 +29,10 @@ const Layout: React.FC<MainLayoutProps>
                 <meta name="keywords" content={keywords || "Товар, бесплатно, акция"}/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
-            <Header />
-            <div className={styles.app}>
-              <div className={styles.wrapper}>
+            <Header btns={btns} />
+            <Container>
                 {children}
-              </div>
-            </div>
+            </Container>
         </>
     );
 };

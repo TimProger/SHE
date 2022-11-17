@@ -1,0 +1,14 @@
+.container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &__wrapper{
+    width: 1400px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+}
