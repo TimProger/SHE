@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   return (
       <div className={styles.header}>
           <div className={styles.header__wrapper}>
-              <h1 className={styles.header__logo}>SHEEEEEEEEEEEEEEEE</h1>
+              <h1 className={styles.header__logo}>SHEEEEEEEEEEEE</h1>
               <div className={styles.header__btns}>
                   <div className={styles.header__btns__btn}>
                       <Link href="/" locale={locale}>{'home'}</Link>
