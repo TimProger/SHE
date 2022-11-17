@@ -4,15 +4,23 @@ import Head from "next/head";
 import styles from '../styles/layout.module.scss'
 import Container from "../components/Container";
 
-interface MainLayoutProps {
-  btns: string[];
+export interface HeaderBtns {
+  home: string;
+  catalogue: string;
+  coop: string;
+  about: string;
+  contacts: string;
+}
+
+interface IMainLayoutProps {
+  btns: HeaderBtns;
   children: React.ReactNode;
   title?: string;
   description?: string;
   keywords?: string;
 }
 
-const Layout: React.FC<MainLayoutProps>
+const Layout: React.FC<IMainLayoutProps>
     = ({
           btns,
           children,

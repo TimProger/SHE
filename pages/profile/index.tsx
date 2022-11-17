@@ -25,8 +25,16 @@ const Profile: React.FC<IProfileProps> = () => {
     dispatch(LogIn(!isAuth));
   };
 
+  const btns = {
+    home: t('header:home'),
+    catalogue: t('header:catalogue'),
+    coop: t('header:coop'),
+    about: t('header:about'),
+    contacts: t('header:contacts'),
+  }
+
   return (
-    <Layout btns={[t('header:home'),t('header:profile')]} title={t('profile:title')}>
+    <Layout btns={btns} title={t('profile:title')}>
       <div>
         <button onClick={()=>addNewUser()}>{isAuth ? 'LogOut' : 'LogIn'}</button>
         <h1>{isAuth ? 'YOOOO' : 'Hello'}</h1>

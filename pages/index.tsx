@@ -4,7 +4,7 @@ import { GetStaticProps } from 'next'
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
@@ -17,9 +17,27 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
 function Main() {
   const { locale } = useRouter()
   const { t } = useTranslation()
-  console.log(t('header:home'))
+  const [btns, setBtns] = useState({
+    home: t('header:home'),
+    catalogue: t('header:catalogue'),
+    coop: t('header:coop'),
+    about: t('header:about'),
+    contacts: t('header:contacts'),
+  })
+
+  useEffect(()=>{
+    setBtns({
+      home: t('header:home'),
+      catalogue: t('header:catalogue'),
+      coop: t('header:coop'),
+      about: t('header:about'),
+      contacts: t('header:contacts'),
+    })
+    console.log(btns)
+  },[locale])
+
   return (
-      <Layout btns={[t('header:home'),t('header:profile')]} title={t('main:title')}>
+      <Layout btns={btns} title={t('main:title')}>
         <div>
           <h1>Locale: {locale}</h1>
           <div>{t('main:welcome')}</div>
