@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from "../components/Header";
 import Head from "next/head";
-import styles from '../styles/layout.module.scss'
 import Container from "../components/Container";
 
 interface IMainLayoutProps {
