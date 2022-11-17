@@ -1,0 +1,59 @@
+@import "../colors";
+
+.header{
+  width: 100%;
+  background: $block-main;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+
+  &__wrapper{
+    height: 100%;
+    width: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo{
+    color: $text-main;
+  }
+
+  &__btns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+
+    &__btn{
+      height: 100%;
+
+      & a {
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        color: $text-main;
+
+        &:after {
+          display:block;
+          content: '';
+          border-bottom: solid 3px $text-main;
+          transform: scaleX(0);
+          transition: transform 500ms ease-in-out;
+          width: 100%;
+          margin-top: 2px;
+        }
+
+        &:after{ transform-origin: 100% 50%; }
+
+        &:hover:after{ transform: scaleX(1); transform-origin: 0% 50%; }
+      }
+
+    }
+  }
+}

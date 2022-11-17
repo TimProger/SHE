@@ -1,12 +1,12 @@
-import React from "react";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {LogIn} from "../../store/Slices/Auth.slice";
 import {useDispatch} from "react-redux";
 import Layout from "../../layout/layout";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import {useTranslation, withTranslation} from "next-i18next";
+import {useTranslation} from "next-i18next";
 import { GetStaticProps } from 'next'
-import {IProfileProps} from "../../types/Profile.types";
+import {IAuthProps} from "../../types/Auth.types";
+import React from "react";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
@@ -16,30 +16,19 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   }
 }
 
-const Profile: React.FC<IProfileProps> = () => {
+const Login: React.FC<IAuthProps> = ({}) => {
   const { isAuth } = useTypedSelector(state => state.auth)
-  const {t, i18n} = useTranslation('profile');
+  const { t } = useTranslation()
   const dispatch = useDispatch();
 
   const addNewUser = () => {
     dispatch(LogIn(!isAuth));
   };
 
-  const changeLanguage = async () => {
-    console.log(`${t('title')}`)
-    await i18n.changeLanguage('en')
-      .then((t)=>{
-        console.log(`${t('title')}`)
-      })
-  };
-
-  let title = `${t('profile:title')}`
-
   return (
-    <Layout title={title}>
+    <Layout title={'Профиль'}>
       <div>
-        <button onClick={()=>changeLanguage()}>Change</button>
-        <button onClick={()=>addNewUser()}>{isAuth ? 'LogOut' : 'LogIn'}</button>
+        <button onClick={()=>addNewUser()}>dawdw</button>
         <h1>{isAuth ? 'YOOOO' : 'Hello'}</h1>
         {t('profile:welcome')}
       </div>
@@ -47,4 +36,4 @@ const Profile: React.FC<IProfileProps> = () => {
   )
 }
 
-export default Profile
+export default Login

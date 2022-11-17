@@ -2,7 +2,8 @@ import Layout from "../layout/layout";
 import styles from '../styles/main/main.module.scss'
 import { GetStaticProps } from 'next'
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import {useTranslation} from "next-i18next";
+import {useTranslation, WithTranslation} from "next-i18next";
+import {withTranslation} from "next-i18next";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
@@ -12,12 +13,12 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   }
 }
 
-export default function Main() {
-  const { t } = useTranslation()
-
+function Main({t}: WithTranslation ) {
   return (
-    <Layout title={'Главная'}>
+    <Layout title={t('main:title')}>
       <div>{t('main:welcome')}</div>
     </Layout>
   )
 }
+
+export default withTranslation('main')(Main)

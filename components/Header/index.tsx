@@ -1,23 +1,29 @@
-import styles from './styles.module.scss'
+import styles from '../../styles/components/header.module.scss'
 import Link from "next/link";
+import React from "react";
+import {useTranslation, WithTranslation, withTranslation} from "next-i18next";
 
-export default function Header() {
-    return (
-        <div>
-            <div className={styles.header}>
-                <h1 className={styles.header__h1}>Hello</h1>
-                <ul>
-                    <li>
-                        <Link href="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link href="/profile">About Us</Link>
-                    </li>
-                    <li>
-                        <Link href="/blog/hello-world">Blog Post</Link>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    )
+const Header: React.FC = () => {
+
+  // const [t, i18n] = useTranslation('header');
+
+  // console.log(t('header:home'))
+
+  return (
+      <div className={styles.header}>
+          <div className={styles.header__wrapper}>
+              <h1 className={styles.header__logo}>SHE</h1>
+              <div className={styles.header__btns}>
+                  <div className={styles.header__btns__btn}>
+                      <Link href="/">{'home'}</Link>
+                  </div>
+                  <div className={styles.header__btns__btn}>
+                      <Link href="/profile">{'profile'}</Link>
+                  </div>
+              </div>
+          </div>
+      </div>
+  )
 }
+
+export default Header
