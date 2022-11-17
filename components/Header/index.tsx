@@ -3,10 +3,9 @@ import Link from "next/link";
 import React from "react";
 import {useRouter} from "next/router";
 import {onToggleLanguageClick} from "../../utils/changeCurrentLanguage";
-import {HeaderBtns} from "../../layout/layout";
 
 interface IHeaderProps {
-  btns: HeaderBtns
+  btns: string[];
 }
 
 const Header: React.FC<IHeaderProps> = ({btns}) => {
@@ -37,19 +36,19 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
           <div className={styles.header__wrapper__bottom}>
             <div className={styles.header__wrapper__bottom__btns}>
               <div className={styles.header__wrapper__bottom__btns__btn}>
-                <Link href="/" locale={router.locale}>{btns.home}</Link>
+                <Link href="/" locale={router.locale}>{btns[0]}</Link>
               </div>
               <div className={styles.header__wrapper__bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns.catalogue}</Link>
+                <Link href="/profile" locale={router.locale}>{btns[1]}</Link>
               </div>
               <div className={styles.header__wrapper__bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns.coop}</Link>
+                <Link href="/profile" locale={router.locale}>{btns[2]}</Link>
               </div>
               <div className={styles.header__wrapper__bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns.about}</Link>
+                <Link href="/profile" locale={router.locale}>{btns[3]}</Link>
               </div>
               <div className={styles.header__wrapper__bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns.contacts}</Link>
+                <Link href="/profile" locale={router.locale}>{btns[4]}</Link>
               </div>
             </div>
           </div>

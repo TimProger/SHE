@@ -4,16 +4,8 @@ import Head from "next/head";
 import styles from '../styles/layout.module.scss'
 import Container from "../components/Container";
 
-export interface HeaderBtns {
-  home: string;
-  catalogue: string;
-  coop: string;
-  about: string;
-  contacts: string;
-}
-
 interface IMainLayoutProps {
-  btns: HeaderBtns;
+  btns: string[];
   children: React.ReactNode;
   title?: string;
   description?: string;

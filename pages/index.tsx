@@ -16,28 +16,19 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
 
 function Main() {
   const { locale } = useRouter()
-  const { t } = useTranslation()
-  const [btns, setBtns] = useState({
-    home: t('header:home'),
-    catalogue: t('header:catalogue'),
-    coop: t('header:coop'),
-    about: t('header:about'),
-    contacts: t('header:contacts'),
-  })
 
-  useEffect(()=>{
-    setBtns({
-      home: t('header:home'),
-      catalogue: t('header:catalogue'),
-      coop: t('header:coop'),
-      about: t('header:about'),
-      contacts: t('header:contacts'),
-    })
-    console.log(btns)
-  },[locale])
+  const { t } = useTranslation()
+
+  const btns = [
+    t('header:home'),
+    t('header:catalogue'),
+    t('header:coop'),
+    t('header:about'),
+    t('header:contacts'),
+  ]
 
   return (
-      <Layout btns={btns} title={t('main:title')}>
+      <Layout btns={btns}>
         <div>
           <h1>Locale: {locale}</h1>
           <div>{t('main:welcome')}</div>
