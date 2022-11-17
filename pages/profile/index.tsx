@@ -25,13 +25,13 @@ const Profile: React.FC<IProfileProps> = () => {
     dispatch(LogIn(!isAuth));
   };
 
-  const btns = {
-    home: t('header:home'),
-    catalogue: t('header:catalogue'),
-    coop: t('header:coop'),
-    about: t('header:about'),
-    contacts: t('header:contacts'),
-  }
+  const btns = [
+    t('header:home'),
+    t('header:catalogue'),
+    t('header:coop'),
+    t('header:about'),
+    t('header:contacts'),
+  ]
 
   return (
     <Layout btns={btns} title={t('profile:title')}>
