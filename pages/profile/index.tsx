@@ -25,20 +25,9 @@ const Profile: React.FC<IProfileProps> = () => {
     dispatch(LogIn(!isAuth));
   };
 
-  const changeLanguage = async () => {
-    console.log(`${t('title')}`)
-    await i18n.changeLanguage('en')
-      .then((t)=>{
-        console.log(`${t('title')}`)
-      })
-  };
-
-  let title = `${t('profile:title')}`
-
   return (
     <Layout btns={[t('header:home'),t('header:profile')]} title={t('profile:title')}>
       <div>
-        <button onClick={()=>changeLanguage()}>Change</button>
         <button onClick={()=>addNewUser()}>{isAuth ? 'LogOut' : 'LogIn'}</button>
         <h1>{isAuth ? 'YOOOO' : 'Hello'}</h1>
         {t('profile:welcome')}
