@@ -7,6 +7,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation, withTranslation} from "next-i18next";
 import { GetStaticProps } from 'next'
 import {IProfileProps} from "../../types/Profile.types";
+import Container from "../../components/Container";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
@@ -31,14 +32,17 @@ const Profile: React.FC<IProfileProps> = () => {
     t('header:coop'),
     t('header:about'),
     t('header:contacts'),
+    t('header:search'),
   ]
 
   return (
     <Layout btns={btns} title={t('profile:title')}>
       <div>
         <button onClick={()=>addNewUser()}>{isAuth ? 'LogOut' : 'LogIn'}</button>
-        <h1>{isAuth ? 'YOOOO' : 'Hello'}</h1>
-        {t('profile:welcome')}
+        <Container>
+          <h1>{isAuth ? 'YOOOO' : 'Hello'}</h1>
+          {t('profile:welcome')}
+        </Container>
       </div>
     </Layout>
   )

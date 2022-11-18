@@ -3,9 +3,9 @@ import {Storage} from "../utils/storage";
 
 const PORT = 3000
 
-export const API_BASE_URL = "https://api.pollhub.ru";
+export const API_BASE_URL = "https://api.tm-she.com";
 export const API_BASE_URL_HEROKU = "https://api.pollhub.ru/";
-export const APP_BASE_URL_TEST = `https://pollhub.ru`
+export const APP_BASE_URL = `http://localhost:3000`
 
 const $api = axios.create({
     baseURL: API_BASE_URL,
@@ -43,7 +43,5 @@ $api.interceptors.response.use((config: AxiosResponse) => {
     }
     throw error;
 })
-
-$api.interceptors.request.use(authInterceptor)
 
 export { $api };

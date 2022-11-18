@@ -1,0 +1,47 @@
+@import "../colors";
+
+.dropdown{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  user-select: none;
+  width: 35px;
+
+  &__container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  &__selected{
+
+  }
+
+  &__open{
+    display: flex !important;
+    opacity: 1 !important;
+    height: 20px !important;
+  }
+
+  &__options{
+    display: none;
+    height: 0;
+    opacity: 0;
+    transition: all 0.5s;
+    position: absolute;
+    margin-top: 20px;
+    flex-direction: column;
+
+    &__option{
+      &:hover{
+        cursor: pointer;
+        color: $block-main;
+      }
+    }
+  }
+}

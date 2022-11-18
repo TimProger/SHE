@@ -5,7 +5,7 @@ interface ContainerProps {
   children: React.ReactNode;
 }
 
-const Header: React.FC<ContainerProps> = ({
+const Container: React.FC<ContainerProps> = ({
   children
 }) => {
   return (
@@ -17,4 +17,4 @@ const Header: React.FC<ContainerProps> = ({
   )
 }
 
-export default Header
+export default Container

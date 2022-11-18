@@ -5,6 +5,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
 import React, {useEffect, useState} from "react";
+import Container from "../components/Container";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
@@ -25,13 +26,16 @@ function Main() {
     t('header:coop'),
     t('header:about'),
     t('header:contacts'),
+    t('header:search'),
   ]
 
   return (
       <Layout btns={btns}>
         <div>
           <h1>Locale: {locale}</h1>
-          <div>{t('main:welcome')}</div>
+          <Container>
+            <div>{t('main:welcome')}</div>
+          </Container>
         </div>
       </Layout>
   )
