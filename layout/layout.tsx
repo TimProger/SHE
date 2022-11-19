@@ -2,9 +2,11 @@ import React from 'react';
 import Header from "../components/Header";
 import Head from "next/head";
 import Container from "../components/Container";
+import Footer from "../components/Footer";
 
 interface IMainLayoutProps {
   btns: string[];
+  links: string[];
   children: React.ReactNode;
   title?: string;
   description?: string;
@@ -14,6 +16,7 @@ interface IMainLayoutProps {
 const Layout: React.FC<IMainLayoutProps>
     = ({
           btns,
+          links,
           children,
           title,
           description,
