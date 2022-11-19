@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 interface IMainLayoutProps {
   btns: string[];
   links: string[];
+  titles: string[];
   children: React.ReactNode;
   title?: string;
   description?: string;
@@ -15,12 +16,13 @@ interface IMainLayoutProps {
 
 const Layout: React.FC<IMainLayoutProps>
     = ({
-          btns,
-          links,
-          children,
-          title,
-          description,
-          keywords
+         btns,
+         links,
+         titles,
+         children,
+         title,
+         description,
+         keywords
        }) => {
     return (
         <>
@@ -35,6 +37,7 @@ const Layout: React.FC<IMainLayoutProps>
             <Container>
                 {children}
             </Container>
+            <Footer links={links} titles={titles} />
         </>
     );
 };
