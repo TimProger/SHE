@@ -1,12 +1,12 @@
-import styles from '../../styles/components/header.module.scss'
+import styles from '../styles/components/header.module.scss'
 import Link from "next/link";
 import React, {useState, MouseEvent, useEffect, ChangeEvent} from "react";
 import {useRouter} from "next/router";
-import {onToggleLanguageClick} from "../../utils/changeCurrentLanguage";
-import {getSearch} from "../../store/ActionCreators/Product.ac";
-import {useTypedSelector} from "../../hooks/useTypedSelector";
-import {useAppDispatch} from "../../hooks/useTypedDispatch";
-import Dropdown from "../Dropdown";
+import {onToggleLanguageClick} from "../utils/changeCurrentLanguage";
+import {getSearch} from "../store/ActionCreators/Product.ac";
+import {useTypedSelector} from "../hooks/useTypedSelector";
+import {useAppDispatch} from "../hooks/useTypedDispatch";
+import Dropdown from "./Dropdown";
 
 interface IHeaderProps {
   btns: string[];
@@ -36,16 +36,12 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
   }
 
   return (
-      <div className={styles.header}>
+      <header className={styles.header}>
         <div className={styles.wrapper}>
           <div className={styles.top}>
             <div className={styles.top__logo} />
             <div className={styles.top__nav}>
               <Dropdown handler={(e: MouseEvent, value: string)=>onToggleLanguageClick(e, router, value)} value={router.locale || 'ru'} options={router.locales || []} />
-              {/*<select onChange={(e)=>onToggleLanguageClick(e, router)} defaultValue={router.locale}>*/}
-              {/*  <option value="en">en</option>*/}
-              {/*  <option value="ru">ru</option>*/}
-              {/*</select>*/}
               <div className={styles.top__btns}>
                 <div className={`${styles.top__btns__btn} ${styles.top__btns__btn__search}`}>
                   <div className={styles.top__btns__btn__container}>
@@ -129,7 +125,7 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
             </div>
           </div>
         </div>
-      </div>
+      </header>
   )
 }
 
