@@ -26,17 +26,46 @@ const Profile: React.FC<IProfileProps> = () => {
     dispatch(LogIn(!isAuth));
   };
 
-  const btns = [
-    t('header:home'),
-    t('header:catalogue'),
-    t('header:coop'),
-    t('header:about'),
-    t('header:contacts'),
-    t('header:search'),
-  ]
+  const translates = {
+    header: [
+      t('header:home'),
+      t('header:catalogue'),
+      t('header:coop'),
+      t('header:about'),
+      t('header:contacts'),
+      t('header:search')
+    ],
+    footer: {
+      titles: [
+        t('footer:profile'),
+        t('footer:info'),
+        t('footer:contacts'),
+        t('footer:video'),
+      ],
+      links: [
+        t('footer:profile_link1'),
+        t('footer:profile_link2'),
+        t('footer:profile_link3'),
+        t('footer:profile_link4'),
+        t('footer:info_link1'),
+        t('footer:info_link2'),
+        t('footer:info_link3'),
+        t('footer:info_link4'),
+        t('footer:info_link5'),
+        t('footer:contacts_link1'),
+        t('footer:contacts_link2'),
+        t('footer:contacts_link3'),
+        t('footer:video_link1'),
+        t('footer:video_link2'),
+        t('footer:video_link3'),
+        t('footer:video_link4'),
+      ],
+    },
+
+  }
 
   return (
-    <Layout btns={btns} title={t('profile:title')}>
+    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
       <div>
         <button onClick={()=>addNewUser()}>{isAuth ? 'LogOut' : 'LogIn'}</button>
         <Container>
