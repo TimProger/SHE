@@ -10,8 +10,6 @@ interface IFooterProps {
 
 const Footer: React.FC<IFooterProps> = ({links, titles}) => {
 
-  const router = useRouter()
-
   return (
     <footer className={styles.footer}>
       <div className={styles.wrapper}>
@@ -76,7 +74,6 @@ const Footer: React.FC<IFooterProps> = ({links, titles}) => {
               <Link href={'/profile'}>{links[7]}</Link>
             </td>
             <td>
-              <Link href={'/profile'}></Link>
             </td>
             <td>
               <Link href={'/profile'}>{links[15]}</Link>
@@ -84,16 +81,13 @@ const Footer: React.FC<IFooterProps> = ({links, titles}) => {
           </tr>
           <tr>
             <td>
-              <Link href={'/profile'}></Link>
             </td>
             <td>
               <Link href={'/profile'}>{links[8]}</Link>
             </td>
             <td>
-              <Link href={'/profile'}></Link>
             </td>
             <td>
-              <Link href={'/profile'}></Link>
             </td>
           </tr>
           </tbody>

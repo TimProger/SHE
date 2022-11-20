@@ -305,6 +305,10 @@ function Main() {
                 })}
               </Swiper>
             </div>
+            <div className={styles.container__imgs}>
+              <div className={styles.container__imgs__img + " " + styles.container__imgs__img__img1}></div>
+              <div className={styles.container__imgs__img + " " + styles.container__imgs__img__img2}></div>
+            </div>
           </Container>
         </div>
       </Layout>
