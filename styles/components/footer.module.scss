@@ -1,191 +1,51 @@
 @import "../colors";
 
-.header {
+.footer {
   width: 100%;
   background: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 180px;
+  height: 300px;
+
+  &__img{
+    background: url(../../public/images/logo2.png) no-repeat;
+    background-size: contain;
+    width: 370px;
+    height: 170px;
+  }
+
+  &__table{
+    width: 70%;
+    border-collapse: separate;
+
+    & thead {
+
+    }
+
+    & th{
+      font-size: 20px;
+      text-align: start;
+      padding-bottom: 20px;
+    }
+
+    & td{
+      max-width: 160px;
+      & a{
+        text-decoration: none;
+        color: $text-sec;
+
+        &:hover{
+          color: $block-main;
+        }
+      }
+    }
+  }
 }
 
 .wrapper {
   height: 100%;
-  width: 1000px;
+  width: 1400px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  flex-direction: column;
-}
-
-.top{
-  width: 100%;
-  height: 70%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
-
-  &__nav{
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding-bottom: 20px;
-    border-bottom: 1px solid $block-main;
-  }
-
-  &__btns{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    &__btn{
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      height: 30px;
-
-      &__container{
-        height: 100%;
-      }
-
-      &__results {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        background: white;
-        width: 200px;
-        border: 1px solid $text-sec;
-        border-top: none;
-        right: -25px;
-
-        &__notfound{
-          display: flex;
-          align-items: center;
-          color: $text-sec;
-          padding-left: 10px;
-          padding-right: 10px;
-          font-size: 16px;
-          height: 30px;
-        }
-
-        &__result{
-          display: flex;
-          align-items: center;
-          height: 30px;
-          padding-left: 10px;
-          padding-right: 10px;
-          color: $text-sec;
-          font-size: 16px;
-
-          &:hover{
-            color: $block-main;
-            cursor: default;
-          }
-        }
-
-        & p{
-          width: 90%;
-          background: $text-sec;
-          height: 1px;
-          align-self: center;
-        }
-      }
-
-      &__search{
-
-        & svg {
-          position: relative;
-          right: 0;
-        }
-
-        &__unactive{
-          opacity: 0;
-        }
-
-        &__active{
-          opacity: 1;
-          width: 200px !important;
-          padding-left: 10px;
-          padding-right: 30px;
-        }
-
-        & input{
-          position: relative;
-          right: -25px;
-          height: 100%;
-          border: 1px solid $text-sec;
-          outline: none;
-          font-size: 16px;
-          transition: all 0.5s;
-          width: 1px;
-
-          &::placeholder{
-            color: $text-sec;
-          }
-        }
-      }
-
-      & path{
-        transition: all 0.5s;
-      }
-
-      & svg:hover path{
-        stroke: black;
-      }
-    }
-  }
-
-  &__logo{
-    background: url(../../public/images/logo.png);
-    height: 70px;
-    width: 156px;
-    position: relative;
-    top: 30px;
-  }
-}
-
-.bottom{
-  width: 100%;
-  height: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &__btns{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-
-    &__btn{
-      height: 100%;
-
-      & a {
-        padding: 0 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        color: $text-main;
-
-        &:after {
-          display:block;
-          content: '';
-          border-bottom: solid 2px $text-main;
-          transform: scaleX(0);
-          transition: transform 500ms ease-in-out;
-          width: 100%;
-          margin-top: 3px;
-        }
-
-        &:after{ transform-origin: 0% 50%; }
-
-        &:hover:after{ transform: scaleX(1); transform-origin: 0% 50%; }
-      }
-    }
-  }
 }
