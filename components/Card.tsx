@@ -25,7 +25,7 @@ const Card: React.FC<ICardProps> = ({
                                       id
                                     }) => {
   return (
-    <div className={styles.card}>
+    <div className={styles.card + ` ${isNew && styles.card__new} ${isHit && styles.card__hit}`}>
       <div className={styles.card__header}>
         <div className={styles.card__header__new}>
           {isNew && <div className={styles.card__new__block}>New</div>}

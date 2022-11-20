@@ -57,7 +57,7 @@ function Main() {
     {
       isNew: true,
       isHit: false,
-      discount: 17,
+      discount: null,
       image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
       title: 'Гель-лак SHE 2003',
       price: 430,
@@ -66,7 +66,7 @@ function Main() {
     {
       isNew: true,
       isHit: false,
-      discount: 17,
+      discount: 27,
       image: 'https://sun9-28.userapi.com/impg/HRcq2amtnKncBqj0ek6OBu7LmuggKWlm2llS5w/ws0TNam4kO4.jpg?size=272x290&quality=96&sign=50ed80ecde53f9d5389d8477af7cd7c7&type=album',
       title: 'Гель-лак SHE 2003',
       price: 430,
@@ -75,7 +75,7 @@ function Main() {
     {
       isNew: true,
       isHit: false,
-      discount: 17,
+      discount: 50,
       image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
       title: 'Гель-лак SHE 2003',
       price: 430,
@@ -96,7 +96,7 @@ function Main() {
     {
       isNew: false,
       isHit: true,
-      discount: 17,
+      discount: null,
       image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
       title: 'Гель-лак SHE 2003',
       price: 430,
@@ -114,7 +114,7 @@ function Main() {
     {
       isNew: false,
       isHit: true,
-      discount: 17,
+      discount: null,
       image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
       title: 'Гель-лак SHE 2003',
       price: 430,
@@ -123,7 +123,7 @@ function Main() {
     {
       isNew: false,
       isHit: true,
-      discount: 17,
+      discount: null,
       image: 'https://sun9-28.userapi.com/impg/HRcq2amtnKncBqj0ek6OBu7LmuggKWlm2llS5w/ws0TNam4kO4.jpg?size=272x290&quality=96&sign=50ed80ecde53f9d5389d8477af7cd7c7&type=album',
       title: 'Гель-лак SHE 2003',
       price: 430,
