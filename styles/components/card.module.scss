@@ -40,12 +40,28 @@
     .card__header__new__discount{
       color: $block-main;
     }
+
+    .card__header__fav__active svg{
+      fill: $block-main;
+
+      & path{
+        stroke: none
+      }
+    }
   }
 
   &__hit{
 
     .card__header__new__discount{
       color: $block-frth;
+    }
+
+    .card__header__fav__active svg{
+      fill: $block-frth;
+
+      & path{
+        stroke: none
+      }
     }
   }
 

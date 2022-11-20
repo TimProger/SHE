@@ -57,6 +57,7 @@ function Main() {
     {
       isNew: true,
       isHit: false,
+      isFav: false,
       discount: null,
       image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
       title: 'Гель-лак SHE 2003',
@@ -66,6 +67,7 @@ function Main() {
     {
       isNew: true,
       isHit: false,
+      isFav: false,
       discount: 27,
       image: 'https://sun9-28.userapi.com/impg/HRcq2amtnKncBqj0ek6OBu7LmuggKWlm2llS5w/ws0TNam4kO4.jpg?size=272x290&quality=96&sign=50ed80ecde53f9d5389d8477af7cd7c7&type=album',
       title: 'Гель-лак SHE 2003',
@@ -75,6 +77,7 @@ function Main() {
     {
       isNew: true,
       isHit: false,
+      isFav: true,
       discount: 50,
       image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
       title: 'Гель-лак SHE 2003',
@@ -84,6 +87,7 @@ function Main() {
     {
       isNew: true,
       isHit: false,
+      isFav: false,
       discount: 17,
       image: 'https://sun9-28.userapi.com/impg/HRcq2amtnKncBqj0ek6OBu7LmuggKWlm2llS5w/ws0TNam4kO4.jpg?size=272x290&quality=96&sign=50ed80ecde53f9d5389d8477af7cd7c7&type=album',
       title: 'Гель-лак SHE 2003',
@@ -96,6 +100,7 @@ function Main() {
     {
       isNew: false,
       isHit: true,
+      isFav: true,
       discount: null,
       image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
       title: 'Гель-лак SHE 2003',
@@ -105,6 +110,7 @@ function Main() {
     {
       isNew: false,
       isHit: true,
+      isFav: false,
       discount: 17,
       image: 'https://sun9-28.userapi.com/impg/HRcq2amtnKncBqj0ek6OBu7LmuggKWlm2llS5w/ws0TNam4kO4.jpg?size=272x290&quality=96&sign=50ed80ecde53f9d5389d8477af7cd7c7&type=album',
       title: 'Гель-лак SHE 2003',
@@ -114,6 +120,7 @@ function Main() {
     {
       isNew: false,
       isHit: true,
+      isFav: true,
       discount: null,
       image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
       title: 'Гель-лак SHE 2003',
@@ -123,6 +130,7 @@ function Main() {
     {
       isNew: false,
       isHit: true,
+      isFav: false,
       discount: null,
       image: 'https://sun9-28.userapi.com/impg/HRcq2amtnKncBqj0ek6OBu7LmuggKWlm2llS5w/ws0TNam4kO4.jpg?size=272x290&quality=96&sign=50ed80ecde53f9d5389d8477af7cd7c7&type=album',
       title: 'Гель-лак SHE 2003',
@@ -253,7 +261,7 @@ function Main() {
                 {slidesNew.length !== 0 && slidesNew.map((el, index) => {
                   return (
                     <SwiperSlide key={index} className={styles.new}>
-                      <Card favHandler={AddToFavs} id={el.id} isNew={el.isNew} isHit={el.isHit} discount={el.discount} image={el.image} title={el.title} price={el.price} colors={el.colors}  />
+                      <Card isFav={el.isFav} favHandler={AddToFavs} id={el.id} isNew={el.isNew} isHit={el.isHit} discount={el.discount} image={el.image} title={el.title} price={el.price} colors={el.colors}  />
                     </SwiperSlide>
                   )
                 })}
@@ -299,7 +307,7 @@ function Main() {
                 {slidesNew2.length !== 0 && slidesNew2.map((el, index) => {
                   return (
                     <SwiperSlide key={index} className={styles.new}>
-                      <Card favHandler={AddToFavs} id={el.id} isNew={el.isNew} isHit={el.isHit} discount={el.discount} image={el.image} title={el.title} price={el.price} colors={el.colors}  />
+                      <Card favHandler={AddToFavs} id={el.id} isFav={el.isFav} isNew={el.isNew} isHit={el.isHit} discount={el.discount} image={el.image} title={el.title} price={el.price} colors={el.colors}  />
                     </SwiperSlide>
                   )
                 })}

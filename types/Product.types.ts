@@ -12,6 +12,7 @@ export interface ISlide {
 export interface IProduct {
   isNew: boolean;
   isHit: boolean;
+  isFav: boolean;
   discount?: number | null;
   image?: string | null;
   title: string;
