@@ -9,11 +9,11 @@ const Container: React.FC<ContainerProps> = ({
   children
 }) => {
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <div className={styles.container__wrapper}>
         {children}
       </div>
-    </div>
+    </main>
   )
 }
 

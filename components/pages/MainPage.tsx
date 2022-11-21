@@ -8,6 +8,7 @@ import {Autoplay, Lazy, Navigation, Pagination} from "swiper";
 import styles from "../../styles/main/main.module.scss";
 import Container from "../Container";
 import Card from "../Card";
+import Head from "next/head";
 
 function MainPage({translates, slides, slidesNew, slidesNew2}: any) {
   const { locale } = useRouter()
@@ -20,6 +21,9 @@ function MainPage({translates, slides, slidesNew, slidesNew2}: any) {
 
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
+      <Head>
+        <title>{translates.title}</title>
+      </Head>
       <div>
         <Swiper
           className={styles.swiper}

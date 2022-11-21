@@ -9,7 +9,7 @@ import {useAppDispatch} from "../hooks/useTypedDispatch";
 import Dropdown from "./Dropdown";
 
 interface IHeaderProps {
-  btns: string[];
+  btns: any;
 }
 
 const Header: React.FC<IHeaderProps> = ({btns}) => {
@@ -55,7 +55,7 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
                         clearTimeout(typingTimer);
                       }}
                       className={!showSearch ? styles.top__btns__btn__search__unactive : styles.top__btns__btn__search__active}
-                      placeholder={btns[5]} type="text" value={searchValue}
+                      placeholder={btns.search} type="text" value={searchValue}
                     />
                     {
                       showSearch && isLoading
@@ -108,19 +108,19 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
           <div className={styles.bottom}>
             <div className={styles.bottom__btns}>
               <div className={styles.bottom__btns__btn}>
-                <Link href="/" locale={router.locale}>{btns[0]}</Link>
+                <Link href="/" locale={router.locale}>{btns.home}</Link>
               </div>
               <div className={styles.bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns[1]}</Link>
+                <Link href="/profile" locale={router.locale}>{btns.catalogue}</Link>
               </div>
               <div className={styles.bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns[2]}</Link>
+                <Link href="/profile" locale={router.locale}>{btns.coop}</Link>
               </div>
               <div className={styles.bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns[3]}</Link>
+                <Link href="/profile" locale={router.locale}>{btns.about}</Link>
               </div>
               <div className={styles.bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns[4]}</Link>
+                <Link href="/profile" locale={router.locale}>{btns.contacts}</Link>
               </div>
             </div>
           </div>

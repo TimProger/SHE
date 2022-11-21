@@ -5,7 +5,7 @@ import Container from "../components/Container";
 import Footer from "../components/Footer";
 
 interface IMainLayoutProps {
-  btns: string[];
+  btns: any;
   links: string[];
   titles: string[];
   children: React.ReactNode;
