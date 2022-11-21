@@ -65,7 +65,7 @@ function MainPage({translates, slides, slidesNew, slidesNew2}: any) {
           <div className={styles.container__balls}>
             <div className={styles.container__balls__header}>
               <div className={styles.container__balls__title}>
-                <h1>Новинки</h1>
+                <h1>{translates.news}</h1>
                 <div className={styles.new__block}>New</div>
               </div>
               <div className={styles.container__balls__title__arrows}>
@@ -102,7 +102,7 @@ function MainPage({translates, slides, slidesNew, slidesNew2}: any) {
               {slidesNew.length !== 0 && slidesNew.map((el: any, index: any) => {
                 return (
                   <SwiperSlide key={index} className={styles.new}>
-                    <Card isFav={el.isFav} favHandler={AddToFavs} id={el.id} isNew={el.isNew} isHit={el.isHit} discount={el.discount} image={el.image} title={el.title} price={el.price} colors={el.colors}  />
+                    <Card product={el} favHandler={AddToFavs}  />
                   </SwiperSlide>
                 )
               })}
@@ -111,7 +111,7 @@ function MainPage({translates, slides, slidesNew, slidesNew2}: any) {
           <div className={styles.container__balls}>
             <div className={styles.container__balls__header}>
               <div className={styles.container__balls__title}>
-                <h1>Хиты</h1>
+                <h1>{translates.hits}</h1>
                 <div className={styles.hit__block}>Hit</div>
               </div>
               <div className={styles.container__balls__title__arrows}>
@@ -148,7 +148,7 @@ function MainPage({translates, slides, slidesNew, slidesNew2}: any) {
               {slidesNew2.length !== 0 && slidesNew2.map((el: any, index: any) => {
                 return (
                   <SwiperSlide key={index} className={styles.new}>
-                    <Card favHandler={AddToFavs} id={el.id} isFav={el.isFav} isNew={el.isNew} isHit={el.isHit} discount={el.discount} image={el.image} title={el.title} price={el.price} colors={el.colors}  />
+                    <Card  product={el} favHandler={AddToFavs} />
                   </SwiperSlide>
                 )
               })}

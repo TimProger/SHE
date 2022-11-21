@@ -4,20 +4,26 @@ import {useRouter} from "next/router";
 import React from "react";
 import Container from "../../components/Container";
 import Head from "next/head";
+import {IProduct} from "../../types/Product.types";
 
-function Product({translates, todo}: any) {
+interface IProductPageProps {
+  translates: any;
+  todo: IProduct;
+}
+
+const Product: React.FC<IProductPageProps> = ({translates, todo}) => {
   const { locale } = useRouter()
 
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
       <Head>
-        <title>{todo.title}</title>
+        <title>{todo.name}</title>
       </Head>
       <div>
         <Container>
           <div className={styles.container__balls}>
             <div className={styles.container__balls__header}>
-              {todo.title}
+              {todo.name}
             </div>
           </div>
         </Container>

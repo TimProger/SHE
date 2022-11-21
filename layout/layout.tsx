@@ -6,8 +6,8 @@ import Footer from "../components/Footer";
 
 interface IMainLayoutProps {
   btns: any;
-  links: string[];
-  titles: string[];
+  links: any;
+  titles: any;
   children: React.ReactNode;
   title?: string;
   description?: string;

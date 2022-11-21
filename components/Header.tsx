@@ -39,7 +39,9 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
       <header className={styles.header}>
         <div className={styles.wrapper}>
           <div className={styles.top}>
-            <div className={styles.top__logo} />
+            <Link href={'/'}>
+              <div className={styles.top__logo} />
+            </Link>
             <div className={styles.top__nav}>
               <Dropdown handler={(e: MouseEvent, value: string)=>onToggleLanguageClick(e, router, value)} value={router.locale || 'ru'} options={router.locales || []} />
               <div className={styles.top__btns}>
@@ -69,14 +71,14 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
                               if(index === products.length-1){
                                 return (
                                   <div className={styles.top__btns__btn__results__result}>
-                                    {el.title}
+                                    {el.name}
                                   </div>
                                 )
                               }
                             return (
                                 <>
                                   <div className={styles.top__btns__btn__results__result}>
-                                    {el.title}
+                                    {el.name}
                                   </div>
                                   <p className={'line'} />
                                 </>

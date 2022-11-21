@@ -4,9 +4,10 @@ import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
 import React from "react";
 import ProductPage from "../../components/pages/ProductPage";
+import {IProduct} from "../../types/Product.types";
 
-export async function getStaticPaths({locales}: any) {
-  const res = await fetch('https://jsonplaceholder.typicode.com/todos/')
+export async function getStaticPaths({locales, locale}: any) {
+  const res = await fetch(`https://api.tm-she.com/all_product`)
   const data = await res.json()
   const paths: any[] = []
   data.map((el: { id: string; }) => {
@@ -23,7 +24,7 @@ export async function getStaticPaths({locales}: any) {
 }
 
 export const getStaticProps: GetStaticProps = async ({locale, params}) => {
-  const todo = await fetch('https://jsonplaceholder.typicode.com/todos/'+params?.id)
+  const todo = await fetch(`https://api.tm-she.com/${locale}/product/${params?.id}`)
   return {
     props:{
       todo: await todo.json(),
@@ -32,7 +33,11 @@ export const getStaticProps: GetStaticProps = async ({locale, params}) => {
   }
 }
 
-function Product({todo}: any) {
+interface IProductProps {
+  todo: IProduct
+}
+
+const Product: React.FC<IProductProps> = ({todo}) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 

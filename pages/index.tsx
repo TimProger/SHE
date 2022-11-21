@@ -4,13 +4,16 @@ import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
 import React, {useEffect, useState} from "react";
 import MainPage from "../components/pages/MainPage";
+import {IProduct} from "../types/Product.types";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
+  const res = await fetch(`https://api.tm-she.com/${locale}/product`)
+  console.log(res.status)
   let slides = [
     {
       title: `Обложка для
-новостей и рекламы
-будет выглядеть так!`,
+              новостей и рекламы
+              будет выглядеть так!`,
       image: null,
       date: '01.01.23',
       id: 2
@@ -118,11 +121,23 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
       id: 3
     },
   ]
+  if(res.status !== 200){
+    return {
+      props:{
+        slides,
+        slidesNew: slidesNew.filter(el => el.isNew !== null),
+        slidesNew2: slidesHit.filter(el => el.isHit !== null),
+        ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
+      }
+    }
+  }
+  const data: IProduct[] = await res.json()
+  console.log(data)
   return {
     props:{
       slides,
-      slidesNew,
-      slidesNew2: slidesHit,
+      slidesNew: data.filter(el => el.is_new !== null),
+      slidesNew2: data.filter(el => el.is_hit !== null),
       ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
     }
   }
@@ -134,6 +149,8 @@ function Main({slides, slidesNew, slidesNew2}: any) {
 
   const translates = {
     title: t('main:title'),
+    news: t('main:news'),
+    hits: t('main:hits'),
     header: {
       home: t('header:home'),
       catalogue: t('header:catalogue'),
