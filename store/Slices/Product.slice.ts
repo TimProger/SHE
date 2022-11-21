@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {IProductShort, IProduct} from "../../types/Product.types";
-import {IUser} from "../../types/Auth.types";
+import {IProduct} from "../../types/Product.types";
 import {getSearch} from "../ActionCreators/Product.ac";
 
 interface IProductState {
@@ -19,7 +18,7 @@ export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    setPosts: (state: IProductState, action: PayloadAction<IProduct[]>) => {
+    setProducts: (state: IProductState, action: PayloadAction<IProduct[]>) => {
       state.products = action.payload
     }
   },
@@ -39,6 +38,6 @@ export const productSlice = createSlice({
   }
 })
 
-export const { setPosts } = productSlice.actions
+export const { setProducts } = productSlice.actions
 
 export default productSlice.reducer

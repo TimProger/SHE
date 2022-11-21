@@ -3,13 +3,37 @@ import {IProductShort} from "../types/Product.types";
 import {API_BASE_URL} from "../http/api";
 
 export const productAPI = createApi({
-  reducerPath: 'postAPI',
+  reducerPath: 'productAPI',
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASE_URL
   }),
-  tagTypes: ['Post'],
+  tagTypes: ['product'],
   endpoints: (build) => ({
-    fetchAllProductsShort: build.query<IProductShort[], string>({
+    fetchAllProductsSearch: build.query<IProductShort[], string>({
+      query: (text) => ({
+        url: `/product/search`,
+        params: {
+          name: text
+        }
+      }),
+    }),
+    fetchAllSlides: build.query<IProductShort[], string>({
+      query: (text) => ({
+        url: `/product/search`,
+        params: {
+          name: text
+        }
+      }),
+    }),
+    fetchAllSlidesNew: build.query<IProductShort[], string>({
+      query: (text) => ({
+        url: `/product/search`,
+        params: {
+          name: text
+        }
+      }),
+    }),
+    fetchAllSlidesHit: build.query<IProductShort[], string>({
       query: (text) => ({
         url: `/product/search`,
         params: {

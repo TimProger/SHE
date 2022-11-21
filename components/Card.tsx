@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/components/card.module.scss'
+import Link from "next/link";
 
 interface ICardProps {
   isNew: boolean;
@@ -40,9 +41,9 @@ const Card: React.FC<ICardProps> = ({
           </svg>
         </div>
       </div>
-      <div className={styles.card__image}>
+      <Link href={'/product/'+id} className={styles.card__image}>
         <img src={image ? image : ''} alt={title}/>
-      </div>
+      </Link>
       <div className={styles.card__content}>
         <h2>{title}</h2>
         <div className={styles.card__content__footer}>

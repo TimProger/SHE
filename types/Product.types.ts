@@ -6,6 +6,7 @@ export interface IProductShort {
 export interface ISlide {
   title: string;
   date: string;
+  image: null;
   id: number;
 }
 
