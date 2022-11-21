@@ -2,5 +2,7 @@
   "title": "Main",
   "news":  "New",
   "hits": "Hits",
-  "welcome": "Welcome!"
+  "welcome": "Welcome!",
+  "sale": "The promotion is valid until",
+  "more": "More"
 }

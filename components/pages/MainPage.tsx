@@ -9,8 +9,17 @@ import styles from "../../styles/main/main.module.scss";
 import Container from "../Container";
 import Card from "../Card";
 import Head from "next/head";
+import {IProduct, ISlide} from "../../types/Product.types";
+import {API_BASE_URL} from "../../http/api";
 
-function MainPage({translates, slides, slidesNew, slidesNew2}: any) {
+interface IMainProps {
+  translates: any;
+  slides: ISlide[];
+  slidesNew: IProduct[];
+  slidesHit: IProduct[];
+}
+
+const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHit}) => {
   const { locale } = useRouter()
   const [mySwiper, setMySwiper] = useState(null)
   const [mySwiper2, setMySwiper2] = useState(null)
@@ -40,9 +49,13 @@ function MainPage({translates, slides, slidesNew, slidesNew2}: any) {
             bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`
           }}
         >
-          {slides.length !== 0 && slides.map((el: any, index: any) => {
+          {slides.length !== 0 && slides.map((el, index: number) => {
             return (
-              <SwiperSlide key={index} className={styles.swiper__slide}>
+              <SwiperSlide style={
+                {
+                  background: `url(${API_BASE_URL+''+el.image})`,
+                  backgroundSize: `cover`
+                }} key={index} className={styles.swiper__slide}>
                 <div className={styles.swiper__slide__wrapper}>
                   <p></p>
                   <div className={styles.swiper__slide__title}>
@@ -50,10 +63,10 @@ function MainPage({translates, slides, slidesNew, slidesNew2}: any) {
                   </div>
                   <div className={styles.swiper__slide__footer}>
                     <p className={styles.swiper__slide__footer__date}>
-                      Акция действуте до {el.date}
+                      {translates.sale} {el.id}
                     </p>
                     <button className={styles.swiper__slide__footer__btn}>
-                      Подробнее
+                      {translates.more}
                     </button>
                   </div>
                 </div>
@@ -145,7 +158,7 @@ function MainPage({translates, slides, slidesNew, slidesNew2}: any) {
                 setMySwiper2(ev)
               }}
             >
-              {slidesNew2.length !== 0 && slidesNew2.map((el: any, index: any) => {
+              {slidesHit.length !== 0 && slidesHit.map((el: any, index: any) => {
                 return (
                   <SwiperSlide key={index} className={styles.new}>
                     <Card  product={el} favHandler={AddToFavs} />

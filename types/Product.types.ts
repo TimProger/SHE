@@ -4,10 +4,11 @@ export interface IProductShort {
 }
 
 export interface ISlide {
-  title: string;
-  date: string;
-  image: null;
   id: number;
+  title: string;
+  image: null | string;
+  data_start: Date | string;
+  data_finish: Date | string;
 }
 
 export interface IProduct {

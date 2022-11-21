@@ -4,146 +4,30 @@ import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
 import React, {useEffect, useState} from "react";
 import MainPage from "../components/pages/MainPage";
-import {IProduct} from "../types/Product.types";
+import {IProduct, ISlide} from "../types/Product.types";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
-  const res = await fetch(`https://api.tm-she.com/${locale}/product`)
-  console.log(res.status)
-  let slides = [
-    {
-      title: `Обложка для
-              новостей и рекламы
-              будет выглядеть так!`,
-      image: null,
-      date: '01.01.23',
-      id: 2
-    },
-    {
-      title: 'daw',
-      date: '20.12.22',
-      image: null,
-      id: 2
-    },
-    {
-      title: 'daw',
-      date: '13.12.22',
-      image: null,
-      id: 2
-    },
-    {
-      title: 'daw',
-      date: '25.12.22',
-      image: null,
-      id: 2
-    },
-  ]
-  let slidesNew = [
-    {
-      isNew: true,
-      isHit: false,
-      isFav: false,
-      discount: null,
-      image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
-      title: 'Гель-лак SHE 2003',
-      price: 430,
-      id: 0
-    },
-    {
-      isNew: true,
-      isHit: false,
-      isFav: false,
-      discount: 27,
-      image: 'https://sun9-28.userapi.com/impg/HRcq2amtnKncBqj0ek6OBu7LmuggKWlm2llS5w/ws0TNam4kO4.jpg?size=272x290&quality=96&sign=50ed80ecde53f9d5389d8477af7cd7c7&type=album',
-      title: 'Гель-лак SHE 2003',
-      price: 430,
-      id: 1
-    },
-    {
-      isNew: true,
-      isHit: false,
-      isFav: true,
-      discount: 50,
-      image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
-      title: 'Гель-лак SHE 2003',
-      price: 430,
-      id: 2
-    },
-    {
-      isNew: true,
-      isHit: false,
-      isFav: false,
-      discount: 17,
-      image: 'https://sun9-28.userapi.com/impg/HRcq2amtnKncBqj0ek6OBu7LmuggKWlm2llS5w/ws0TNam4kO4.jpg?size=272x290&quality=96&sign=50ed80ecde53f9d5389d8477af7cd7c7&type=album',
-      title: 'Гель-лак SHE 2003',
-      price: 430,
-      id: 3
-    },
-  ]
-  let slidesHit = [
-    {
-      isNew: false,
-      isHit: true,
-      isFav: true,
-      discount: null,
-      image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
-      title: 'Гель-лак SHE 2003',
-      price: 430,
-      id: 0
-    },
-    {
-      isNew: false,
-      isHit: true,
-      isFav: false,
-      discount: 17,
-      image: 'https://sun9-28.userapi.com/impg/HRcq2amtnKncBqj0ek6OBu7LmuggKWlm2llS5w/ws0TNam4kO4.jpg?size=272x290&quality=96&sign=50ed80ecde53f9d5389d8477af7cd7c7&type=album',
-      title: 'Гель-лак SHE 2003',
-      price: 430,
-      id: 1
-    },
-    {
-      isNew: false,
-      isHit: true,
-      isFav: true,
-      discount: null,
-      image: 'https://sun9-35.userapi.com/impg/2iloIEk0otsIlhnpGDNMug2f8b8EC0ycfHOVQQ/jtLn6j5CLOk.jpg?size=272x290&quality=96&sign=9449dd0515970b27587dbf16b931b226&type=album',
-      title: 'Гель-лак SHE 2003',
-      price: 430,
-      id: 2
-    },
-    {
-      isNew: false,
-      isHit: true,
-      isFav: false,
-      discount: null,
-      image: 'https://sun9-28.userapi.com/impg/HRcq2amtnKncBqj0ek6OBu7LmuggKWlm2llS5w/ws0TNam4kO4.jpg?size=272x290&quality=96&sign=50ed80ecde53f9d5389d8477af7cd7c7&type=album',
-      title: 'Гель-лак SHE 2003',
-      price: 430,
-      id: 3
-    },
-  ]
-  if(res.status !== 200){
-    return {
-      props:{
-        slides,
-        slidesNew: slidesNew.filter(el => el.isNew !== null),
-        slidesNew2: slidesHit.filter(el => el.isHit !== null),
-        ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
-      }
-    }
-  }
-  const data: IProduct[] = await res.json()
-  console.log(data)
+  const products = await fetch(`https://api.tm-she.com/${locale}/product`)
+  const slides = await fetch(`https://api.tm-she.com/${locale}/product/slider`)
+  const productsData: IProduct[] = await products.json()
+  const slidesData: ISlide[] = await slides.json()
   return {
     props:{
-      slides,
-      slidesNew: data.filter(el => el.is_new !== null),
-      slidesNew2: data.filter(el => el.is_hit !== null),
+      slides: slidesData,
+      slidesNew: productsData.filter(el => el.is_new),
+      slidesHit: productsData.filter(el => el.is_hit),
       ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
     }
   }
 }
 
-function Main({slides, slidesNew, slidesNew2}: any) {
+interface IMainProps {
+  slides: ISlide[],
+  slidesNew: IProduct[],
+  slidesHit: IProduct[]
+}
+
+const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 
@@ -151,6 +35,8 @@ function Main({slides, slidesNew, slidesNew2}: any) {
     title: t('main:title'),
     news: t('main:news'),
     hits: t('main:hits'),
+    sale: t('main:sale'),
+    more: t('main:more'),
     header: {
       home: t('header:home'),
       catalogue: t('header:catalogue'),
@@ -187,7 +73,7 @@ function Main({slides, slidesNew, slidesNew2}: any) {
     },
   }
 
-  return (<MainPage translates={translates} slides={slides} slidesNew={slidesNew} slidesNew2={slidesNew2} />)
+  return (<MainPage translates={translates} slides={slides} slidesNew={slidesNew} slidesHit={slidesHit} />)
 }
 
 export default Main

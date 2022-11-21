@@ -32,7 +32,12 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
   let doneTypingInterval = 1000;
 
   function doneTyping(){
-    dispatch(getSearch(searchValue))
+    const obj = {
+      name: searchValue,
+      locale: router.locale
+    }
+    console.log(obj)
+    dispatch(getSearch(obj))
   }
 
   return (

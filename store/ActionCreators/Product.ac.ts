@@ -4,9 +4,10 @@ import {IProductShort} from "../../types/Product.types";
 
 export const getSearch = createAsyncThunk(
   'product/getSearch',
-  async (name: string, thunkAPI) => {
+  async ({name, locale}: {name: string; locale?: string}, thunkAPI) => {
     try {
-      const response = await $api.post<IProductShort[]>('/product/search?name='+name)
+      console.log(locale)
+      const response = await $api.post<IProductShort[]>(`/${locale}/product/search?search=`+name)
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue("Не удалось найти товары")
