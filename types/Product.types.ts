@@ -15,11 +15,12 @@ export interface IProduct {
   is_new: boolean;
   is_hit: boolean;
   is_fav: boolean;
+  type: string;
   discount?: number | null;
   about: string | null;
   image?: string | null;
   name: string;
-  colors?: string[] | null;
+  color: string;
   price: number;
   id: number;
 }

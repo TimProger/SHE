@@ -1,0 +1,163 @@
+@import "../colors";
+
+.container__product{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  &__header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $text-sec
+  }
+
+  &__product{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 450px;
+
+    &__images{
+      display: flex;
+      justify-content: space-between;
+      width: 650px;
+      height: 100%;
+
+      &__slider{
+        width: 100px;
+        height: 100%;
+        background: red;
+      }
+
+      &__main{
+        width: 475px;
+        height: 100%;
+
+        &__tags{
+          position: absolute;
+          display: flex;
+          gap: 10px;
+        }
+
+        &__new{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 30px;
+          padding: 15px;
+          background: $block-main;
+          color: $text-thrd;
+          z-index: 15;
+        }
+
+        &__hit{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 30px;
+          padding: 15px;
+          background: $block-frth;
+          color: $text-thrd;
+          z-index: 15;
+        }
+
+        & img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    &__info{
+      width: 650px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &__name{
+
+      }
+
+      &__about{
+        color: $text-sec;
+      }
+
+      &__color{
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+
+        & span{
+          display: flex;
+          align-items: center;
+          margin-left: 10px;
+          font-weight: lighter;
+          color: $text-sec;
+
+        }
+
+        &__block{
+          display: inline-block;
+          background: #dcb395;
+          height: 15px;
+          width: 15px;
+          border-radius: 50%;
+        }
+
+      }
+
+      &__size{
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        &__container {
+          display: flex;
+          gap: 20px;
+
+          & div{
+            border: 1px solid black;
+            padding: 5px 20px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      &__price{
+        font-size: 40px;
+        font-weight: bold;
+      }
+
+      &__button{
+        display: flex;
+        gap: 40px;
+
+        &__add{
+          background: #000000;
+          color: $text-thrd;
+          padding: 15px 25px;
+          cursor: pointer;
+        }
+
+        &__fav{
+          border: 1px solid #000000;
+          color: $text-thrd;
+          padding: 15px 25px;
+          cursor: pointer;
+
+          & svg{
+
+            & path{
+              stroke: black;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -75,13 +75,13 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
           })}
         </Swiper>
         <Container>
-          <div className={styles.container__balls}>
-            <div className={styles.container__balls__header}>
-              <div className={styles.container__balls__title}>
+          <div className={styles.container__products}>
+            <div className={styles.container__products__header}>
+              <div className={styles.container__products__title}>
                 <h1>{translates.news}</h1>
                 <div className={styles.new__block}>New</div>
               </div>
-              <div className={styles.container__balls__title__arrows}>
+              <div className={styles.container__products__title__arrows}>
                 <div onClick={()=> {
                   // @ts-ignore
                   mySwiper && mySwiper.slidePrev()
@@ -121,13 +121,13 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
               })}
             </Swiper>
           </div>
-          <div className={styles.container__balls}>
-            <div className={styles.container__balls__header}>
-              <div className={styles.container__balls__title}>
+          <div className={styles.container__products}>
+            <div className={styles.container__products__header}>
+              <div className={styles.container__products__title}>
                 <h1>{translates.hits}</h1>
                 <div className={styles.hit__block}>Hit</div>
               </div>
-              <div className={styles.container__balls__title__arrows}>
+              <div className={styles.container__products__title__arrows}>
                 <div onClick={()=> {
                   // @ts-ignore
                   mySwiper2 && mySwiper2.slidePrev()
