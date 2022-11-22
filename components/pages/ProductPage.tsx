@@ -37,7 +37,7 @@ const Product: React.FC<IProductPageProps> = ({translates, todo}) => {
                 <div className={styles.container__product__product__images__main}>
                   <div className={styles.container__product__product__images__main__tags}>
                     {todo.is_new && <div className={styles.container__product__product__images__main__new}>New</div>}
-                    {!todo.is_hit && <div className={styles.container__product__product__images__main__hit}>Hit</div>}
+                    {todo.is_hit && <div className={styles.container__product__product__images__main__hit}>Hit</div>}
                   </div>
                   <img src={todo.image ?`${API_BASE_URL}${todo.image}` : ''} alt={todo.name}/>
                 </div>

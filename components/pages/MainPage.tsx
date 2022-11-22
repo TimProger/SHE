@@ -11,6 +11,8 @@ import Card from "../Card";
 import Head from "next/head";
 import {IProduct, ISlide} from "../../types/Product.types";
 import {API_BASE_URL} from "../../http/api";
+import {toggleFav} from "../../store/Slices/Fav.slice";
+import {useAppDispatch} from "../../hooks/useTypedDispatch";
 
 interface IMainProps {
   translates: any;
@@ -21,11 +23,12 @@ interface IMainProps {
 
 const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHit}) => {
   const { locale } = useRouter()
+  const dispatch = useAppDispatch()
   const [mySwiper, setMySwiper] = useState(null)
   const [mySwiper2, setMySwiper2] = useState(null)
 
-  const AddToFavs = (id: number) => {
-    console.log(id)
+  const AddToFavs = (product: IProduct) => {
+    dispatch(toggleFav(product))
   }
 
   return (
