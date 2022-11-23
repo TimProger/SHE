@@ -17,7 +17,8 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
       slidesNew: productsData.filter(el => el.is_new),
       slidesHit: productsData.filter(el => el.is_hit),
       ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
-    }
+    },
+    revalidate: 10
   }
 }
 

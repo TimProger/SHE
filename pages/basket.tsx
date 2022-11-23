@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {useTypedSelector} from "../hooks/useTypedSelector";
-import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
-import FavPage from "../components/pages/FavPage";
 import {GetStaticProps} from "next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {useRouter} from "next/router";
+import BasketPage from "../components/pages/BasketPage";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
@@ -16,11 +16,10 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
 }
 
 const Favorites: React.FC = () => {
-
   const { locale } = useRouter()
   const { t } = useTranslation()
 
-  const {products, isLoading, error} = useTypedSelector(state => state.fav)
+  const {products, isLoading, error} = useTypedSelector(state => state.basket)
 
   const translates = {
     title: t('main:title'),
@@ -69,7 +68,7 @@ const Favorites: React.FC = () => {
   }, [])
 
   return (
-    <FavPage translates={translates} products={products} isLoading={isLoading} error={error} />
+    <BasketPage translates={translates} products={products} isLoading={isLoading} error={error} />
   );
 };
 

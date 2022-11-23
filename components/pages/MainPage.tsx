@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Lazy, Navigation, Pagination} from "swiper";
-import styles from "../../styles/main/main.module.scss";
+import styles from "../../styles/pages/main.module.scss";
 import Container from "../Container";
 import Card from "../Card";
 import Head from "next/head";

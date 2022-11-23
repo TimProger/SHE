@@ -29,7 +29,8 @@ export const getStaticProps: GetStaticProps = async ({locale, params}) => {
     props:{
       todo: await todo.json(),
       ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
-    }
+    },
+    revalidate: 10
   }
 }
 
