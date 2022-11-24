@@ -30,5 +30,4 @@ export interface IBasketProduct extends IProduct {
 }
 
 export interface IFavProduct extends IProduct {
-  count: number;
 }

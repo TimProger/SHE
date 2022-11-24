@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from '../styles/components/cardfloat.module.scss'
-import {IBasketProduct} from "../types/Product.types";
+import {IBasketProduct, IFavProduct} from "../types/Product.types";
 import {API_BASE_URL} from "../http/api";
 import {addToBasket, removeFromBasket} from "../store/Slices/Basket.slice";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
 import {useRouter} from "next/router";
 
 interface ICardProps {
-  product: IBasketProduct
+  product: IBasketProduct | IFavProduct
   isBasket: boolean;
 }
 
@@ -24,7 +24,6 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     name,
     price,
     color,
-    count,
     id
   } = product
 
@@ -59,9 +58,9 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           {!discount && <h2 className={styles.card__price__text__discount}>{price*(20/100+1)} ₽</h2>}
           <h1 className={styles.card__price__text__price}>{price} ₽</h1>
         </div>
-        {isBasket ? <div className={styles.card__price__button}>
+        {isBasket ? "count" in product && <div className={styles.card__price__button}>
           <div onClick={removeFromBasketHandler}>-</div>
-          {count}
+          {product.count}
           <div onClick={addToBasketHandler}>+</div>
         </div> : <p></p>}
       </div>

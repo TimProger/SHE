@@ -7,10 +7,9 @@ import styles from "../../styles/pages/basket.module.scss";
 import Container from "../Container";
 import Head from "next/head";
 import {useAppDispatch} from "../../hooks/useTypedDispatch";
-import {IProduct} from "../../types/Product.types";
+import {IBasketProduct, IProduct} from "../../types/Product.types";
 import {
   addToBasket,
-  IBasketProduct,
   removeAllProductFromBasket,
   removeFromBasket
 } from "../../store/Slices/Basket.slice";
