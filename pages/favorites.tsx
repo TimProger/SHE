@@ -1,50 +1,32 @@
-import { GetStaticProps } from 'next'
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import {useTranslation} from "next-i18next";
+import React, {useEffect} from 'react';
+import {useTypedSelector} from "../hooks/useTypedSelector";
 import {useRouter} from "next/router";
-import React from "react";
-import ProductPage from "../../components/pages/ProductPage";
-import {IProduct} from "../../types/Product.types";
+import {useTranslation} from "next-i18next";
+import FavPage from "../components/pages/FavPage";
+import {GetStaticProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
-export async function getStaticPaths({locales, locale}: any) {
-  const res = await fetch(`https://api.tm-she.com/all_product`)
-  const data = await res.json()
-  const paths: any[] = []
-  data.map((el: { id: string; }) => {
-    for (const locale of locales) {
-      paths.push({
-        params: {
-          id: el.id.toString(),
-        },
-        locale,
-      });
-    }
-  })
-  return { paths, fallback: false }
-}
-
-export const getStaticProps: GetStaticProps = async ({locale, params}) => {
-  const res = await fetch(`https://api.tm-she.com/${locale}/product/${params?.id}`)
-  const product = await res.json()
+export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      product: product,
-      ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['fav', 'header', 'footer']))
     },
     revalidate: 10
   }
 }
 
-interface IProductProps {
-  product: IProduct
-}
+const Favorites: React.FC = () => {
 
-const Product: React.FC<IProductProps> = ({product}) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 
+  const {products, isLoading, error} = useTypedSelector(state => state.fav)
+
   const translates = {
-    title: t('main:title'),
+    title: t('fav:title'),
+    clear: t('fav:clear'),
+    empty: t('fav:empty'),
+    toCatalogue: t('fav:toCatalogue'),
     header: {
       home: t('header:home'),
       catalogue: t('header:catalogue'),
@@ -81,9 +63,13 @@ const Product: React.FC<IProductProps> = ({product}) => {
     },
   }
 
-  return (
-    <ProductPage product={product} translates={translates} />
-  )
-}
+  useEffect(()=>{
 
-export default Product
+  }, [])
+
+  return (
+    <FavPage translates={translates} products={products} isLoading={isLoading} error={error} />
+  );
+};
+
+export default Favorites;

@@ -3,20 +3,19 @@ import { createWrapper } from 'next-redux-wrapper'
 import {combineReducers} from "@reduxjs/toolkit";
 import AuthSlice from "./Slices/Auth.slice";
 import ProductSlice from "./Slices/Product.slice";
-import {productAPI} from "../services/product";
+import BasketSlice from "./Slices/Basket.slice";
+import FavSlice from "./Slices/Fav.slice";
 
 const combinedReducer = combineReducers({
   auth: AuthSlice,
   product: ProductSlice,
-  [productAPI.reducerPath]: productAPI.reducer
+  basket: BasketSlice,
+  fav: FavSlice,
 });
 
 export const Store = () =>
   configureStore({
     reducer: combinedReducer,
-    middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(productAPI.middleware)
-    }
   });
 
 export type RootState = ReturnType<typeof combinedReducer>

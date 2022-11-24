@@ -1,16 +1,18 @@
 import {useRouter} from "next/router";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "../../layout/layout";
 import "swiper/css";
 import "swiper/css/pagination";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Lazy, Navigation, Pagination} from "swiper";
-import styles from "../../styles/main/main.module.scss";
+import styles from "../../styles/pages/main.module.scss";
 import Container from "../Container";
 import Card from "../Card";
 import Head from "next/head";
 import {IProduct, ISlide} from "../../types/Product.types";
 import {API_BASE_URL} from "../../http/api";
+import {toggleFav} from "../../store/Slices/Fav.slice";
+import {useAppDispatch} from "../../hooks/useTypedDispatch";
 
 interface IMainProps {
   translates: any;
@@ -20,12 +22,24 @@ interface IMainProps {
 }
 
 const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHit}) => {
+
   const { locale } = useRouter()
+  const dispatch = useAppDispatch()
   const [mySwiper, setMySwiper] = useState(null)
   const [mySwiper2, setMySwiper2] = useState(null)
 
-  const AddToFavs = (id: number) => {
-    console.log(id)
+  const displaySlides = (slidesArr: IProduct[]) => {
+    return JSON.parse(JSON.stringify(slidesArr)).map((el: IProduct, index: number)=>{
+      return (
+        <SwiperSlide key={index} className={styles.new}>
+          <Card product={el} favHandler={AddToFavs}  />
+        </SwiperSlide>
+      )
+    })
+  }
+
+  const AddToFavs = (product: IProduct) => {
+    dispatch(toggleFav(product))
   }
 
   return (
@@ -112,13 +126,7 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
                 setMySwiper(ev)
               }}
             >
-              {slidesNew.length !== 0 && slidesNew.map((el: any, index: any) => {
-                return (
-                  <SwiperSlide key={index} className={styles.new}>
-                    <Card product={el} favHandler={AddToFavs}  />
-                  </SwiperSlide>
-                )
-              })}
+              {displaySlides(slidesNew)}
             </Swiper>
           </div>
           <div className={styles.container__products}>
@@ -158,13 +166,7 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
                 setMySwiper2(ev)
               }}
             >
-              {slidesHit.length !== 0 && slidesHit.map((el: any, index: any) => {
-                return (
-                  <SwiperSlide key={index} className={styles.new}>
-                    <Card  product={el} favHandler={AddToFavs} />
-                  </SwiperSlide>
-                )
-              })}
+              {displaySlides(slidesHit)}
             </Swiper>
           </div>
           <div className={styles.container__imgs}>

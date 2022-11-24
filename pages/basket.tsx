@@ -1,50 +1,35 @@
-import { GetStaticProps } from 'next'
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import React, {useEffect} from 'react';
+import {useTypedSelector} from "../hooks/useTypedSelector";
 import {useTranslation} from "next-i18next";
+import {GetStaticProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useRouter} from "next/router";
-import React from "react";
-import ProductPage from "../../components/pages/ProductPage";
-import {IProduct} from "../../types/Product.types";
+import BasketPage from "../components/pages/BasketPage";
 
-export async function getStaticPaths({locales, locale}: any) {
-  const res = await fetch(`https://api.tm-she.com/all_product`)
-  const data = await res.json()
-  const paths: any[] = []
-  data.map((el: { id: string; }) => {
-    for (const locale of locales) {
-      paths.push({
-        params: {
-          id: el.id.toString(),
-        },
-        locale,
-      });
-    }
-  })
-  return { paths, fallback: false }
-}
-
-export const getStaticProps: GetStaticProps = async ({locale, params}) => {
-  const res = await fetch(`https://api.tm-she.com/${locale}/product/${params?.id}`)
-  const product = await res.json()
+export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      product: product,
-      ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['basket', 'header', 'footer']))
     },
     revalidate: 10
   }
 }
 
-interface IProductProps {
-  product: IProduct
-}
-
-const Product: React.FC<IProductProps> = ({product}) => {
+const Favorites: React.FC = () => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 
+  const {products, isLoading, error, totalPrice, totalCount} = useTypedSelector(state => state.basket)
+
   const translates = {
-    title: t('main:title'),
+    title: t('basket:title'),
+    clear: t('basket:clear'),
+    selectAll: t('basket:selectAll'),
+    total: t('basket:total'),
+    productsToBuy: t('basket:productsToBuy'),
+    buy: t('basket:buy'),
+    empty: t('basket:empty'),
+    toCatalogue: t('basket:toCatalogue'),
     header: {
       home: t('header:home'),
       catalogue: t('header:catalogue'),
@@ -81,9 +66,19 @@ const Product: React.FC<IProductProps> = ({product}) => {
     },
   }
 
-  return (
-    <ProductPage product={product} translates={translates} />
-  )
-}
+  useEffect(()=>{
 
-export default Product
+  }, [])
+
+  return (
+    <BasketPage
+      translates={translates}
+      products={products}
+      isLoading={isLoading}
+      error={error}
+      totalPrice={totalPrice}
+      totalCount={totalCount}/>
+  );
+};
+
+export default Favorites;
