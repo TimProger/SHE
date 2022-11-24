@@ -24,3 +24,11 @@ export interface IProduct {
   price: number;
   id: number;
 }
+
+export interface IBasketProduct extends IProduct {
+  count: number;
+}
+
+export interface IFavProduct extends IProduct {
+  count: number;
+}

@@ -56,8 +56,8 @@ const Product: React.FC<IProductPageProps> = ({translates, todo}) => {
               </div>
               <div className={styles.container__product__product__info}>
                 <div>
-                  <h1 className={styles.container__product__product__info__name}>ГЕЛЬ-ЛАК ™SHE 203 «ELIZABETH»</h1>
-                  <p className={styles.container__product__product__info__about}>Гель-лак с шиммером</p>
+                  <h1 className={styles.container__product__product__info__name}>{todo.name}</h1>
+                  <p className={styles.container__product__product__info__about}>{todo.about}</p>
                 </div>
                 <p className={styles.container__product__product__info__color}>Оттенок:
                   <span style={{background: todo.color}} className={styles.container__product__product__info__color__block} />

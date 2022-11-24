@@ -9,7 +9,7 @@ import BasketPage from "../components/pages/BasketPage";
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['basket', 'header', 'footer']))
     },
     revalidate: 10
   }
@@ -19,14 +19,17 @@ const Favorites: React.FC = () => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 
-  const {products, isLoading, error} = useTypedSelector(state => state.basket)
+  const {products, isLoading, error, totalPrice, totalCount} = useTypedSelector(state => state.basket)
 
   const translates = {
-    title: t('main:title'),
-    news: t('main:news'),
-    hits: t('main:hits'),
-    sale: t('main:sale'),
-    more: t('main:more'),
+    title: t('basket:title'),
+    clear: t('basket:clear'),
+    selectAll: t('basket:selectAll'),
+    total: t('basket:total'),
+    productsToBuy: t('basket:productsToBuy'),
+    buy: t('basket:buy'),
+    empty: t('basket:empty'),
+    toCatalogue: t('basket:toCatalogue'),
     header: {
       home: t('header:home'),
       catalogue: t('header:catalogue'),
@@ -68,7 +71,13 @@ const Favorites: React.FC = () => {
   }, [])
 
   return (
-    <BasketPage translates={translates} products={products} isLoading={isLoading} error={error} />
+    <BasketPage
+      translates={translates}
+      products={products}
+      isLoading={isLoading}
+      error={error}
+      totalPrice={totalPrice}
+      totalCount={totalCount}/>
   );
 };
 

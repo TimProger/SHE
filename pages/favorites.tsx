@@ -9,7 +9,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['fav', 'header', 'footer']))
     },
     revalidate: 10
   }
@@ -23,11 +23,10 @@ const Favorites: React.FC = () => {
   const {products, isLoading, error} = useTypedSelector(state => state.fav)
 
   const translates = {
-    title: t('main:title'),
-    news: t('main:news'),
-    hits: t('main:hits'),
-    sale: t('main:sale'),
-    more: t('main:more'),
+    title: t('fav:title'),
+    clear: t('fav:clear'),
+    empty: t('fav:empty'),
+    toCatalogue: t('fav:toCatalogue'),
     header: {
       home: t('header:home'),
       catalogue: t('header:catalogue'),

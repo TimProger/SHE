@@ -97,7 +97,6 @@
           margin-left: 10px;
           font-weight: lighter;
           color: $text-sec;
-
         }
 
         &__block{
@@ -140,8 +139,11 @@
         &__add{
           background: #000000;
           color: $text-thrd;
-          padding: 15px 25px;
+          padding: 15px 50px;
           cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         &__fav{

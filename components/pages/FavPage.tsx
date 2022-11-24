@@ -1,25 +1,29 @@
 import {useRouter} from "next/router";
 import React, {useState} from "react";
 import Layout from "../../layout/layout";
-import "swiper/css";
-import "swiper/css/pagination";
-import styles from "../../styles/pages/basket.module.scss";
+import styles from "../../styles/pages/fav.module.scss";
 import Container from "../Container";
 import Head from "next/head";
 import {useAppDispatch} from "../../hooks/useTypedDispatch";
-import {IProduct} from "../../types/Product.types";
-import {addToBasket, removeFromBasket} from "../../store/Slices/Basket.slice";
+import {IFavProduct} from "../../types/Product.types";
+import CardFloat from "../CardFloat";
+import Link from "next/link";
+import {removeAllProductFromFav} from "../../store/Slices/Fav.slice";
 
-interface IBasketProps {
+interface IFavProps {
   translates: any;
   isLoading: boolean;
-  products: IProduct[];
+  products: IFavProduct[];
   error: string | null
 }
 
-const FavPage: React.FC<IBasketProps> = ({translates, products}) => {
+const FavPage: React.FC<IFavProps> = ({translates, products}) => {
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
+
+  const removeAllProductFromFavHandler = () => {
+    dispatch(removeAllProductFromFav())
+  }
 
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
@@ -28,9 +32,22 @@ const FavPage: React.FC<IBasketProps> = ({translates, products}) => {
       </Head>
       <div>
         <Container>
-          <div>{products.map((el, index: number)=>{
-            return <div key={index}>{el.name}</div>
-          })}</div>
+          <div className={styles.fav}>
+            <div className={styles.fav__header}>
+              <h1>{translates.title}</h1>
+              <div className={styles.fav__header__btns}>
+                <div onClick={removeAllProductFromFavHandler} className={styles.fav__header__btns__btn}>{translates.clear}</div>
+              </div>
+            </div>
+            <div className={styles.basket__products}>
+              {products.length > 0 ? products.map((el, index: number)=>{
+                return <CardFloat product={el} isBasket={false} />
+              }) : <div className={styles.fav__products__empty}>
+                <h2>{translates.empty}</h2>
+                <Link href={'/catalogue'} className={styles.fav__products__empty__button}>{translates.toCatalogue}</Link>
+              </div>}
+            </div>
+          </div>
         </Container>
       </div>
     </Layout>

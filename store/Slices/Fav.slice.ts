@@ -1,14 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {IProduct} from "../../types/Product.types";
+import {IFavProduct, IProduct} from "../../types/Product.types";
 import {Storage} from "../../utils/storage";
 import {getFavs} from "../ActionCreators/Fav.ac";
-import {Login} from "../ActionCreators/Auth.ac";
-import {IUser} from "../../types/Auth.types";
 
 interface IFavState {
   isLoading: boolean;
   error: string | null;
-  products: IProduct[];
+  products: IFavProduct[];
 }
 
 const initialState: IFavState = {
@@ -21,10 +19,7 @@ export const favSlice = createSlice({
   name: 'fav',
   initialState,
   reducers: {
-    setFavs: (state: IFavState, action: PayloadAction<IProduct[]>) => {
-      state.products = action.payload
-    },
-    toggleFav: (state: IFavState, action: PayloadAction<IProduct>) => {
+    toggleFav: (state: IFavState, action: PayloadAction<IFavProduct>) => {
       const includes = state.products.filter((el)=>el.id === action.payload.id)
       if(!state.products.includes(includes[0])){
         state.products.push(action.payload)
@@ -35,9 +30,13 @@ export const favSlice = createSlice({
         Storage.set('favs', JSON.stringify(state.products.map((el, index)=>el.id)))
       }
     },
+    removeAllProductFromFav: (state: IFavState) => {
+      state.products = []
+      Storage.set('favs', JSON.stringify([]))
+    },
   },
   extraReducers: {
-    [getFavs.fulfilled.type]: (state, action: PayloadAction<IProduct[]>) => {
+    [getFavs.fulfilled.type]: (state, action: PayloadAction<IFavProduct[]>) => {
       state.isLoading = false;
       state.error = null
       state.products = action.payload;
@@ -52,6 +51,6 @@ export const favSlice = createSlice({
   }
 })
 
-export const { toggleFav, setFavs } = favSlice.actions
+export const { toggleFav, removeAllProductFromFav } = favSlice.actions
 
 export default favSlice.reducer

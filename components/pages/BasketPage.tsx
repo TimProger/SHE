@@ -8,37 +8,30 @@ import Container from "../Container";
 import Head from "next/head";
 import {useAppDispatch} from "../../hooks/useTypedDispatch";
 import {IProduct} from "../../types/Product.types";
-import {addToBasket, removeFromBasket} from "../../store/Slices/Basket.slice";
+import {
+  addToBasket,
+  IBasketProduct,
+  removeAllProductFromBasket,
+  removeFromBasket
+} from "../../store/Slices/Basket.slice";
+import Link from "next/link";
+import CardFloat from "../CardFloat";
 
 interface IBasketProps {
   translates: any;
   isLoading: boolean;
-  products: IProduct[];
-  error: string | null
+  products: IBasketProduct[];
+  error: string | null;
+  totalPrice: number;
+  totalCount: number;
 }
 
-const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
+const BasketPage: React.FC<IBasketProps> = ({translates, products, totalPrice, totalCount}) => {
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
 
-  const clickHandler = () => {
-    dispatch(addToBasket({
-      id: 3,
-      type: "Гель-лак",
-      name: "Первый----------",
-      about: "в",
-      image: "/staticfiles/img/product/product.png",
-      is_hit: false,
-      is_new: false,
-      is_fav: false,
-      discount: null,
-      price: 230.0,
-      color: "#000"
-    }))
-  }
-
-  const deleteHandler = () => {
-    dispatch(removeFromBasket(3))
+  const removeAllProductFromBasketHandler = () => {
+    dispatch(removeAllProductFromBasket())
   }
 
   return (
@@ -48,13 +41,29 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
       </Head>
       <div>
         <Container>
-          <div>
-            <button onClick={clickHandler}>Добавить продукт</button>
-            <button onClick={deleteHandler}>Удалить продукт</button>
+          <div className={styles.basket}>
+            <div className={styles.basket__header}>
+              <h1>{translates.title}</h1>
+              <div className={styles.basket__header__btns}>
+                <div onClick={removeAllProductFromBasketHandler} className={styles.basket__header__btns__btn}>{translates.clear}</div>
+                <div className={styles.basket__header__btns__btn}>{translates.selectAll}</div>
+              </div>
+            </div>
+            <div className={styles.basket__products}>
+              {products.length > 0 ? products.map((el, index: number)=>{
+                return <CardFloat product={el} isBasket={true} />
+              }) : <div className={styles.basket__products__empty}>
+                <h2>{translates.empty}</h2>
+                <Link href={'/catalogue'} className={styles.basket__products__empty__button}>{translates.toCatalogue}</Link>
+              </div>}
+            </div>
+            <div className={styles.basket__info}>
+              <h1 className={styles.basket__info__text}>
+                {translates.total} {totalCount} {translates.productsToBuy}: <div>{totalPrice} ₽</div>
+              </h1>
+              <div className={styles.basket__info__button}>{translates.buy}</div>
+            </div>
           </div>
-          <div>{products.map((el, index: number)=>{
-            return <div key={index}>{el.name}</div>
-          })}</div>
         </Container>
       </div>
     </Layout>
