@@ -37,7 +37,7 @@ const Product: React.FC<IProductPageProps> = ({translates, todo}) => {
           <div className={styles.container__product}>
             <div className={styles.container__product__header}>
               <div className={styles.container__product__header__path}>
-                Главная / Каталог / {todo.type} / {todo.name}
+                Главная / Каталог / {todo.type.id} / {todo.name}
               </div>
               <article className={styles.container__product__header__article}>
                 Артикул

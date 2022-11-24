@@ -24,10 +24,11 @@ export async function getStaticPaths({locales, locale}: any) {
 }
 
 export const getStaticProps: GetStaticProps = async ({locale, params}) => {
-  const todo = await fetch(`https://api.tm-she.com/${locale}/product/${params?.id}`)
+  const res = await fetch(`https://api.tm-she.com/${locale}/product/${params?.id}`)
+  const todo = await res.json()
   return {
     props:{
-      todo: await todo.json(),
+      todo: todo,
       ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
     },
     revalidate: 10

@@ -29,7 +29,7 @@ const Card: React.FC<ICardProps> = ({product, favHandler}) => {
         <div className={styles.card__header__new}>
           {is_new && <div className={styles.card__new__block}>New</div>}
           {is_hit && <div className={styles.card__hit__block}>Hit</div>}
-          {discount && <div className={styles.card__header__new__discount}>-{discount}%</div>}
+          {!!discount && <div className={styles.card__header__new__discount}>-{discount}%</div>}
         </div>
         <div className={styles.card__header__fav + ` ${is_fav && styles.card__header__fav__active}`}>
           <svg onClick={()=>favHandler(product)} width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
