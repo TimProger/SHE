@@ -7,18 +7,18 @@ import MainPage from "../components/pages/MainPage";
 import {IProduct, ISlide} from "../types/Product.types";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
-  const products = await fetch(`https://api.tm-she.com/${locale}/product`)
   const slides = await fetch(`https://api.tm-she.com/${locale}/product/slider`)
+  const products = await fetch(`https://api.tm-she.com/${locale}/product`)
   const productsData: IProduct[] = await products.json()
   const slidesData: ISlide[] = await slides.json()
   return {
-    props:{
+    props: {
       slides: slidesData,
       slidesNew: productsData.filter(el => el.is_new),
       slidesHit: productsData.filter(el => el.is_hit),
       ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
     },
-    revalidate: 10
+    revalidate: 10,
   }
 }
 

@@ -51,6 +51,20 @@
       cursor: pointer;
       height: 30px;
 
+      &__count{
+        background: $block-main;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        margin-bottom: 15px;
+        margin-left: 10px;
+        color: #A0A0A0
+      }
+
       &__container{
         height: 100%;
       }

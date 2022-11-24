@@ -5,22 +5,17 @@ import AuthSlice from "./Slices/Auth.slice";
 import ProductSlice from "./Slices/Product.slice";
 import BasketSlice from "./Slices/Basket.slice";
 import FavSlice from "./Slices/Fav.slice";
-import {productAPI} from "../services/product";
 
 const combinedReducer = combineReducers({
   auth: AuthSlice,
   product: ProductSlice,
   basket: BasketSlice,
   fav: FavSlice,
-  [productAPI.reducerPath]: productAPI.reducer
 });
 
 export const Store = () =>
   configureStore({
     reducer: combinedReducer,
-    middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(productAPI.middleware)
-    }
   });
 
 export type RootState = ReturnType<typeof combinedReducer>

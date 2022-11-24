@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "../../layout/layout";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -22,10 +22,21 @@ interface IMainProps {
 }
 
 const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHit}) => {
+
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
   const [mySwiper, setMySwiper] = useState(null)
   const [mySwiper2, setMySwiper2] = useState(null)
+
+  const displaySlides = (slidesArr: IProduct[]) => {
+    return JSON.parse(JSON.stringify(slidesArr)).map((el: IProduct, index: number)=>{
+      return (
+        <SwiperSlide key={index} className={styles.new}>
+          <Card product={el} favHandler={AddToFavs}  />
+        </SwiperSlide>
+      )
+    })
+  }
 
   const AddToFavs = (product: IProduct) => {
     dispatch(toggleFav(product))
@@ -115,13 +126,7 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
                 setMySwiper(ev)
               }}
             >
-              {slidesNew.length !== 0 && slidesNew.map((el: any, index: any) => {
-                return (
-                  <SwiperSlide key={index} className={styles.new}>
-                    <Card product={el} favHandler={AddToFavs}  />
-                  </SwiperSlide>
-                )
-              })}
+              {displaySlides(slidesNew)}
             </Swiper>
           </div>
           <div className={styles.container__products}>
@@ -161,13 +166,7 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
                 setMySwiper2(ev)
               }}
             >
-              {slidesHit.length !== 0 && slidesHit.map((el: any, index: any) => {
-                return (
-                  <SwiperSlide key={index} className={styles.new}>
-                    <Card  product={el} favHandler={AddToFavs} />
-                  </SwiperSlide>
-                )
-              })}
+              {displaySlides(slidesHit)}
             </Swiper>
           </div>
           <div className={styles.container__imgs}>

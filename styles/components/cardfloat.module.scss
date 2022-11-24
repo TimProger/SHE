@@ -90,6 +90,19 @@
       }
     }
 
+    &__basket{
+
+      & path{
+        stroke: #000;
+        fill: $block-thrd;
+        cursor: pointer;
+      }
+
+      &__active{
+        fill: $block-main !important;
+      }
+    }
+
     &__text{
       display: flex;
       align-items: flex-end;

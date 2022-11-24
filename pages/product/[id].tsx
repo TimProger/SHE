@@ -25,10 +25,10 @@ export async function getStaticPaths({locales, locale}: any) {
 
 export const getStaticProps: GetStaticProps = async ({locale, params}) => {
   const res = await fetch(`https://api.tm-she.com/${locale}/product/${params?.id}`)
-  const todo = await res.json()
+  const product = await res.json()
   return {
     props:{
-      todo: todo,
+      product: product,
       ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
     },
     revalidate: 10
@@ -36,10 +36,10 @@ export const getStaticProps: GetStaticProps = async ({locale, params}) => {
 }
 
 interface IProductProps {
-  todo: IProduct
+  product: IProduct
 }
 
-const Product: React.FC<IProductProps> = ({todo}) => {
+const Product: React.FC<IProductProps> = ({product}) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 
@@ -82,7 +82,7 @@ const Product: React.FC<IProductProps> = ({todo}) => {
   }
 
   return (
-    <ProductPage todo={todo} translates={translates} />
+    <ProductPage product={product} translates={translates} />
   )
 }
 
