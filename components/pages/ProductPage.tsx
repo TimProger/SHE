@@ -45,6 +45,8 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
     dispatch(toggleFav(product))
   }
 
+  const [infoPage, setInfoPage] = useState(1);
+
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
       <Head>
@@ -110,12 +112,19 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
             <div className={styles.container__product__info}>
               <div className={styles.container__product__info__menu}>
                 <div className={styles.container__product__info__menu__wrapper}>
-                  <p>Информация</p>
-                  <p>Видео</p>
+                  <p style={{borderBottom : infoPage == 1 ? '1px solid black' : 'none'}} onClick={()=> setInfoPage(1)}>Информация</p>
+                  <p style={{borderBottom : infoPage == 2 ? '1px solid black' : 'none'}} onClick={()=> setInfoPage(2)}>Видео</p>
                 </div>
               </div>
               <div className={styles.container__product__info__content}>
-                
+                {infoPage == 1 ? 
+                  <div className={styles.container__product__info__content__title}>
+                    first page
+                  </div> :
+                  <div>
+                    second page
+                  </div> 
+                }
               </div>
             </div>
           </div>
