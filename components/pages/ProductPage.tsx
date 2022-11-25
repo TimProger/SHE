@@ -118,6 +118,17 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
                 </div>
               </div>
             </div>
+            <div className={styles.container__product__info}>
+              <div className={styles.container__product__info__menu}>
+                <div className={styles.container__product__info__menu__wrapper}>
+                  <p>Информация</p>
+                  <p>Видео</p>
+                </div>
+              </div>
+              <div className={styles.container__product__info__content}>
+                
+              </div>
+            </div>
           </div>
         </Container>
       </div>
