@@ -1,4 +1,4 @@
-import styles from '../styles/components/container.module.scss'
+import s from '../styles/components/container.module.scss'
 import React from "react";
 
 interface ContainerProps {
@@ -9,8 +9,8 @@ const Container: React.FC<ContainerProps> = ({
   children
 }) => {
   return (
-    <main className={styles.container}>
-      <div className={styles.container__wrapper}>
+    <main className={s.container}>
+      <div className={s.container__wrapper}>
         {children}
       </div>
     </main>
