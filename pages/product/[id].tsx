@@ -5,9 +5,10 @@ import {useRouter} from "next/router";
 import React from "react";
 import ProductPage from "../../components/pages/ProductPage";
 import {IProduct} from "../../types/Product.types";
+import {API_BASE_URL} from "../../http/api";
 
 export async function getStaticPaths({locales, locale}: any) {
-  const res = await fetch(`https://api.tm-she.com/all_product`)
+  const res = await fetch(`${API_BASE_URL}/all_product`)
   const data = await res.json()
   const paths: any[] = []
   data.map((el: { id: string; }) => {
@@ -24,7 +25,7 @@ export async function getStaticPaths({locales, locale}: any) {
 }
 
 export const getStaticProps: GetStaticProps = async ({locale, params}) => {
-  const res = await fetch(`https://api.tm-she.com/${locale}/product/${params?.id}`)
+  const res = await fetch(`${API_BASE_URL}/${locale}/product/${params?.id}`)
   const product = await res.json()
   return {
     props:{

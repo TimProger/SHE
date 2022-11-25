@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import styles from '../styles/components/cardfloat.module.scss'
 import {IBasketProduct, IFavProduct} from "../types/Product.types";
 import {API_BASE_URL} from "../http/api";
-import {addToBasket, removeFromBasket} from "../store/Slices/Basket.slice";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
 import {useRouter} from "next/router";
 import {useTypedSelector} from "../hooks/useTypedSelector";
+import {addToBasket, removeFromBasket} from "../store/Slices/Basket.slice";
 import {removeFromFavs} from "../store/Slices/Fav.slice";
 
 interface ICardProps {

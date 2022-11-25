@@ -31,11 +31,13 @@
     border-bottom: 1px solid $block-main;
     display: flex;
     flex-direction: column;
+    padding-bottom: 40px;
 
     &__card{
       display: flex;
       align-items: center;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
+      margin-top: 20px;
     }
 
     &__empty{

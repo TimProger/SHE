@@ -148,6 +148,10 @@
           &:active{
             background: $block-main;
           }
+
+          &__active{
+            background: $block-main !important;
+          }
         }
 
         &__fav{
@@ -155,6 +159,9 @@
           color: $text-thrd;
           padding: 15px 25px;
           cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
           & svg{
 
@@ -165,7 +172,15 @@
           }
 
           &__active{
-            fill: $block-main !important;
+            background: $block-main !important;
+            border: none !important;
+
+            & svg {
+              & path {
+                stroke: none !important;
+                fill: $block-thrd;
+              }
+            }
           }
         }
       }

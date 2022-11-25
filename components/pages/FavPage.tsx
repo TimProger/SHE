@@ -39,9 +39,11 @@ const FavPage: React.FC<IFavProps> = ({translates, products}) => {
                 <div onClick={removeAllProductFromFavHandler} className={styles.fav__header__btns__btn}>{translates.clear}</div>
               </div>
             </div>
-            <div className={styles.basket__products}>
+            <div className={styles.fav__products}>
               {products.length > 0 ? products.map((el, index: number)=>{
-                return <CardFloat product={el} isBasket={false} />
+                return <div className={styles.fav__products__card}>
+                  <CardFloat product={el} isBasket={false} />
+                </div>
               }) : <div className={styles.fav__products__empty}>
                 <h2>{translates.empty}</h2>
                 <Link href={'/catalogue'} className={styles.fav__products__empty__button}>{translates.toCatalogue}</Link>
