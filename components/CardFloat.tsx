@@ -6,6 +6,7 @@ import {addToBasket, removeFromBasket} from "../store/Slices/Basket.slice";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
 import {useRouter} from "next/router";
 import {useTypedSelector} from "../hooks/useTypedSelector";
+import {removeFromFavs} from "../store/Slices/Fav.slice";
 
 interface ICardProps {
   product: IBasketProduct | IFavProduct
@@ -50,6 +51,10 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     dispatch(removeFromBasket(id))
   }
 
+  const removeFromFavsHandler = () => {
+    dispatch(removeFromFavs(id))
+  }
+
   return (
     <div className={styles.card}>
       <div className={styles.card__content}>
@@ -68,7 +73,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
         </div>
       </div>
       <div className={styles.card__price}>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg onClick={isBasket ? removeFromBasketHandler : removeFromFavsHandler} className={styles.card__price__remove} width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1.34314 12.6567L12.6568 1.34303" stroke="#A0A0A0"/>
           <path d="M1.34314 1.34326L12.6568 12.657" stroke="#A0A0A0"/>
         </svg>

@@ -34,6 +34,13 @@ export const favSlice = createSlice({
       state.products = []
       Storage.set('favs', JSON.stringify([]))
     },
+    removeFromFavs: (state: IFavState, action: PayloadAction<number>) => {
+      const product = state.products.find((el)=>el.id === action.payload)
+      if(product){
+        let index = state.products.indexOf(product)
+        state.products.splice(index, 1)
+      }
+    }
   },
   extraReducers: {
     [getFavs.fulfilled.type]: (state, action: PayloadAction<IFavProduct[]>) => {
@@ -51,6 +58,6 @@ export const favSlice = createSlice({
   }
 })
 
-export const { toggleFav, removeAllProductFromFav } = favSlice.actions
+export const { toggleFav, removeAllProductFromFav, removeFromFavs} = favSlice.actions
 
 export default favSlice.reducer
