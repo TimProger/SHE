@@ -77,6 +77,10 @@
     align-items: flex-end;
     justify-content: space-between;
     flex-direction: column;
+    
+    &__remove{
+      cursor: pointer;
+    }
 
     &__button{
       display: flex;

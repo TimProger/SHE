@@ -8,6 +8,7 @@ import {useAppDispatch} from "../hooks/useTypedDispatch";
 import {getFavs} from "../store/ActionCreators/Fav.ac";
 import {useRouter} from "next/router";
 import {useTypedSelector} from "../hooks/useTypedSelector";
+import {useAuth} from "../hooks/useAuth";
 
 const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
 

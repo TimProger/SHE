@@ -5,10 +5,11 @@ import {useRouter} from "next/router";
 import React, {useEffect, useState} from "react";
 import MainPage from "../components/pages/MainPage";
 import {IProduct, ISlide} from "../types/Product.types";
+import {API_BASE_URL} from "../http/api";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
-  const slides = await fetch(`https://api.tm-she.com/${locale}/product/slider`)
-  const products = await fetch(`https://api.tm-she.com/${locale}/product`)
+  const slides = await fetch(`${API_BASE_URL}/${locale}/product/slider`)
+  const products = await fetch(`${API_BASE_URL}/${locale}/product`)
   const productsData: IProduct[] = await products.json()
   const slidesData: ISlide[] = await slides.json()
   return {
