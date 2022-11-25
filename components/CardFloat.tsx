@@ -61,7 +61,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     <div className={styles.card}>
       <div className={styles.card__content}>
         <div className={styles.card__content__image}>
-          <img src={`${API_BASE_URL}/${image}`} alt={name} />
+          <img src={`${API_BASE_URL}${`${image}`.split('').shift() === '/' ? '' : '/'}${image}`} alt={name} />
         </div>
         <div className={styles.card__content__info}>
           <h2>{name}</h2>
