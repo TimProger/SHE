@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {IFavProduct, IProduct} from "../../types/Product.types";
+import {IFavProduct, IProduct, IProductMore} from "../../types/Product.types";
 import {Storage} from "../../utils/storage";
 import {getFavs} from "../ActionCreators/Fav.ac";
 
@@ -19,15 +19,17 @@ export const favSlice = createSlice({
   name: 'fav',
   initialState,
   reducers: {
-    toggleFav: (state: IFavState, action: PayloadAction<IFavProduct | IProduct>) => {
-      const includes = state.products.filter((el)=>el.id === action.payload.id)
+    toggleFav: (state: IFavState, action: PayloadAction<{ product: IFavProduct | IProduct; more: IProductMore }>) => {
+      const includes = state.products.filter((el)=>el.id === action.payload.product.id)
       if(!state.products.includes(includes[0])){
-        state.products.push(action.payload)
-        Storage.set('favs', JSON.stringify(state.products.map((el, index)=>el.id)))
+        const obj = JSON.parse(JSON.stringify(action.payload.product))
+        obj.product_more = [action.payload.more]
+        state.products.push(obj)
+        Storage.set('favs', JSON.stringify(state.products.map((el, index)=>`${el.id}:${el.product_more[0].id}`)))
       }else{
         const index = state.products.indexOf(includes[0])
         state.products.splice(index, 1)
-        Storage.set('favs', JSON.stringify(state.products.map((el, index)=>el.id)))
+        Storage.set('favs', JSON.stringify(state.products.map((el, index)=>`${el.id}:${el.product_more[0].id}`)))
       }
     },
     removeAllProductFromFav: (state: IFavState) => {
@@ -39,6 +41,7 @@ export const favSlice = createSlice({
       if(product){
         let index = state.products.indexOf(product)
         state.products.splice(index, 1)
+        Storage.set('favs', JSON.stringify(state.products.map((el, index)=>`${el.id}:${el.product_more[0].id}`)))
       }
     }
   },

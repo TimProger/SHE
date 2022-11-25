@@ -9,6 +9,7 @@ import {IFavProduct} from "../../types/Product.types";
 import CardFloat from "../CardFloat";
 import Link from "next/link";
 import {removeAllProductFromFav} from "../../store/Slices/Fav.slice";
+import Button from "../Button";
 
 interface IFavProps {
   translates: any;
@@ -46,7 +47,7 @@ const FavPage: React.FC<IFavProps> = ({translates, products}) => {
                 </div>
               }) : <div className={styles.fav__products__empty}>
                 <h2>{translates.empty}</h2>
-                <Link href={'/catalogue'} className={styles.fav__products__empty__button}>{translates.toCatalogue}</Link>
+                <Button type={'link'} href={'/catalogue'} text={translates.toCatalogue} />
               </div>}
             </div>
           </div>

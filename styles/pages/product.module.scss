@@ -146,9 +146,15 @@
           gap: 20px;
 
           & div{
-            border: 1px solid black;
+            border: 1px solid $text-sec;
+            color: $text-sec;
             padding: 5px 20px;
             cursor: pointer;
+          }
+
+          &__active{
+            border: 1px solid $text-main !important;
+            color: $text-main !important;
           }
         }
       }
@@ -170,13 +176,25 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          transition: background-color 0.2s;
 
           &:active{
             background: $block-main;
           }
 
           &__active{
+            user-select: none;
+            width: 300px;
+            padding: 0 20px 0 20px;
+            display: flex;
+            gap: 40px;
             background: $block-main !important;
+
+            & div{
+              font-size: 30px;
+              display: flex;
+              gap: 20px;
+            }
           }
         }
 
@@ -188,6 +206,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          transition: background-color 0.2s;
 
           & svg{
 
@@ -199,7 +218,7 @@
 
           &__active{
             background: $block-main !important;
-            border: none !important;
+            border: 1px solid $block-main !important;
 
             & svg {
               & path {

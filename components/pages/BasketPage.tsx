@@ -13,6 +13,7 @@ import {
 } from "../../store/Slices/Basket.slice";
 import Link from "next/link";
 import CardFloat from "../CardFloat";
+import Button from "../Button";
 
 interface IBasketProps {
   translates: any;
@@ -42,6 +43,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products, totalPrice, t
     if(!includes){
       setSelected(prev => [...prev, product])
       const elem = products.filter((element, index)=>element.id===product.id)[0]
+      console.log(elem)
       setTotalPrice(prev => prev += elem.price*elem.count)
       setTotalCount(prev => prev += elem.count)
       return;
@@ -92,14 +94,14 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products, totalPrice, t
                 </div>
               }) : <div className={styles.basket__products__empty}>
                 <h2>{translates.empty}</h2>
-                <Link href={'/catalogue'} className={styles.basket__products__empty__button}>{translates.toCatalogue}</Link>
+                <Button type={'link'} href={'/catalogue'} text={translates.toCatalogue} />
               </div>}
             </div>
             <div className={styles.basket__info}>
               <h1 className={styles.basket__info__text}>
-                {translates.total} {totalCountNew} {translates.productsToBuy}: <div>{totalPriceNew} ₽</div>
+                {translates.total} {totalCountNew} {translates.productsToBuy}: <div>{totalPriceNew} {locale === 'ru' ? '₽' : '$'}</div>
               </h1>
-              <div className={styles.basket__info__button}>{translates.buy}</div>
+              <Button text={translates.buy} />
             </div>
           </div>
         </Container>

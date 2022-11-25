@@ -38,13 +38,15 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     image,
     name,
     price,
+    product_more,
     color,
     article,
     id
   } = product
 
   const addToBasketHandler = () => {
-    dispatch(addToBasket(product))
+    console.log(product)
+    dispatch(addToBasket({product, more: product.product_more[0]}))
   }
 
   const removeFromBasketHandler = () => {
@@ -59,7 +61,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     <div className={styles.card}>
       <div className={styles.card__content}>
         <div className={styles.card__content__image}>
-          <img src={`${API_BASE_URL}${image}`} alt={name} />
+          <img src={`${API_BASE_URL}/${image}`} alt={name} />
         </div>
         <div className={styles.card__content__info}>
           <h2>{name}</h2>
@@ -67,9 +69,9 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
             <span style={{background: color}} className={styles.card__content__info__color__block} />
           </p>
           <p className={styles.card__content__info__size}>Объем, мл:
-            <span>10 мл</span>
+            <span>{product_more[0].ml}</span>
           </p>
-          <p className={styles.card__content__info__articul}>Артикул: SHE{article}</p>
+          <p className={styles.card__content__info__articul}>Артикул: {article}</p>
         </div>
       </div>
       <div className={styles.card__price}>
@@ -79,7 +81,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
         </svg>
         <div className={styles.card__price__text}>
           {!discount && <h2 className={styles.card__price__text__discount}>{price*(20/100+1)} ₽</h2>}
-          <h1 className={styles.card__price__text__price}>{price} ₽</h1>
+          <h1 className={styles.card__price__text__price}>{product_more[0].price} {product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h1>
         </div>
         {isBasket ? "count" in product && <div className={styles.card__price__button}>
           <div onClick={removeFromBasketHandler}>-</div>

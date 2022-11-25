@@ -32,14 +32,10 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
     return JSON.parse(JSON.stringify(slidesArr)).map((el: IProduct, index: number)=>{
       return (
         <SwiperSlide key={index} className={styles.new}>
-          <Card product={el} favHandler={AddToFavs}  />
+          <Card product={el}  />
         </SwiperSlide>
       )
     })
-  }
-
-  const AddToFavs = (product: IProduct) => {
-    dispatch(toggleFav(product))
   }
 
   return (
