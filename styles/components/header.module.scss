@@ -40,6 +40,13 @@
     align-items: center;
     gap: 20px;
 
+    &__test{
+      background: #CCCBFF;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+    }
+
     & a{
       display: flex;
       align-items: center;

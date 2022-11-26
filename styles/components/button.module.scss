@@ -9,6 +9,9 @@
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s;
+  outline: none;
+  border: none;
+  font-size: 18px;
 
   &:active {
     background: $block-main;

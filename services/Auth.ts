@@ -12,21 +12,21 @@ class AuthService {
                 return res
             })
             .catch((e)=>{
-                return e
+                throw e
             })
     }
 
     async confirm_code(phone: number, code: number) {
         return await $api
                         .post('/profile/confirm_code', {
-                            phone,
-                            code
+                          phone,
+                          code
                         })
                         .then((res)=>{
-                            return res
+                          return res
                         })
                         .catch((e)=>{
-                            return e
+                          throw e
                         })
     }
 }

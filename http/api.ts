@@ -33,8 +33,8 @@ const authInterceptor = (config: AxiosRequestConfig) => {
     return config;
 };
 
-$api_with_auth.interceptors.request.use(authInterceptor)
-$api_with_auth.interceptors.response.use((config: AxiosResponse) => {
+$api.interceptors.request.use(authInterceptor)
+$api.interceptors.response.use((config: AxiosResponse) => {
     return config;
 },async (error) => {
     const originalRequest = error.config;

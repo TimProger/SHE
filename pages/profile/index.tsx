@@ -1,13 +1,9 @@
-import React from "react";
-import {useTypedSelector} from "../../hooks/useTypedSelector";
-import {LogIn} from "../../store/Slices/Auth.slice";
-import {useDispatch} from "react-redux";
+import React, {useEffect} from "react";
 import Layout from "../../layout/layout";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation, withTranslation} from "next-i18next";
 import { GetStaticProps } from 'next'
-import {IProfileProps} from "../../types/Profile.types";
-import Container from "../../components/Container";
+import ProfilePage from "../../components/pages/ProfilePage";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
@@ -18,14 +14,9 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   }
 }
 
-const Profile: React.FC<IProfileProps> = () => {
-  const { isAuth } = useTypedSelector(state => state.auth)
-  const {t, i18n} = useTranslation();
-  const dispatch = useDispatch();
+const Profile: React.FC = () => {
 
-  const addNewUser = () => {
-    dispatch(LogIn(!isAuth));
-  };
+  const {t, i18n} = useTranslation();
 
   const translates = {
     title: t('profile:title'),
@@ -66,15 +57,7 @@ const Profile: React.FC<IProfileProps> = () => {
   }
 
   return (
-    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
-      <div>
-        <button onClick={()=>addNewUser()}>{isAuth ? 'LogOut' : 'LogIn'}</button>
-        <Container>
-          <h1>{isAuth ? 'YOOOO' : 'Hello'}</h1>
-          {t('profile:welcome')}
-        </Container>
-      </div>
-    </Layout>
+    <ProfilePage translates={translates} />
   )
 }
 

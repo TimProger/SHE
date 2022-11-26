@@ -8,6 +8,7 @@ interface IButtonProps {
   onClick?: () => void;
   type?: 'link' | 'btn';
   href?: string;
+  disabled?: boolean
 }
 
 const Button: React.FC<IButtonProps> = (props) => {
@@ -20,15 +21,15 @@ const Button: React.FC<IButtonProps> = (props) => {
       )
     case 'btn':
       return (
-        <div onClick={props.onClick} className={s.button + ` ${props.className}`}>
+        <button disabled={props.disabled} onClick={props.onClick} className={s.button + ` ${props.className}`}>
           {props.text}
-        </div>
+        </button>
       )
     default:
       return (
-        <div onClick={props.onClick} className={s.button + ` ${props.className}`}>
+        <button disabled={props.disabled} onClick={props.onClick} className={s.button + ` ${props.className}`}>
           {props.text}
-        </div>
+        </button>
       )
   }
 };
