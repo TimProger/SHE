@@ -72,6 +72,8 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
     dispatch(toggleFav({product, more}))
   }
 
+  const [infoPage, setInfoPage] = useState(1);
+
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
       <Head>
@@ -142,12 +144,36 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
             <div className={s.container__product__info}>
               <div className={s.container__product__info__menu}>
                 <div className={s.container__product__info__menu__wrapper}>
-                  <p>{translates.info}</p>
-                  <p>{translates.video}</p>
+                  <p style={{borderBottom : infoPage == 1 ? '1px solid black' : 'none'}} onClick={()=> setInfoPage(1)}>Информация</p>
+                  <p style={{borderBottom : infoPage == 2 ? '1px solid black' : 'none'}} onClick={()=> setInfoPage(2)}>Видео</p>
                 </div>
               </div>
               <div className={s.container__product__info__content}>
-                
+                {infoPage == 1 ? 
+                  <div>
+                    <div className={s.container__product__info__content__title}>
+                      {product.about}
+                    </div>
+                    <div className={s.container__product__info__content__list}>
+                      <p><span>Производитель: </span>™SHE</p>
+                      <p><span>Коллекция: </span>«Elizabeth»</p>
+                      <p><span>Страна: </span>Россия</p>
+                      <p><span>Оттенок: </span>Бежевый</p>
+                      <p><span>Объем, мл: </span>10 / 20 / 30</p>
+                    </div>
+                    <div className={s.container__product__info__content__title}>
+                      Палитра гель-лаков SHE включает в себя 101 актуальных оттенков. Плотные цвета правильной консистенции, неприхотливые и максимально комфортные в работе, они доставят Вам максимальное удовольствие от покрытия.
+                    </div>
+                    <div className={s.container__product__info__content__title}>
+                      Цветные гель-лаки SHE- это высокопигментированные, плотные цвета, средне - густой консистенции. Удобная кисть идеальной жесткости и длины обеспечивает равномерное, комфортное нанесение, и экономичный расход материала. Имеет безопасный состав, отсутствие резкого неприятного запаха. Дисперсионный слой обеспечивает высокую сцепку между слоями, исключая отслойки и сколы. Пигмент не стягивается после обезжиривания, цвета не тускнеют во время носки. Максимально комфортный в работе, самовыравнивающееся, плотное перекрытие даже в один слой. Богатая палитра оттенков и демократичная цена.
+                    </div>
+                    
+                  </div>
+                  :
+                  <div>
+                    second page
+                  </div> 
+                }
               </div>
             </div>
           </div>
