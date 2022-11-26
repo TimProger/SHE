@@ -137,8 +137,7 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
               </div>
             </div>
           </div>
-          {/* className={popupState ? styles.popup_active : styles.popup} */}
-          <div className={s.popup_active} onMouseLeave={()=>setPopupState(false)}>
+          <div className={popupState ? s.popup_active : s.popup} onMouseLeave={()=>setPopupState(false)}>
             <ul className={s.popup_active__list}>
               <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(1)}><Link href="/profile">Гель-лаки</Link>
                 <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
