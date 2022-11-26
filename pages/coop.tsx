@@ -1,35 +1,29 @@
 import React, {useEffect} from 'react';
-import {useTypedSelector} from "../hooks/useTypedSelector";
+import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 import {GetStaticProps} from "next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import {useRouter} from "next/router";
-import BasketPage from "../components/pages/BasketPage";
+import CoopPage from "../components/pages/CoopPage";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['basket', 'header', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['coop', 'header', 'footer']))
     },
     revalidate: 10
   }
 }
 
-const Basket: React.FC = () => {
+const Coop: React.FC = () => {
+
   const { locale } = useRouter()
   const { t } = useTranslation()
 
-  const {products, isLoading, error, totalPrice, totalCount} = useTypedSelector(state => state.basket)
-
   const translates = {
-    title: t('basket:title'),
-    clear: t('basket:clear'),
-    selectAll: t('basket:selectAll'),
-    total: t('basket:total'),
-    productsToBuy: t('basket:productsToBuy'),
-    buy: t('basket:buy'),
-    empty: t('basket:empty'),
-    toCatalogue: t('basket:toCatalogue'),
+    title: t('fav:title'),
+    clear: t('fav:clear'),
+    empty: t('fav:empty'),
+    toCatalogue: t('fav:toCatalogue'),
     header: {
       home: t('header:home'),
       catalogue: t('header:catalogue'),
@@ -71,14 +65,8 @@ const Basket: React.FC = () => {
   }, [])
 
   return (
-    <BasketPage
-      translates={translates}
-      products={products}
-      isLoading={isLoading}
-      error={error}
-      totalPrice={totalPrice}
-      totalCount={totalCount}/>
+    <CoopPage translates={translates} />
   );
 };
 
-export default Basket;
+export default Coop;
