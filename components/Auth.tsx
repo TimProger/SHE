@@ -102,7 +102,6 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
     }
 
     const phoneLen = country.phone.length
-    console.log(phoneLen)
 
     if (phoneVal.length > phoneLen) {
       formattedPhone += '' + phoneVal.substring(phoneLen, phoneLen+3);
@@ -121,7 +120,7 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
     }
 
     setPhone(prev => prev = formattedPhone);
-    if(formattedPhone.length === phoneLen+16){
+    if(formattedPhone.length === phoneLen+15){
       setCode('')
       setIsDisabled(false)
     }else{
