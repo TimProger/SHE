@@ -1,4 +1,4 @@
-import styles from '../styles/components/footer.module.scss'
+import s from '../styles/components/footer.module.scss'
 import React from "react";
 import Link from "next/link";
 
@@ -10,10 +10,10 @@ interface IFooterProps {
 const Footer: React.FC<IFooterProps> = ({links, titles}) => {
 
   return (
-    <footer className={styles.footer}>
-      <div className={styles.wrapper}>
-        <div className={styles.footer__img}></div>
-        <table className={styles.footer__table}>
+    <footer className={s.footer}>
+      <div className={s.wrapper}>
+        <div className={s.footer__img}></div>
+        <table className={s.footer__table}>
           <thead>
           <tr>
             <th>{titles.profile}</th>

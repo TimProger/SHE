@@ -11,16 +11,13 @@ export interface ISlide {
   data_finish: Date | string;
 }
 
-interface IMoreImage {
+export interface IProductMore {
   id: number;
-  image: string | null;
-}
-
-interface IProductMore {
-  id: number;
+  product_id: number;
   ml: number;
-  price: 100;
-  image?: IMoreImage | null
+  price_currency: string;
+  price: number;
+  image_id__image?: string | null
 }
 
 interface IProductType {
@@ -31,7 +28,7 @@ export interface IProduct {
   is_new: boolean;
   is_hit: boolean;
   is_fav: boolean;
-  product_more: IProductMore;
+  product_more: IProductMore[];
   article: string;
   type: IProductType;
   discount?: number | null;

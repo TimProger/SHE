@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import Layout from "../../layout/layout";
 import "swiper/css";
 import "swiper/css/pagination";
-import styles from "../../styles/pages/basket.module.scss";
+import s from "../../styles/pages/basket.module.scss";
 import Container from "../Container";
 import Head from "next/head";
 import {useAppDispatch} from "../../hooks/useTypedDispatch";
@@ -13,6 +13,7 @@ import {
 } from "../../store/Slices/Basket.slice";
 import Link from "next/link";
 import CardFloat from "../CardFloat";
+import Button from "../Button";
 
 interface IBasketProps {
   translates: any;
@@ -42,6 +43,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products, totalPrice, t
     if(!includes){
       setSelected(prev => [...prev, product])
       const elem = products.filter((element, index)=>element.id===product.id)[0]
+      console.log(elem)
       setTotalPrice(prev => prev += elem.price*elem.count)
       setTotalCount(prev => prev += elem.count)
       return;
@@ -73,33 +75,33 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products, totalPrice, t
       </Head>
       <div>
         <Container>
-          <div className={styles.basket}>
-            <div className={styles.basket__header}>
+          <div className={s.basket}>
+            <div className={s.basket__header}>
               <h1>{translates.title}</h1>
-              <div className={styles.basket__header__btns}>
-                <div onClick={removeAllProductFromBasketHandler} className={styles.basket__header__btns__btn}>{translates.clear}</div>
-                <div onClick={selectAllProductHandler} className={styles.basket__header__btns__btn}>{translates.selectAll}</div>
+              <div className={s.basket__header__btns}>
+                <div onClick={removeAllProductFromBasketHandler} className={s.basket__header__btns__btn}>{translates.clear}</div>
+                <div onClick={selectAllProductHandler} className={s.basket__header__btns__btn}>{translates.selectAll}</div>
               </div>
             </div>
-            <div className={styles.basket__products}>
+            <div className={s.basket__products}>
               {products.length > 0 ? products.map((el, index: number)=>{
-                return <div className={styles.basket__products__card}>
+                return <div className={s.basket__products__card}>
                   <input
                     onChange={()=>selectHandler(el)}
                     checked={!!selected.find((elem)=>elem.id === el.id)}
                     type={'checkbox'} />
                   <CardFloat product={el} isBasket={true} />
                 </div>
-              }) : <div className={styles.basket__products__empty}>
+              }) : <div className={s.basket__products__empty}>
                 <h2>{translates.empty}</h2>
-                <Link href={'/catalogue'} className={styles.basket__products__empty__button}>{translates.toCatalogue}</Link>
+                <Button type={'link'} href={'/catalogue'} text={translates.toCatalogue} />
               </div>}
             </div>
-            <div className={styles.basket__info}>
-              <h1 className={styles.basket__info__text}>
-                {translates.total} {totalCountNew} {translates.productsToBuy}: <div>{totalPriceNew} ₽</div>
+            <div className={s.basket__info}>
+              <h1 className={s.basket__info__text}>
+                {translates.total} {totalCountNew} {translates.productsToBuy}: <div>{totalPriceNew} {locale === 'ru' ? '₽' : '$'}</div>
               </h1>
-              <div className={styles.basket__info__button}>{translates.buy}</div>
+              <Button text={translates.buy} />
             </div>
           </div>
         </Container>

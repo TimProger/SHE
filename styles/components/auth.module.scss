@@ -1,0 +1,23 @@
+@import "../colors";
+
+.auth{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #00000050;
+
+  &__container{
+    width: 600px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    background: $block-thrd;
+
+    & p{
+      color: $text-sec;
+      text-align: left;
+    }
+  }
+}

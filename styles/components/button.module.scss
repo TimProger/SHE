@@ -1,0 +1,16 @@
+@import "../colors";
+
+.button {
+  background: #000000;
+  color: $text-thrd;
+  padding: 15px 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+
+  &:active {
+    background: $block-main;
+  }
+}

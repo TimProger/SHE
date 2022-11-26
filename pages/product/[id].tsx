@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async ({locale, params}) => {
   return {
     props:{
       product: product,
-      ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['product', 'header', 'footer']))
     },
     revalidate: 10
   }
@@ -45,7 +45,13 @@ const Product: React.FC<IProductProps> = ({product}) => {
   const { t } = useTranslation()
 
   const translates = {
-    title: t('main:title'),
+    article: t('product:article'),
+    color: t('product:color'),
+    ml: t('product:ml'),
+    addToBasket: t('product:addToBasket'),
+    inBasket: t('product:inBasket'),
+    info: t('product:info'),
+    video: t('product:video'),
     header: {
       home: t('header:home'),
       catalogue: t('header:catalogue'),

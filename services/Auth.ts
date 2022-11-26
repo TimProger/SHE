@@ -1,14 +1,14 @@
 import {$api} from "../http/api";
+import {IConfirmPhoneRes} from "../types/Auth.types";
 
 class AuthService {
     
     async confirm_phone(phone: number) {
         $api
-            .post('/profile/confirm_phone', {
+            .post<IConfirmPhoneRes>('/profile/confirm_phone', {
                 phone
             })
             .then((res)=>{
-                
                 return res
             })
             .catch((e)=>{
