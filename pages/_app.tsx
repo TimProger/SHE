@@ -9,12 +9,14 @@ import {getFavs} from "../store/ActionCreators/Fav.ac";
 import {useRouter} from "next/router";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {useAuth} from "../hooks/useAuth";
+import {getUser} from "../store/ActionCreators/Profile.ac";
 
 const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
 
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
   const {isLoading} = useTypedSelector(state => state.fav)
+  const profileState = useTypedSelector(state => state.profile)
 
   useEffect(()=>{
     if(!isLoading){
@@ -26,6 +28,14 @@ const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
       }
     }
   }, [])
+
+  useEffect(()=>{
+    if(!profileState.isAuth){
+      if(Storage.get('accessToken')){
+        dispatch(getUser())
+      }
+    }
+  },[])
 
   return <Component {...pageProps} />
 };

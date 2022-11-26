@@ -8,6 +8,7 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
 import Dropdown from "./Dropdown";
 import Auth from "./Auth";
+import {API_BASE_URL} from "../http/api";
 
 interface IHeaderProps {
   btns: any;
@@ -21,7 +22,7 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
   const router = useRouter()
 
   const {isLoading, error, products} = useTypedSelector(state => state.product)
-  const {isAuth} = useTypedSelector(state => state.auth)
+  const {isAuth, user} = useTypedSelector(state => state.profile)
   const fav = useTypedSelector(state => state.fav)
   const basket = useTypedSelector(state => state.basket)
 
@@ -122,13 +123,8 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
                   {basket.products.length > 0 && <div className={s.top__btns__btn__count}>{basket.products.length}</div>}
                 </Link>
                 {isAuth
-                  ? <Link href="/basket" className={s.top__btns__btn}>
-                      <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 9V5C5 2.79 6.795 1 9 1C11.21 1 13 2.795 13 5V9M1 7H17V23H1V7Z" stroke="#A0A0A0"
-                              strokeLinecap="round"/>
-                      </svg>
-                      {basket.products.length > 0 &&
-                        <div className={s.top__btns__btn__count}>{basket.products.length}</div>}
+                  ? <Link href="/profile" className={s.top__btns__btn + ' ' + s.top__btns__image}>
+                      <img src={`${API_BASE_URL}${user?.user_image}`} alt='user'/>
                     </Link>
                   : <div onClick={()=>setShowAuth(true)} className={s.top__btns__test}></div>
                 }

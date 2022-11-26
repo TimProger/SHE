@@ -23,16 +23,13 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
 
   const { isAuth, isLoading, user } = useTypedSelector(state => state.profile)
 
-  if (typeof window !== "undefined") {
-    if(!isAuth){
+  useEffect(()=>{
+    if(typeof window !== undefined){
       if(!Storage.get('accessToken')){
         window.location.replace('/')
-      }else{
-        dispatch(getUser())
       }
     }
-  }
-
+  },[])
 
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
