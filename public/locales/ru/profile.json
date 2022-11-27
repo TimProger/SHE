@@ -6,6 +6,7 @@
   "input_first__pl": "Мария",
   "input_last": "Фамилия",
   "input_last__pl": "Иванова",
+  "input_phone": "Телефон",
   "btns__info": "Личная информация",
   "btns__orders": "Мои заказы",
   "btns__settings": "Настройки",
