@@ -1,8 +1,82 @@
 @import "../colors";
 
-.coop__imgBackGround {
-    background: url('../../public/images/coopBackGround.png');
-    background-size: cover;
-    width: 100%;
-    height: 405px;
+.coop {
+    &__imgBackGround {
+        background: url('../../public/images/coopBackGround.png');
+        background-size: cover;
+        width: 100%;
+        height: 405px;
+    }
+
+    &__title {
+        width: 100%;
+    }
+
+    & h2 {
+        font-weight: 600;
+        font-size: 40px;
+    }
+
+    &__body {
+        margin-bottom: 38px;
+        margin-top: 78px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        &__specialСonditions {
+            width: 576px;
+
+            &__description {
+                margin: 40px 0px;
+                font-weight: 400;
+                font-size: 16px;
+            }
+
+            &__discounts {
+                width: 501px;
+                justify-content: space-between;
+                display:flex ;
+
+                &__first {
+                    font-weight: 600;
+                    font-size: 40px;
+                    color: $block-main;
+                }
+
+                &__second {
+                    font-weight: 600;
+                    font-size: 40px;
+                }
+
+                & ul {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                }
+
+                &__title {
+                    font-weight: 400;
+                    font-size: 16px;
+                    margin: 0px 0px 20px 0px;
+                    color: $text-sec;
+                }
+            }
+        }
+
+        &__request {
+            width: 576px;
+
+            &__title {
+                margin: 50px 0px;
+            }
+
+            &__contacts {
+                margin-top: 20px;
+                font-weight: 400;
+                font-size: 14px;
+                color: $text-sec;
+            }
+        }
+    }
 }

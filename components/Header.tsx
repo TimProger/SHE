@@ -126,7 +126,19 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
                   ? <Link href="/profile" className={s.top__btns__btn + ' ' + s.top__btns__image}>
                       <img src={`${API_BASE_URL}${user?.user_image}`} alt='user'/>
                     </Link>
-                  : <div onClick={()=>setShowAuth(true)} className={s.top__btns__test}></div>
+                  : <div onClick={()=>setShowAuth(true)} className={s.top__btns__test}>
+                    <svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clipPath="url(#clip0_413_3)">
+                        <circle cx="250.5" cy="182.5" r="88.5" stroke="black" strokeWidth="16"/>
+                        <path d="M465 442C465 468.607 443.577 494.776 404.209 514.77C365.284 534.539 310.952 547 250.5 547C190.048 547 135.716 534.539 96.7913 514.77C57.4228 494.776 36 468.607 36 442C36 415.393 57.4228 389.224 96.7913 369.23C135.716 349.461 190.048 337 250.5 337C310.952 337 365.284 349.461 404.209 369.23C443.577 389.224 465 415.393 465 442Z" stroke="black" strokeWidth="16"/>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_413_3">
+                          <rect width="500" height="500" fill="white"/>
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
                 }
               </div>
             </div>
@@ -137,7 +149,7 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
                 <Link href="/" locale={router.locale}>{btns.home}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
-                <Link onMouseOver={()=>setPopupState(true)} href="/profile" locale={router.locale}>{btns.catalogue}</Link>
+                <Link onMouseOver={()=>setPopupState(true)} onMouseLeave={()=>setPopupState(false)} href="/profile" locale={router.locale}>{btns.catalogue}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
                 <Link href="/coop" locale={router.locale}>{btns.coop}</Link>
@@ -150,7 +162,7 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
               </div>
             </div>
           </div>
-          <div className={popupState ? s.popup_active : s.popup} onMouseLeave={()=>setPopupState(false)}>
+          <div className={popupState ? s.popup_active : s.popup} onMouseOver={()=>setPopupState(true)} onMouseLeave={()=>setPopupState(false)}>
             <ul className={s.popup_active__list}>
               <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(1)}><Link href="/profile">Гель-лаки</Link>
                 <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">

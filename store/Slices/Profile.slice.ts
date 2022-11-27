@@ -22,24 +22,30 @@ const initialState: IProfileState = {
 export const profileSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    exit: (state: IProfileState) => {
+      state.user = null
+      state.isAuth = false
+      state.history = null
+    }
+  },
   extraReducers: {
-    [getUser.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
+    [getUser.fulfilled.type]: (state: IProfileState, action: PayloadAction<IUser>) => {
       state.isLoading = false;
       state.error = null
       state.user = action.payload
       state.isAuth = true
     },
-    [getUser.pending.type]: (state) => {
+    [getUser.pending.type]: (state: IProfileState) => {
       state.isLoading = true;
     },
-    [getUser.rejected.type]: (state,  action: PayloadAction<string>) => {
+    [getUser.rejected.type]: (state: IProfileState,  action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload
     },
   }
 })
 
-export const {} = profileSlice.actions
+export const { exit } = profileSlice.actions
 
 export default profileSlice.reducer

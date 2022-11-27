@@ -1,4 +1,20 @@
 {
   "title": "Profile",
-  "welcome": "Yooo profile"
+  "exit": "Exit",
+  "status": "Client",
+  "input_first": "Firstname",
+  "input_first__pl": "Mary",
+  "input_last": "Lastname",
+  "input_last__pl": "Smith",
+  "input_phone": "Phone",
+  "btns__info": "Private information",
+  "btns__orders": "My orders",
+  "btns__settings": "Settings",
+  "why_title": "Why we need this information",
+  "why_parag": "Fill in the information about yourself - this is necessary for ordering on our website. After entering the information, the recipient's data will be filled in automatically.",
+  "save": "Save",
+  "notfound": "Orders not found",
+  "toCatalogue": "To catalogue",
+  "delete": "Delete account",
+  "aboutDelete": "All your data about orders, personal information, products in favorites and shopping cart will be deleted."
 }

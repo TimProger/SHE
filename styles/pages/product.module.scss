@@ -19,7 +19,7 @@
 
         & p {
           cursor: pointer;
-          padding: 0px 13px;
+          padding: 0 13px;
           display: flex;
           align-items: flex-start;
           justify-content: center;
@@ -28,7 +28,7 @@
     }
 
     &__content {
-      padding: 26px 0px 0px 0px;
+      padding: 26px 0 0 0;
 
       &__title {
         width: 576px;

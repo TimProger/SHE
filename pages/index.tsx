@@ -17,7 +17,7 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
       slides: slidesData,
       slidesNew: productsData.filter(el => el.is_new),
       slidesHit: productsData.filter(el => el.is_hit),
-      ...(await serverSideTranslations(locale as string, ['main', 'header', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['main', 'auth', 'header', 'footer']))
     },
     revalidate: 10,
   }
@@ -46,6 +46,16 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
       about: t('header:about'),
       contacts: t('header:contacts'),
       search: t('header:search')
+    },
+    auth: {
+      title: t('auth:title'),
+      paragraph: t('auth:paragraph'),
+      countries: {
+        russia: t('auth:country_russia')
+      },
+      about: t('auth:about'),
+      contacts: t('auth:contacts'),
+      search: t('auth:search')
     },
     footer: {
       titles: {
