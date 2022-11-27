@@ -10,6 +10,7 @@ import {getUser} from "../store/ActionCreators/Profile.ac";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
 import Countries from '../public/images/countries/countries'
 import {onToggleLanguageClick} from "../utils/changeCurrentLanguage";
+import Link from "next/link";
 
 interface IAuthProps {
   translates: any;
@@ -242,7 +243,9 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
             </p>
           </div>
           <p>При регистрации вы соглашаетесь
-            с политикой конфиденциальности</p>
+            с <Link href="/" passHref>
+                политикой конфиденциальности
+            </Link></p>
         </div>
       </div>
     </div>
