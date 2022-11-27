@@ -9,6 +9,7 @@ import {useAppDispatch} from "../hooks/useTypedDispatch";
 import Dropdown from "./Dropdown";
 import Auth from "./Auth";
 import {API_BASE_URL} from "../http/api";
+import ProfileImg from '../public/images/profile_mock.png'
 
 interface IHeaderProps {
   btns: any;
@@ -125,7 +126,7 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
                 </Link>
                 {isAuth
                   ? <Link href="/profile" className={s.top__btns__btn + ' ' + s.top__btns__image}>
-                      <img src={`${API_BASE_URL}${user?.user_image}`} alt='user'/>
+                      <img src={user?.user_image ? `${API_BASE_URL}${user?.user_image}` : ProfileImg.src} alt='user'/>
                     </Link>
                   : <div onClick={()=>setShowAuth(true)} className={s.top__btns__test}>
                     <svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">

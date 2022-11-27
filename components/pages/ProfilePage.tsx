@@ -10,6 +10,7 @@ import {Storage} from "../../utils/storage";
 import {$api, API_BASE_URL} from "../../http/api";
 import {exit} from "../../store/Slices/Profile.slice";
 import Button from "../Button";
+import ProfileImg from '../../public/images/profile_mock.png'
 
 interface IProfilePageProps {
   translates: any;
@@ -231,7 +232,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
               <div className={s.profile__info__info}>
                 <div>
                   <label title="&nbsp;" className='profileImgInputLabel' htmlFor="profileImgInput">
-                    <img src={selectedFile ? URL.createObjectURL(selectedFile) : `${API_BASE_URL}${user?.user_image}`} alt="user_image"/>
+                    <img src={user?.user_image ? (selectedFile ? URL.createObjectURL(selectedFile) : `${API_BASE_URL}${user?.user_image}`) : ProfileImg.src} alt="user_image"/>
                     <input title="&nbsp;" accept="image/*" id='profileImgInput' className='profileImgInput' type='file' onChange={changeFile} />
                   </label>
                 </div>
