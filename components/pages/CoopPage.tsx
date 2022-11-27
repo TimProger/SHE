@@ -20,6 +20,7 @@ const Product: React.FC<IProductPageProps> = ({translates}) => {
         <title>{translates.title} | ™SHE</title>
       </Head>
       <div>
+        <div className={s.coop__imgBackGround}></div>
         <Container>
 
         </Container>

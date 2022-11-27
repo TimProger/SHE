@@ -140,7 +140,7 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
                 <Link onMouseOver={()=>setPopupState(true)} href="/profile" locale={router.locale}>{btns.catalogue}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns.coop}</Link>
+                <Link href="/coop" locale={router.locale}>{btns.coop}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
                 <Link href="/profile" locale={router.locale}>{btns.about}</Link>

@@ -3,7 +3,7 @@ import {Storage} from "../utils/storage";
 
 const PORT = 3000
 
-export const API_BASE_URL = "http://89.111.136.153:8001";
+export const API_BASE_URL = "https://api.tm-she.com";
 export const APP_BASE_URL = `http://localhost:3000`
 
 const $api = axios.create({

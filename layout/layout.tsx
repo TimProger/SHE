@@ -34,9 +34,7 @@ const Layout: React.FC<IMainLayoutProps>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
             <Header btns={btns} />
-            <Container>
                 {children}
-            </Container>
             <Footer links={links} titles={titles} />
         </>
     );
