@@ -48,14 +48,27 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
       search: t('header:search')
     },
     auth: {
+      error_code_1: t('auth:error_code_1'),
       title: t('auth:title'),
-      paragraph: t('auth:paragraph'),
+      paragraph_1: t('auth:paragraph_1'),
+      paragraph_2: t('auth:paragraph_2'),
+      input_1: t('auth:input_1'),
+      input_2: t('auth:input_2'),
+      button: t('auth:button'),
+      text: t('auth:text'),
+      link: t('auth:link'),
       countries: {
-        russia: t('auth:country_russia')
+        russia: t('auth:country_russia'),
+        usa: t('auth:country_usa'),
+        uar: t('auth:country_uar'),
+        korea: t('auth:country_korea'),
+        bel: t('auth:country_bel'),
+        azerb: t('auth:country_azerb'),
+        england: t('auth:country_england'),
+        oae: t('auth:country_oae'),
+        india: t('auth:country_india'),
+        turkey: t('auth:country_turkey'),
       },
-      about: t('auth:about'),
-      contacts: t('auth:contacts'),
-      search: t('auth:search')
     },
     footer: {
       titles: {

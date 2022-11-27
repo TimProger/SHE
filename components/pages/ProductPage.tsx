@@ -75,7 +75,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
   const [infoPage, setInfoPage] = useState(1);
 
   return (
-    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
+    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
       <Head>
         <title>{product.name} | ™SHE</title>
       </Head>

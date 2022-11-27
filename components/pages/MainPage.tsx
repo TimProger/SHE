@@ -39,7 +39,7 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
   }
 
   return (
-    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
+    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
       <Head>
         <title>{translates.title}</title>
       </Head>

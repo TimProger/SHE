@@ -27,7 +27,6 @@ interface IProductType {
 export interface IProduct {
   is_new: boolean;
   is_hit: boolean;
-  is_fav: boolean;
   product_more: IProductMore[];
   article: string;
   type: IProductType;
