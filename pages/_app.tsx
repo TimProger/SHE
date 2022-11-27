@@ -15,19 +15,19 @@ const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
 
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
-  const {isLoading} = useTypedSelector(state => state.fav)
+  // const {isLoading} = useTypedSelector(state => state.fav)
   const profileState = useTypedSelector(state => state.profile)
 
-  useEffect(()=>{
-    if(!isLoading){
-      // Проверить на isAuth и если true, то не заходить в Storage
-      // и сразу отправлять запрос за favs и basket
-      const favs = Storage.get('favs')
-      if(favs && JSON.parse(favs).length > 0){
-        dispatch(getFavs({ids: JSON.parse(favs), locale}))
-      }
-    }
-  }, [])
+  // useEffect(()=>{
+  //   if(!isLoading){
+  //     // Проверить на isAuth и если true, то не заходить в Storage
+  //     // и сразу отправлять запрос за favs и basket
+  //     const favs = Storage.get('favs')
+  //     if(favs && JSON.parse(favs).length > 0){
+  //       dispatch(getFavs({ids: JSON.parse(favs), locale}))
+  //     }
+  //   }
+  // }, [])
 
   useEffect(()=>{
     if(!profileState.isAuth){

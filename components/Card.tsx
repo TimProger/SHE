@@ -20,7 +20,11 @@ const Card: React.FC<ICardProps> = ({product}) => {
   const {products} = useTypedSelector(state => state.fav)
 
   const favHandler = () => {
-    dispatch(toggleFav({product, more}))
+    const obj = {
+      id: product.id,
+      more: more.id
+    }
+    dispatch(toggleFav(obj))
   }
 
   useEffect(()=>{

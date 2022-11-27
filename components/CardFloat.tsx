@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import s from '../styles/components/cardfloat.module.scss'
-import {IBasketProduct, IFavProduct} from "../types/Product.types";
+import {IBasketProduct, IFavProduct, IProduct} from "../types/Product.types";
 import {API_BASE_URL} from "../http/api";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
 import {useRouter} from "next/router";
@@ -9,7 +9,7 @@ import {addToBasket, removeFromBasket} from "../store/Slices/Basket.slice";
 import {removeFromFavs} from "../store/Slices/Fav.slice";
 
 interface ICardProps {
-  product: IBasketProduct | IFavProduct
+  product: IBasketProduct | IProduct
   isBasket: boolean;
 }
 
@@ -31,8 +31,6 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
   }, [products])
 
   const {
-    is_new,
-    is_hit,
     discount,
     image,
     name,
@@ -79,7 +77,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           <path d="M1.34314 1.34326L12.6568 12.657" stroke="#A0A0A0"/>
         </svg>
         <div className={s.card__price__text}>
-          {!discount && <h2 className={s.card__price__text__discount}>{price*(20/100+1)} ₽</h2>}
+          {!discount && <h2 className={s.card__price__text__discount}>{product_more[0].price*(20/100+1)} {product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h2>}
           <h1 className={s.card__price__text__price}>{product_more[0].price} {product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h1>
         </div>
         {isBasket ? "count" in product && <div className={s.card__price__button}>

@@ -31,21 +31,10 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
   const [basketProduct, setBasketProduct] = useState<IBasketProduct | null>(null)
 
   useEffect(()=>{
-    const includes = fav.products.filter((el)=>el.id === product.id)
-    if(fav.products.includes(includes[0])){
-      setIsFav(true)
-      setMore(includes[0].product_more[0])
-    }else{
-      setIsFav(false)
-    }
-  }, [fav.products])
-
-  useEffect(()=>{
     const includes = basket.products.filter((el)=>el.id === product.id)
     if(basket.products.includes(includes[0])){
       setBasketProduct(basket.products.filter((el)=>el.id === product.id)[0])
       setIsBasket(true)
-      setMore(includes[0].product_more[0])
     }else{
       setBasketProduct(null)
       setIsBasket(false)
@@ -60,6 +49,17 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
     }
   },[product])
 
+  useEffect(()=>{
+    const includes = fav.products.filter((el)=>el.id === product.id)
+    if(fav.products.includes(includes[0])){
+      setIsFav(true)
+      const productMore = product.product_more.filter((el)=>el.id === includes[0].more)
+      setMore(productMore[0])
+    }else{
+      setIsFav(false)
+    }
+  }, [fav.products])
+
   const addToBasketHandler = () => {
     dispatch(addToBasket({product, more}))
   }
@@ -69,7 +69,11 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
   }
 
   const toggleFavHandler = () => {
-    dispatch(toggleFav({product, more}))
+    const obj = {
+      id: product.id,
+      more: more.id
+    }
+    dispatch(toggleFav(obj))
   }
 
   const [infoPage, setInfoPage] = useState(1);

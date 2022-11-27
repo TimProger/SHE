@@ -41,8 +41,12 @@ export interface IProduct {
 }
 
 export interface IBasketProduct extends IProduct {
+  id: number;
+  more: number
   count: number;
 }
 
-export interface IFavProduct extends IProduct {
+export interface IFavProduct {
+  id: number;
+  more: number
 }
