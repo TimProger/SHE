@@ -156,7 +156,7 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
                 <Link href="/coop" locale={router.locale}>{btns.coop}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns.about}</Link>
+                <Link href="/about" locale={router.locale}>{btns.about}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
                 <Link href="/profile" locale={router.locale}>{btns.contacts}</Link>
