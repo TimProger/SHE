@@ -151,10 +151,10 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
                 <Link href="/" locale={router.locale}>{btns.home}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
-                <Link onMouseOver={()=>setPopupState(true)} href="/profile" locale={router.locale}>{btns.catalogue}</Link>
+                <Link onMouseOver={()=>setPopupState(true)} onMouseLeave={()=>setPopupState(false)} href="/profile" locale={router.locale}>{btns.catalogue}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
-                <Link href="/profile" locale={router.locale}>{btns.coop}</Link>
+                <Link href="/coop" locale={router.locale}>{btns.coop}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
                 <Link href="/profile" locale={router.locale}>{btns.about}</Link>
@@ -164,7 +164,7 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
               </div>
             </div>
           </div>
-          <div className={popupState ? s.popup_active : s.popup} onMouseLeave={()=>setPopupState(false)}>
+          <div className={popupState ? s.popup_active : s.popup} onMouseOver={()=>setPopupState(true)} onMouseLeave={()=>setPopupState(false)}>
             <ul className={s.popup_active__list}>
               <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(1)}><Link href="/profile">Гель-лаки</Link>
                 <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
