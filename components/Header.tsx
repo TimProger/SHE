@@ -12,9 +12,10 @@ import {API_BASE_URL} from "../http/api";
 
 interface IHeaderProps {
   btns: any;
+  auth: any;
 }
 
-const Header: React.FC<IHeaderProps> = ({btns}) => {
+const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
   const dispatch = useAppDispatch()
   const [searchValue, setSearchValue] = useState('')
   const [showSearch, setShowSearch] = useState(false)
@@ -51,7 +52,7 @@ const Header: React.FC<IHeaderProps> = ({btns}) => {
   return (
     <>
       {/* @ts-ignore */}
-      <Auth show={showAuth} setShow={setShowAuth}/>
+      <Auth translates={auth} show={showAuth} setShow={setShowAuth}/>
       <header className={s.header}>
         <div className={s.wrapper}>
           <div className={s.top}>

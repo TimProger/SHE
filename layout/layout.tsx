@@ -8,6 +8,7 @@ interface IMainLayoutProps {
   btns: any;
   links: any;
   titles: any;
+  auth: any;
   children: React.ReactNode;
   title?: string;
   description?: string;
@@ -19,6 +20,7 @@ const Layout: React.FC<IMainLayoutProps>
          btns,
          links,
          titles,
+         auth,
          children,
          title,
          description,
@@ -33,7 +35,7 @@ const Layout: React.FC<IMainLayoutProps>
                 <meta name="keywords" content={keywords || "Товар, бесплатно, акция"}/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
-            <Header btns={btns} />
+            <Header btns={btns} auth={auth} />
             {children}
             <Footer links={links} titles={titles} />
         </>

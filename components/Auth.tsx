@@ -29,52 +29,52 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
   const {isAuth, error, isLoading} = useTypedSelector(state => state.auth)
   const [countries, setCountries] = useState([
     {
-      title: 'Россия',
+      title: translates.countries.russia,
       img: Countries.russia.src,
       phone: '7'
     },
     {
-      title: 'США',
+      title: translates.countries.usa,
       img: Countries.usa.src,
       phone: '1'
     },
     {
-      title: 'ЮАР',
+      title: translates.countries.uar,
       img: Countries.uar.src,
       phone: '27'
     },
     {
-      title: 'Южная Корея',
+      title: translates.countries.korea,
       img: Countries.korea.src,
       phone: '82'
     },
     {
-      title: 'Беларусь',
+      title: translates.countries.bel,
       img: Countries.bel.src,
       phone: '375'
     },
     {
-      title: 'Азербайджан',
+      title: translates.countries.azerb,
       img: Countries.azerb.src,
       phone: '994'
     },
     {
-      title: 'Великобритания',
+      title: translates.countries.england,
       img: Countries.england.src,
       phone: '44'
     },
     {
-      title: 'ОАЭ',
+      title: translates.countries.oae,
       img: Countries.oae.src,
       phone: '971'
     },
     {
-      title: 'Индия',
+      title: translates.countries.india,
       img: Countries.india.src,
       phone: '91'
     },
     {
-      title: 'Турция',
+      title: translates.countries.turkey,
       img: Countries.turkey.src,
       phone: '90'
     },
@@ -159,7 +159,7 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
       })
       .catch((err) => {
         if(err.response.detail === "Код не верный"){
-          setErrors(prev => Object.assign(prev, {code: err.response.detail}))
+          setErrors(prev => Object.assign(prev, {code: translates.error_code_1}))
         }
         setIsError(true);
         setIsDisabled(false);
@@ -185,7 +185,7 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
       })
       .catch((err) => {
         if(err.response.data.detail == "Код не верный"){
-          setErrors(prev => Object.assign(prev, {code: "Код не верный"}))
+          setErrors(prev => Object.assign(prev, {code: translates.error_code_1}))
         }else{
           setErrors(prev => Object.assign(prev, {code: 'Произошла ошибка при проверке кода'}))
         }
@@ -198,18 +198,18 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
     switch (page){
       case 0:
         return <>
-          <p>Введите ваш номер телефона, чтобы войти или зарегестрироваться</p>
+          <p>{translates.paragraph_1}</p>
           <Dropdown type={'counties'} handler={(e: MouseEvent, value: any)=>setCountry(value)} value={country} options={countries || []} />
           <div className={s.auth__form__container__input}>
-            <h2>Телефон</h2>
+            <h2>{translates.input_1}</h2>
             <input value={phone} onChange={onChangePhone} type="text"/>
           </div>
         </>
       case 1:
         return <>
-          <p>На ваш телефон поступит звонок-сброс. Введите последние 4 цифры номера.</p>
+          <p>{translates.paragraph_2}</p>
           <div className={s.auth__form__container__input}>
-            <h2>Последние 4 цифры номера</h2>
+            <h2>{translates.input_2}</h2>
             <input value={code} onChange={onChangeCode} type="text" placeholder={'* * * *'}/>
           </div>
         </>
@@ -233,18 +233,17 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
     <div onClick={outsideClickHandler} className={s.auth + ' ' + (show ? s.auth__active : '')}>
       <div onClick={insideClickHandler} className={s.auth__form}>
         <div className={s.auth__form__container}>
-          <h1>Авторизация</h1>
+          <h1>{translates.title}</h1>
           {returnPage()}
           <div className={s.auth__form__container__button}>
-            <Button disabled={isDisabled} onClick={authHandler} text={'Авторизоваться'} />
+            <Button disabled={isDisabled} onClick={authHandler} text={translates.button} />
             <p>
               {errors.phone && <p>{errors.phone}</p>}
               {errors.code && <p>{errors.code}</p>}
             </p>
           </div>
-          <p>При регистрации вы соглашаетесь
-            с <Link href="/" passHref>
-                политикой конфиденциальности
+          <p>{translates.text} <Link href="/policy" passHref>
+              {translates.link}
             </Link></p>
         </div>
       </div>

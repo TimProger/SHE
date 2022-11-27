@@ -33,7 +33,6 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
   const {
     is_new,
     is_hit,
-    is_fav,
     discount,
     image,
     name,

@@ -193,7 +193,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
                 <p>{translates.pages.info.why_parag}</p>
               </div>
             </div>
-            <Button onClick={onSubmitSave} text={'Сохранить'} />
+            <Button onClick={onSubmitSave} text={translates.pages.info.save} />
           </div>
         )
       case 2:
@@ -216,7 +216,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
   }
 
   return (
-    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles}>
+    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
       <Head>
         <title>{translates.title} | ™SHE</title>
       </Head>

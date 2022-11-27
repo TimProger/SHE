@@ -1,0 +1,20 @@
+@import "../colors";
+
+.policy{
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  margin-bottom: 60px;
+
+  & ul{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    & div{
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+  }
+}
