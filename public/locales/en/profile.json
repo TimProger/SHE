@@ -13,6 +13,7 @@
   "why_title": "Why we need this information",
   "why_parag": "Fill in the information about yourself - this is necessary for ordering on our website. After entering the information, the recipient's data will be filled in automatically.",
   "save": "Save",
+  "save__success": "Changes saved",
   "notfound": "Orders not found",
   "toCatalogue": "To catalogue",
   "delete": "Delete account",

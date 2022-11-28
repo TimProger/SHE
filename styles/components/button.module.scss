@@ -13,6 +13,10 @@
   border: none;
   font-size: 18px;
 
+  &__success{
+    background: $block-success;
+  }
+
   &:active {
     background: $block-main;
   }

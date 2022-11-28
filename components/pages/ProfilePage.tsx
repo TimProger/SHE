@@ -32,6 +32,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
   const [digits, setDigits] = useState('')
   const [email, setEmail] = useState('')
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState({
     first: null,
     last: null,
@@ -66,19 +67,30 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
   },[user])
 
   const changeFile = (e: ChangeEvent) => {
+    const data = new FormData()
     const target = e.target as HTMLInputElement;
     const files = target.files as FileList;
-    console.log(files)
+
     // @ts-ignore
     setSelectedFile(files[0])
+
+    if(files[0]){
+      data.append('user_image', files[0]);
+    }
+    $api.patch('/profile/', data)
+      .then(()=>{
+        setIsSuccess(true)
+      })
   }
 
   const onChangeFirst = (e: ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value)
+    setIsSuccess(false)
   }
 
   const onChangeLast = (e: ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value)
+    setIsSuccess(false)
   }
 
   const onChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
@@ -113,6 +125,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
     }else{
       setErrors(prev => Object.assign(prev, {phone: 'Телефон слишком короткий'}))
     }
+    setIsSuccess(false)
   }
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -122,6 +135,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
     }else{
       setErrors(prev => Object.assign(prev, {email: null}))
     }
+    setIsSuccess(false)
   }
 
   const onSubmitSave = () => {
@@ -139,11 +153,11 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
     if(!errors.last && lastName.length > 0){
       data.append('last_name', lastName);
     }
-    if(selectedFile){
-      data.append('user_image', selectedFile);
-    }
 
     $api.patch('/profile/', data)
+      .then(()=>{
+        setIsSuccess(true)
+      })
   }
 
   const exitHandler = () => {
@@ -194,7 +208,8 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
                 <p>{translates.pages.info.why_parag}</p>
               </div>
             </div>
-            <Button onClick={onSubmitSave} text={translates.pages.info.save} />
+            {isSuccess ? <Button success={isSuccess} text={translates.pages.info.save__success} />
+              : <Button onClick={onSubmitSave} text={translates.pages.info.save}/>}
           </div>
         )
       case 2:

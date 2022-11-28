@@ -24,25 +24,50 @@ interface IProductType {
   id: number;
 }
 
+export interface IBasketProductFull{
+  id: number,
+  count: number,
+  name: string,
+  buy_now: boolean,
+  product_id: number,
+  price: number,
+  price_currency: string,
+  color: string,
+  discount: number | null,
+  image: string,
+  is_hit: boolean,
+  is_new: boolean,
+  article: string,
+  ml: number
+}
+
 export interface IProduct {
-  is_new: boolean;
-  is_hit: boolean;
+  id: number;
+  count?: number;
+  name: string;
+  buy_now: boolean;
+  price: number;
+  image?: string | null;
   product_more: IProductMore[];
-  article: string;
   type: IProductType;
+  color: string;
   discount?: number | null;
   about: string | null;
-  image?: string | null;
-  name: string;
   title: string;
-  color: string;
-  price: number;
+  is_new: boolean;
+  is_hit: boolean;
+  article: string;
+  ml: number;
+}
+
+export interface IBasketProduct {
   id: number;
-}
-
-export interface IBasketProduct extends IProduct {
+  more: number
   count: number;
+  product?: number;
 }
 
-export interface IFavProduct extends IProduct {
+export interface IFavProduct {
+  id: number;
+  more: number
 }

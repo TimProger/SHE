@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 import Container from "../../components/Container";
 import Head from "next/head";
 import {IBasketProduct, IProduct, IProductMore} from "../../types/Product.types";
-import {API_BASE_URL} from "../../http/api";
+import {$api, API_BASE_URL} from "../../http/api";
 import {useAppDispatch} from "../../hooks/useTypedDispatch";
 import {addToBasket, removeFromBasket} from "../../store/Slices/Basket.slice";
 import {toggleFav} from "../../store/Slices/Fav.slice";
@@ -26,31 +26,10 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
 
   const fav = useTypedSelector(state => state.fav)
   const basket = useTypedSelector(state => state.basket)
+  const user = useTypedSelector(state => state.profile)
 
   const [more, setMore] = useState<IProductMore>(product.product_more[0])
   const [basketProduct, setBasketProduct] = useState<IBasketProduct | null>(null)
-
-  useEffect(()=>{
-    const includes = fav.products.filter((el)=>el.id === product.id)
-    if(fav.products.includes(includes[0])){
-      setIsFav(true)
-      setMore(includes[0].product_more[0])
-    }else{
-      setIsFav(false)
-    }
-  }, [fav.products])
-
-  useEffect(()=>{
-    const includes = basket.products.filter((el)=>el.id === product.id)
-    if(basket.products.includes(includes[0])){
-      setBasketProduct(basket.products.filter((el)=>el.id === product.id)[0])
-      setIsBasket(true)
-      setMore(includes[0].product_more[0])
-    }else{
-      setBasketProduct(null)
-      setIsBasket(false)
-    }
-  }, [basket.products])
 
   useEffect(()=>{
     const id = more.id
@@ -60,16 +39,100 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
     }
   },[product])
 
+  useEffect(()=>{
+    const includes = fav.products.filter((el)=>el.id === product.id)
+    if(fav.products.includes(includes[0])){
+      setIsFav(true)
+      const productMore = product.product_more.filter((el)=>el.id === includes[0].more)
+      setMore(productMore[0])
+    }else{
+      setIsFav(false)
+    }
+  }, [fav.products])
+
+  useEffect(()=>{
+    if(user.isAuth){
+      const includes = basket.products.filter((el)=>el.product === more.id)
+      if(includes[0]){
+        setBasketProduct(basket.products.filter((el)=>el.product === more.id)[0])
+        setIsBasket(true)
+      }else{
+        setBasketProduct(null)
+        setIsBasket(false)
+      }
+    }else{
+      const includes = basket.products.filter((el)=>el.id === product.id)
+      if(basket.products.includes(includes[0])){
+        setBasketProduct(basket.products.filter((el)=>el.id === product.id)[0])
+        setIsBasket(true)
+      }else{
+        setBasketProduct(null)
+        setIsBasket(false)
+      }
+    }
+  }, [basket.products])
+
   const addToBasketHandler = () => {
-    dispatch(addToBasket({product, more}))
+    if(user.isAuth){
+      const includes = basket.products.filter((el)=>el.product === more.id)
+      if(includes[0]){
+        $api.patch(`${locale}/basket/${includes[0].id}/`, {
+          count: includes[0].count + 1
+        })
+          .then((res)=>{
+            dispatch(addToBasket(res.data))
+          })
+          .catch(()=>{})
+      }else{
+        $api.post(`${locale}/basket/`, {
+          product: more.id
+        })
+          .then((res)=>{
+            dispatch(addToBasket(res.data))
+          })
+          .catch(()=>{})
+      }
+    }else{
+      const obj = {
+        id: product.id,
+        more: more.id,
+        buy_now: true,
+        count: 1
+      }
+      dispatch(addToBasket(obj))
+    }
   }
 
   const removeFromBasketHandler = () => {
-    dispatch(removeFromBasket(product.id))
+    if(user.isAuth){
+      const includes = basket.products.filter((el)=>el.product === more.id)
+      if(includes[0].count <= 1){
+        $api.delete(`${locale}/basket/${includes[0].id}`)
+          .then((res)=>{
+            dispatch(removeFromBasket(includes[0].id))
+          })
+          .catch(()=>{})
+      }else{
+        $api.patch(`${locale}/basket/${includes[0].id}/`, {
+          count: includes[0].count - 1
+        })
+          .then((res)=>{
+            dispatch(removeFromBasket(includes[0].id))
+          })
+          .catch(()=>{})
+      }
+    }else{
+      dispatch(removeFromBasket(product.id))
+    }
+
   }
 
   const toggleFavHandler = () => {
-    dispatch(toggleFav({product, more}))
+    const obj = {
+      id: product.id,
+      more: more.id
+    }
+    dispatch(toggleFav(obj))
   }
 
   const [infoPage, setInfoPage] = useState(1);

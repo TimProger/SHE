@@ -8,26 +8,38 @@ interface IButtonProps {
   onClick?: () => void;
   type?: 'link' | 'btn';
   href?: string;
-  disabled?: boolean
+  disabled?: boolean;
+  success?: boolean;
 }
 
 const Button: React.FC<IButtonProps> = (props) => {
   switch (props.type){
     case 'link':
       return (
-        <Link href={props.href || '/'} className={s.button + ` ${props.className}`}>
+        <Link
+          href={props.href || '/'}
+          className={s.button + ` ${props.className} ${props.success ? s.button__success : ''}`}
+        >
           {props.text}
         </Link>
       )
     case 'btn':
       return (
-        <button disabled={props.disabled} onClick={props.onClick} className={s.button + ` ${props.className}`}>
+        <button
+          disabled={props.disabled}
+          onClick={props.onClick}
+          className={s.button + ` ${props.className} ${props.success ? s.button__success : ''}`}
+        >
           {props.text}
         </button>
       )
     default:
       return (
-        <button disabled={props.disabled} onClick={props.onClick} className={s.button + ` ${props.className}`}>
+        <button
+          disabled={props.disabled}
+          onClick={props.onClick}
+          className={s.button + ` ${props.className} ${props.success ? s.button__success : ''}`}
+        >
           {props.text}
         </button>
       )
