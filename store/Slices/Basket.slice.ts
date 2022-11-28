@@ -1,5 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {IBasketProduct, IFavProduct, IProduct, IProductMore} from "../../types/Product.types";
+import {getBasket} from "../ActionCreators/Basket.ac";
+import {getFavs} from "../ActionCreators/Fav.ac";
 
 interface IBasketState {
   isLoading: boolean;
@@ -39,9 +41,30 @@ export const basketSlice = createSlice({
     removeAllProductFromBasket: (state: IBasketState) => {
       state.products = []
     },
+    killProduct: (state: IBasketState, action: PayloadAction<number>) => {
+      const product = state.products.find((el)=>el.id === action.payload)
+      if(product){
+        let index = state.products.indexOf(product)
+        state.products.splice(index, 1)
+      }
+    },
   },
+  extraReducers: {
+    [getBasket.fulfilled.type]: (state, action: PayloadAction<IBasketProduct[]>) => {
+      state.isLoading = false;
+      state.error = null
+      state.products = action.payload;
+    },
+    [getBasket.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [getBasket.rejected.type]: (state,  action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload
+    },
+  }
 })
 
-export const { addToBasket, removeFromBasket, removeAllProductFromBasket } = basketSlice.actions
+export const { addToBasket, removeFromBasket, removeAllProductFromBasket, killProduct } = basketSlice.actions
 
 export default basketSlice.reducer

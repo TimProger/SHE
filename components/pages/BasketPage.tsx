@@ -30,27 +30,27 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
 
   const user = useTypedSelector(state => state.profile)
 
-  const [newProducts, setNewProducts] = useState<IProduct[]>([])
-  const [selected, setSelected] = useState<IProduct[]>([])
+  const [newProducts, setNewProducts] = useState<IBasketProductFull[]>([])
+  const [selected, setSelected] = useState<IBasketProductFull[]>([])
   const [totalPriceNew, setTotalPrice] = useState<number>(0)
   const [totalCountNew, setTotalCount] = useState<number>(0)
 
   useEffect(()=>{
-    if(!user.isAuth){
-      $api.post<IBasketProductFull[]>(`/${locale}/basket/`, {
-        ids: products.map((el)=>el.id).join(',')
-      }).then((res)=>{
+    if(user.isAuth){
+      $api.get<IBasketProductFull[]>(`/${locale}/basket/`)
+      .then((res)=>{
         if(res.data){
           // @ts-ignore
-          setSelected(res.data)
+          setNewProducts(res.data)
           // @ts-ignore
-          setNewProducts(newArr)
+          setSelected(res.data.filter((el)=>el.buy_now))
         }
       }).catch((e)=>{
         setNewProducts([])
+        setSelected([])
       })
       return;
-    }else if(user.isAuth){
+    }else{
       $api.post<IProduct[]>(`/${locale}/product/favs/`, {
         ids: products.map((el)=>el.id).join(',')
       }).then((res)=>{
@@ -60,54 +60,86 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
             if(data){
               const more = elem.product_more.find((el)=>el.id === data.more)
               if(more){
-                elem.product_more = [more]
+                elem.price = more.price
+                elem.ml = more.ml
                 elem.count = data.count
                 return elem
               }
             }
           })
           // @ts-ignore
-          setSelected(newArr)
+          setSelected([...newArr])
           // @ts-ignore
-          setNewProducts(newArr)
+          setNewProducts([...newArr])
         }
       }).catch((e)=>{
         setNewProducts([])
       })
       return;
     }
-  }, [locale, products])
+  }, [locale, products, user.isAuth])
 
   useEffect(()=>{
-    let totalC = 0
-    let totalP = 0
+    if(user.isAuth){
+      let totalC = 0
 
-    selected.map((el)=>{
-      totalP += (el.product_more[0].price * (el.count || 1))
-      totalC += (el.count || 1)
-    })
+      selected.map((el)=>{
+        totalC += (el.count || 1)
+      })
 
-    setTotalPrice(+totalP.toFixed(2))
-    setTotalCount(totalC)
+      $api.get<number>(`/${locale}/basket/price`)
+        .then((res)=>{
+          setTotalPrice(+(res.data).toFixed(2))
+        })
+      setTotalCount(totalC)
+    }else{
+      let totalP = 0
+
+      selected.map((el)=>{
+        totalP += (el.price * (el.count || 1))
+      })
+
+      setTotalPrice(+totalP.toFixed(2))
+    }
   },[selected])
 
-  const selectHandler = (product: IProduct) => {
+  const selectHandler = (product: IBasketProductFull) => {
     const includes = selected.find((el)=>el.id === product.id)
     if(!includes){
       setSelected(prev => [...prev, product])
+      if(user.isAuth){
+        $api.patch(`${locale}/basket/${product.id}/`, {
+          buy_now: true
+        })
+      }
       return;
     }else{
-      let index = selected.filter((el)=>el.id !== product.id)
-      setSelected(index)
+      let arr = selected.filter((el)=>el.id !== product.id)
+      setSelected(arr)
+      if(user.isAuth){
+        $api.patch(`${locale}/basket/${product.id}/`, {
+          buy_now: false
+        })
+      }
       return;
     }
   }
 
   const selectAllProductHandler = () => {
+    newProducts.map((el)=>{
+      $api.patch(`${locale}/basket/${el.id}/`, {
+        buy_now: true
+      })
+    })
     setSelected([...newProducts])
   }
 
   const removeAllProductFromBasketHandler = () => {
+    newProducts.map((el)=>{
+      $api.delete(`${locale}/basket/${el.id}/`)
+        .catch(()=>{})
+    })
+    setNewProducts([])
     dispatch(removeAllProductFromBasket())
   }
 

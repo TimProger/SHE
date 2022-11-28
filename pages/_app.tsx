@@ -10,6 +10,9 @@ import {useRouter} from "next/router";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {useAuth} from "../hooks/useAuth";
 import {getUser} from "../store/ActionCreators/Profile.ac";
+import {$api} from "../http/api";
+import {IBasketProductFull} from "../types/Product.types";
+import {getBasket} from "../store/ActionCreators/Basket.ac";
 
 const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
 
@@ -36,6 +39,12 @@ const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
       }
     }
   },[])
+
+  useEffect(()=>{
+    if(profileState.isAuth){
+      dispatch(getBasket(locale || 'ru'))
+    }
+  }, [profileState.isAuth])
 
   return <Component {...pageProps} />
 };

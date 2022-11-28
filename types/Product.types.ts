@@ -24,29 +24,6 @@ interface IProductType {
   id: number;
 }
 
-export interface IProduct {
-  is_new: boolean;
-  is_hit: boolean;
-  product_more: IProductMore[];
-  article: string;
-  type: IProductType;
-  discount?: number | null;
-  about: string | null;
-  image?: string | null;
-  name: string;
-  title: string;
-  color: string;
-  price: number;
-  id: number;
-  count?: number;
-}
-
-export interface IBasketProduct {
-  id: number;
-  more: number
-  count: number;
-}
-
 export interface IBasketProductFull{
   id: number,
   count: number,
@@ -56,11 +33,38 @@ export interface IBasketProductFull{
   price: number,
   price_currency: string,
   color: string,
-  discount: number,
+  discount: number | null,
   image: string,
   is_hit: boolean,
   is_new: boolean,
-  article: string
+  article: string,
+  ml: number
+}
+
+export interface IProduct {
+  id: number;
+  count?: number;
+  name: string;
+  buy_now: boolean;
+  price: number;
+  image?: string | null;
+  product_more: IProductMore[];
+  type: IProductType;
+  color: string;
+  discount?: number | null;
+  about: string | null;
+  title: string;
+  is_new: boolean;
+  is_hit: boolean;
+  article: string;
+  ml: number;
+}
+
+export interface IBasketProduct {
+  id: number;
+  more: number
+  count: number;
+  product?: number;
 }
 
 export interface IFavProduct {
