@@ -61,7 +61,12 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
   }, [fav.products])
 
   const addToBasketHandler = () => {
-    dispatch(addToBasket({product, more}))
+    const obj = {
+      id: product.id,
+      more: more.id,
+      count: 1
+    }
+    dispatch(addToBasket(obj))
   }
 
   const removeFromBasketHandler = () => {

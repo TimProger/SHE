@@ -7,61 +7,104 @@ import s from "../../styles/pages/basket.module.scss";
 import Container from "../Container";
 import Head from "next/head";
 import {useAppDispatch} from "../../hooks/useTypedDispatch";
-import {IBasketProduct} from "../../types/Product.types";
+import {IBasketProduct, IBasketProductFull, IProduct} from "../../types/Product.types";
 import {
   removeAllProductFromBasket,
 } from "../../store/Slices/Basket.slice";
 import Link from "next/link";
 import CardFloat from "../CardFloat";
 import Button from "../Button";
+import {$api} from "../../http/api";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 interface IBasketProps {
   translates: any;
   isLoading: boolean;
   products: IBasketProduct[];
   error: string | null;
-  totalPrice: number;
-  totalCount: number;
 }
 
-const BasketPage: React.FC<IBasketProps> = ({translates, products, totalPrice, totalCount}) => {
+const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
 
-  const [selected, setSelected] = useState<IBasketProduct[]>([])
+  const user = useTypedSelector(state => state.profile)
+
+  const [newProducts, setNewProducts] = useState<IProduct[]>([])
+  const [selected, setSelected] = useState<IProduct[]>([])
   const [totalPriceNew, setTotalPrice] = useState<number>(0)
   const [totalCountNew, setTotalCount] = useState<number>(0)
 
   useEffect(()=>{
-    setSelected([...products])
-    setTotalPrice(totalPrice)
-    setTotalCount(totalCount)
-  },[products])
+    if(!user.isAuth){
+      $api.post<IBasketProductFull[]>(`/${locale}/basket/`, {
+        ids: products.map((el)=>el.id).join(',')
+      }).then((res)=>{
+        if(res.data){
+          // @ts-ignore
+          setSelected(res.data)
+          // @ts-ignore
+          setNewProducts(newArr)
+        }
+      }).catch((e)=>{
+        setNewProducts([])
+      })
+      return;
+    }else if(user.isAuth){
+      $api.post<IProduct[]>(`/${locale}/product/favs/`, {
+        ids: products.map((el)=>el.id).join(',')
+      }).then((res)=>{
+        if(res.data){
+          const newArr = res.data.map((elem, index)=>{
+            const data = products.find((el)=>el.id === elem.id)
+            if(data){
+              const more = elem.product_more.find((el)=>el.id === data.more)
+              if(more){
+                elem.product_more = [more]
+                elem.count = data.count
+                return elem
+              }
+            }
+          })
+          // @ts-ignore
+          setSelected(newArr)
+          // @ts-ignore
+          setNewProducts(newArr)
+        }
+      }).catch((e)=>{
+        setNewProducts([])
+      })
+      return;
+    }
+  }, [locale, products])
 
-  const selectHandler = (product: IBasketProduct) => {
+  useEffect(()=>{
+    let totalC = 0
+    let totalP = 0
+
+    selected.map((el)=>{
+      totalP += (el.product_more[0].price * (el.count || 1))
+      totalC += (el.count || 1)
+    })
+
+    setTotalPrice(+totalP.toFixed(2))
+    setTotalCount(totalC)
+  },[selected])
+
+  const selectHandler = (product: IProduct) => {
     const includes = selected.find((el)=>el.id === product.id)
     if(!includes){
       setSelected(prev => [...prev, product])
-      const elem = products.filter((element, index)=>element.id===product.id)[0]
-      console.log(elem)
-      setTotalPrice(prev => prev += elem.price*elem.count)
-      setTotalCount(prev => prev += elem.count)
       return;
     }else{
-      let index = selected.indexOf(includes)
-      selected.splice(index, 1)
-      setSelected(prev => [...prev])
-      const elem = products.filter((element, index)=>element.id===product.id)[0]
-      setTotalPrice(prev => prev -= elem.price*elem.count)
-      setTotalCount(prev => prev -= elem.count)
+      let index = selected.filter((el)=>el.id !== product.id)
+      setSelected(index)
       return;
     }
   }
 
   const selectAllProductHandler = () => {
-    setSelected([...products])
-    setTotalPrice(totalPrice)
-    setTotalCount(totalCount)
+    setSelected([...newProducts])
   }
 
   const removeAllProductFromBasketHandler = () => {
@@ -84,11 +127,11 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products, totalPrice, t
               </div>
             </div>
             <div className={s.basket__products}>
-              {products.length > 0 ? products.map((el, index: number)=>{
+              {newProducts.length > 0 ? newProducts.map((el, index: number)=>{
                 return <div className={s.basket__products__card}>
                   <input
                     onChange={()=>selectHandler(el)}
-                    checked={!!selected.find((elem)=>elem.id === el.id)}
+                    checked={selected.indexOf(el) !== -1}
                     type={'checkbox'} />
                   <CardFloat product={el} isBasket={true} />
                 </div>

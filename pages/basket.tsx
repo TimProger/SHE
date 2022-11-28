@@ -19,7 +19,7 @@ const Basket: React.FC = () => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 
-  const {products, isLoading, error, totalPrice, totalCount} = useTypedSelector(state => state.basket)
+  const {products, isLoading, error} = useTypedSelector(state => state.basket)
 
   const translates = {
     title: t('basket:title'),
@@ -99,8 +99,7 @@ const Basket: React.FC = () => {
       products={products}
       isLoading={isLoading}
       error={error}
-      totalPrice={totalPrice}
-      totalCount={totalCount}/>
+    />
   );
 };
 

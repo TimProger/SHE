@@ -27,7 +27,7 @@ const FavPage: React.FC<IFavProps> = ({translates, products}) => {
     dispatch(removeAllProductFromFav())
   }
 
-  const [newProducts, setNewProducts] = useState<IProduct[] | null>()
+  const [newProducts, setNewProducts] = useState<IProduct[]>([])
 
   useEffect(()=>{
     $api.post<IProduct[]>(`/${locale}/product/favs/`, {
@@ -67,7 +67,7 @@ const FavPage: React.FC<IFavProps> = ({translates, products}) => {
               </div>
             </div>
             <div className={s.fav__products}>
-              {newProducts && newProducts.length > 0 ? newProducts.map((el, index: number)=>{
+              {newProducts.length > 0 ? newProducts.map((el, index: number)=>{
                 return <div className={s.fav__products__card}>
                   <CardFloat product={el} isBasket={false} />
                 </div>

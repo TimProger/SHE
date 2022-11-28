@@ -68,7 +68,6 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
   const changeFile = (e: ChangeEvent) => {
     const target = e.target as HTMLInputElement;
     const files = target.files as FileList;
-    console.log(files)
     // @ts-ignore
     setSelectedFile(files[0])
   }

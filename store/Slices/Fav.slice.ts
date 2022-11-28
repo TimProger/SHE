@@ -22,7 +22,6 @@ export const favSlice = createSlice({
     toggleFav: (state: IFavState, action: PayloadAction<IFavProduct>) => {
       const includes = state.products.filter((el)=>el.id === action.payload.id)
       if(!state.products.includes(includes[0])){
-        console.log(includes[0])
         state.products.push(action.payload)
       }else{
         const index = state.products.indexOf(includes[0])

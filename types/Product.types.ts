@@ -38,12 +38,29 @@ export interface IProduct {
   color: string;
   price: number;
   id: number;
+  count?: number;
 }
 
-export interface IBasketProduct extends IProduct {
+export interface IBasketProduct {
   id: number;
   more: number
   count: number;
+}
+
+export interface IBasketProductFull{
+  id: number,
+  count: number,
+  name: string,
+  buy_now: boolean,
+  product_id: number,
+  price: number,
+  price_currency: string,
+  color: string,
+  discount: number,
+  image: string,
+  is_hit: boolean,
+  is_new: boolean,
+  article: string
 }
 
 export interface IFavProduct {
