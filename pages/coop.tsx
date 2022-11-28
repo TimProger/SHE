@@ -8,7 +8,7 @@ import CoopPage from "../components/pages/CoopPage";
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer', 'partnership']))
     },
     revalidate: 10
   }
@@ -53,6 +53,30 @@ const Coop: React.FC = () => {
         oae: t('auth:country_oae'),
         india: t('auth:country_india'),
         turkey: t('auth:country_turkey'),
+      },
+    },
+    partnership: {
+      error_code_1: t('partnership:error_code_1'),
+      title: t('partnership:title'),
+      paragraph_1: t('partnership:paragraph_1'),
+      paragraph_2: t('partnership:paragraph_2'),
+      input_1: t('partnership:input_1'),
+      message: t('partnership:message'),
+      name: t('partnership:name'),
+      button: t('partnership:button'),
+      text: t('partnership:text'),
+      link: t('partnership:link'),
+      countries: {
+        russia: t('partnership:country_russia'),
+        usa: t('partnership:country_usa'),
+        uar: t('partnership:country_uar'),
+        korea: t('partnership:country_korea'),
+        bel: t('partnership:country_bel'),
+        azerb: t('partnership:country_azerb'),
+        england: t('partnership:country_england'),
+        oae: t('partnership:country_oae'),
+        india: t('partnership:country_india'),
+        turkey: t('partnership:country_turkey'),
       },
     },
     footer: {

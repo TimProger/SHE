@@ -1,0 +1,90 @@
+@import "../colors";
+
+.auth{
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: #00000050;
+  z-index: 999;
+  transition: all 0.3s;
+  opacity: 0;
+  display: flex;
+  visibility: hidden;
+  flex-direction: column;
+  cursor: pointer;
+
+  &__active{
+    visibility: visible;
+    opacity: 1 !important;
+
+    & .auth__form{
+      right: 0 !important;
+    }
+  }
+
+  &__form{
+    position: absolute;
+    right: -800px;
+    width: 800px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    background: $block-thrd;
+    transition: all 0.5s;
+    font-size: 18px;
+    cursor: auto;
+
+    &__container{
+      width: 60%;
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 50px;
+
+      & p{
+        color: $text-sec;
+        text-align: left;
+      }
+
+      & h1{
+        font-size: 45px;
+      }
+
+      &__button{
+        width: 272px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        font-size: 16px;
+
+        & p{
+          color: $text-error;
+        }
+
+        & button {
+          padding: 15px 45px;
+          font-size: 16px;
+        }
+      }
+
+      &__input{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+
+        & input{
+          width: 100%;
+          border: none;
+          height: 40px;
+          border-bottom: 1px solid black;
+          padding: 25px 10px;
+          font-size: 25px;
+        }
+      }
+    }
+  }
+}
