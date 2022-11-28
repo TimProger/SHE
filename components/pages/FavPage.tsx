@@ -5,7 +5,7 @@ import s from "../../styles/pages/fav.module.scss";
 import Container from "../Container";
 import Head from "next/head";
 import {useAppDispatch} from "../../hooks/useTypedDispatch";
-import {IFavProduct, IProduct} from "../../types/Product.types";
+import {IBasketProductFull, IFavProduct, IProduct} from "../../types/Product.types";
 import CardFloat from "../CardFloat";
 import Link from "next/link";
 import {removeAllProductFromFav} from "../../store/Slices/Fav.slice";
@@ -27,7 +27,7 @@ const FavPage: React.FC<IFavProps> = ({translates, products}) => {
     dispatch(removeAllProductFromFav())
   }
 
-  const [newProducts, setNewProducts] = useState<IProduct[]>([])
+  const [newProducts, setNewProducts] = useState<IBasketProductFull[]>([])
 
   useEffect(()=>{
     $api.post<IProduct[]>(`/${locale}/product/favs/`, {
@@ -39,7 +39,8 @@ const FavPage: React.FC<IFavProps> = ({translates, products}) => {
           if(data){
             const more = elem.product_more.find((el)=>el.id === data.more)
             if(more){
-              elem.product_more = [more]
+              elem.price = more.price
+              elem.ml = more.ml
               return elem
             }
           }

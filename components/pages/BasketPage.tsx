@@ -81,24 +81,25 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
 
   useEffect(()=>{
     if(user.isAuth){
+      $api.get<number>(`/${locale}/basket/price`)
+        .then((res)=>{
+          let totalC = 0
+          selected.map((el)=>{
+            totalC += (el.count || 1)
+          })
+          setTotalCount(totalC)
+          setTotalPrice(+(res.data).toFixed(2))
+        })
+    }else{
+      let totalP = 0
       let totalC = 0
 
       selected.map((el)=>{
+        totalP += (el.price * (el.count || 1))
         totalC += (el.count || 1)
       })
 
-      $api.get<number>(`/${locale}/basket/price`)
-        .then((res)=>{
-          setTotalPrice(+(res.data).toFixed(2))
-        })
       setTotalCount(totalC)
-    }else{
-      let totalP = 0
-
-      selected.map((el)=>{
-        totalP += (el.price * (el.count || 1))
-      })
-
       setTotalPrice(+totalP.toFixed(2))
     }
   },[selected])
