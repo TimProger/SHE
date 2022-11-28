@@ -81,15 +81,6 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
 
   useEffect(()=>{
     if(user.isAuth){
-      $api.get<number>(`/${locale}/basket/price`)
-        .then((res)=>{
-          let totalC = 0
-          selected.map((el)=>{
-            totalC += (el.count || 1)
-          })
-          setTotalCount(totalC)
-          setTotalPrice(+(res.data).toFixed(2))
-        })
     }else{
       let totalP = 0
       let totalC = 0
@@ -112,6 +103,17 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
         $api.patch(`${locale}/basket/${product.id}/`, {
           buy_now: true
         })
+          .then(()=>{
+            $api.get<number>(`/${locale}/basket/price`)
+              .then((res)=>{
+                let totalC = 0
+                selected.map((el)=>{
+                  totalC += (el.count || 1)
+                })
+                setTotalCount(totalC)
+                setTotalPrice(+(res.data).toFixed(2))
+              })
+          })
       }
       return;
     }else{
@@ -121,6 +123,17 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
         $api.patch(`${locale}/basket/${product.id}/`, {
           buy_now: false
         })
+          .then(()=> {
+            $api.get<number>(`/${locale}/basket/price`)
+              .then((res) => {
+                let totalC = 0
+                selected.map((el) => {
+                  totalC += (el.count || 1)
+                })
+                setTotalCount(totalC)
+                setTotalPrice(+(res.data).toFixed(2))
+              })
+          })
       }
       return;
     }

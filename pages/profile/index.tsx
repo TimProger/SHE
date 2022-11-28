@@ -27,6 +27,7 @@ const Profile: React.FC = () => {
         why_title: t('profile:why_title'),
         why_parag: t('profile:why_parag'),
         save: t('profile:save'),
+        save__success: t('profile:save__success'),
         inputs: {
           first: t('profile:input_first'),
           first_pl: t('profile:input_first__pl'),
