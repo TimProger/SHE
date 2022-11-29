@@ -30,7 +30,7 @@ const Footer: React.FC<IFooterProps> = ({links, titles}) => {
             </td>
             <td>
               <Link href={'/about'}>{links.info_link1}</Link><br/><br/> {/* О нас */}
-              <Link href={'/about'}>{links.info_link2}</Link><br/><br/> {/* Документы */}
+              <Link href={'/documents'}>{links.info_link2}</Link><br/><br/> {/* Документы */}
               <Link href={'/coop'}>{links.info_link3}</Link><br/><br/> {/* Сотрудничество */}
             </td>
             <td>

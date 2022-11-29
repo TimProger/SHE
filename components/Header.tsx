@@ -165,51 +165,53 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
             </div>
           </div>
           <div className={popupState ? s.popup_active : s.popup} onMouseOver={()=>setPopupState(true)} onMouseLeave={()=>setPopupState(false)}>
-            <ul className={s.popup_active__list}>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(1)}><Link href="/profile">Гель-лаки</Link>
+            <div className={s.popup_active__container}>
+              <ul className={s.popup_active__list}>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(1)}><Link href="/profile">Гель-лаки</Link>
+                  <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.39001 0.877758L5.53133 5.60599C5.58048 5.66228 5.61522 5.72326 5.63554 5.78893C5.65618 5.8546 5.6665 5.92496 5.6665 6.00001C5.6665 6.07506 5.65618 6.14542 5.63554 6.21109C5.61522 6.27676 5.58048 6.33774 5.53133 6.39403L1.39001 11.1363C1.27531 11.2677 1.13194 11.3333 0.959899 11.3333C0.787856 11.3333 0.64039 11.263 0.517503 11.1223C0.394615 10.9815 0.333171 10.8174 0.333171 10.6297C0.333171 10.4421 0.394615 10.2779 0.517503 10.1372L4.13041 6.00001L0.517502 1.86281C0.402806 1.73147 0.345459 1.56973 0.345459 1.3776C0.345459 1.18509 0.406902 1.01848 0.52979 0.877758C0.652678 0.737037 0.796047 0.666676 0.959898 0.666676C1.12375 0.666676 1.26712 0.737037 1.39001 0.877758Z" fill="black"/>
+                  </svg>
+                </li>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(2)}><Link href="/profile">Базовые покрытия</Link>
                 <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1.39001 0.877758L5.53133 5.60599C5.58048 5.66228 5.61522 5.72326 5.63554 5.78893C5.65618 5.8546 5.6665 5.92496 5.6665 6.00001C5.6665 6.07506 5.65618 6.14542 5.63554 6.21109C5.61522 6.27676 5.58048 6.33774 5.53133 6.39403L1.39001 11.1363C1.27531 11.2677 1.13194 11.3333 0.959899 11.3333C0.787856 11.3333 0.64039 11.263 0.517503 11.1223C0.394615 10.9815 0.333171 10.8174 0.333171 10.6297C0.333171 10.4421 0.394615 10.2779 0.517503 10.1372L4.13041 6.00001L0.517502 1.86281C0.402806 1.73147 0.345459 1.56973 0.345459 1.3776C0.345459 1.18509 0.406902 1.01848 0.52979 0.877758C0.652678 0.737037 0.796047 0.666676 0.959898 0.666676C1.12375 0.666676 1.26712 0.737037 1.39001 0.877758Z" fill="black"/>
-                </svg>
-              </li>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(2)}><Link href="/profile">Базовые покрытия</Link>
-              <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1.39001 0.877758L5.53133 5.60599C5.58048 5.66228 5.61522 5.72326 5.63554 5.78893C5.65618 5.8546 5.6665 5.92496 5.6665 6.00001C5.6665 6.07506 5.65618 6.14542 5.63554 6.21109C5.61522 6.27676 5.58048 6.33774 5.53133 6.39403L1.39001 11.1363C1.27531 11.2677 1.13194 11.3333 0.959899 11.3333C0.787856 11.3333 0.64039 11.263 0.517503 11.1223C0.394615 10.9815 0.333171 10.8174 0.333171 10.6297C0.333171 10.4421 0.394615 10.2779 0.517503 10.1372L4.13041 6.00001L0.517502 1.86281C0.402806 1.73147 0.345459 1.56973 0.345459 1.3776C0.345459 1.18509 0.406902 1.01848 0.52979 0.877758C0.652678 0.737037 0.796047 0.666676 0.959898 0.666676C1.12375 0.666676 1.26712 0.737037 1.39001 0.877758Z" fill="black"/>
-                </svg>
-              </li>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(3)}><Link href="/profile">Финишные покрытия</Link>
-              <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1.39001 0.877758L5.53133 5.60599C5.58048 5.66228 5.61522 5.72326 5.63554 5.78893C5.65618 5.8546 5.6665 5.92496 5.6665 6.00001C5.6665 6.07506 5.65618 6.14542 5.63554 6.21109C5.61522 6.27676 5.58048 6.33774 5.53133 6.39403L1.39001 11.1363C1.27531 11.2677 1.13194 11.3333 0.959899 11.3333C0.787856 11.3333 0.64039 11.263 0.517503 11.1223C0.394615 10.9815 0.333171 10.8174 0.333171 10.6297C0.333171 10.4421 0.394615 10.2779 0.517503 10.1372L4.13041 6.00001L0.517502 1.86281C0.402806 1.73147 0.345459 1.56973 0.345459 1.3776C0.345459 1.18509 0.406902 1.01848 0.52979 0.877758C0.652678 0.737037 0.796047 0.666676 0.959898 0.666676C1.12375 0.666676 1.26712 0.737037 1.39001 0.877758Z" fill="black"/>
-                </svg>
-              </li>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Конструирующие гели</Link></li>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Жидкие полигели</Link></li>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Праймеры дегидраторы</Link></li>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Сопутств. жидк.</Link></li>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Уход</Link></li>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Пилочный маникюр</Link></li>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Расходные материалы</Link></li>
-              <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Слайдеры</Link></li>
-            </ul>
-            {popupPage == 1 ? 
-              <ul onMouseLeave={()=>setPopupPage(0)} className={popupPage == 1 ? s.popup_semilist_active :  s.popup_semilist}>
-                <li><Link href='/profile'>Основная коллекция</Link></li>
-                <li><Link href='/profile'>«ELIZABETH»</Link></li>
-                <li><Link href='/profile'>«NEON»</Link></li>
-                <li><Link href='/profile'>«SKY»</Link></li>
-                <li><Link href='/profile'>«NUNA»</Link></li>
-                <li><Link href='/profile'>«TATI»</Link></li>
+                    <path d="M1.39001 0.877758L5.53133 5.60599C5.58048 5.66228 5.61522 5.72326 5.63554 5.78893C5.65618 5.8546 5.6665 5.92496 5.6665 6.00001C5.6665 6.07506 5.65618 6.14542 5.63554 6.21109C5.61522 6.27676 5.58048 6.33774 5.53133 6.39403L1.39001 11.1363C1.27531 11.2677 1.13194 11.3333 0.959899 11.3333C0.787856 11.3333 0.64039 11.263 0.517503 11.1223C0.394615 10.9815 0.333171 10.8174 0.333171 10.6297C0.333171 10.4421 0.394615 10.2779 0.517503 10.1372L4.13041 6.00001L0.517502 1.86281C0.402806 1.73147 0.345459 1.56973 0.345459 1.3776C0.345459 1.18509 0.406902 1.01848 0.52979 0.877758C0.652678 0.737037 0.796047 0.666676 0.959898 0.666676C1.12375 0.666676 1.26712 0.737037 1.39001 0.877758Z" fill="black"/>
+                  </svg>
+                </li>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(3)}><Link href="/profile">Финишные покрытия</Link>
+                <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.39001 0.877758L5.53133 5.60599C5.58048 5.66228 5.61522 5.72326 5.63554 5.78893C5.65618 5.8546 5.6665 5.92496 5.6665 6.00001C5.6665 6.07506 5.65618 6.14542 5.63554 6.21109C5.61522 6.27676 5.58048 6.33774 5.53133 6.39403L1.39001 11.1363C1.27531 11.2677 1.13194 11.3333 0.959899 11.3333C0.787856 11.3333 0.64039 11.263 0.517503 11.1223C0.394615 10.9815 0.333171 10.8174 0.333171 10.6297C0.333171 10.4421 0.394615 10.2779 0.517503 10.1372L4.13041 6.00001L0.517502 1.86281C0.402806 1.73147 0.345459 1.56973 0.345459 1.3776C0.345459 1.18509 0.406902 1.01848 0.52979 0.877758C0.652678 0.737037 0.796047 0.666676 0.959898 0.666676C1.12375 0.666676 1.26712 0.737037 1.39001 0.877758Z" fill="black"/>
+                  </svg>
+                </li>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Конструирующие гели</Link></li>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Жидкие полигели</Link></li>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Праймеры дегидраторы</Link></li>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Сопутств. жидк.</Link></li>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Уход</Link></li>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Пилочный маникюр</Link></li>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Расходные материалы</Link></li>
+                <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupPage(0)}><Link href="/profile">Слайдеры</Link></li>
+              </ul>
+              {popupPage == 1 ? 
+                <ul onMouseLeave={()=>setPopupPage(0)} className={popupPage == 1 ? s.popup_semilist_active :  s.popup_semilist}>
+                  <li><Link href='/profile'>Основная коллекция</Link></li>
+                  <li><Link href='/profile'>«ELIZABETH»</Link></li>
+                  <li><Link href='/profile'>«NEON»</Link></li>
+                  <li><Link href='/profile'>«SKY»</Link></li>
+                  <li><Link href='/profile'>«NUNA»</Link></li>
+                  <li><Link href='/profile'>«TATI»</Link></li>
+                </ul> : <></>}
+              {popupPage == 2 ? 
+                <ul style={{paddingTop : '51px'}} onMouseLeave={()=>setPopupPage(0)} className={popupPage == 2 ? s.popup_semilist_active : s.popup_semilist }>
+                <li><Link href='/profile'>Прозрачные</Link></li>
+                <li><Link href='/profile'>Камуфлирующие</Link></li>
+                </ul> : <></>}
+              {popupPage == 3 ? 
+                <ul style={{paddingTop : '102px'}} onMouseLeave={()=>setPopupPage(0)} className={popupPage == 3 ? s.popup_semilist_active : s.popup_semilist}>
+                  <li><Link href='/profile'>С эффектом</Link></li>
+                  <li><Link href='/profile'>Без эффекта</Link></li>
+                  <li><Link href='/profile'>Матовый</Link></li>
               </ul> : <></>}
-            {popupPage == 2 ? 
-              <ul style={{paddingTop : '51px'}} onMouseLeave={()=>setPopupPage(0)} className={popupPage == 2 ? s.popup_semilist_active : s.popup_semilist }>
-              <li><Link href='/profile'>Прозрачные</Link></li>
-              <li><Link href='/profile'>Камуфлирующие</Link></li>
-              </ul> : <></>}
-            {popupPage == 3 ? 
-              <ul style={{paddingTop : '102px'}} onMouseLeave={()=>setPopupPage(0)} className={popupPage == 3 ? s.popup_semilist_active : s.popup_semilist}>
-                <li><Link href='/profile'>С эффектом</Link></li>
-                <li><Link href='/profile'>Без эффекта</Link></li>
-                <li><Link href='/profile'>Матовый</Link></li>
-            </ul> : <></>}
+            </div>
           </div>
         </div>
       </header>

@@ -1,0 +1,55 @@
+@import "../colors";
+
+.documents {
+
+    &__wrapper {
+        width: 100%;
+        margin-bottom: 284px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    & h1 {
+        font-weight: 600;
+        font-size: 40px;
+        margin-bottom: 50px;
+    }
+
+    & h2 {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 44px;
+    }
+
+    &__certificates {
+        margin-bottom: 50px;
+
+        &__pdf {
+            font-weight: 600;
+            font-size: 24px;
+            text-decoration-line: underline;
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        &__doc {
+            font-weight: 600;
+            font-size: 24px;
+            text-decoration-line: underline;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__cataloge {
+        margin-bottom: 45px;
+
+        &__exel {
+            font-weight: 600;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
