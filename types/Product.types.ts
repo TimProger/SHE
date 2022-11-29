@@ -18,15 +18,16 @@ export interface IProductMore {
   price_currency: string;
   price: number;
   images: IProductImage[]
+  count: number,
 }
 
 export interface IBasketProductFull{
   id: number,
-  count: number,
   name: string,
   buy_now: boolean,
   product_id: number,
   price: number,
+  product_more: IProductMore[];
   price_currency: string,
   color: string,
   discount: number | null,

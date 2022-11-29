@@ -21,7 +21,7 @@ const validEmailRegex = RegExp(
 );
 
 const Product: React.FC<IProfilePageProps> = ({translates}) => {
-  const { locale } = useRouter()
+  const { locale, query } = useRouter()
   const dispatch = useAppDispatch()
 
   const { isAuth, isLoading, user } = useTypedSelector(state => state.profile)
@@ -178,6 +178,13 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
   }
 
   const [page, setPage] = useState<number>(1)
+
+  useEffect(()=>{
+    console.log(query)
+    if(query.page){
+      setPage(+query.page)
+    }
+  }, [])
 
   const displayPage = () => {
     switch (page){

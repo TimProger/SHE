@@ -9,7 +9,7 @@ export const getBasket = createAsyncThunk(
       const response = await $api.get<IBasketProductFull[]>(`/${locale}/basket/`)
       return response.data.map((el) => ({
         id: el.id,
-        count: el.count,
+        count: el.product_more[0].count,
         buy_now: el.buy_now,
         product: el.product_id
       }));

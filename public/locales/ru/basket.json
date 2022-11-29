@@ -1,10 +1,16 @@
 {
   "title": "Корзина",
+  "title_1": "Получатель",
   "clear":  "Очистить корзину",
   "selectAll":  "Выбрать все",
   "total": "Всего",
   "productsToBuy": "товаров на сумму",
   "buy": "Оформить заказ",
   "empty": "В вашей корзине нет товаров",
-  "toCatalogue": "В каталог"
+  "toCatalogue": "В каталог",
+  "order_first": "Имя*",
+  "order_first_pl": "Мария",
+  "order_last": "Фамилия*",
+  "order_last_pl": "Иванова",
+  "order_phone": "Телефон*"
 }

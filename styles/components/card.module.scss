@@ -46,6 +46,10 @@
       color: $block-main;
     }
 
+    & svg{
+      fill: $block-thrd;
+    }
+
     .card__header__fav__active svg{
       fill: $block-main;
 
@@ -59,6 +63,10 @@
 
     .card__header__new__discount{
       color: $block-frth;
+    }
+
+    & svg{
+      fill: $block-thrd;
     }
 
     .card__header__fav__active svg{
