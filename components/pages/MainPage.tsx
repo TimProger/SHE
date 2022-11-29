@@ -112,11 +112,9 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
             </div>
             <Swiper
               className={s.new}
-              modules={[Navigation, Autoplay, Lazy]}
-              lazy={true}
-              loop={true}
-              slidesPerView={4}
+              modules={[Navigation]}
               navigation={true}
+              slidesPerView={4}
               onInit={(ev) => {
                 // @ts-ignore
                 setMySwiper(ev)
@@ -151,12 +149,10 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
               </div>
             </div>
             <Swiper
-              className={s.new}
-              modules={[Navigation, Autoplay, Lazy]}
-              lazy={true}
-              loop={true}
-              slidesPerView={4}
+              modules={[Navigation]}
               navigation={true}
+              className={s.new}
+              slidesPerView={4}
               onInit={(ev) => {
                 // @ts-ignore
                 setMySwiper2(ev)

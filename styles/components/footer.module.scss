@@ -31,10 +31,11 @@
     }
 
     & td{
-      max-width: 160px;
       vertical-align: top;
+      max-width: 200px;
 
       & a{
+        margin-top: 20px;
         text-decoration: none;
         color: $text-sec;
 

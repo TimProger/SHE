@@ -7,6 +7,7 @@ import {useRouter} from "next/router";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {addToBasket, removeFromBasket, killProduct} from "../store/Slices/Basket.slice";
 import {removeFromFavs} from "../store/Slices/Fav.slice";
+import Stock from '../public/images/stock.png'
 
 interface ICardProps {
   product: IBasketProductFull
@@ -33,7 +34,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const {
     discount,
-    image,
+    images,
     name,
     price,
     color,
@@ -101,7 +102,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     <div className={s.card}>
       <div className={s.card__content}>
         <div className={s.card__content__image}>
-          <img src={`${API_BASE_URL}${`${image}`.split('').shift() === '/' ? '' : '/'}${image}`} alt={name} />
+          <img src={images[0] ? `${API_BASE_URL}${`${images[0].image}`.split('').shift() === '/' ? '' : '/'}${images[0].image}` : `${Stock.src}`} alt={name} />
         </div>
         <div className={s.card__content__info}>
           <h2>{name}</h2>

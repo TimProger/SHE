@@ -33,6 +33,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
   const [newProducts, setNewProducts] = useState<IBasketProductFull[]>([])
   const [selected, setSelected] = useState<IBasketProductFull[]>([])
   const [totalPriceNew, setTotalPrice] = useState<number>(0)
+  const [page, setPage] = useState<number>(0)
   const [totalCountNew, setTotalCount] = useState<number>(0)
 
   useEffect(()=>{
@@ -155,6 +156,24 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
     })
     setNewProducts([])
     dispatch(removeAllProductFromBasket())
+  }
+
+  const returnPages = () => {
+    switch (page){
+      case 0:
+        return (<div></div>)
+      case 1:
+        return (<div></div>)
+    }
+  }
+
+  const handleClick = () => {
+    switch (page){
+      case 0:
+        return (<div></div>)
+      case 1:
+        return (<div></div>)
+    }
   }
 
   return (

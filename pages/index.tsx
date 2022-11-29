@@ -12,6 +12,7 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   const products = await fetch(`${API_BASE_URL}/${locale}/product`)
   const productsData: IProduct[] = await products.json()
   const slidesData: ISlide[] = await slides.json()
+
   return {
     props: {
       slides: slidesData,
