@@ -23,6 +23,7 @@ const Basket: React.FC = () => {
 
   const translates = {
     title: t('basket:title'),
+    title_1: t('basket:title_1'),
     clear: t('basket:clear'),
     selectAll: t('basket:selectAll'),
     total: t('basket:total'),
@@ -30,6 +31,13 @@ const Basket: React.FC = () => {
     buy: t('basket:buy'),
     empty: t('basket:empty'),
     toCatalogue: t('basket:toCatalogue'),
+    order: {
+      first: t('basket:order_first'),
+      first_pl: t('basket:order_first_pl'),
+      last: t('basket:order_last'),
+      last_pl: t('basket:order_last_pl'),
+      phone: t('basket:order_phone'),
+    },
     header: {
       home: t('header:home'),
       catalogue: t('header:catalogue'),

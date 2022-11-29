@@ -1,10 +1,16 @@
 {
   "title": "Basket",
+  "title_1": "Recipient",
   "clear":  "Clear basket",
   "selectAll":  "Select all",
   "total": "It's",
   "productsToBuy": "products with price",
   "buy": "Make an order",
   "empty": "Basket is empty",
-  "toCatalogue": "To the catalogue"
+  "toCatalogue": "To the catalogue",
+  "order_first": "Firstname*",
+  "order_first_pl": "Mary",
+  "order_last": "Lastname*",
+  "order_last_pl": "Smith",
+  "order_phone": "Phone*"
 }

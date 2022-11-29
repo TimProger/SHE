@@ -11,6 +11,7 @@ import {addToBasket, removeFromBasket} from "../../store/Slices/Basket.slice";
 import {toggleFav} from "../../store/Slices/Fav.slice";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import Button from "../Button";
+import Stock from "../../public/images/stock.png";
 
 interface IProductPageProps {
   translates: any;
@@ -29,6 +30,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
   const user = useTypedSelector(state => state.profile)
 
   const [more, setMore] = useState<IProductMore>(product.product_more[0])
+  const [mainImage, setMainImage] = useState<string>(product.images[0] ? `${API_BASE_URL}/${product.images[0].image}` : `${Stock.src}`)
   const [basketProduct, setBasketProduct] = useState<IBasketProduct | null>(null)
 
   useEffect(()=>{
@@ -137,6 +139,9 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
 
   const [infoPage, setInfoPage] = useState(1);
 
+  const scrollHandler = (e: React.UIEvent<HTMLElement>) => {
+  }
+
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
       <Head>
@@ -147,7 +152,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
           <div className={s.container__product}>
             <div className={s.container__product__header}>
               <div className={s.container__product__header__path}>
-                Главная / Каталог / {product.type.id} / {product.name}
+                Главная / Каталог / {product.type} / {product.name}
               </div>
               <article className={s.container__product__header__article}>
                 {translates.article} {product.article}
@@ -155,13 +160,35 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
             </div>
             <div className={s.container__product__product}>
               <div className={s.container__product__product__images}>
-                <div className={s.container__product__product__images__slider}></div>
+                <div className={s.container__product__product__images__slider}>
+                  {product.images.map((el)=>{
+                    return <img
+                      className={mainImage === `${API_BASE_URL}/${el.image}`
+                        ? s.container__product__product__images__slider__active
+                        : ''}
+                      onClick={()=>setMainImage(`${API_BASE_URL}/${el.image}`)}
+                      src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
+                      alt={'img'} />
+                  })}
+                  {product.product_more.map((elem)=>{
+                    return elem.images.map((el)=>{
+                      return <img
+                        className={mainImage === `${API_BASE_URL}/${el.image}`
+                          ? s.container__product__product__images__slider__active
+                          : ''}
+                        onClick={()=>setMainImage(`${API_BASE_URL}/${el.image}`)}
+                        src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
+                        alt={'img'} />
+                    })
+                  })}
+                  <div onClick={(e: React.UIEvent<HTMLElement>)=>scrollHandler(e)}></div>
+                </div>
                 <div className={s.container__product__product__images__main}>
                   <div className={s.container__product__product__images__main__tags}>
                     {product.is_new && <div className={s.container__product__product__images__main__new}>New</div>}
                     {product.is_hit && <div className={s.container__product__product__images__main__hit}>Hit</div>}
                   </div>
-                  <img src={product.image ?`${API_BASE_URL}${product.image}` : ''} alt={product.name}/>
+                  <img src={mainImage} alt={product.name}/>
                 </div>
               </div>
               <div className={s.container__product__product__info}>
@@ -177,7 +204,9 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
                   <div className={s.container__product__product__info__size__container}>
                     {product.product_more.map((el)=>{
                       return <div key={el.id}
-                        className={more.ml === el.ml ? s.container__product__product__info__size__container__active : ''}
+                        className={more.ml === el.ml
+                          ? s.container__product__product__info__size__container__active
+                          : ''}
                         onClick={()=>setMore(el)}>
                         {el.ml}
                       </div>

@@ -10,10 +10,11 @@
 
   &__image{
     position: absolute;
-    top: 0px;
+    top: 0;
 
     & img{
       width: 100%;
+      user-select: none;
     }
   }
 
@@ -45,6 +46,10 @@
       color: $block-main;
     }
 
+    & svg{
+      fill: $block-thrd;
+    }
+
     .card__header__fav__active svg{
       fill: $block-main;
 
@@ -58,6 +63,10 @@
 
     .card__header__new__discount{
       color: $block-frth;
+    }
+
+    & svg{
+      fill: $block-thrd;
     }
 
     .card__header__fav__active svg{
@@ -92,6 +101,10 @@
     flex-direction: column;
     gap: 10px;
     padding: 0 0 5px 0;
+
+    & h2{
+      font-size: 18px;
+    }
 
     &__footer{
       display: flex;

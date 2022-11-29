@@ -7,6 +7,7 @@ import {useRouter} from "next/router";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {addToBasket, removeFromBasket, killProduct} from "../store/Slices/Basket.slice";
 import {removeFromFavs} from "../store/Slices/Fav.slice";
+import Stock from '../public/images/stock.png'
 
 interface ICardProps {
   product: IBasketProductFull
@@ -33,7 +34,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const {
     discount,
-    image,
+    images,
     name,
     price,
     color,
@@ -43,8 +44,8 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const addToBasketHandler = () => {
     if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.id}/`, {
-          count: product.count + 1
+        $api.patch(`${locale}/basket/${product.product_more[0].id}/`, {
+          count: product.product_more[0].count + 1
         })
           .then((res)=>{
             dispatch(addToBasket(res.data))
@@ -63,16 +64,16 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const removeFromBasketHandler = () => {
     if(user.isAuth){
-      if(product?.count <= 1){
-        dispatch(removeFromBasket(product.id))
-        $api.delete(`${locale}/basket/${product.id}`)
+      if(product?.product_more[0].count <= 1){
+        dispatch(removeFromBasket(product.product_more[0].id))
+        $api.delete(`${locale}/basket/${product.product_more[0].id}`)
           .catch(()=>{})
       }else{
-        $api.patch(`${locale}/basket/${product.id}/`, {
-          count: product.count - 1
+        $api.patch(`${locale}/basket/${product.product_more[0].id}/`, {
+          count: product.product_more[0].count - 1
         })
           .then((res)=>{
-            dispatch(removeFromBasket(product.id))
+            dispatch(removeFromBasket(product.product_more[0].id))
           })
           .catch(()=>{})
       }
@@ -83,7 +84,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const killProductFromBasketHandler = () => {
     if(user.isAuth){
-      $api.delete(`${locale}/basket/${product.id}`)
+      $api.delete(`${locale}/basket/${product.product_more[0].id}`)
         .then((res)=>{
           dispatch(killProduct(product.id))
         })
@@ -101,7 +102,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     <div className={s.card}>
       <div className={s.card__content}>
         <div className={s.card__content__image}>
-          <img src={`${API_BASE_URL}${`${image}`.split('').shift() === '/' ? '' : '/'}${image}`} alt={name} />
+          <img src={images[0] ? `${API_BASE_URL}${`${images[0].image}`.split('').shift() === '/' ? '' : '/'}${images[0].image}` : `${Stock.src}`} alt={name} />
         </div>
         <div className={s.card__content__info}>
           <h2>{name}</h2>
@@ -109,7 +110,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
             <span style={{background: color}} className={s.card__content__info__color__block} />
           </p>
           <p className={s.card__content__info__size}>Объем, мл:
-            <span>{product.ml}</span>
+            <span>{product.product_more[0].ml}</span>
           </p>
           <p className={s.card__content__info__articul}>Артикул: {article}</p>
         </div>
@@ -120,12 +121,12 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           <path d="M1.34314 1.34326L12.6568 12.657" stroke="#A0A0A0"/>
         </svg>
         <div className={s.card__price__text}>
-          {discount ? <h2 className={s.card__price__text__discount}>{(product.price*(discount/100+1)*(product?.count || 1)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h2> : ''}
-          <h1 className={s.card__price__text__price}>{(product.price*(product?.count || 1)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h1>
+          {discount ? <h2 className={s.card__price__text__discount}>{(product.product_more[0].price*(discount/100+1)*(product.product_more[0].count || 1)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h2> : ''}
+          <h1 className={s.card__price__text__price}>{(product.product_more[0].price*(product.product_more[0].count || 1)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h1>
         </div>
         {isBasket ? <div className={s.card__price__button}>
           <div onClick={removeFromBasketHandler}>-</div>
-          {product?.count}
+          {product.product_more[0].count}
           <div onClick={addToBasketHandler}>+</div>
         </div> : ''
         // <svg className={s.card__price__basket} width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">

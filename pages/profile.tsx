@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
-import Layout from "../../layout/layout";
+import Layout from "../layout/layout";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation, withTranslation} from "next-i18next";
 import { GetStaticProps } from 'next'
-import ProfilePage from "../../components/pages/ProfilePage";
+import ProfilePage from "../components/pages/ProfilePage";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {

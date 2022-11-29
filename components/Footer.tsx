@@ -25,68 +25,24 @@ const Footer: React.FC<IFooterProps> = ({links, titles}) => {
           <tbody>
           <tr>
             <td>
-              <Link href={'/profile'}>{links.profile_link1}</Link>
+              <Link href={'/profile'}>{links.profile_link1}</Link><br/><br/> {/* Профиль */}
+              <Link href={'/profile?page=2'}>{links.profile_link2}</Link><br/><br/> {/* Мои заказы */}
             </td>
             <td>
-              <Link href={'/info'}>{links.info_link1}</Link>
+              <Link href={'/about'}>{links.info_link1}</Link><br/><br/> {/* О нас */}
+              <Link href={'/about'}>{links.info_link2}</Link><br/><br/> {/* Документы */}
+              <Link href={'/coop'}>{links.info_link3}</Link><br/><br/> {/* Сотрудничество */}
             </td>
             <td>
-              <Link href={'/contacts'}>{links.contacts_link1}</Link>
+              <Link href={'/contacts'}>{links.contacts_link1}</Link><br/><br/>
+              <Link href={'/contacts'}>{links.contacts_link2}</Link><br/><br/>
+              <Link href={'/contacts'}>{links.contacts_link3}</Link><br/><br/>
             </td>
             <td>
-              <Link href={'/video'}>{links.video_link1}</Link>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Link href={'/profile'}>{links.profile_link2}</Link>
-            </td>
-            <td>
-              <Link href={'/profile'}>{links.info_link2}</Link>
-            </td>
-            <td>
-              <Link href={'/profile'}>{links.contacts_link2}</Link>
-            </td>
-            <td>
-              <Link href={'/profile'}>{links.video_link2}</Link>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Link href={'/profile'}>{links.profile_link3}</Link>
-            </td>
-            <td>
-              <Link href={'/profile'}>{links.info_link3}</Link>
-            </td>
-            <td>
-              <Link href={'/profile'}>{links.contacts_link3}</Link>
-            </td>
-            <td>
-              <Link href={'/profile'}>{links.video_link3}</Link>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Link href={'/profile'}>{links.profile_link4}</Link>
-            </td>
-            <td>
-              <Link href={'/profile'}>{links.info_link4}</Link>
-            </td>
-            <td>
-            </td>
-            <td>
-              <Link href={'/profile'}>{links.video_link4}</Link>
-            </td>
-          </tr>
-          <tr>
-            <td>
-            </td>
-            <td>
-              <Link href={'/profile'}>{links.info_link5}</Link>
-            </td>
-            <td>
-            </td>
-            <td>
+              <Link href={'/video'}>{links.video_link1}</Link><br/><br/> {/* Наш канал */}
+              <Link href={'/coop'}>{links.video_link2}</Link><br/><br/> {/* Работа с Aqua base */}
+              <Link href={'/video'}>{links.video_link3}</Link><br/><br/> {/* Обзор прочных баз */}
+              <Link href={'/video'}>{links.video_link4}</Link><br/><br/> {/* Дизайны */}
             </td>
           </tr>
           </tbody>

@@ -6,6 +6,7 @@ import {API_BASE_URL} from "../http/api";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {toggleFav} from "../store/Slices/Fav.slice";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
+import Stock from "../public/images/stock.png";
 
 interface ICardProps {
   product: IProduct
@@ -40,7 +41,7 @@ const Card: React.FC<ICardProps> = ({product}) => {
     is_new,
     is_hit,
     discount,
-    image,
+    images,
     name,
     price,
     color,
@@ -61,8 +62,8 @@ const Card: React.FC<ICardProps> = ({product}) => {
           </svg>
         </div>
       </div>
-      <Link href={'/product/'+id} className={s.card__image}>
-        <img src={image ? `${API_BASE_URL}/${image}` : ''} alt={name}/>
+      <Link draggable={false} href={'/product/'+id} className={s.card__image}>
+        <img draggable={false} src={images[0] ? `${API_BASE_URL}/${images[0].image}` : `${Stock.src}`} alt={name}/>
       </Link>
       <div className={s.card__content}>
         <h2>{name}</h2>
