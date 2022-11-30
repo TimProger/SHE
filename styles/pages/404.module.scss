@@ -1,0 +1,17 @@
+@import "../colors";
+
+.not_found {
+    width: 100%;
+    height: 867px;
+
+    & h1 {
+        font-weight: 600;
+        font-size: 40px;
+    }
+
+    &__wrapper {
+        padding: 50px;
+        width: 1400px;
+        margin: 0 auto;
+    }
+}
