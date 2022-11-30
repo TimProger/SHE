@@ -2,22 +2,13 @@ import { GetStaticProps } from 'next'
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
-import React, {useEffect, useState} from "react";
-import MainPage from "../components/pages/MainPage";
-import {IProduct, ISlide} from "../types/Product.types";
-import {API_BASE_URL} from "../http/api";
+import React from "react";
+import CatalogPage from "../components/pages/CatalogPage";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
-  const slides = await fetch(`${API_BASE_URL}/${locale}/product/slider`)
-  const products = await fetch(`${API_BASE_URL}/${locale}/product`)
-  const productsData: IProduct[] = await products.json()
-  const slidesData: ISlide[] = await slides.json()
 
   return {
     props: {
-      slides: slidesData,
-      slidesNew: productsData.filter(el => el.is_new),
-      slidesHit: productsData.filter(el => el.is_hit),
       ...(await serverSideTranslations(locale as string, ['main', 'auth', 'header', 'footer']))
     },
     revalidate: 10,
@@ -25,12 +16,9 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
 }
 
 interface ICatalogueProps {
-  slides: ISlide[],
-  slidesNew: IProduct[],
-  slidesHit: IProduct[]
 }
 
-const Catalog: React.FC<ICatalogueProps> = ({slides, slidesNew, slidesHit}) => {
+const Catalog: React.FC<ICatalogueProps> = () => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 
@@ -99,7 +87,7 @@ const Catalog: React.FC<ICatalogueProps> = ({slides, slidesNew, slidesHit}) => {
     },
   }
 
-  return (<MainPage translates={translates} slides={slides} slidesNew={slidesNew} slidesHit={slidesHit} />)
+  return (<CatalogPage translates={translates} />)
 }
 
 export default Catalog

@@ -40,13 +40,19 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
   useEffect(()=>{
+    console.log(products)
+    if(products.length === 0){
+      setNewProducts([])
+      setSelected([])
+      return
+    }
     setIsDisabled(true)
     if(user.isAuth){
       $api.get<IBasketProductFull[]>(`/${locale}/basket/`)
       .then((res)=>{
         if(res.data){
           // @ts-ignore
-          setNewProducts(res.data)
+          setNewProducts(res.data.length > 0 ? res.data : [])
           // @ts-ignore
           setSelected([...res.data.filter((el)=>el.product_more[0].buy_now)])
         }
@@ -64,7 +70,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
             // @ts-ignore
             setSelected([...res.data])
             // @ts-ignore
-            setNewProducts([...res.data])
+            setNewProducts(res.data.length > 0 ? res.data : [])
           }
         }).catch((e)=>{
           setNewProducts([])
@@ -119,7 +125,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
     const includes = selected.find((el)=>el.product_more[0].id === product.product_more[0].id)
     if(!includes){
       if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.product_more[0].id}/`, {
+        $api.patch(`${locale}/basket/${product.basket_id}/`, {
           buy_now: true
         })
           .then(()=>{
@@ -130,7 +136,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
     }else{
       let arr = selected.filter((el)=>el.product_more[0].id !== product.product_more[0].id)
       if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.product_more[0].id}/`, {
+        $api.patch(`${locale}/basket/${product.basket_id}/`, {
           buy_now: false
         })
           .then(()=>{
@@ -144,7 +150,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const selectAllProductHandler = () => {
     if(user.isAuth){
       newProducts.map((el)=>{
-        $api.patch(`${locale}/basket/${el.product_more[0].id}/`, {
+        $api.patch(`${locale}/basket/${el.id}/`, {
           buy_now: true
         })
       })
@@ -155,7 +161,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const removeAllProductFromBasketHandler = () => {
     if(user.isAuth){
       newProducts.map((el)=>{
-        $api.delete(`${locale}/basket/${el.product_more[0].id}/`)
+        $api.delete(`${locale}/basket/${el.id}/`)
           .catch(()=>{})
       })
     }
@@ -268,6 +274,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const [apart, setApart] = useState('')
   const [delivery, setDelivery] = useState('self')
   const [payment, setPayment] = useState('card')
+  const [done, setDone] = useState<any | null>(null)
 
   const onChangeArea = (e: ChangeEvent<HTMLInputElement>) => {
     setArea(e.target.value)
@@ -481,7 +488,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
               <h1>{translates.title_1 || 'Order paid'}</h1>
               <p>Дата: <span>25.11.2022 16:57</span></p>
             </div>
-            <h2 className={s.done__order_id}>Номер заказа: $$$$</h2>
+            <h2 className={s.done__order_id}>Номер заказа: {done.order_id}</h2>
             <div className={s.done__products}>
               <h2>{translates.order.products}</h2>
               {newProducts.length > 0 ? newProducts.map((el, index)=>{
@@ -502,24 +509,31 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   }
 
   const makeOrder = () => {
+
+    if(email || phoneUpd || firstName || lastName){
+
+    }
+
     const data = new FormData()
-    data.append('email', email);
-    data.append('phone', phoneUpd.replace(/\s/g, '').replace(/\+/, ''));
-    data.append('firstName', firstName);
-    data.append('lastName', lastName);
-    data.append('area', area);
-    data.append('city', city);
-    data.append('house', house);
-    data.append('apart', apart);
-    data.append('delivery', delivery);
-    data.append('payment', payment);
+    // data.append('email', email);
+    // data.append('phone', phoneUpd.replace(/\s/g, '').replace(/\+/, ''));
+    // data.append('firstName', firstName);
+    // data.append('lastName', lastName);
+    // data.append('area', area);
 
-    $api.patch('/profile2/', data)
-      .then(() => {
+    const fullAdress = `${area} ${city} ${street} ${house} ${apart}`
+    console.log(fullAdress)
 
-      })
-      .catch(()=>{
+    data.append('address', fullAdress);
+    data.append('pay_online', 'False');
+
+    $api.post(`/${locale}/order/buy/`, data)
+      .then((res) => {
+        console.log(res)
+        setDone(res.data)
         setPage(2)
+      })
+      .catch((res)=>{
       })
   }
 

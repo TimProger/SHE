@@ -47,7 +47,8 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const addToBasketHandler = () => {
     if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.product_more[0].id}/`, {
+      console.log(product)
+        $api.patch(`${locale}/basket/${product.basket_id}/`, {
           count: product.product_more[0].count + 1
         })
           .then((res)=>{
@@ -68,19 +69,23 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
   const removeFromBasketHandler = () => {
     if(user.isAuth){
       if(product?.product_more[0].count <= 1){
-        $api.delete(`${locale}/basket/${product.product_more[0].id}`)
+        $api.delete(`${locale}/basket/${product.basket_id}`)
           .then((res)=>{
-            dispatch(removeFromBasket(product.id))
+            dispatch(killProduct(product.basket_id))
           })
-          .catch(()=>{})
+          .catch(()=>{
+            dispatch(killProduct(product.basket_id))
+          })
       }else{
-        $api.patch(`${locale}/basket/${product.product_more[0].id}/`, {
+        $api.patch(`${locale}/basket/${product.basket_id}/`, {
           count: product.product_more[0].count - 1
         })
           .then((res)=>{
-            dispatch(removeFromBasket(product.id))
+            // @ts-ignore
+            dispatch(removeFromBasket(product.basket_id))
           })
-          .catch(()=>{})
+          .catch(()=>{
+          })
       }
     }else{
       dispatch(removeFromBasket(product.id))
@@ -89,13 +94,13 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const killProductFromBasketHandler = () => {
     if(user.isAuth){
-      $api.delete(`${locale}/basket/${product.product_more[0].id}`)
+      $api.delete(`${locale}/basket/${product.basket_id}`)
         .then((res)=>{
-          dispatch(killProduct(product.id))
+          dispatch(killProduct(product.product_more[0].id))
         })
         .catch(()=>{})
     }else{
-      dispatch(killProduct(product.id))
+      dispatch(killProduct(product.product_more[0].id))
     }
   }
 
