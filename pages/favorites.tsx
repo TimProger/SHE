@@ -20,7 +20,6 @@ const Favorites: React.FC = () => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 
-  const {products, isLoading, error} = useTypedSelector(state => state.fav)
 
   const translates = {
     title: t('fav:title'),
@@ -91,7 +90,7 @@ const Favorites: React.FC = () => {
   }, [])
 
   return (
-    <FavPage translates={translates} products={products} isLoading={isLoading} error={error} />
+    <FavPage translates={translates} />
   );
 };
 

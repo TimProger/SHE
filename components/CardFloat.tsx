@@ -8,6 +8,7 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import {addToBasket, removeFromBasket, killProduct} from "../store/Slices/Basket.slice";
 import {removeFromFavs} from "../store/Slices/Fav.slice";
 import Stock from '../public/images/stock.png'
+import Link from "next/link";
 
 interface ICardProps {
   product: IBasketProductFull
@@ -105,9 +106,9 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
   return (
     <div className={s.card}>
       <div className={s.card__content}>
-        <div className={s.card__content__image}>
-          <img src={images.length > 0 && images[0] ? `${API_BASE_URL}${`${images[0].image}`.split('').shift() === '/' ? '' : '/'}${images[0].image}` : `${Stock.src}`} alt={name} />
-        </div>
+        <Link href={`${locale}/product/${product.id}`} className={s.card__content__image}>
+          <img src={(images && images.length > 0 && images[0]) ? `${API_BASE_URL}${`${images[0].image}`.split('').shift() === '/' ? '' : '/'}${images[0].image}` : `${Stock.src}`} alt={name} />
+        </Link>
         <div className={s.card__content__info}>
           <h2>{name}</h2>
           <p className={s.card__content__info__color}>Оттенок:
@@ -125,8 +126,8 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           <path d="M1.34314 1.34326L12.6568 12.657" stroke="#A0A0A0"/>
         </svg>
         <div className={s.card__price__text}>
-          {discount ? <h2 className={s.card__price__text__discount}>{(product.product_more[0].price*(discount/100+1)*(product.product_more[0].count || 1)).toFixed(2)} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h2> : ''}
-          <h1 className={s.card__price__text__price}>{(product.product_more[0].price*(product.product_more[0].count || 1)).toFixed(2)} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h1>
+          {discount ? <h2 className={s.card__price__text__discount}>{(product.product_more[0].price*(product.product_more[0].count || 1)).toFixed(2)} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h2> : ''}
+          <h1 className={s.card__price__text__price}>{(product.product_more[0].price - (discount ? (product.product_more[0].price/100)*discount : 0)*(product.product_more[0].count || 1)).toFixed(2)} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h1>
         </div>
         {isBasket ? <div className={s.card__price__button}>
           <div onClick={removeFromBasketHandler}>-</div>

@@ -27,15 +27,18 @@ export const favSlice = createSlice({
         const index = state.products.indexOf(includes[0])
         state.products.splice(index, 1)
       }
+      Storage.set('favs', JSON.stringify(state.products.map((el, index)=>el.id)))
     },
     removeAllProductFromFav: (state: IFavState) => {
       state.products = []
+      Storage.set('favs', JSON.stringify([]))
     },
     removeFromFavs: (state: IFavState, action: PayloadAction<number>) => {
       const product = state.products.find((el)=>el.id === action.payload)
       if(product){
         let index = state.products.indexOf(product)
         state.products.splice(index, 1)
+        Storage.set('favs', JSON.stringify(state.products.map((el, index)=>el.id)))
       }
     }
   },
@@ -44,6 +47,7 @@ export const favSlice = createSlice({
       state.isLoading = false;
       state.error = null
       state.products = action.payload;
+      Storage.set('favs', JSON.stringify(state.products.map((el, index)=>el.id)))
     },
     [getFavs.pending.type]: (state) => {
       state.isLoading = true;
