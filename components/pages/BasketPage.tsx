@@ -220,13 +220,13 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
 
   const onChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
     let phoneVal = e.target.value.replace(/\D/g, ""),
-      formattedPhone = `+${digits}`
+      formattedPhone = `+7`
 
     if(!phoneVal){
       setPhoneUpd('');
     }
 
-    const phoneLen = digits.length
+    const phoneLen = 1
 
     if (phoneVal.length > phoneLen) {
       formattedPhone += ' ' + phoneVal.substring(phoneLen, phoneLen+3);
@@ -446,13 +446,13 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
             </div>
             <h2>{translates.order.products}</h2>
             <div className={s.order__orders__products}>
-              {newProducts.length > 0 ? newProducts.map((el)=>{
+              {newProducts.length > 0 ? newProducts.map((el, index)=>{
                 return <div className={s.order__orders__products__product}>
                   <div>
-                    <h3>{el.name}</h3>
-                    <p>x{el.product_more[0].count}</p>
+                    <Link href={`${locale}/product/${el.id}`}><h3>{el.name}</h3></Link>
+                    <p>x{products[index].count}</p>
                   </div>
-                  <h3>{(el.product_more[0].price*(el.product_more[0].count || 1)).toFixed(2)} {el.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h3>
+                  <h3>{(el.product_more[0].price*(products[index].count || 1)).toFixed(2)} {el.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h3>
                 </div>
               }) : <p>{translates.empty}</p>}
             </div>
@@ -474,6 +474,30 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
             </div>
           </div>
         </div>)
+      case 2:
+        return (
+          <div className={s.done}>
+            <div className={s.done__header}>
+              <h1>{translates.title_1 || 'Order paid'}</h1>
+              <p>Дата: <span>25.11.2022 16:57</span></p>
+            </div>
+            <h2 className={s.done__order_id}>Номер заказа: $$$$</h2>
+            <div className={s.done__products}>
+              <h2>{translates.order.products}</h2>
+              {newProducts.length > 0 ? newProducts.map((el, index)=>{
+                return <div className={s.done__products__product}>
+                  <div>
+                    <Link href={`${locale}/product/${el.id}`}><h3>{el.name}</h3></Link>
+                    <p>x{products[index].count || 1}</p>
+                  </div>
+                  <h3>{(el.product_more[0].price*(products[index].count || 1)).toFixed(2)} {el.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h3>
+                </div>
+              }) : <p>{translates.empty}</p>}
+            </div>
+            <h2 className={s.done__delivery}>Способ доставки: <span>Транспортной компанией</span></h2>
+
+          </div>
+        )
     }
   }
 
@@ -495,7 +519,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
 
       })
       .catch(()=>{
-
+        setPage(2)
       })
   }
 
@@ -521,9 +545,11 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
           <div className={s.basket}>
             {returnPages()}
             <div className={s.basket__info}>
-              <h1 className={s.basket__info__text}>
+              {page !== 2 ? <h1 className={s.basket__info__text}>
                 {translates.total} {totalCountNew} {translates.productsToBuy}: <div>{totalPriceNew} {locale === 'ru' ? '₽' : '$'}</div>
-              </h1>
+              </h1>:<h1 className={s.basket__info__text}>
+                {totalPriceNew} {locale === 'ru' ? '₽' : '$'}
+              </h1>}
               <Button disabled={isDisabled} text={translates.buy} onClick={handleClick} />
             </div>
           </div>
