@@ -37,6 +37,7 @@ export interface IBasketProductFull{
   article: string,
   ml: number
   count: number;
+  basket_id: number;
 }
 
 interface IProductImage{

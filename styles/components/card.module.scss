@@ -27,6 +27,7 @@
     background: $block-main;
     color: $text-thrd;
     z-index: 15;
+    user-select: none;
   }
 
   &__hit__block{
@@ -38,9 +39,11 @@
     background: $block-frth;
     color: $text-thrd;
     z-index: 15;
+    user-select: none;
   }
 
   &__new{
+    user-select: none;
 
     .card__header__new__discount{
       color: $block-main;
@@ -60,6 +63,7 @@
   }
 
   &__hit{
+    user-select: none;
 
     .card__header__new__discount{
       color: $block-frth;
