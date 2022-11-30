@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import Layout from "../../layout/layout";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -19,28 +19,28 @@ import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 interface IBasketProps {
   translates: any;
-  isLoading: boolean;
-  products: IBasketProduct[];
-  error: string | null;
 }
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 );
 
-const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
+const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
 
   const user = useTypedSelector(state => state.profile)
+  const {products, isLoading, error} = useTypedSelector(state => state.basket)
 
   const [newProducts, setNewProducts] = useState<IBasketProductFull[]>([])
   const [selected, setSelected] = useState<IBasketProductFull[]>([])
   const [totalPriceNew, setTotalPrice] = useState<number>(0)
   const [page, setPage] = useState<number>(0)
   const [totalCountNew, setTotalCount] = useState<number>(0)
+  const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
   useEffect(()=>{
+    setIsDisabled(true)
     if(user.isAuth){
       $api.get<IBasketProductFull[]>(`/${locale}/basket/`)
       .then((res)=>{
@@ -48,7 +48,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
           // @ts-ignore
           setNewProducts(res.data)
           // @ts-ignore
-          setSelected(res.data.filter((el)=>el.buy_now))
+          setSelected([...res.data.filter((el)=>el.product_more[0].buy_now)])
         }
       }).catch((e)=>{
         setNewProducts([])
@@ -56,82 +56,85 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
       })
       return;
     }else{
-      $api.post<IProduct[]>(`/${locale}/product/favs/`, {
-        ids: products.map((el)=>el.id).join(',')
-      }).then((res)=>{
-        if(res.data){
-          const newArr = res.data.map((elem, index)=>{
-            const data = products.find((el)=>el.id === elem.id)
-            if(data){
-              return data
-            }
-          })
-          // @ts-ignore
-          setSelected([...newArr])
-          // @ts-ignore
-          setNewProducts([...newArr])
-        }
-      }).catch((e)=>{
+      if(products.length > 0){
+        $api.post<IProduct[]>(`/${locale}/product/favs/`, {
+          ids: products.map((el)=>el.id).join(',')
+        }).then((res)=>{
+          if(res.data){
+            // @ts-ignore
+            setSelected([...res.data])
+            // @ts-ignore
+            setNewProducts([...res.data])
+          }
+        }).catch((e)=>{
+          setNewProducts([])
+        })
+      }else{
+        setSelected([])
         setNewProducts([])
-      })
+      }
       return;
     }
   }, [locale, products, user.isAuth])
 
   useEffect(()=>{
+    setIsDisabled(true)
     if(user.isAuth){
+      $api.get<number>(`/${locale}/basket/price`)
+        .then((res)=>{
+          let totalC = 0
+          selected.map((el)=>{
+            totalC += (el.product_more[0].count || 1)
+          })
+          setTotalCount(totalC)
+          setTotalPrice(+(res.data).toFixed(2))
+
+          if(+(res.data).toFixed(0) > 0 || totalC > 0){
+            setIsDisabled(false)
+          }else{
+            setIsDisabled(true)
+          }
+        })
     }else{
       let totalP = 0
       let totalC = 0
 
-      selected.map((el)=>{
-        totalP += (el.price * (el.product_more[0].count || 1))
-        totalC += (el.product_more[0].count || 1)
+      selected.map((el, index)=>{
+        totalP += (el.product_more[0].price * (products[index]?.count || 1))
+        totalC += (products[index]?.count || 1)
       })
 
-      setTotalCount(totalC)
       setTotalPrice(+totalP.toFixed(2))
+      setTotalCount(totalC)
+
+      if(+totalP.toFixed(0) > 0 || totalC > 0){
+        setIsDisabled(false)
+      }else{
+        setIsDisabled(true)
+      }
     }
   },[selected])
 
   const selectHandler = (product: IBasketProductFull) => {
     const includes = selected.find((el)=>el.product_more[0].id === product.product_more[0].id)
     if(!includes){
-      setSelected(prev => [...prev, product])
       if(user.isAuth){
         $api.patch(`${locale}/basket/${product.product_more[0].id}/`, {
           buy_now: true
         })
           .then(()=>{
-            $api.get<number>(`/${locale}/basket/price`)
-              .then((res)=>{
-                let totalC = 0
-                selected.map((el)=>{
-                  totalC += (el.product_more[0].count || 1)
-                })
-                setTotalCount(totalC)
-                setTotalPrice(+(res.data).toFixed(2))
-              })
+            setSelected(prev => [...prev, product])
           })
       }
       return;
     }else{
       let arr = selected.filter((el)=>el.product_more[0].id !== product.product_more[0].id)
-      setSelected(arr)
       if(user.isAuth){
         $api.patch(`${locale}/basket/${product.product_more[0].id}/`, {
           buy_now: false
         })
-          .then(()=> {
-            $api.get<number>(`/${locale}/basket/price`)
-              .then((res) => {
-                let totalC = 0
-                selected.map((el) => {
-                  totalC += (el.product_more[0].count || 1)
-                })
-                setTotalCount(totalC)
-                setTotalPrice(+(res.data).toFixed(2))
-              })
+          .then(()=>{
+            setSelected([...arr])
           })
       }
       return;
@@ -139,19 +142,23 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
   }
 
   const selectAllProductHandler = () => {
-    newProducts.map((el)=>{
-      $api.patch(`${locale}/basket/${el.product_more[0].id}/`, {
-        buy_now: true
+    if(user.isAuth){
+      newProducts.map((el)=>{
+        $api.patch(`${locale}/basket/${el.product_more[0].id}/`, {
+          buy_now: true
+        })
       })
-    })
+    }
     setSelected([...newProducts])
   }
 
   const removeAllProductFromBasketHandler = () => {
-    newProducts.map((el)=>{
-      $api.delete(`${locale}/basket/${el.product_more[0].id}/`)
-        .catch(()=>{})
-    })
+    if(user.isAuth){
+      newProducts.map((el)=>{
+        $api.delete(`${locale}/basket/${el.product_more[0].id}/`)
+          .catch(()=>{})
+      })
+    }
     setNewProducts([])
     dispatch(removeAllProductFromBasket())
   }
@@ -166,6 +173,11 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
     last: null,
     phone: null,
     email: null,
+    area: null,
+    city: null,
+    street: null,
+    house: null,
+    apart: null
   })
 
   useEffect(()=>{
@@ -190,21 +202,31 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
 
   const onChangeFirst = (e: ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value)
+    if(e.target.value.length <= 0){
+      setErrors(prev => Object.assign(prev, {first: 'Введите имя'}))
+    }else{
+      setErrors(prev => Object.assign(prev, {first: null}))
+    }
   }
 
   const onChangeLast = (e: ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value)
+    if(e.target.value.length <= 0){
+      setErrors(prev => Object.assign(prev, {last: 'Введите фамилию'}))
+    }else{
+      setErrors(prev => Object.assign(prev, {last: null}))
+    }
   }
 
   const onChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
     let phoneVal = e.target.value.replace(/\D/g, ""),
-      formattedPhone = `+${digits}`
+      formattedPhone = `+7`
 
     if(!phoneVal){
       setPhoneUpd('');
     }
 
-    const phoneLen = digits.length
+    const phoneLen = 1
 
     if (phoneVal.length > phoneLen) {
       formattedPhone += ' ' + phoneVal.substring(phoneLen, phoneLen+3);
@@ -226,18 +248,87 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
     if(formattedPhone.length === phoneLen+15){
       setErrors(prev => Object.assign(prev, {phone: null}))
     }else{
-      setErrors(prev => Object.assign(prev, {phone: 'Телефон слишком короткий'}))
+      setErrors(prev => Object.assign(prev, {phone: 'Введите номер телефона'}))
     }
   }
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
     if(!validEmailRegex.test(e.target.value)){
-      setErrors(prev => Object.assign(prev, {email: 'Почта введена некорректно.'}))
+      setErrors(prev => Object.assign(prev, {email: 'Введите корректный Email'}))
     }else{
       setErrors(prev => Object.assign(prev, {email: null}))
     }
   }
+
+  const [area, setArea] = useState('')
+  const [city, setCity] = useState('')
+  const [street, setStreet] = useState('')
+  const [house, setHouse] = useState('')
+  const [apart, setApart] = useState('')
+  const [delivery, setDelivery] = useState('self')
+  const [payment, setPayment] = useState('card')
+
+  const onChangeArea = (e: ChangeEvent<HTMLInputElement>) => {
+    setArea(e.target.value)
+    if(e.target.value.length <= 0){
+      setErrors(prev => Object.assign(prev, {area: 'Введите область'}))
+    }else{
+      setErrors(prev => Object.assign(prev, {area: null}))
+    }
+  }
+
+  const onChangeCity = (e: ChangeEvent<HTMLInputElement>) => {
+    setCity(e.target.value)
+    if(e.target.value.length <= 0){
+      setErrors(prev => Object.assign(prev, {city: 'Введите город'}))
+    }else{
+      setErrors(prev => Object.assign(prev, {city: null}))
+    }
+  }
+
+  const onChangeStreet = (e: ChangeEvent<HTMLInputElement>) => {
+    setStreet(e.target.value)
+    if(e.target.value.length <= 0){
+      setErrors(prev => Object.assign(prev, {street: 'Введите улицу'}))
+    }else{
+      setErrors(prev => Object.assign(prev, {street: null}))
+    }
+  }
+
+  const onChangeHouse = (e: ChangeEvent<HTMLInputElement>) => {
+    let house = e.target.value.replace(/\D/g, "").substring(0, 5);
+    setHouse(house)
+    if(e.target.value.length <= 0){
+      setErrors(prev => Object.assign(prev, {house: 'Введите номер дома'}))
+    }else{
+      setErrors(prev => Object.assign(prev, {house: null}))
+    }
+  }
+
+  const onChangeApart = (e: ChangeEvent<HTMLInputElement>) => {
+    let apart = e.target.value.replace(/\D/g, "").substring(0, 5);
+    setApart(apart)
+    if(e.target.value.length <= 0){
+      setErrors(prev => Object.assign(prev, {apart: 'Введите номер квартиры'}))
+    }else{
+      setErrors(prev => Object.assign(prev, {apart: null}))
+    }
+  }
+
+  useEffect(()=>{
+    setIsDisabled(true)
+    if (errors.email || email.length <= 0) return
+    if (errors.phone || phoneUpd.length <= 0) return
+    if (errors.first || firstName.length <= 0) return
+    if (errors.last || lastName.length <= 0) return
+    if (errors.area || area.length <= 0) return
+    if (errors.city || city.length <= 0) return
+    if (errors.house || house.length <= 0) return
+    if (errors.apart || apart.length <= 0) return
+    setIsDisabled(false)
+
+  },[errors, email, phoneUpd, firstName, lastName, area, city, house, apart])
 
   const returnPages = () => {
     switch (page){
@@ -266,39 +357,174 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
           </div>
         </>)
       case 1:
-        return (<>
+        return (<div className={s.order}>
           <div>
-            <div className={s.basket__header}>
+            <p onClick={()=>setPage(0)} className={s.order__back}>
+              <svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.41475 0.316623L0.202765 7.40897C0.129032 7.4934 0.0769276 7.58487 0.0464514 7.68338C0.0154837 7.78188 0 7.88742 0 8C0 8.11258 0.0154837 8.21812 0.0464514 8.31662C0.0769276 8.41513 0.129032 8.5066 0.202765 8.59103L6.41475 15.7045C6.58679 15.9015 6.80184 16 7.05991 16C7.31797 16 7.53917 15.8945 7.7235 15.6834C7.90783 15.4723 8 15.226 8 14.9446C8 14.6631 7.90783 14.4169 7.7235 14.2058L2.30415 8L7.7235 1.7942C7.89554 1.59719 7.98157 1.35458 7.98157 1.06639C7.98157 0.777625 7.8894 0.527704 7.70507 0.316623C7.52074 0.10554 7.30568 0 7.05991 0C6.81413 0 6.59908 0.10554 6.41475 0.316623Z" fill="#A0A0A0"/>
+              </svg>
+              {translates.back}
+            </p>
+            <div className={s.order__header}>
               <h1>{translates.title_1}</h1>
             </div>
-            <div className={s.basket__inputs}>
-              <div>
+            <div className={s.order__inputs}>
+              <div className={s.order__inputs__container}>
                 <h3>{translates.order.first}</h3>
-                <input value={firstName} onChange={onChangeFirst} placeholder={translates.order.first_pl} type="text"/>
+                <input className={errors.first ? s.order__inputs__input_error : ''} value={firstName} onChange={onChangeFirst} placeholder={translates.order.first_pl} type="text"/>
+                <p>{errors.first ? errors.first : ''}</p>
               </div>
-              <div>
+              <div className={s.order__inputs__container}>
                 <h3>{translates.order.last}</h3>
-                <input value={lastName} onChange={onChangeLast} placeholder={translates.order.last_pl} type="text"/>
+                <input className={errors.last ? s.order__inputs__input_error : ''} value={lastName} onChange={onChangeLast} placeholder={translates.order.last_pl} type="text"/>
+                <p>{errors.last ? errors.last : ''}</p>
               </div>
-              <div>
+              <div className={s.order__inputs__container}>
                 <h3>{translates.order.phone}</h3>
-                <input value={phoneUpd} onChange={onChangePhone} placeholder={'+7 999 999 99 99'} type="text"/>
+                <input className={errors.phone ? s.order__inputs__input_error : ''} value={phoneUpd} onChange={onChangePhone} placeholder={'+7 999 999 99 99'} type="text"/>
+                <p>{errors.phone ? errors.phone : ''}</p>
               </div>
-              <div>
-                <h3>Email</h3>
-                <input value={email} onChange={onChangeEmail} placeholder={'info@tmshe.com'} type="text"/>
+              <div className={s.order__inputs__container}>
+                <h3>Email*</h3>
+                <input className={errors.email ? s.order__inputs__input_error : ''} value={email} onChange={onChangeEmail} placeholder={'info@tmshe.com'} type="text"/>
+                <p>{errors.email ? errors.email : ''}</p>
               </div>
             </div>
           </div>
-        </>)
+          <div>
+            <div className={s.order__header}>
+              <h1>{translates.title_2}</h1>
+            </div>
+            <div className={s.order__inputs}>
+              <div className={s.order__inputs__container}>
+                <h3>{translates.order.area}</h3>
+                <input className={errors.area ? s.order__inputs__input_error : ''} value={area} onChange={onChangeArea} placeholder={translates.order.area_pl} type="text"/>
+                <p>{errors.area ? errors.area : ''}</p>
+              </div>
+              <div className={s.order__inputs__container}>
+                <h3>{translates.order.city}</h3>
+                <input className={errors.city ? s.order__inputs__input_error : ''} value={city} onChange={onChangeCity} placeholder={translates.order.city_pl} type="text"/>
+                <p>{errors.city ? errors.city : ''}</p>
+              </div>
+              <div className={s.order__inputs__container}>
+                <h3>{translates.order.street}</h3>
+                <input className={errors.street ? s.order__inputs__input_error : ''} value={street} onChange={onChangeStreet} placeholder={translates.order.street_pl} type="text"/>
+                <p>{errors.street ? errors.street : ''}</p>
+              </div>
+              <div className={s.order__inputs__container + ' ' + s.order__inputs__container__double}>
+                <div>
+                  <h3>{translates.order.home}</h3>
+                  <input className={errors.house ? s.order__inputs__input_error : ''} value={house} onChange={onChangeHouse} placeholder={'1'} type="text"/>
+                  <p>{errors.house ? errors.house : ''}</p>
+                </div>
+                <div>
+                  <h3>{translates.order.apartment}</h3>
+                  <input className={errors.apart ? s.order__inputs__input_error : ''} value={apart} onChange={onChangeApart} placeholder={'1'} type="text"/>
+                  <p>{errors.apart ? errors.apart : ''}</p>
+                </div>
+              </div>
+            </div>
+            <div className={s.order__delivery}>
+              <h2>{translates.order.delivery}</h2>
+              { /*@ts-ignore*/ }
+              <div className={s.order__delivery__radios} onChange={(e: FormEvent<HTMLInputElement>)=>setDelivery(e.target.value)}>
+                <div>
+                  <input checked={delivery === 'self'} type="radio" value="self" name="delivery" id={'self'}/>
+                  <label htmlFor="self">{translates.order.radio_1}</label>
+                </div>
+                <div>
+                  <input checked={delivery === 'transport'} type="radio" value="transport" name="delivery" id={'transport'}/>
+                  <label htmlFor="transport">{translates.order.radio_2}</label>
+                </div>
+              </div>
+              <p>{translates.order.about_delivery}</p>
+            </div>
+          </div>
+          <div className={s.order__orders}>
+            <div className={s.order__header}>
+              <h1>{translates.order.payment}</h1>
+            </div>
+            <h2>{translates.order.products}</h2>
+            <div className={s.order__orders__products}>
+              {newProducts.length > 0 ? newProducts.map((el, index)=>{
+                return <div className={s.order__orders__products__product}>
+                  <div>
+                    <Link href={`${locale}/product/${el.id}`}><h3>{el.name}</h3></Link>
+                    <p>x{products[index].count}</p>
+                  </div>
+                  <h3>{(el.product_more[0].price*(products[index].count || 1)).toFixed(2)} {el.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h3>
+                </div>
+              }) : <p>{translates.empty}</p>}
+            </div>
+            <h2>{translates.order.payment_methods}</h2>
+            { /*@ts-ignore*/ }
+            <div className={s.order__orders__payment} onChange={(e: FormEvent<HTMLInputElement>)=>setPayment(e.target.value)}>
+              <div className={s.order__orders__payment__radio}>
+                <div>
+                  <input checked={payment === 'card'} type="radio" value="card" name="payment" id={'card'}/>
+                  <label htmlFor="card">{translates.order.radio_3}</label>
+                </div>
+              </div>
+              <div className={s.order__orders__payment__radio}>
+                <div>
+                  <input checked={payment === 'cash'} type="radio" value="cash" name="payment" id={'cash'}/>
+                  <label htmlFor="cash">{translates.order.radio_4}</label>
+                </div> <p>{translates.order.about_payment}</p>
+              </div>
+            </div>
+          </div>
+        </div>)
+      case 2:
+        return (
+          <div className={s.done}>
+            <div className={s.done__header}>
+              <h1>{translates.title_1 || 'Order paid'}</h1>
+              <p>Дата: <span>25.11.2022 16:57</span></p>
+            </div>
+            <h2 className={s.done__order_id}>Номер заказа: $$$$</h2>
+            <div className={s.done__products}>
+              <h2>{translates.order.products}</h2>
+              {newProducts.length > 0 ? newProducts.map((el, index)=>{
+                return <div className={s.done__products__product}>
+                  <div>
+                    <Link href={`${locale}/product/${el.id}`}><h3>{el.name}</h3></Link>
+                    <p>x{products[index].count || 1}</p>
+                  </div>
+                  <h3>{(el.product_more[0].price*(products[index].count || 1)).toFixed(2)} {el.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h3>
+                </div>
+              }) : <p>{translates.empty}</p>}
+            </div>
+            <h2 className={s.done__delivery}>Способ доставки: <span>Транспортной компанией</span></h2>
+
+          </div>
+        )
     }
   }
 
   const makeOrder = () => {
+    const data = new FormData()
+    data.append('email', email);
+    data.append('phone', phoneUpd.replace(/\s/g, '').replace(/\+/, ''));
+    data.append('firstName', firstName);
+    data.append('lastName', lastName);
+    data.append('area', area);
+    data.append('city', city);
+    data.append('house', house);
+    data.append('apart', apart);
+    data.append('delivery', delivery);
+    data.append('payment', payment);
 
+    $api.patch('/profile2/', data)
+      .then(() => {
+
+      })
+      .catch(()=>{
+        setPage(2)
+      })
   }
 
   const handleClick = () => {
+    setIsDisabled(true)
     switch (page){
       case 0:
         setPage(1)
@@ -312,17 +538,19 @@ const BasketPage: React.FC<IBasketProps> = ({translates, products}) => {
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
       <Head>
-        <title>{translates.title}</title>
+        <title>{translates.title} | ™SHE</title>
       </Head>
       <div>
         <Container>
           <div className={s.basket}>
             {returnPages()}
             <div className={s.basket__info}>
-              <h1 className={s.basket__info__text}>
+              {page !== 2 ? <h1 className={s.basket__info__text}>
                 {translates.total} {totalCountNew} {translates.productsToBuy}: <div>{totalPriceNew} {locale === 'ru' ? '₽' : '$'}</div>
-              </h1>
-              <Button text={translates.buy} onClick={handleClick} />
+              </h1>:<h1 className={s.basket__info__text}>
+                {totalPriceNew} {locale === 'ru' ? '₽' : '$'}
+              </h1>}
+              <Button disabled={isDisabled} text={translates.buy} onClick={handleClick} />
             </div>
           </div>
         </Container>

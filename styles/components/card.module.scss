@@ -83,9 +83,12 @@
     display: flex;
     justify-content: space-between;
     z-index: 25;
+    padding-right: 3px;
 
     &__fav{
       cursor: pointer;
+      display: flex;
+      align-items: center;
     }
 
     &__new{

@@ -20,4 +20,8 @@
   &:active {
     background: $block-main;
   }
+
+  &:disabled{
+    background: $text-sec;
+  }
 }

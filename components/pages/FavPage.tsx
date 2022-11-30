@@ -11,15 +11,14 @@ import Link from "next/link";
 import {removeAllProductFromFav} from "../../store/Slices/Fav.slice";
 import Button from "../Button";
 import {$api} from "../../http/api";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {getFavs} from "../../store/ActionCreators/Fav.ac";
 
 interface IFavProps {
   translates: any;
-  isLoading: boolean;
-  products: IFavProduct[];
-  error: string | null
 }
 
-const FavPage: React.FC<IFavProps> = ({translates, products}) => {
+const FavPage: React.FC<IFavProps> = ({translates}) => {
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
 
@@ -27,36 +26,22 @@ const FavPage: React.FC<IFavProps> = ({translates, products}) => {
     dispatch(removeAllProductFromFav())
   }
 
+  const {products, isLoading, error} = useTypedSelector(state => state.fav)
   const [newProducts, setNewProducts] = useState<IBasketProductFull[]>([])
 
   useEffect(()=>{
-    $api.post<IProduct[]>(`/${locale}/product/favs/`, {
-      ids: products.map((el)=>el.id).join(',')
-    }).then((res)=>{
-      if(res.data){
-        const newArr = res.data.map((elem, index)=>{
-          const data = products.find((el)=>el.id === elem.id)
-          if(data){
-            const more = elem.product_more.find((el)=>el.id === data.more)
-            if(more){
-              elem.price = more.price
-              elem.ml = more.ml
-              return elem
-            }
-          }
-        })
-        // @ts-ignore
-        setNewProducts(newArr)
-      }
-    }).catch((e)=>{
-      setNewProducts([])
-    })
+    dispatch(getFavs({ids: products.map((el)=>el.id), locale}))
+  },[locale])
+
+  useEffect(()=>{
+    // @ts-ignore
+    setNewProducts(products.filter((el)=>el.product_more))
   }, [locale, products])
 
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
       <Head>
-        <title>{translates.title}</title>
+        <title>{translates.title} | ™SHE</title>
       </Head>
       <div>
         <Container>

@@ -18,18 +18,17 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
 const Basket: React.FC = () => {
   const { locale } = useRouter()
   const { t } = useTranslation()
-
-  const {products, isLoading, error} = useTypedSelector(state => state.basket)
-
   const translates = {
     title: t('basket:title'),
     title_1: t('basket:title_1'),
+    title_2: t('basket:title_2'),
     clear: t('basket:clear'),
     selectAll: t('basket:selectAll'),
     total: t('basket:total'),
     productsToBuy: t('basket:productsToBuy'),
     buy: t('basket:buy'),
     empty: t('basket:empty'),
+    back: t('basket:back'),
     toCatalogue: t('basket:toCatalogue'),
     order: {
       first: t('basket:order_first'),
@@ -37,6 +36,24 @@ const Basket: React.FC = () => {
       last: t('basket:order_last'),
       last_pl: t('basket:order_last_pl'),
       phone: t('basket:order_phone'),
+      area: t('basket:order_area'),
+      area_pl: t('basket:order_area_pl'),
+      city: t('basket:order_city'),
+      city_pl: t('basket:order_city_pl'),
+      street: t('basket:order_street'),
+      street_pl: t('basket:order_street_pl'),
+      delivery: t('basket:order_delivery'),
+      home: t('basket:order_home'),
+      apartment: t('basket:order_apartment'),
+      radio_1: t('basket:order_radio_1'),
+      radio_2: t('basket:order_radio_2'),
+      radio_3: t('basket:order_radio_3'),
+      radio_4: t('basket:order_radio_4'),
+      about_delivery: t('basket:order_about_delivery'),
+      about_payment: t('basket:order_about_payment'),
+      payment: t('basket:order_payment'),
+      products: t('basket:order_products'),
+      payment_methods: t('basket:order_payment_methods')
     },
     header: {
       home: t('header:home'),
@@ -104,9 +121,6 @@ const Basket: React.FC = () => {
   return (
     <BasketPage
       translates={translates}
-      products={products}
-      isLoading={isLoading}
-      error={error}
     />
   );
 };

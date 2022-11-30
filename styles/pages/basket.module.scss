@@ -4,6 +4,28 @@
   width: 100%;
   margin-top: 50px;
   margin-bottom: 50px;
+  color: $text-main;
+
+  &__inputs{
+    width: 66%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    & div{
+      margin-top: 20px;
+      width: 48%;
+
+      & input{
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-bottom: 1px solid black;
+        font-size: 18px;
+        padding: 0 10px 0 10px;
+      }
+    }
+  }
 
   &__header{
     width: 100%;
@@ -38,6 +60,12 @@
       align-items: center;
       margin-bottom: 20px;
       margin-top: 20px;
+      gap: 20px;
+
+      & input[type="checkbox"]{
+        height: 20px;
+        width: 20px;
+      }
     }
 
     &__empty{
@@ -95,6 +123,246 @@
 
       &:active{
         background: $block-main;
+      }
+    }
+  }
+}
+
+.done{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  color: $text-main;
+
+  &__header{
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $block-main;
+
+    & h1{
+
+    }
+    & p{
+      font-weight: bold;
+
+      & span{
+        font-weight: normal;
+        color: $text-sec;
+      }
+    }
+  }
+
+  &__delivery{
+
+    & span{
+      color: $text-sec;
+      font-weight: 100;
+    }
+  }
+
+  &__products{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__product{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & div{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        & a{
+          color: $text-main
+        }
+
+        & p{
+          color: $text-sec;
+        }
+      }
+    }
+  }
+}
+
+.order{
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  color: $text-main;
+
+  &__back{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  &__orders{
+
+    &__payment{
+      width: 100%;
+      display: flex;
+      gap: 20px;
+
+      &__radio{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        & p{
+          margin-left:23px;
+          font-size: 14px;
+          color: $text-sec;
+        }
+
+        & div{
+          display: flex;
+          gap: 10px;
+        }
+      }
+    }
+
+    & h2{
+      margin: 40px 0 20px 0;
+    }
+
+    &__products{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      &__product{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & div{
+          display: flex;
+          align-items: center;
+          gap: 20px;
+
+          & a{
+            color: $text-main
+          }
+
+          & p{
+            color: $text-sec;
+          }
+        }
+      }
+    }
+  }
+
+  &__delivery{
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    & p{
+      width: 576px;
+      color: $text-sec;
+      font-size: 14px;
+    }
+
+    &__radios{
+      display: flex;
+      gap: 20px;
+
+      & div{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      & input{
+
+        &:hover{
+          background: green;
+          color: red;
+        }
+      }
+    }
+  }
+
+  &__header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $block-main;
+    margin-bottom: 20px;
+
+    &__btns{
+      display: flex;
+      gap: 20px;
+
+      &__btn{
+        font-weight: lighter;
+        color: $text-sec;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__inputs{
+    width: 66%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    &__input_error{
+      border-bottom: 1px solid $text-error !important;
+    }
+
+    &__container{
+      margin-top: 20px;
+      width: 48%;
+
+      &__double{
+        display: flex;
+        justify-content: space-between;
+      }
+
+      & div{
+        width: 48%;
+      }
+
+      & h3{
+        margin-bottom: 10px;
+      }
+
+      & input{
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-bottom: 1px solid black;
+        font-size: 18px;
+        padding: 0 10px 0 10px;
+
+        &:focus{
+          outline: none;
+        }
+      }
+
+      & p{
+        margin-top: 10px;
+        color: $text-error;
       }
     }
   }
