@@ -12,6 +12,7 @@ import {toggleFav} from "../../store/Slices/Fav.slice";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import Button from "../Button";
 import Stock from "../../public/images/stock.png";
+import Link from "next/link";
 
 interface IProductPageProps {
   translates: any;
@@ -152,7 +153,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
           <div className={s.container__product}>
             <div className={s.container__product__header}>
               <div className={s.container__product__header__path}>
-                Главная / Каталог / {product.type} / {product.name}
+                <Link href={'/'}>Главная</Link> / <Link href={'/catalogue'}>Каталог</Link> / <Link href={`/catalogue?type=${product.type_product}`}>{product.type}</Link> / <Link href={`/product/${product.id}`}>{product.name}</Link>
               </div>
               <article className={s.container__product__header__article}>
                 {translates.article} {product.article}
