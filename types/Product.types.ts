@@ -36,6 +36,7 @@ export interface IBasketProductFull{
   is_new: boolean,
   article: string,
   ml: number
+  count: number;
 }
 
 interface IProductImage{
