@@ -3,10 +3,12 @@ import Header from "../components/Header";
 import Head from "next/head";
 import Container from "../components/Container";
 import Footer from "../components/Footer";
+import s from '../styles/components/layout.module.scss'
 import icon_16 from '../public/images/favicon/icon_16.png'
 import icon_24 from '../public/images/favicon/icon_24.png'
 import icon_32 from '../public/images/favicon/icon_32.png'
 import icon_64 from '../public/images/favicon/icon_64.png'
+import Button from '../components/Button';
 
 interface IMainLayoutProps {
   btns: any;
@@ -32,6 +34,13 @@ const Layout: React.FC<IMainLayoutProps>
        }) => {
     return (
         <>
+              <div className={s.mobile_alert}>
+                <div className={s.mobile_alert__container}>
+                  <h1>Мы работаем над этим!</h1>
+                  <div>Мобильная версия сайта сейчас недоступна. Мы работаем над ее созданием.<br /> Вы можете перейти на старую версию сайта по кнопке.</div>
+                  <Button text='Перейти' />
+                </div>
+              </div>
             <Head>
               <title>{title || 'Главная | SHE'}</title>
               <meta name="description" content={`Интернет магазин в котором вы найдёте гели на любой вкус.` + description}/>
