@@ -9,7 +9,7 @@ import ContactsPage from '../components/pages/ContactsPage';
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer',]))
+      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer', 'contacts',]))
     },
     revalidate: 10
   }
@@ -56,6 +56,13 @@ const Contacts: React.FC = () => {
         turkey: t('auth:country_turkey'),
       },
     },
+    contacts: {
+      title1: t('contacts:title1'),
+      title2: t('contacts:title2'),
+      title3: t('contacts:title3'),
+      title4: t('contacts:title4'),
+      adress: t('contacts:adress'),
+    },
     footer: {
       titles: {
         profile: t('footer:profile'),
@@ -89,7 +96,7 @@ const Contacts: React.FC = () => {
   }, [])
 
   return (
-    <ContactsPage translates={translates} />
+    <ContactsPage translates={translates} contacts={translates.contacts}/>
   );
 };
 

@@ -8,9 +8,10 @@ import {useAppDispatch} from "../../hooks/useTypedDispatch";
 
 interface IContactsPageProps {
   translates: any;
+  contacts: any;
 }
 
-const ContactsPage: React.FC<IContactsPageProps> = ({translates}) => {
+const ContactsPage: React.FC<IContactsPageProps> = ({translates, contacts}) => {
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
 
@@ -23,9 +24,9 @@ const ContactsPage: React.FC<IContactsPageProps> = ({translates}) => {
         <div className={s.contacts}>
           <Container>
             <div className={s.contacts__wrapper}>
-              <h1>Контакты</h1>
+              <h1>{contacts.title1}</h1>
               <div className={s.contacts__phone}>
-                <h2>Телефон</h2>
+                <h2>{contacts.title2}</h2>
                 <div>+7 (915) 565-20-27</div>
               </div>
               <div className={s.contacts__email}>
@@ -33,11 +34,11 @@ const ContactsPage: React.FC<IContactsPageProps> = ({translates}) => {
                 <div>info@tmshe.ru</div>
               </div>
               <div className={s.contacts__address}>
-                <h2>Адрес</h2>
-                <div>Белгород, проспект Богдана Хмельницкого, 62А, корп. 1</div>
+                <h2>{contacts.title3}</h2>
+                <div>{contacts.adress}</div>
               </div>
               <div className={s.contacts__social_networks}>
-                <h2>Социальные сети</h2>
+                <h2>{contacts.title4}</h2>
                 <div className={s.contacts__social_networks__buttons}>
                   <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M27.4021 0.166992H14.6187C2.94374 0.166992 0.166656 2.94408 0.166656 14.5982V27.3816C0.166656 39.0545 2.92291 41.8337 14.5979 41.8337H27.3812C39.0542 41.8337 41.8333 39.0774 41.8333 27.4024V14.6191C41.8333 2.94408 39.0771 0.166992 27.4021 0.166992ZM33.8042 29.8962H30.7646C29.6146 29.8962 29.2687 28.9649 27.2062 26.9024C25.4062 25.167 24.6458 24.9503 24.1896 24.9503C23.5604 24.9503 23.3875 25.1232 23.3875 25.992V28.7253C23.3875 29.4649 23.1479 29.8982 21.2167 29.8982C19.3424 29.7723 17.5248 29.2029 15.9137 28.2369C14.3026 27.2708 12.9441 25.9359 11.95 24.342C9.58993 21.4045 7.94779 17.9569 7.15416 14.2732C7.15416 13.817 7.32707 13.4045 8.19582 13.4045H11.2333C12.0146 13.4045 12.2958 13.7524 12.6021 14.5545C14.0771 18.8962 16.5937 22.6712 17.6146 22.6712C18.0062 22.6712 18.1771 22.4982 18.1771 21.5212V17.0503C18.0479 15.0107 16.9646 14.8378 16.9646 14.1003C16.9785 13.9058 17.0676 13.7244 17.2131 13.5944C17.3586 13.4645 17.5489 13.3964 17.7437 13.4045H22.5187C23.1708 13.4045 23.3875 13.7295 23.3875 14.5107V20.5441C23.3875 21.1962 23.6687 21.4128 23.8646 21.4128C24.2562 21.4128 24.5583 21.1962 25.275 20.4795C26.8143 18.6023 28.0719 16.5109 29.0083 14.2712C29.104 14.0021 29.2851 13.7718 29.524 13.6153C29.7629 13.4588 30.0464 13.3848 30.3312 13.4045H33.3708C34.2812 13.4045 34.475 13.8607 34.2812 14.5107C33.176 16.9866 31.8085 19.3369 30.2021 21.5212C29.875 22.0212 29.7437 22.2816 30.2021 22.867C30.5042 23.3232 31.5687 24.2128 32.2854 25.0587C33.3269 26.0975 34.1917 27.2994 34.8458 28.617C35.1062 29.4628 34.6708 29.8982 33.8042 29.8982V29.8962Z" fill="#FFCBCC"/>

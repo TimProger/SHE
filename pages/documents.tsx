@@ -8,7 +8,7 @@ import DocumentsPage from '../components/pages/DocumentsPage';
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer', 'partnership']))
+      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer', 'partnership','documents']))
     },
     revalidate: 10
   }
@@ -55,6 +55,13 @@ const Documents: React.FC = () => {
         turkey: t('auth:country_turkey'),
       },
     },
+    documents: {
+      title1: t('documents:title1'),
+      title2: t('documents:title2'),
+      title3: t('documents:title3'),
+      title4: t('documents:title4'),
+      button: t('documents:button'),
+    },
     footer: {
       titles: {
         profile: t('footer:profile'),
@@ -88,7 +95,7 @@ const Documents: React.FC = () => {
   }, [])
 
   return (
-    <DocumentsPage translates={translates} />
+    <DocumentsPage translates={translates} documents={translates.documents}/>
   );
 };
 

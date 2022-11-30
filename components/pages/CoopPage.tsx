@@ -11,9 +11,10 @@ import Partnership from "../Partnership";
 
 interface IProductPageProps {
   translates: any;
+  coop: any;
 }
 
-const CoopPage: React.FC<IProductPageProps> = ({translates}) => {
+const CoopPage: React.FC<IProductPageProps> = ({translates, coop}) => {
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
 
@@ -28,19 +29,18 @@ const CoopPage: React.FC<IProductPageProps> = ({translates}) => {
         </Head>
         <div className={s.coop}>
           <Container>
-            <h2 className={s.coop__title}>Сотрудничество</h2>
+            <h2 className={s.coop__title}>{coop.partnership}</h2>
           </Container>
           <div className={s.coop__imgBackGround}></div>
           <Container>
             <div className={s.coop__body}>
               <div className={s.coop__body__specialСonditions}>
-                <h2>Оптовые условия</h2>
-                <div className={s.coop__body__specialСonditions__description}>Мы предоставляем оптовые условия сотрудничества для студий, школ и магазинов.
-                  При оптовом сотрудничестве мы предоставляем:
+                <h2>{coop.title1}</h2>
+                <div className={s.coop__body__specialСonditions__description}>{coop.paragraph_1}
                 </div>
                 <div className={s.coop__body__specialСonditions__discounts}>
                   <div>
-                    <div className={s.coop__body__specialСonditions__discounts__title}>Скидка</div>
+                    <div className={s.coop__body__specialСonditions__discounts__title}>{coop.discount1}</div>
                     <ul className={s.coop__body__specialСonditions__discounts__first}>
                       <li>30%</li>
                       <li>20%</li>
@@ -49,7 +49,7 @@ const CoopPage: React.FC<IProductPageProps> = ({translates}) => {
                     </ul>
                   </div>
                   <div>
-                    <div className={s.coop__body__specialСonditions__discounts__title}>Заказ от</div>
+                    <div className={s.coop__body__specialСonditions__discounts__title}>{coop.discount2}</div>
                     <ul className={s.coop__body__specialСonditions__discounts__second}>
                       <li>40.000₽</li>
                       <li>30.000₽</li>
@@ -63,11 +63,11 @@ const CoopPage: React.FC<IProductPageProps> = ({translates}) => {
                 <div className={s.coop__body__request__img}>
                   <img src={coopDescriptionImg.src} alt="coopDescriptionImage" />
                 </div>
-                <h2 className={s.coop__body__request__title}>Преставитель TM SHE</h2>
-                <div className={s.coop__body__specialСonditions__description}>Как стать ЭКСКЛЮЗИВНЫМ представителем TM SHE в Вашем городе? Для получения подробной информации по условиям представительства Вам нужно заполнить форму "Отправить заявку" и мы свяжемся с Вами в течении часа.
+                <h2 className={s.coop__body__request__title}>{coop.title2}</h2>
+                <div className={s.coop__body__specialСonditions__description}>{coop.paragraph_2}
                 </div>
-                <Button text="Отправить заявку" onClick={() => setShowAuth(true)}/>
-                <div className={s.coop__body__request__contacts}>Или Вы можете обратиться непосредственно к менеджеру по телефону +7 (915) 565-20-27</div>
+                <Button text={coop.button} onClick={() => setShowAuth(true)}/>
+                <div className={s.coop__body__request__contacts}>{coop.connect}</div>
               </div>
             </div>
           </Container>

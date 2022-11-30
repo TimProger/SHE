@@ -79,6 +79,17 @@ const Coop: React.FC = () => {
         turkey: t('partnership:country_turkey'),
       },
     },
+    coop: {
+      partnership: t('coop:partnership'),
+      title1: t('coop:title1'),
+      title2: t('coop:title2'),
+      paragraph_1: t('coop:paragraph_1'),
+      paragraph_2: t('coop:paragraph_2'),
+      discount1: t('coop:discount1'),
+      discount2: t('coop:discount2'),
+      connect: t('coop:connect'),
+      button: t('coop:button'),
+    },
     footer: {
       titles: {
         profile: t('footer:profile'),
@@ -112,7 +123,7 @@ const Coop: React.FC = () => {
   }, [])
 
   return (
-    <CoopPage translates={translates} />
+    <CoopPage translates={translates} coop={translates.coop} />
   );
 };
 

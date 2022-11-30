@@ -9,7 +9,7 @@ import AboutPage from '../components/pages/AboutPage';
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer', 'about']))
     },
     revalidate: 10
   }
@@ -56,6 +56,18 @@ const About: React.FC = () => {
         turkey: t('auth:country_turkey'),
       },
     },
+    about: {
+      title1: t('about:title1'),
+      title2: t('about:title2'),
+      title3: t('about:title3'),
+      title4: t('about:title4'),
+      about: t('about:about'),
+      paragraph_1: t('about:paragraph_1'),
+      paragraph_2: t('about:paragraph_2'),
+      paragraph_3: t('about:paragraph_3'),
+      paragraph_4: t('about:paragraph_4'),
+      connect: t('about:connect'),
+    },
     footer: {
       titles: {
         profile: t('footer:profile'),
@@ -89,7 +101,7 @@ const About: React.FC = () => {
   }, [])
 
   return (
-    <AboutPage translates={translates} />
+    <AboutPage translates={translates} about={translates.about}/>
   );
 };
 
