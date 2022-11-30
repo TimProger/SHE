@@ -19,7 +19,7 @@ const ContactsPage: React.FC<IContactsPageProps> = ({translates, contacts}) => {
     <>
       <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
         <Head>
-          <title>{translates.title} | ™SHE</title>
+          <title>{contacts.title1} | ™SHE</title>
         </Head>
         <div className={s.contacts}>
           <Container>
