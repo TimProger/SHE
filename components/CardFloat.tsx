@@ -116,13 +116,13 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
         </Link>
         <div className={s.card__content__info}>
           <h2>{name}</h2>
-          <p className={s.card__content__info__color}>Оттенок:
+          <p className={s.card__content__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
             <span style={{background: color}} className={s.card__content__info__color__block} />
           </p>
-          <p className={s.card__content__info__size}>Объем, мл:
+          <p className={s.card__content__info__size}>{locale === 'ru' ? 'Объём, мл' : 'Size, ml'}:
             <span>{product.product_more[0].ml}</span>
           </p>
-          <p className={s.card__content__info__articul}>Артикул: {article}</p>
+          <p className={s.card__content__info__articul}>{locale === 'ru' ? 'Артикул' : 'Article'}: {article}</p>
         </div>
       </div>
       <div className={s.card__price}>

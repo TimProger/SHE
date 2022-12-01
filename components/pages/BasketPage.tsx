@@ -142,17 +142,15 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
     }else{
       console.log(product, selected)
       let arr = selected.filter((el)=>el.product_more[0].id !== product.product_more[0].id)
-      if(arr[0]){
-        if(user.isAuth){
-          $api.patch(`${locale}/basket/${product.basket_id}/`, {
-            buy_now: false
+      if(user.isAuth){
+        $api.patch(`${locale}/basket/${product.basket_id}/`, {
+          buy_now: false
+        })
+          .then(()=>{
+            setSelected([...arr])
           })
-            .then(()=>{
-              setSelected([...arr])
-            })
-        }else{
-          setSelected([...arr])
-        }
+      }else{
+        setSelected([...arr])
       }
       return;
     }
@@ -161,7 +159,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const selectAllProductHandler = () => {
     if(user.isAuth){
       newProducts.map((el)=>{
-        $api.patch(`${locale}/basket/${el.id}/`, {
+        $api.patch(`${locale}/basket/${el.basket_id}/`, {
           buy_now: true
         })
       })
@@ -220,7 +218,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const onChangeFirst = (e: ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value)
     if(e.target.value.length <= 0){
-      setErrors(prev => Object.assign(prev, {first: 'Введите имя'}))
+      setErrors(prev => Object.assign(prev, {first: locale === 'ru' ? 'Введите имя' : 'Enter firstname'}))
     }else{
       setErrors(prev => Object.assign(prev, {first: null}))
     }
@@ -229,7 +227,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const onChangeLast = (e: ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value)
     if(e.target.value.length <= 0){
-      setErrors(prev => Object.assign(prev, {last: 'Введите фамилию'}))
+      setErrors(prev => Object.assign(prev, {last: locale === 'ru' ? 'Введите фамилию' : 'Enter lastname'}))
     }else{
       setErrors(prev => Object.assign(prev, {last: null}))
     }
@@ -265,14 +263,14 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
     if(formattedPhone.length === phoneLen+15){
       setErrors(prev => Object.assign(prev, {phone: null}))
     }else{
-      setErrors(prev => Object.assign(prev, {phone: 'Введите номер телефона'}))
+      setErrors(prev => Object.assign(prev, {phone: locale === 'ru' ? 'Введите номер телефона' : 'Enter valid phone number'}))
     }
   }
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
     if(!validEmailRegex.test(e.target.value)){
-      setErrors(prev => Object.assign(prev, {email: 'Введите корректный Email'}))
+      setErrors(prev => Object.assign(prev, {email: locale === 'ru' ? 'Введите корректный Email' : 'Enter valid Email'}))
     }else{
       setErrors(prev => Object.assign(prev, {email: null}))
     }
@@ -290,7 +288,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const onChangeArea = (e: ChangeEvent<HTMLInputElement>) => {
     setArea(e.target.value)
     if(e.target.value.length <= 0){
-      setErrors(prev => Object.assign(prev, {area: 'Введите область'}))
+      setErrors(prev => Object.assign(prev, {area: locale === 'ru' ? 'Введите область' : 'Enter area'}))
     }else{
       setErrors(prev => Object.assign(prev, {area: null}))
     }
@@ -299,7 +297,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const onChangeCity = (e: ChangeEvent<HTMLInputElement>) => {
     setCity(e.target.value)
     if(e.target.value.length <= 0){
-      setErrors(prev => Object.assign(prev, {city: 'Введите город'}))
+      setErrors(prev => Object.assign(prev, {city: locale === 'ru' ? 'Введите город' : 'Enter city'}))
     }else{
       setErrors(prev => Object.assign(prev, {city: null}))
     }
@@ -308,7 +306,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const onChangeStreet = (e: ChangeEvent<HTMLInputElement>) => {
     setStreet(e.target.value)
     if(e.target.value.length <= 0){
-      setErrors(prev => Object.assign(prev, {street: 'Введите улицу'}))
+      setErrors(prev => Object.assign(prev, {street: locale === 'ru' ? 'Введите улицу' : 'Enter street'}))
     }else{
       setErrors(prev => Object.assign(prev, {street: null}))
     }
@@ -318,7 +316,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
     let house = e.target.value.replace(/\D/g, "").substring(0, 5);
     setHouse(house)
     if(e.target.value.length <= 0){
-      setErrors(prev => Object.assign(prev, {house: 'Введите номер дома'}))
+      setErrors(prev => Object.assign(prev, {house: locale === 'ru' ? 'Введите номер дома' : 'Enter the house number'}))
     }else{
       setErrors(prev => Object.assign(prev, {house: null}))
     }
@@ -328,7 +326,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
     let apart = e.target.value.replace(/\D/g, "").substring(0, 5);
     setApart(apart)
     if(e.target.value.length <= 0){
-      setErrors(prev => Object.assign(prev, {apart: 'Введите номер квартиры'}))
+      setErrors(prev => Object.assign(prev, {apart: locale === 'ru' ? 'Введите номер квартиры' : 'Enter the apartment number'}))
     }else{
       setErrors(prev => Object.assign(prev, {apart: null}))
     }
@@ -497,7 +495,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
           <div className={s.done}>
             <div className={s.done__header}>
               <h1>{translates.title_1 || 'Order paid'}</h1>
-              <p>Дата: <span>25.11.2022 16:57</span></p>
+              <p>Дата: <span>{new Date(done.data_order).toLocaleString().split(', ').join(' ')}</span></p>
             </div>
             <h2 className={s.done__order_id}>Номер заказа: {done.order_id}</h2>
             <div className={s.done__products}>
