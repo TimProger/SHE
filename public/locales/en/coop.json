@@ -7,5 +7,6 @@
   "discount1":  "Discount",
   "discount2":  "Order from",
   "connect": "Or you can contact the manager directly by phone +7 (915) 565-20-27",
-  "button": "Send a request"
+  "button": "Send a request",
+  "title__404": "Page not found"
 }
