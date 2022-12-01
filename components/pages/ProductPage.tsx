@@ -151,7 +151,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
           <div className={s.container__product}>
             <div className={s.container__product__header}>
               <div className={s.container__product__header__path}>
-                <Link href={'/'}>Главная</Link> / <Link href={'/catalog'}>Каталог</Link> / <Link href={`/catalogue?type=${product.type_product}`}>{product.type}</Link> / <Link href={`/product/${product.id}`}>{product.name}</Link>
+                <Link href={'/'}>{locale === 'ru' ? 'Главная' : 'Home'}</Link> / <Link href={'/catalog'}>{locale === 'ru' ? 'Каталог' : 'Catalog'}</Link> / <Link href={`/catalog?type=${product.type_product}`}>{product.type}</Link> / <Link href={`/product/${product.id}`}>{product.name}</Link>
               </div>
               <article className={s.container__product__header__article}>
                 {translates.article} {product.article}
@@ -193,9 +193,9 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
               <div className={s.container__product__product__info}>
                 <div>
                   <h1 className={s.container__product__product__info__name}>{product.name}</h1>
-                  <p className={s.container__product__product__info__about}>{product.about}</p>
+                  <p className={s.container__product__product__info__about}>{product.about_title}</p>
                 </div>
-                <p className={s.container__product__product__info__color}>{translates.color}: {product.color_name} <span style={{background: product.color}} className={s.container__product__product__info__color__block} />
+                <p className={s.container__product__product__info__color}>{translates.color}: <span>{product.color_name}</span> <span style={{background: product.color}} className={s.container__product__product__info__color__block} />
                 </p>
                 <div className={s.container__product__product__info__size}>
                   <p>{translates.ml}:</p>
@@ -252,16 +252,12 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
                       <p><span>{translates.ml}: </span>{product.product_more.map((el)=>el.ml).join(' / ')}</p>
                     </div>
                     <div className={s.container__product__info__content__title}>
-                      Палитра гель-лаков SHE включает в себя 101 актуальных оттенков. Плотные цвета правильной консистенции, неприхотливые и максимально комфортные в работе, они доставят Вам максимальное удовольствие от покрытия.
+                      {product.about_text}
                     </div>
-                    <div className={s.container__product__info__content__title}>
-                      Цветные гель-лаки SHE- это высокопигментированные, плотные цвета, средне - густой консистенции. Удобная кисть идеальной жесткости и длины обеспечивает равномерное, комфортное нанесение, и экономичный расход материала. Имеет безопасный состав, отсутствие резкого неприятного запаха. Дисперсионный слой обеспечивает высокую сцепку между слоями, исключая отслойки и сколы. Пигмент не стягивается после обезжиривания, цвета не тускнеют во время носки. Максимально комфортный в работе, самовыравнивающееся, плотное перекрытие даже в один слой. Богатая палитра оттенков и демократичная цена.
-                    </div>
-                    
                   </div>
                   :
                   <div>
-                    second page
+                    
                   </div> 
                 }
               </div>

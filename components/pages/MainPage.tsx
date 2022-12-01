@@ -72,12 +72,12 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
                     <h1 className={s.swiper__slide__title__h1}>{el.title}</h1>
                   </div>
                   <div className={s.swiper__slide__footer}>
-                    <p className={s.swiper__slide__footer__date}>
-                      {translates.sale} {new Date(el.data_start).toLocaleString().split(', ')[0]}
-                    </p>
-                    <button className={s.swiper__slide__footer__btn}>
+                    {el.data_finish && <p className={s.swiper__slide__footer__date}>
+                      {translates.sale} {new Date(el.data_finish).toLocaleString().split(', ')[0]}
+                    </p>}
+                    {el.link && <a href={el.link} className={s.swiper__slide__footer__btn}>
                       {translates.more}
-                    </button>
+                    </a>}
                   </div>
                 </div>
               </SwiperSlide>

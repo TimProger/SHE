@@ -51,7 +51,13 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
   },[locale])
 
   useEffect(()=>{
-    $api.post(`${locale}/product/catalog/values/${limit}/${page}/`)
+    const data = new FormData()
+    if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
+    if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
+    if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
+    if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
+
+    $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
       .then((res)=>{
         setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
@@ -59,37 +65,37 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
       })
   },[page])
 
-  const toggleFilter = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
+  const toggleFilter = (value: string, type: string) => {
     switch (type){
       case 'category':
-        if(!usedFilters.category.includes(+e.target.value)){
-          usedFilters.category.push(+e.target.value)
+        if(!usedFilters.category.includes(+value)){
+          usedFilters.category.push(+value)
         }else{
-          const index = usedFilters.category.indexOf(+e.target.value)
+          const index = usedFilters.category.indexOf(+value)
           usedFilters.category.splice(index, 1)
         }
         break;
       case 'color':
-        if(!usedFilters.color.includes(+e.target.value)){
-          usedFilters.color.push(+e.target.value)
+        if(!usedFilters.color.includes(+value)){
+          usedFilters.color.push(+value)
         }else{
-          const index = usedFilters.color.indexOf(+e.target.value)
+          const index = usedFilters.color.indexOf(+value)
           usedFilters.color.splice(index, 1)
         }
         break;
       case 'collection':
-        if(!usedFilters.collection.includes(+e.target.value)){
-          usedFilters.collection.push(+e.target.value)
+        if(!usedFilters.collection.includes(+value)){
+          usedFilters.collection.push(+value)
         }else{
-          const index = usedFilters.collection.indexOf(+e.target.value)
+          const index = usedFilters.collection.indexOf(+value)
           usedFilters.collection.splice(index, 1)
         }
         break;
       case 'type':
-        if(!usedFilters.type.includes(+e.target.value)){
-          usedFilters.type.push(+e.target.value)
+        if(!usedFilters.type.includes(+value)){
+          usedFilters.type.push(+value)
         }else{
-          const index = usedFilters.type.indexOf(+e.target.value)
+          const index = usedFilters.type.indexOf(+value)
           usedFilters.type.splice(index, 1)
         }
         break;
@@ -103,7 +109,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
-    $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
+    $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
@@ -123,6 +129,18 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
       </div>
     })
   }
+
+  useEffect(()=>{
+    if(query.category){
+      toggleFilter(`${query.category}`, 'category')
+      return;
+    }
+    if(query.collection){
+      toggleFilter(`${query.collection}`, 'collection')
+      return;
+    }
+
+  }, [query])
 
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
@@ -150,7 +168,8 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
                     <div>
                       {el.option.map((elem, index)=>{
                         return <div>
-                          <input onChange={(e)=>toggleFilter(e, el.name)} type="checkbox" value={elem.id} name={el.name} id={elem.name}/>
+                          {/* @ts-ignore */}
+                          <input checked={usedFilters[`${el.name}`].includes(elem.id)} onChange={(e)=>toggleFilter(e.target.value, el.name)} type="checkbox" value={elem.id} name={el.name} id={elem.name}/>
                           <label htmlFor={elem.name}>{elem.name}</label>
                         </div>
                       })}

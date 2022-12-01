@@ -9,6 +9,7 @@ export interface ISlide {
   image: null | string;
   data_start: Date | string;
   data_finish: Date | string;
+  link: string;
 }
 
 export interface IProductMore {
@@ -62,6 +63,8 @@ export interface IProduct {
   is_hit: boolean;
   article: string;
   type_product: string;
+  about_text: string;
+  about_title: string;
   ml: number;
 }
 
