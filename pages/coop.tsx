@@ -8,7 +8,7 @@ import CoopPage from "../components/pages/CoopPage";
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer', 'partnership']))
+      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer', 'fav']))
     },
     revalidate: 10
   }
@@ -20,7 +20,7 @@ const Coop: React.FC = () => {
   const { t } = useTranslation()
 
   const translates = {
-    title: t('fav:title'),
+    title: t('fav:title3'),
     clear: t('fav:clear'),
     empty: t('fav:empty'),
     toCatalogue: t('fav:toCatalogue'),

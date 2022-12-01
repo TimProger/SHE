@@ -9,7 +9,7 @@ import AboutPage from '../components/pages/AboutPage';
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'header', 'footer', 'about']))
+      ...(await serverSideTranslations(locale as string, ['fav', 'auth', 'header', 'footer', 'about']))
     },
     revalidate: 10
   }
@@ -21,7 +21,7 @@ const About: React.FC = () => {
   const { t } = useTranslation()
 
   const translates = {
-    title: t('fav:title'),
+    title: t('fav:title2'),
     clear: t('fav:clear'),
     empty: t('fav:empty'),
     toCatalogue: t('fav:toCatalogue'),
