@@ -59,7 +59,7 @@ const FavPage: React.FC<IFavProps> = ({translates}) => {
                 </div>
               }) : <div className={s.fav__products__empty}>
                 <h2>{translates.empty}</h2>
-                <Button type={'link'} href={'/catalogue'} text={translates.toCatalogue} />
+                <Button type={'link'} href={'/catalog'} text={translates.toCatalogue} />
               </div>}
             </div>
           </div>

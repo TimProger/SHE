@@ -34,6 +34,7 @@ export const productSlice = createSlice({
     [getSearch.rejected.type]: (state,  action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload
+      state.products = []
     },
   }
 })

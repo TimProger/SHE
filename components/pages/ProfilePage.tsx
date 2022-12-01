@@ -11,6 +11,7 @@ import {$api, API_BASE_URL} from "../../http/api";
 import {exit} from "../../store/Slices/Profile.slice";
 import Button from "../Button";
 import ProfileImg from '../../public/images/profile_mock.png'
+import {IOrder} from "../../types/Product.types";
 
 interface IProfilePageProps {
   translates: any;
@@ -30,6 +31,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
   const [lastName, setLastName] = useState('')
   const [phoneUpd, setPhoneUpd] = useState('')
   const [digits, setDigits] = useState('')
+  const [orders, setOrders] = useState<IOrder[]>([])
   const [email, setEmail] = useState('')
   const [selectedFile, setSelectedFile] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -61,6 +63,11 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
 
           setPhoneUpd(formattedPhone);
           setDigits(digits)
+
+          $api.get(`${locale}/order/my_orders`)
+            .then((res)=>{
+              setOrders(res.data)
+            })
         }
       }
     }
@@ -222,8 +229,12 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
       case 2:
         return (
           <div className={s.profile__pages__page__products}>
-            <h2>{translates.pages.orders.notfound}</h2>
-            <Button href={'/catalogue'} type={'link'} text={translates.pages.orders.toCatalogue} />
+            {orders.length > 0 ? orders.map((el, index)=>{
+              return <div>{el.order_id}</div>
+            }) : <div className={s.profile__pages__page__products__notfound}>
+              <h2>{translates.pages.orders.notfound}</h2>
+              <Button href={'/catalog'} type={'link'} text={translates.pages.orders.toCatalogue} />
+            </div>}
           </div>
         )
       case 3:
