@@ -41,8 +41,9 @@ export interface IBasketProductFull{
   basket_id: number;
 }
 
-interface IProductImage{
-  image: string
+export interface IProductImage{
+  image: string;
+  show: boolean
 }
 
 export interface IProduct {

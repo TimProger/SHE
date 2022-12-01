@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import s from '../styles/components/card.module.scss'
 import Link from "next/link";
-import {IProduct, IProductMore} from "../types/Product.types";
+import {IProduct, IProductImage, IProductMore} from "../types/Product.types";
 import {API_BASE_URL} from "../http/api";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {toggleFav} from "../store/Slices/Fav.slice";
@@ -15,6 +15,7 @@ interface ICardProps {
 const Card: React.FC<ICardProps> = ({product}) => {
   const dispatch = useAppDispatch()
   const [more, setMore] = useState<IProductMore>(product.product_more[0])
+  const [mainImage, setMainImage] = useState<IProductImage | null>(null)
 
   const [isFav, setIsFav] = useState<boolean>(false)
 
@@ -48,6 +49,15 @@ const Card: React.FC<ICardProps> = ({product}) => {
     id
   } = product
 
+  useEffect(()=>{
+    const showed = images.filter((el)=>el.show)
+    if(showed[0]){
+      setMainImage(showed[0])
+    }else{
+      setMainImage(images[0])
+    }
+  },[])
+
   return (
     <div className={s.card + ` ${is_new && s.card__new} ${is_hit && s.card__hit}`}>
       <div className={s.card__header}>
@@ -63,7 +73,12 @@ const Card: React.FC<ICardProps> = ({product}) => {
         </div>
       </div>
       <Link draggable={false} href={'/product/'+id} className={s.card__image}>
-        <img draggable={false} src={images[0] ? `${API_BASE_URL}/${images[0].image}` : `${Stock.src}`} alt={name}/>
+        <img draggable={false} src={
+          images.filter((el)=>el.show)[0]
+            ? `${API_BASE_URL}/${images.filter((el)=>el.show)[0].image}`
+            : images[0]
+            ? `${API_BASE_URL}/${images[0].image}`
+            : `${Stock.src}`} alt={name}/>
       </Link>
       <div className={s.card__content}>
         <Link draggable={false} href={'/product/'+id}>
