@@ -12,7 +12,10 @@ const Footer: React.FC<IFooterProps> = ({links, titles}) => {
   return (
     <footer className={s.footer}>
       <div className={s.wrapper}>
-        <div className={s.footer__img}></div>
+        <div className={s.wrapper__imgs}>
+          <div className={s.footer__img1}></div>
+          <div className={s.footer__img2}></div>
+        </div>
         <table className={s.footer__table}>
           <thead>
           <tr>

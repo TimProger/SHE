@@ -27,11 +27,23 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
 
   const { isAuth, isLoading, user } = useTypedSelector(state => state.profile)
 
+  const status = [
+    'Created',
+    'Accepted',
+    'Waiting',
+    'Delivery',
+    'Point',
+    'Received',
+    'Error',
+  ]
+
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [phoneUpd, setPhoneUpd] = useState('')
   const [digits, setDigits] = useState('')
   const [orders, setOrders] = useState<IOrder[]>([])
+  const [ordersActive, setOrdersActive] = useState<IOrder[]>([])
+  const [ordersHistory, setOrdersHistory] = useState<IOrder[]>([])
   const [email, setEmail] = useState('')
   const [selectedFile, setSelectedFile] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -41,6 +53,15 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
     phone: null,
     email: null,
   })
+
+  useEffect(()=>{
+    if(orders.length > 0){
+      const orders_active = orders.filter((el)=>el.status_id !== 2)
+      setOrdersActive(orders_active)
+      const orders_history = orders.filter((el)=>+el.status_id === 1)
+      setOrdersHistory(orders_history)
+    }
+  },[orders])
 
   useEffect(()=>{
     if(typeof window !== undefined){
@@ -229,9 +250,54 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
       case 2:
         return (
           <div className={s.profile__pages__page__products}>
-            {orders.length > 0 ? orders.map((el, index)=>{
-              return <div>{el.order_id}</div>
-            }) : <div className={s.profile__pages__page__products__notfound}>
+            {orders.length > 0
+              ? <div className={s.profile__pages__page__products__container}>
+                <div className={s.profile__pages__page__products__active}>
+                  <h2>Активные</h2>
+                  {ordersActive.map((el, index) => {
+                    return <div className={s.profile__pages__page__products__active__product}>
+                      <div>
+                        <div className={s.profile__pages__page__products__active__product__imgs}>
+                          <img src="" alt=""/>
+                        </div>
+                        <div className={s.profile__pages__page__products__active__product__info}>
+                          <h2>Заказ #{el.order_id}</h2>
+                          <p>Дата: <span>{new Date(el.data_order).toLocaleString().split(', ').join(' ')}</span></p>
+                          <p>Кол-во товаров: <span>3</span></p>
+                          <p>Способ доставки: <span>Транспортной компанией</span></p>
+                        </div>
+                      </div>
+                      <div className={s.profile__pages__page__products__active__product__price}>
+                        <h2>{status[el.status_id-1]}</h2>
+                        <h1>{el.sum} {locale === 'ru' ? '₽' : '$'}</h1>
+                      </div>
+                    </div>
+                  })}
+                </div>
+                <div className={s.profile__pages__page__products__history}>
+                  <h2>История заказов</h2>
+                  {ordersHistory.map((el, index) => {
+                    return <div className={s.profile__pages__page__products__active__product}>
+                      <div>
+                        <div className={s.profile__pages__page__products__active__product__imgs}>
+                          <img src="" alt=""/>
+                        </div>
+                        <div className={s.profile__pages__page__products__active__product__info}>
+                          <h2>Заказ #{el.order_id}</h2>
+                          <p>Дата: <span>{new Date(el.data_order).toLocaleString().split(', ').join(' ')}</span></p>
+                          <p>Кол-во товаров: <span>3</span></p>
+                          <p>Способ доставки: <span>Транспортной компанией</span></p>
+                        </div>
+                      </div>
+                      <div className={s.profile__pages__page__products__active__product__price}>
+                        <h2>{status[1]}</h2>
+                        <h1>{el.sum} {locale === 'ru' ? '₽' : '$'}</h1>
+                      </div>
+                    </div>
+                  })}
+                </div>
+              </div>
+              : <div className={s.profile__pages__page__products__notfound}>
               <h2>{translates.pages.orders.notfound}</h2>
               <Button href={'/catalog'} type={'link'} text={translates.pages.orders.toCatalogue} />
             </div>}

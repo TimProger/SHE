@@ -80,7 +80,7 @@ export interface IOrder {
   id: number;
   id_user_id: number;
   order_id: string
-  status: string
+  status_id: number
   data_order: string
   address: string
   chek: string
@@ -88,4 +88,5 @@ export interface IOrder {
   name: string;
   buy_now: boolean;
   price: number;
+  sum: number
 }

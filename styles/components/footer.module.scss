@@ -6,13 +6,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 300px;
 
-  &__img{
+  &__img1{
     background: url(../../public/images/logo2.png) no-repeat;
     background-size: contain;
     width: 370px;
     height: 170px;
+  }
+
+  &__img2{
+    background: url(../../public/images/footer_img_2.png) no-repeat;
+    background-size: contain;
+    width: 370px;
+    height:130px;
   }
 
   &__table{
@@ -52,4 +58,10 @@
   width: 1400px;
   display: flex;
   justify-content: space-between;
+
+  &__imgs{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
 }

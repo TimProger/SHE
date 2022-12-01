@@ -20,7 +20,7 @@ const DocumentsPage: React.FC<IContactsPageProps> = ({translates, documents}) =>
     <>
       <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
         <Head>
-          <title>{translates.title} | ™SHE</title>
+          <title>{translates.documents.title1} | ™SHE</title>
         </Head>
         <div className={s.documents}>
           <Container>
@@ -34,7 +34,7 @@ const DocumentsPage: React.FC<IContactsPageProps> = ({translates, documents}) =>
                   <path d="M30.2991 14.3376C29.6448 14.4194 29.0919 13.8567 29.1851 13.2039L30.5001 3.99835L41 13L30.2991 14.3376Z" fill="#740E0E"/>
                   <path d="M18.82 24.98C20.02 24.98 20.91 24.17 20.91 22.99C20.91 21.81 20.02 21 18.82 21H14.09V28H15.47V24.98H18.82ZM18.82 22.28C19.26 22.28 19.52 22.56 19.52 22.99C19.52 23.42 19.26 23.7 18.82 23.7H15.47V22.28H18.82ZM29.7643 24.52C29.7643 22.26 28.0843 21 25.6543 21H22.2443V28H25.6543C28.0843 28 29.7643 26.78 29.7643 24.52ZM28.3543 24.52C28.3543 25.95 27.3043 26.68 25.8043 26.72H23.6243V22.28H25.6543C27.2343 22.28 28.3543 23.05 28.3543 24.52ZM36.8482 24.8V23.52H32.6282V22.28H37.2682V21H31.2482V28H32.6282V24.8H36.8482Z" fill="white"/>
                   </svg>
-                  <p>Протокол Испытаний 42.22.08845.pdf</p>
+                  <p>{documents.title5}</p>
                 </div>
                 <div className={s.documents__certificates__doc}>
                   <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +42,7 @@ const DocumentsPage: React.FC<IContactsPageProps> = ({translates, documents}) =>
                   <path d="M30.2991 14.3376C29.6448 14.4194 29.0919 13.8567 29.1851 13.2039L30.5001 3.99835L41 13L30.2991 14.3376Z" fill="#160E74"/>
                   <path d="M20.61 24.52C20.61 22.26 18.93 21 16.5 21H13.09V28H16.5C18.93 28 20.61 26.78 20.61 24.52ZM19.2 24.52C19.2 25.95 18.15 26.68 16.65 26.72H14.47V22.28H16.5C18.08 22.28 19.2 23.05 19.2 24.52ZM21.3939 24.5C21.3939 26.79 23.0639 28.1 25.5539 28.1C28.0439 28.1 29.7139 26.79 29.7139 24.5C29.7139 22.21 28.0439 20.9 25.5539 20.9C23.0639 20.9 21.3939 22.21 21.3939 24.5ZM25.5539 22.17C27.1639 22.17 28.3039 22.98 28.3039 24.5C28.3039 26.02 27.1639 26.83 25.5539 26.83C23.9439 26.83 22.8039 26.02 22.8039 24.5C22.8039 22.98 23.9439 22.17 25.5539 22.17ZM38.1955 22.41C37.4955 21.43 36.2455 20.9 34.6555 20.9C32.1655 20.9 30.4955 22.21 30.4955 24.5C30.4955 26.79 32.1655 28.1 34.6555 28.1C36.2555 28.1 37.5155 27.54 38.2155 26.54L37.0755 25.74C36.6255 26.45 35.7455 26.83 34.6555 26.83C33.0455 26.83 31.9055 26.02 31.9055 24.5C31.9055 22.98 33.0455 22.17 34.6555 22.17C35.7255 22.17 36.5855 22.53 37.0455 23.22L38.1955 22.41Z" fill="white"/>
                   </svg>
-                  <p>Декларация о соответствии зарег 16999058 от 08 09 2022.docx</p>
+                  <p>{documents.title6}</p>
                 </div>
               </div>
               <div className={s.documents__cataloge}>
@@ -56,8 +56,11 @@ const DocumentsPage: React.FC<IContactsPageProps> = ({translates, documents}) =>
                   <p>{documents.title4}</p>
                 </div>
               </div>
-              <div>
-                <Button text={documents.button} />
+              <div className={s.documents__wrapper__export}>
+                <Button
+                  type={'link'}
+                  href={'https://docs.google.com/spreadsheets/d/1N36PsiRX6w9lfBdollKrGf1HXDeQ3D6u/edit#gid=1385872957'}
+                  text={documents.button} />
               </div>
             </div>
           </Container>

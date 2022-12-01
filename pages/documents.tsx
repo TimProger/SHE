@@ -60,6 +60,8 @@ const Documents: React.FC = () => {
       title2: t('documents:title2'),
       title3: t('documents:title3'),
       title4: t('documents:title4'),
+      title5: t('documents:title5'),
+      title6: t('documents:title6'),
       button: t('documents:button'),
     },
     footer: {

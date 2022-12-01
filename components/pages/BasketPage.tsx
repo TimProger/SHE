@@ -501,8 +501,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
                 </div>
               }) : <p>{translates.empty}</p>}
             </div>
-            <h2 className={s.done__delivery}>Способ доставки: <span>Транспортной компанией</span></h2>
-
+            <h2 className={s.done__delivery}>{translates.order.delivery}: <span>Транспортной компанией</span></h2>
           </div>
         )
     }
@@ -564,7 +563,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
               </h1>:<h1 className={s.basket__info__text}>
                 {totalPriceNew} {locale === 'ru' ? '₽' : '$'}
               </h1>}
-              <Button disabled={isDisabled} text={translates.buy} onClick={handleClick} />
+              {page !== 2 && <Button disabled={isDisabled} text={translates.buy} onClick={handleClick}/>}
             </div>
           </div>
         </Container>
