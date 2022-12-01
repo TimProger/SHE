@@ -19,6 +19,8 @@ interface IUsedFilters {
   color: number[];
   collection: number[];
   type: number[];
+  min_price: number | null;
+  max_price: number | null;
 }
 
 const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
@@ -26,7 +28,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
   const dispatch = useAppDispatch()
 
   const [types, setTypes] = useState<string[]>([])
-  const [limit, setLimit] = useState<number>(20)
+  const [limit, setLimit] = useState<number>(21)
   const [page, setPage] = useState<number>(1)
   const [pages, setPages] = useState<number>(1)
   const [filters, setFilters] = useState<IFilter[]>([])
@@ -35,7 +37,9 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
     category: [],
     color: [],
     collection: [],
-    type: []
+    type: [],
+    min_price: null,
+    max_price: null
   })
 
   useEffect(()=>{
@@ -92,6 +96,14 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
         }
         break;
       case 'type':
+        if(!usedFilters.type.includes(+value)){
+          usedFilters.type.push(+value)
+        }else{
+          const index = usedFilters.type.indexOf(+value)
+          usedFilters.type.splice(index, 1)
+        }
+        break;
+      case 'price':
         if(!usedFilters.type.includes(+value)){
           usedFilters.type.push(+value)
         }else{
@@ -167,12 +179,15 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
                     <h3>{el.name_lang}</h3>
                     <div>
                       {el.option.map((elem, index)=>{
-                        return <div>
+                        return <div className={s.catalog__container__filters__block__option}>
                           {/* @ts-ignore */}
-                          <input checked={usedFilters[`${el.name}`].includes(elem.id)} onChange={(e)=>toggleFilter(e.target.value, el.name)} type="checkbox" value={elem.id} name={el.name} id={elem.name}/>
-                          <label htmlFor={elem.name}>{elem.name}</label>
+                          <input checked={usedFilters[`${el.name}`].includes(elem.id)} onChange={(e)=>toggleFilter(e.target.value, el.name)} type="checkbox" value={elem.id} name={el.name+'i'+index} id={el.name+'i'+index}/>
+                          {/* @ts-ignore */}
+                          {elem.color &&  <span style={{background: elem.color}} className={s.catalog__container__filters__block__color} /> }
+                          <label htmlFor={el.name+'i'+index}>{elem.name}</label>
                         </div>
                       })}
+
                     </div>
                   </div>
                 })}

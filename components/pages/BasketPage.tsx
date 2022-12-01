@@ -110,6 +110,8 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
         totalC += (products[index]?.count || 1)
       })
 
+      console.log(totalP)
+
       setTotalPrice(+totalP.toFixed(2))
       setTotalCount(totalC)
 
@@ -122,7 +124,9 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   },[selected])
 
   const selectHandler = (product: IBasketProductFull) => {
+    console.log('product, selected', product, selected)
     const includes = selected.find((el)=>el.product_more[0].id === product.product_more[0].id)
+    console.log('includes', includes)
     if(!includes){
       if(user.isAuth){
         $api.patch(`${locale}/basket/${product.basket_id}/`, {
@@ -131,17 +135,24 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
           .then(()=>{
             setSelected(prev => [...prev, product])
           })
+      }else{
+        setSelected(prev => [...prev, product])
       }
       return;
     }else{
+      console.log(product, selected)
       let arr = selected.filter((el)=>el.product_more[0].id !== product.product_more[0].id)
-      if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.basket_id}/`, {
-          buy_now: false
-        })
-          .then(()=>{
-            setSelected([...arr])
+      if(arr[0]){
+        if(user.isAuth){
+          $api.patch(`${locale}/basket/${product.basket_id}/`, {
+            buy_now: false
           })
+            .then(()=>{
+              setSelected([...arr])
+            })
+        }else{
+          setSelected([...arr])
+        }
       }
       return;
     }

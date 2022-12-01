@@ -55,6 +55,28 @@
         flex-direction: column;
         gap: 20px;
 
+        &__option{
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          color: $text-sec;
+
+          & label{
+            cursor: pointer;
+
+          }
+        }
+
+        &__color{
+          display: inline-block;
+          border: 1px solid #1E1D1D20;
+          background: #dcb395;
+          height: 15px;
+          width: 15px;
+          border-radius: 50%;
+        }
+
         & div{
           display: flex;
           flex-direction: column;
