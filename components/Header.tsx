@@ -176,7 +176,7 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
                 <Link href="/" locale={router.locale}>{btns.home}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
-                <Link onMouseOver={()=>setPopupState(true)} onMouseLeave={()=>setPopupState(false)} href="/profile" locale={router.locale}>{btns.catalogue}</Link>
+                <Link onMouseOver={()=>setPopupState(true)} onMouseLeave={()=>setPopupState(false)} href="/catalog" locale={router.locale}>{btns.catalogue}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
                 <Link href="/coop" locale={router.locale}>{btns.coop}</Link>

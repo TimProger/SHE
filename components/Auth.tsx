@@ -193,6 +193,11 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
       })
   }
 
+  const handleClick = () => {
+    setIsDisabled(false)
+    setPage(0)
+  }
+
   const returnPage = () => {
     switch (page){
       case 0:
@@ -206,6 +211,7 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
         </>
       case 1:
         return <>
+          <p onClick={()=>handleClick()}>back</p>
           <p>{translates.paragraph_2}</p>
           <div className={s.auth__form__container__input}>
             <h2>{translates.input_2}</h2>

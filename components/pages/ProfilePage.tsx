@@ -249,6 +249,10 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
     }
   }
 
+  useEffect(()=>{
+    setIsSuccess(false)
+  },[page])
+
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
       <Head>
@@ -270,7 +274,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
                   </label>
                 </div>
                 <div>
-                  <h2>{user?.first_name || translates.pages.info.inputs.first} {user?.last_name || translates.pages.info.inputs.last}</h2>
+                  <h2>{user?.first_name || firstName || translates.pages.info.inputs.first} {user?.last_name || lastName || translates.pages.info.inputs.last}</h2>
                   <p>{translates.stalus}</p>
                 </div>
               </div>

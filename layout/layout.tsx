@@ -38,7 +38,7 @@ const Layout: React.FC<IMainLayoutProps>
                 <div className={s.mobile_alert__container}>
                   <h1>Мы работаем над этим!</h1>
                   <div>Мобильная версия сайта сейчас недоступна. Мы работаем над ее созданием.<br /> Вы можете перейти на старую версию сайта по кнопке.</div>
-                  <Button text='Перейти' />
+                  <Button type={'link'} href={'https://tmshe.ru'} text='Перейти' />
                 </div>
               </div>
             <Head>
@@ -52,9 +52,11 @@ const Layout: React.FC<IMainLayoutProps>
               <link rel="icon" type="image/png" sizes="32x32" href={icon_32.src} />
               <link rel="icon" type="image/png" sizes="64x64" href={icon_64.src} />
             </Head>
+          <div className={s.container}>
             <Header btns={btns} auth={auth} />
             {children}
             <Footer links={links} titles={titles} />
+          </div>
         </>
     );
 };
