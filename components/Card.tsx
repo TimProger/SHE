@@ -66,7 +66,9 @@ const Card: React.FC<ICardProps> = ({product}) => {
         <img draggable={false} src={images[0] ? `${API_BASE_URL}/${images[0].image}` : `${Stock.src}`} alt={name}/>
       </Link>
       <div className={s.card__content}>
-        <h2>{name}</h2>
+        <Link draggable={false} href={'/product/'+id}>
+          <h2>{name}</h2>
+        </Link>
         <div className={s.card__content__footer}>
           <div className={s.card__content__footer__info}>
             <p>{product.product_more.map(el=>el.ml).join('/')} ml</p>

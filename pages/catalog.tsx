@@ -9,7 +9,7 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale as string, ['main', 'auth', 'header', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['catalog', 'auth', 'header', 'footer']))
     },
     revalidate: 10,
   }
@@ -23,11 +23,7 @@ const Catalog: React.FC<ICatalogueProps> = () => {
   const { t } = useTranslation()
 
   const translates = {
-    title: t('main:title'),
-    news: t('main:news'),
-    hits: t('main:hits'),
-    sale: t('main:sale'),
-    more: t('main:more'),
+    title: t('catalog:title'),
     header: {
       home: t('header:home'),
       catalogue: t('header:catalogue'),

@@ -2,7 +2,7 @@
 
 .button {
   background: #000000;
-  color: $text-thrd;
+  color: $text-thrd !important;
   padding: 15px 50px;
   cursor: pointer;
   display: flex;

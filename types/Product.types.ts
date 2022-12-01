@@ -91,3 +91,14 @@ export interface IOrder {
   price: number;
   sum: number
 }
+
+interface IFilterOption {
+  id: number;
+  name: string;
+}
+
+export interface IFilter {
+  name: string;
+  option: IFilterOption[];
+  name_lang: string;
+}

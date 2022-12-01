@@ -23,6 +23,10 @@
         margin-bottom: 44px;
     }
 
+    & a{
+        color: $text-main;
+    }
+
     &__certificates {
         margin-bottom: 50px;
 

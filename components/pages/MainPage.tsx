@@ -73,7 +73,7 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
                   </div>
                   <div className={s.swiper__slide__footer}>
                     <p className={s.swiper__slide__footer__date}>
-                      {translates.sale} {el.id}
+                      {translates.sale} {new Date(el.data_start).toLocaleString().split(', ')[0]}
                     </p>
                     <button className={s.swiper__slide__footer__btn}>
                       {translates.more}

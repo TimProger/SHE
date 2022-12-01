@@ -113,14 +113,14 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
                             {products.map((el, index)=>{
                               if(index === products.length-1){
                                 return (
-                                  <Link href={`/products/${el.id}`} className={s.top__btns__btn__results__result}>
+                                  <Link href={`/product/${el.id}`} className={s.top__btns__btn__results__result}>
                                     {el.name}
                                   </Link>
                                 )
                               }
                             return (
                                 <>
-                                  <Link href={`/products/${el.id}`}  className={s.top__btns__btn__results__result}>
+                                  <Link href={`/product/${el.id}`}  className={s.top__btns__btn__results__result}>
                                     {el.name}
                                   </Link>
                                   <p className={'line'} />

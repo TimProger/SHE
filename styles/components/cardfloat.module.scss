@@ -16,6 +16,8 @@
 
     &__image{
       width: 200px;
+      height: 220px;
+      overflow: hidden;
 
       & img{
         width: 100%;

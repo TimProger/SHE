@@ -1,0 +1,137 @@
+@import "../colors";
+
+.catalog{
+  margin: 50px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: $text-main;
+
+  &__title{
+    display: flex;
+  }
+
+  &__header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+
+    &__top{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__bottom{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
+  &__container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+
+    &__filters{
+      border: 1px solid $text-main;
+      padding: 40px 20px;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      &__block{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        & div{
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          & div{
+            display: flex;
+            flex-direction: row;
+          }
+        }
+      }
+    }
+
+    &__products{
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+
+      &__cards {
+        width: 100%;
+        justify-content: flex-end;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+
+        & div{
+          position: relative;
+        }
+      }
+
+      &__pages{
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+
+        &__page{
+          padding: 10px 18px;
+          border: 1px solid $text-main;
+          cursor: pointer;
+        }
+
+        &__active{
+          color: white;
+          background: $text-main;
+        }
+      }
+    }
+  }
+}
+
+.new__block{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 15px;
+  background: $block-main;
+  color: $text-thrd;
+  position: relative;
+  top: -5px;
+  margin: 2px;
+  user-select: none;
+}
+
+.hit__block{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 15px;
+  background: $block-frth;
+  color: $text-thrd;
+  position: relative;
+  top: -5px;
+  margin: 2px;
+  user-select: none;
+}

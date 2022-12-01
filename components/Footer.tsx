@@ -14,7 +14,9 @@ const Footer: React.FC<IFooterProps> = ({links, titles}) => {
       <div className={s.wrapper}>
         <div className={s.wrapper__imgs}>
           <div className={s.footer__img1}></div>
-          <div className={s.footer__img2}></div>
+          <Link href={'https://export31.ru'}>
+            <div className={s.footer__img2}></div>
+          </Link>
         </div>
         <table className={s.footer__table}>
           <thead>
@@ -39,13 +41,13 @@ const Footer: React.FC<IFooterProps> = ({links, titles}) => {
             <td>
               <Link href={'/contacts'}>{links.contacts_link1}</Link><br/><br/>
               <Link href={'/contacts'}>{links.contacts_link2}</Link><br/><br/>
-              <Link href={'/contacts'}>{links.contacts_link3}</Link><br/><br/>
+              <Link href={'https://yandex.ru/maps/-/CCUjULH9GB'} passHref>{links.contacts_link3}</Link><br/><br/>
             </td>
             <td>
-              <Link href={'/video'}>{links.video_link1}</Link><br/><br/> {/* Наш канал */}
-              <Link href={'/coop'}>{links.video_link2}</Link><br/><br/> {/* Работа с Aqua base */}
-              <Link href={'/video'}>{links.video_link3}</Link><br/><br/> {/* Обзор прочных баз */}
-              <Link href={'/video'}>{links.video_link4}</Link><br/><br/> {/* Дизайны */}
+              <Link href={'https://rutube.ru/channel/27054689/'}>{links.video_link1}</Link><br/><br/> {/* Наш канал */}
+              <Link href={'https://rutube.ru/video/33b7749d5677c7bbed20d7f23a13586d/'}>{links.video_link2}</Link><br/><br/> {/* Работа с Aqua base */}
+              <Link href={'https://rutube.ru/plst/207013/'}>{links.video_link3}</Link><br/><br/> {/* Обзор прочных баз */}
+              <Link href={'https://rutube.ru/video/715c2ecb343286db32df95ac8150038b/?playlist=207007'}>{links.video_link4}</Link><br/><br/> {/* Дизайны */}
             </td>
           </tr>
           </tbody>
