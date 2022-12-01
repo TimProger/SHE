@@ -52,6 +52,7 @@ export interface IProduct {
   price: number;
   images: IProductImage[];
   product_more: IProductMore[];
+  color_name: string;
   type: string;
   color: string;
   discount?: number | null;

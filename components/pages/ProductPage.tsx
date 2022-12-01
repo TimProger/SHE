@@ -195,8 +195,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
                   <h1 className={s.container__product__product__info__name}>{product.name}</h1>
                   <p className={s.container__product__product__info__about}>{product.about}</p>
                 </div>
-                <p className={s.container__product__product__info__color}>{translates.color}:
-                  <span style={{background: product.color}} className={s.container__product__product__info__color__block} />
+                <p className={s.container__product__product__info__color}>{translates.color}: {product.color_name} <span style={{background: product.color}} className={s.container__product__product__info__color__block} />
                 </p>
                 <div className={s.container__product__product__info__size}>
                   <p>{translates.ml}:</p>
@@ -246,11 +245,11 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
                       {product.about}
                     </div>
                     <div className={s.container__product__info__content__list}>
-                      <p><span>Производитель: </span>™SHE</p>
-                      <p><span>Коллекция: </span>«Elizabeth»</p>
-                      <p><span>Страна: </span>Россия</p>
-                      <p><span>Оттенок: </span>Бежевый</p>
-                      <p><span>Объем, мл: </span>10 / 20 / 30</p>
+                      <p><span>{translates.producer}: </span>™SHE</p>
+                      <p><span>{translates.collection}: </span>{product.type}</p>
+                      <p><span>{translates.country}: </span>{locale === 'ru' ? 'Россия' : 'Russian'}</p>
+                      <p><span>{translates.color}: </span>{product.color_name}</p>
+                      <p><span>{translates.ml}: </span>{product.product_more.map((el)=>el.ml).join(' / ')}</p>
                     </div>
                     <div className={s.container__product__info__content__title}>
                       Палитра гель-лаков SHE включает в себя 101 актуальных оттенков. Плотные цвета правильной консистенции, неприхотливые и максимально комфортные в работе, они доставят Вам максимальное удовольствие от покрытия.

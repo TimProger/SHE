@@ -1,7 +1,10 @@
 {
   "color": "Color",
-  "ml":  "Size, ml",
-  "addToBasket":  "Add to basket",
+  "ml": "Size, ml",
+  "producer": "Producer",
+  "collection": "Collection",
+  "country": "Country",
+  "addToBasket": "Add to basket",
   "inBasket": "In basket",
   "info": "Information",
   "video": "Video",

@@ -47,6 +47,9 @@ const Product: React.FC<IProductProps> = ({product}) => {
   const translates = {
     article: t('product:article'),
     color: t('product:color'),
+    producer: t('product:producer'),
+    collection: t('product:collection'),
+    country: t('product:country'),
     ml: t('product:ml'),
     addToBasket: t('product:addToBasket'),
     inBasket: t('product:inBasket'),
