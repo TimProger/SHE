@@ -22,6 +22,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const [isInBasket, setIsInBasket] = useState<boolean>(false)
   const [basket, setBasket] = useState<IBasketProduct | null>(null)
+  const [newProduct, setNewProduct] = useState<IBasketProduct | null>(null)
 
   const user = useTypedSelector(state => state.profile)
 

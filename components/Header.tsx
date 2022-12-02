@@ -143,12 +143,14 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
                   </svg>
                   {fav.products.length > 0 && <div className={s.top__btns__btn__count}>{fav.products.length}</div>}
                 </Link>
-                <Link href="/basket" className={s.top__btns__btn}>
+                {isAuth && <Link href="/basket" className={s.top__btns__btn}>
                   <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 9V5C5 2.79 6.795 1 9 1C11.21 1 13 2.795 13 5V9M1 7H17V23H1V7Z" stroke="#A0A0A0" strokeLinecap="round"/>
+                    <path d="M5 9V5C5 2.79 6.795 1 9 1C11.21 1 13 2.795 13 5V9M1 7H17V23H1V7Z" stroke="#A0A0A0"
+                          strokeLinecap="round"/>
                   </svg>
-                  {basket.products.length > 0 && <div className={s.top__btns__btn__count}>{basket.products.length}</div>}
-                </Link>
+                  {basket.products.length > 0 &&
+                    <div className={s.top__btns__btn__count}>{basket.products.length}</div>}
+                </Link>}
                 {isAuth
                   ? <Link href="/profile" className={s.top__btns__btn + ' ' + s.top__btns__image}>
                       <img src={user?.user_image ? `${API_BASE_URL}${user?.user_image}` : ProfileImg.src} alt='user'/>
