@@ -19,7 +19,8 @@ export interface IProductMore {
   price_currency: string;
   price: number;
   images: IProductImage[]
-  count: number,
+  count: number;
+  buy_now: boolean;
 }
 
 export interface IBasketProductFull{

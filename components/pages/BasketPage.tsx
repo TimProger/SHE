@@ -54,7 +54,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
           // @ts-ignore
           setNewProducts(res.data.length > 0 ? res.data : [])
           // @ts-ignore
-          setSelected([...res.data.filter((el)=>el.product_more[0].buy_now)])
+          setSelected([...res.data.filter((el)=> el.product_more[0])])
         }
       }).catch((e)=>{
         setNewProducts([])
