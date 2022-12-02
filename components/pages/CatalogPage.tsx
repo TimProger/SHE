@@ -47,7 +47,16 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
       .then((res)=>{
         setFilters(res.data)
       })
-    $api.post(`${locale}/product/catalog/values/${limit}/${page}/`)
+    const data = new FormData()
+    if(query.category){
+      // @ts-ignore
+      data.append('category', query.category)
+    }
+    if(query.collection){
+      // @ts-ignore
+      data.append('collection', query.collection)
+    }
+    $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
       .then((res)=>{
         setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
@@ -141,18 +150,6 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
       </div>
     })
   }
-
-  useEffect(()=>{
-    if(query.category){
-      toggleFilter(`${query.category}`, 'category')
-      return;
-    }
-    if(query.collection){
-      toggleFilter(`${query.collection}`, 'collection')
-      return;
-    }
-
-  }, [query])
 
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
