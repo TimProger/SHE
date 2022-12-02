@@ -27,7 +27,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
   const user = useTypedSelector(state => state.profile)
 
   useEffect(()=>{
-    const includes = products.filter((el)=>el.id === product.id)
+    const includes = products.filter((el)=>el.more === product.more)
     if(products.includes(includes[0])){
       setBasket(includes[0])
       setIsInBasket(true)
@@ -40,15 +40,13 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     discount,
     image,
     name,
-    price,
     article,
-    id
   } = product
 
   const addToBasketHandler = () => {
     if(user.isAuth){
       console.log(product)
-        $api.patch(`${locale}/basket/${product.id}/`, {
+        $api.patch(`${locale}/basket/${product.more}/`, {
           count: product.count + 1
         })
           .then((res)=>{
@@ -57,8 +55,8 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           .catch(()=>{})
     }else{
       const obj = {
-        id: product.id,
-        more: product.id,
+        id: product.more,
+        more: product.more,
         buy_now: true,
         count: 1
       }
@@ -69,43 +67,42 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
   const removeFromBasketHandler = () => {
     if(user.isAuth){
       if(product.count <= 1){
-        $api.delete(`${locale}/basket/${product.id}`)
+        $api.delete(`${locale}/basket/${product.more}`)
           .then((res)=>{
-            dispatch(killProduct(product.id))
+            dispatch(killProduct(product.more))
           })
           .catch(()=>{
-            dispatch(killProduct(product.id))
           })
       }else{
-        $api.patch(`${locale}/basket/${product.id}/`, {
+        $api.patch(`${locale}/basket/${product.more}/`, {
           count: product.count - 1
         })
           .then((res)=>{
             // @ts-ignore
-            dispatch(removeFromBasket(product.id))
+            dispatch(removeFromBasket(product.more))
           })
           .catch(()=>{
           })
       }
     }else{
-      dispatch(removeFromBasket(product.id))
+      dispatch(removeFromBasket(product.more))
     }
   }
 
   const killProductFromBasketHandler = () => {
     if(user.isAuth){
-      $api.delete(`${locale}/basket/${product.id}`)
+      $api.delete(`${locale}/basket/${product.more}`)
         .then((res)=>{
-          dispatch(killProduct(product.id))
+          dispatch(killProduct(product.more))
         })
         .catch(()=>{})
     }else{
-      dispatch(killProduct(product.id))
+      dispatch(killProduct(product.more))
     }
   }
 
   const removeFromFavsHandler = () => {
-    dispatch(removeFromFavs(id))
+    dispatch(removeFromFavs(product.more))
   }
 
   return (

@@ -20,7 +20,7 @@ export const basketSlice = createSlice({
   initialState,
   reducers: {
     addToBasket: (state: IBasketState, action: PayloadAction<IBasketProduct>) => {
-      const includes = state.products.filter((el)=>el.id === action.payload.id)
+      const includes = state.products.filter((el)=>el.more === action.payload.more)
       if(!state.products.includes(includes[0])){
         state.products.push(action.payload)
       }else{
@@ -30,7 +30,7 @@ export const basketSlice = createSlice({
     },
     removeFromBasket: (state: IBasketState, action: PayloadAction<number>) => {
       console.log(action.payload)
-      const product = state.products.find((el)=>el.id === action.payload)
+      const product = state.products.find((el)=>el.more === action.payload)
       if(product){
         let index = state.products.indexOf(product)
         state.products[index].count -= 1
@@ -43,7 +43,7 @@ export const basketSlice = createSlice({
       state.products = []
     },
     killProduct: (state: IBasketState, action: PayloadAction<number>) => {
-      const product = state.products.find((el)=>el.id === action.payload)
+      const product = state.products.find((el)=>el.more === action.payload)
       if(product){
         let index = state.products.indexOf(product)
         state.products.splice(index, 1)

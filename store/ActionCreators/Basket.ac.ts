@@ -11,7 +11,7 @@ export const getBasket = createAsyncThunk(
         id: el.id,
         count: el.count,
         buy_now: el.buy_now,
-        product: el.product_id
+        more: el.more
       }));
     } catch (e) {
       return thunkAPI.rejectWithValue("Не удалось найти товары")

@@ -60,6 +60,22 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
     setSearchValue(e.target.value)
   }
 
+  // if(process.browser){
+  //   document.addEventListener('click', event => {
+  //     if(showSearch){
+  //       const specifiedElement = document.querySelector(`.${s.top__btns__btn__results}`)
+  //       if(specifiedElement){
+  //         // @ts-ignore
+  //         const isClickInside = specifiedElement.contains(event.target)
+  //
+  //         if (!isClickInside) {
+  //           setShowSearch(false)
+  //         }
+  //       }
+  //     }
+  //   })
+  // }
+
   let typingTimer: string | number | NodeJS.Timeout | undefined
   let doneTypingInterval = 1000;
 
@@ -77,7 +93,6 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
 
   return (
     <>
-      {/* @ts-ignore */}
       <Auth translates={auth} show={showAuth} setShow={setShowAuth}/>
       <header className={s.header}>
         <div className={s.wrapper}>
@@ -109,7 +124,7 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
                               {locale === 'ru' ? 'Загрузка...' : 'Loading...'}
                             </div>
                           </div>
-                        : products && (products.length > 0 ? <div className={s.top__btns__btn__results}>
+                        : showSearch && products && (products.length > 0 ? <div className={s.top__btns__btn__results}>
                             {products.map((el, index)=>{
                               if(index === products.length-1){
                                 return (
@@ -143,7 +158,7 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
                   </svg>
                   {fav.products.length > 0 && <div className={s.top__btns__btn__count}>{fav.products.length}</div>}
                 </Link>
-                {isAuth && <Link href="/basket" className={s.top__btns__btn}>
+                {<Link href="/basket" className={s.top__btns__btn}>
                   <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 9V5C5 2.79 6.795 1 9 1C11.21 1 13 2.795 13 5V9M1 7H17V23H1V7Z" stroke="#A0A0A0"
                           strokeLinecap="round"/>

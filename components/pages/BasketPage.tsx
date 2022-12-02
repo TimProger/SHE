@@ -63,12 +63,15 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
       return;
     }else{
       if(products.length > 0){
-        $api.post<IProduct[]>(`/${locale}/product/favs/`, {
-          ids: products.map((el)=>el.id).join(',')
-        }).then((res)=>{
+        $api.get<IBasketProductFull[]>(`/${locale}/basket/new/${products.length > 0 && `?ids=${products.map((el)=>el.more).join(',')}`}`)
+          .then((res)=>{
           if(res.data){
+            setNewProducts(res.data.map((el, index)=>{
+              el.count = products[index].count
+              return el
+            }))
             // @ts-ignore
-            setNewProducts(res.data.length > 0 ? res.data : [])
+            console.log('res', res.data)
             // @ts-ignore
             setSelected([...res.data])
           }
@@ -122,12 +125,10 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   },[selected])
 
   const selectHandler = (product: IBasketProductFull) => {
-    console.log('product, selected', product, selected)
-    const includes = selected.find((el)=>el.id === product.id)
-    console.log('includes', includes)
+    const includes = selected.find((el)=>el.more === product.more)
     if(!includes){
       if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.id}/`, {
+        $api.patch(`${locale}/basket/${product.more}/`, {
           buy_now: true
         })
           .then(()=>{
@@ -139,9 +140,9 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
       return;
     }else{
       console.log(product, selected)
-      let arr = selected.filter((el)=>el.id !== product.id)
+      let arr = selected.filter((el)=>el.more !== product.more)
       if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.id}/`, {
+        $api.patch(`${locale}/basket/${product.more}/`, {
           buy_now: false
         })
           .then(()=>{
@@ -157,7 +158,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const selectAllProductHandler = () => {
     if(user.isAuth){
       newProducts.map((el)=>{
-        $api.patch(`${locale}/basket/${el.id}/`, {
+        $api.patch(`${locale}/basket/${el.more}/`, {
           buy_now: true
         })
       })
@@ -168,7 +169,11 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const removeAllProductFromBasketHandler = () => {
     if(user.isAuth){
       newProducts.map((el)=>{
-        $api.delete(`${locale}/basket/${el.id}/`)
+        $api.delete(`${locale}/basket/${el.more}/`)
+          .then(()=>{
+            setNewProducts([])
+            setSelected([])
+          })
           .catch(()=>{})
       })
     }
@@ -463,7 +468,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
               {newProducts.length > 0 ? newProducts.map((el, index)=>{
                 return <div className={s.order__orders__products__product}>
                   <div>
-                    <Link href={`${locale}/product/${el.id}`}><h3>{el.name}</h3></Link>
+                    <Link href={`${locale}/product/${el.product_id}`}><h3>{el.name}</h3></Link>
                     <p>x{products[index].count}</p>
                   </div>
                   <h3>{(el.price*(products[index].count || 1)).toFixed(2)} {el.price_currency === 'RUB' ? '₽' : '$'}</h3>
@@ -501,7 +506,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
               {newProducts.length > 0 ? newProducts.map((el, index)=>{
                 return <div className={s.done__products__product}>
                   <div>
-                    <Link href={`${locale}/product/${el.id}`}><h3>{el.name}</h3></Link>
+                    <Link href={`${locale}/product/${el.product_id}`}><h3>{el.name}</h3></Link>
                     <p>x{products[index].count || 1}</p>
                   </div>
                   <h3>{(el.price*(products[index].count || 1)).toFixed(2)} {el.price_currency === 'RUB' ? '₽' : '$'}</h3>

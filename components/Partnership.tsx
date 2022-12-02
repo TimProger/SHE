@@ -174,7 +174,6 @@ const Partnership: React.FC<IPartnershipProps> = ({translates, show, setShow}) =
 
     AuthService.confirm_code(+phoneUpd, +codeUpd)
       .then((res) => {
-        console.log('res1', res)
         Storage.set('accessToken', `Bearer ${res.data.access_token}`);
         Storage.set('refreshToken', `Bearer ${res.data.refresh_token}`)
         setErrors({phone: '', code: ''});
@@ -217,14 +216,14 @@ const Partnership: React.FC<IPartnershipProps> = ({translates, show, setShow}) =
           <p>{translates.paragraph_1}</p>
           <Dropdown type={'counties'} handler={(e: MouseEvent, value: any)=>setCountry(value)} value={country} options={countries || []} />
           <div className={s.auth__form__container__input}>
-            <h2>{translates.input_1}</h2>
+            <h2>{translates.phone}</h2>
             <input value={phone} onChange={onChangePhone} type="text"/>
             <h2>{translates.name}</h2>
-            <input value={name} onChange={(e)=>{setName(e.currentTarget.value)}} type="text"/>
+            <input value={name} placeholder={translates.name_pl} onChange={(e)=>{setName(e.currentTarget.value)}} type="text"/>
             <h2>Email</h2>
-            <input value={email} onChange={(e)=>{setEmail(e.currentTarget.value)}} type="email"/>
+            <input value={email} placeholder={'info@tmshe.ru'} onChange={(e)=>{setEmail(e.currentTarget.value)}} type="email"/>
             <h2>{translates.message}</h2>
-            <input value={message} onChange={(e)=>{setMessage(e.currentTarget.value)}} type="text"/>
+            <input value={message} placeholder={translates.message_pl} onChange={(e)=>{setMessage(e.currentTarget.value)}} type="text"/>
           </div>
           <div className={s.auth__form__container__button}>
             <Button disabled={isDisabled} onClick={authHandler} text={translates.button} />

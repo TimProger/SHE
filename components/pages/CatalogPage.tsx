@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {MouseEvent, useEffect, useState} from "react";
 import Layout from "../../layout/layout";
 import s from "../../styles/pages/catalog.module.scss";
 import Container from "../Container";
@@ -28,7 +28,6 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
   const dispatch = useAppDispatch()
 
   const [types, setTypes] = useState<string[]>([])
-  const [limit, setLimit] = useState<number>(21)
   const [page, setPage] = useState<number>(1)
   const [pages, setPages] = useState<number>(1)
   const [filters, setFilters] = useState<IFilter[]>([])
@@ -41,6 +40,11 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
     min_price: null,
     max_price: null
   })
+
+  const [limit, setLimit] = useState<number>(20)
+  const [limitState, setLimitState] = useState(false);
+  const [limitArr, setLimitArr] = useState<number[]>([20, 40, 60]);
+  const [limitPage, setLimitPage] = useState(0)
 
   useEffect(()=>{
     $api.get(`${locale}/product/catalog/get_filters`)
@@ -61,7 +65,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
         setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
       })
-  },[locale])
+  },[locale, limit])
 
   useEffect(()=>{
     const data = new FormData()
@@ -77,6 +81,10 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       })
   },[page])
+
+  const onToggleLimitClick = (e: MouseEvent, value: number) => {
+    setLimit(value)
+  }
 
   const toggleFilter = (value: string, type: string) => {
     switch (type){
@@ -135,7 +143,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
         setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
       })
-  },[usedFilters])
+  },[usedFilters, limit])
 
   const displayPages = () => {
     const arr = []
@@ -167,6 +175,10 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
               </div>
               <div className={s.catalog__header__bottom}>
                 {/*<Dropdown value={} options={} handler={} />*/}
+                <div>
+                  {/* @ts-ignore */}
+                  До: <Dropdown type={'limit'} handler={(e: MouseEvent, value: number)=>onToggleLimitClick(e, value)} value={limit} options={limitArr} />
+                </div>
               </div>
             </div>
             <div className={s.catalog__container}>

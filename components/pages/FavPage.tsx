@@ -30,12 +30,12 @@ const FavPage: React.FC<IFavProps> = ({translates}) => {
   const [newProducts, setNewProducts] = useState<IBasketProductFull[]>([])
 
   useEffect(()=>{
-    dispatch(getFavs({ids: products.map((el)=>el.id), locale}))
+    dispatch(getFavs({ids: products.map((el)=>el.more), locale}))
   },[locale])
 
   useEffect(()=>{
     // @ts-ignore
-    setNewProducts(products.filter((el)=>el.product_more))
+    setNewProducts([...products])
   }, [locale, products])
 
   return (

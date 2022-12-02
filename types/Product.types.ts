@@ -24,6 +24,7 @@ export interface IBasketProductFull{
   buy_now: boolean;
   count: number;
   discount: number | null;
+  more: number;
   id: number;
   image: string;
   is_hit: boolean;

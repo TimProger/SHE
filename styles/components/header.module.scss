@@ -144,6 +144,7 @@
       &__search{
         display: flex;
         align-items: center;
+        z-index: 9999999;
 
         & svg {
           position: relative;

@@ -6,6 +6,12 @@
   flex-direction: column;
   user-select: none;
   width: 35px;
+  z-index: 999999999999999999;
+  color: $text-sec;
+
+  &__limit{
+    color: $text-sec;
+  }
 
   &__container{
     display: flex;
