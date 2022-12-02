@@ -14,32 +14,26 @@ export interface ISlide {
 
 export interface IProductMore {
   id: number;
-  product_id: number;
   ml: number;
   price_currency: string;
   price: number;
-  images: IProductImage[]
-  count: number;
-  buy_now: boolean;
 }
 
 export interface IBasketProductFull{
-  id: number,
-  name: string,
-  buy_now: boolean,
-  product_id: number,
-  price: number,
-  product_more: IProductMore[];
-  price_currency: string,
-  color: string,
-  discount: number | null,
-  images: IProductImage[],
-  is_hit: boolean,
-  is_new: boolean,
-  article: string,
-  ml: number
+  article: string;
+  buy_now: boolean;
   count: number;
-  basket_id: number;
+  discount: number | null;
+  id: number;
+  image: string;
+  is_hit: boolean;
+  is_new: boolean;
+  ml: number;
+  name: string;
+  price: number;
+  price_currency: string;
+  product_id: number;
+  color: string;
 }
 
 export interface IProductImage{

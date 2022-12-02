@@ -54,7 +54,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
           // @ts-ignore
           setNewProducts(res.data.length > 0 ? res.data : [])
           // @ts-ignore
-          setSelected([...res.data.filter((el)=> el.product_more[0])])
+          setSelected([...res.data.filter((el)=> el.buy_now)])
         }
       }).catch((e)=>{
         setNewProducts([])
@@ -68,9 +68,9 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
         }).then((res)=>{
           if(res.data){
             // @ts-ignore
-            setSelected([...res.data])
-            // @ts-ignore
             setNewProducts(res.data.length > 0 ? res.data : [])
+            // @ts-ignore
+            setSelected([...res.data])
           }
         }).catch((e)=>{
           setNewProducts([])
@@ -90,7 +90,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
         .then((res)=>{
           let totalC = 0
           selected.map((el)=>{
-            totalC += (el.product_more[0].count || 1)
+            totalC += (el.count || 1)
           })
           setTotalCount(totalC)
           setTotalPrice(+(res.data).toFixed(2))
@@ -106,11 +106,9 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
       let totalC = 0
 
       selected.map((el, index)=>{
-        totalP += (el.product_more[0].price * (products[index]?.count || 1))
-        totalC += (products[index]?.count || 1)
+        totalC += (el.count || 1)
+        totalP += (el.price * (el.count || 1))
       })
-
-      console.log(totalP)
 
       setTotalPrice(+totalP.toFixed(2))
       setTotalCount(totalC)
@@ -125,11 +123,11 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
 
   const selectHandler = (product: IBasketProductFull) => {
     console.log('product, selected', product, selected)
-    const includes = selected.find((el)=>el.product_more[0].id === product.product_more[0].id)
+    const includes = selected.find((el)=>el.id === product.id)
     console.log('includes', includes)
     if(!includes){
       if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.basket_id}/`, {
+        $api.patch(`${locale}/basket/${product.id}/`, {
           buy_now: true
         })
           .then(()=>{
@@ -141,9 +139,9 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
       return;
     }else{
       console.log(product, selected)
-      let arr = selected.filter((el)=>el.product_more[0].id !== product.product_more[0].id)
+      let arr = selected.filter((el)=>el.id !== product.id)
       if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.basket_id}/`, {
+        $api.patch(`${locale}/basket/${product.id}/`, {
           buy_now: false
         })
           .then(()=>{
@@ -159,7 +157,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const selectAllProductHandler = () => {
     if(user.isAuth){
       newProducts.map((el)=>{
-        $api.patch(`${locale}/basket/${el.basket_id}/`, {
+        $api.patch(`${locale}/basket/${el.id}/`, {
           buy_now: true
         })
       })
@@ -468,7 +466,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
                     <Link href={`${locale}/product/${el.id}`}><h3>{el.name}</h3></Link>
                     <p>x{products[index].count}</p>
                   </div>
-                  <h3>{(el.product_more[0].price*(products[index].count || 1)).toFixed(2)} {el.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h3>
+                  <h3>{(el.price*(products[index].count || 1)).toFixed(2)} {el.price_currency === 'RUB' ? '₽' : '$'}</h3>
                 </div>
               }) : <p>{translates.empty}</p>}
             </div>
@@ -506,7 +504,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
                     <Link href={`${locale}/product/${el.id}`}><h3>{el.name}</h3></Link>
                     <p>x{products[index].count || 1}</p>
                   </div>
-                  <h3>{(el.product_more[0].price*(products[index].count || 1)).toFixed(2)} {el.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</h3>
+                  <h3>{(el.price*(products[index].count || 1)).toFixed(2)} {el.price_currency === 'RUB' ? '₽' : '$'}</h3>
                 </div>
               }) : <p>{translates.empty}</p>}
             </div>

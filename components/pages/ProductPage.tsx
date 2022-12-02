@@ -160,26 +160,24 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
             <div className={s.container__product__product}>
               <div className={s.container__product__product__images}>
                 <div className={s.container__product__product__images__slider}>
-                  {product.images.map((el)=>{
-                    return <img
-                      className={mainImage === `${API_BASE_URL}/${el.image}`
-                        ? s.container__product__product__images__slider__active
-                        : ''}
-                      onClick={()=>setMainImage(`${API_BASE_URL}/${el.image}`)}
-                      src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
-                      alt={'img'} />
-                  })}
-                  {product.product_more.map((elem)=>{
-                    return elem.images.map((el)=>{
-                      return <img
-                        className={mainImage === `${API_BASE_URL}/${el.image}`
-                          ? s.container__product__product__images__slider__active
-                          : ''}
-                        onClick={()=>setMainImage(`${API_BASE_URL}/${el.image}`)}
-                        src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
-                        alt={'img'} />
-                    })
-                  })}
+                  {/*{product.images.map((el)=>{*/}
+                  {/*  return <img*/}
+                  {/*    className={mainImage === `${API_BASE_URL}/${el.image}`*/}
+                  {/*      ? s.container__product__product__images__slider__active*/}
+                  {/*      : ''}*/}
+                  {/*    onClick={()=>setMainImage(`${API_BASE_URL}/${el.image}`)}*/}
+                  {/*    src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}*/}
+                  {/*    alt={'img'} />*/}
+                  {/*})}*/}
+                  {/*{product.product_more.map((elem)=>{*/}
+                  {/*  return <img*/}
+                  {/*    className={mainImage === `${API_BASE_URL}/${el.image}`*/}
+                  {/*      ? s.container__product__product__images__slider__active*/}
+                  {/*      : ''}*/}
+                  {/*    onClick={()=>setMainImage(`${API_BASE_URL}/${el.image}`)}*/}
+                  {/*    src={el.image ? `${API_BASE_URL}/${elem.image}` : Stock.src}*/}
+                  {/*    alt={'img'} />*/}
+                  {/*})}*/}
                   <div onClick={(e: React.UIEvent<HTMLElement>)=>scrollHandler(e)}></div>
                 </div>
                 <div className={s.container__product__product__images__main}>
