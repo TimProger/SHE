@@ -97,7 +97,7 @@
   &__slide {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     background: #C7C7C7;
     width: 100% !important;
 
@@ -127,7 +127,7 @@
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
 
       &__btn {
         background: $block-thrd;
