@@ -16,6 +16,7 @@ import CardFloat from "../CardFloat";
 import Button from "../Button";
 import {$api} from "../../http/api";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {getBasket} from "../../store/ActionCreators/Basket.ac";
 
 interface IBasketProps {
   translates: any;
@@ -284,8 +285,8 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const [street, setStreet] = useState('')
   const [house, setHouse] = useState('')
   const [apart, setApart] = useState('')
-  const [delivery, setDelivery] = useState('self')
-  const [payment, setPayment] = useState('card')
+  const [delivery, setDelivery] = useState('2')
+  const [payment, setPayment] = useState('cash')
   const [done, setDone] = useState<any | null>(null)
 
   const onChangeArea = (e: ChangeEvent<HTMLInputElement>) => {
@@ -347,7 +348,28 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
     if (errors.apart || apart.length <= 0) return
     setIsDisabled(false)
 
-  },[errors, email, phoneUpd, firstName, lastName, area, city, house, apart])
+  },[errors, email, phoneUpd, firstName, lastName, area, city, street, house, apart])
+
+  useEffect(()=>{
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsDisabled(true)
+    switch (page){
+      case 0:
+        setIsDisabled(false)
+        break
+      case 1:
+        if (errors.email || email.length <= 0) return
+        if (errors.phone || phoneUpd.length <= 0) return
+        if (errors.first || firstName.length <= 0) return
+        if (errors.last || lastName.length <= 0) return
+        if (errors.area || area.length <= 0) return
+        if (errors.city || city.length <= 0) return
+        if (errors.house || house.length <= 0) return
+        if (errors.apart || apart.length <= 0) return
+        setIsDisabled(false)
+        break
+    }
+  },[page])
 
   const returnPages = () => {
     switch (page){
@@ -448,11 +470,11 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
               { /*@ts-ignore*/ }
               <div className={s.order__delivery__radios} onChange={(e: FormEvent<HTMLInputElement>)=>setDelivery(e.target.value)}>
                 <div>
-                  <input checked={delivery === 'self'} type="radio" value="self" name="delivery" id={'self'}/>
+                  <input checked={delivery === "1"} type="radio" value="1" name="delivery" id={'self'}/>
                   <label htmlFor="self">{translates.order.radio_1}</label>
                 </div>
                 <div>
-                  <input checked={delivery === 'transport'} type="radio" value="transport" name="delivery" id={'transport'}/>
+                  <input checked={delivery === "2"} type="radio" value="2" name="delivery" id={'transport'}/>
                   <label htmlFor="transport">{translates.order.radio_2}</label>
                 </div>
               </div>
@@ -477,10 +499,10 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
             </div>
             <h2>{translates.order.payment_methods}</h2>
             { /*@ts-ignore*/ }
-            <div className={s.order__orders__payment} onChange={(e: FormEvent<HTMLInputElement>)=>setPayment(e.target.value)}>
+            <div className={s.order__orders__payment} onChange={(e: FormEvent<HTMLInputElement>)=>setPayment('cash')}>
               <div className={s.order__orders__payment__radio}>
                 <div>
-                  <input checked={payment === 'card'} type="radio" value="card" name="payment" id={'card'}/>
+                  <input disabled={true} checked={false} type="radio" value="card" name="payment" id={'card'}/>
                   <label htmlFor="card">{translates.order.radio_3}</label>
                 </div>
               </div>
@@ -498,9 +520,9 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
           <div className={s.done}>
             <div className={s.done__header}>
               <h1>{translates.title_1 || 'Order paid'}</h1>
-              <p>Дата: <span>{new Date(done.data_order).toLocaleString().split(', ').join(' ')}</span></p>
+              <p>{locale === 'ru' ? 'Дата' : 'Date'}: <span>{new Date(done.data_order).toLocaleString().split(', ').join(' ')}</span></p>
             </div>
-            <h2 className={s.done__order_id}>Номер заказа: {done.order_id}</h2>
+            <h2 className={s.done__order_id}>{locale === 'ru' ? 'Номер заказа' : 'Order id'}: #{done.order_id}</h2>
             <div className={s.done__products}>
               <h2>{translates.order.products}</h2>
               {newProducts.length > 0 ? newProducts.map((el, index)=>{
@@ -513,7 +535,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
                 </div>
               }) : <p>{translates.empty}</p>}
             </div>
-            <h2 className={s.done__delivery}>{translates.order.delivery}: <span>Транспортной компанией</span></h2>
+            <h2 className={s.done__delivery}>{translates.order.delivery}: <span>{done.delivery_id === 2 ? translates.order.delivery_2 : translates.order.delivery_1}</span></h2>
           </div>
         )
     }
@@ -537,12 +559,14 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
 
     data.append('address', fullAdress);
     data.append('pay_online', 'False');
+    data.append('delivery', delivery);
 
     $api.post(`/${locale}/order/buy/`, data)
       .then((res) => {
         console.log(res)
         setDone(res.data)
         setPage(2)
+        dispatch(getBasket(''))
       })
       .catch((res)=>{
       })

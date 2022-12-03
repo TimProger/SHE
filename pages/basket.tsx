@@ -43,6 +43,8 @@ const Basket: React.FC = () => {
       street: t('basket:order_street'),
       street_pl: t('basket:order_street_pl'),
       delivery: t('basket:order_delivery'),
+      delivery_1: t('basket:order_delivery_1'),
+      delivery_2: t('basket:order_delivery_2'),
       home: t('basket:order_home'),
       apartment: t('basket:order_apartment'),
       radio_1: t('basket:order_radio_1'),

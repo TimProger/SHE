@@ -24,6 +24,8 @@
   "order_street": "Street*",
   "order_street_pl": "West Olympic Boulevard",
   "order_delivery": "Delivery method",
+  "order_delivery_1": "Self-delivery",
+  "order_delivery_2": "By transport company",
   "order_radio_1": "Self-delivery",
   "order_radio_2": "By transport company",
   "order_about_delivery": "A manager will contact you to clarify information about the delivery and further registration of the order.",
