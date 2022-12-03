@@ -52,6 +52,7 @@ const Policy: React.FC<IPolicyProps> = ({data}) => {
       button: t('auth:button'),
       text: t('auth:text'),
       link: t('auth:link'),
+      back: t('auth:back'),
       countries: {
         russia: t('auth:country_russia'),
         usa: t('auth:country_usa'),

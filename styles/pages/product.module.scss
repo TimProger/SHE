@@ -124,7 +124,7 @@
           padding: 15px;
           background: $block-main;
           color: $text-thrd;
-          z-index: 15;
+          z-index: $z-index-base;
         }
 
         &__hit{
@@ -135,7 +135,7 @@
           padding: 15px;
           background: $block-frth;
           color: $text-thrd;
-          z-index: 15;
+          z-index: $z-index-base;
         }
 
         & img{

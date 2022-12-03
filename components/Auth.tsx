@@ -211,7 +211,6 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
         </>
       case 1:
         return <>
-          <p onClick={()=>handleClick()}>back</p>
           <p>{translates.paragraph_2}</p>
           <div className={s.auth__form__container__input}>
             <h2>{translates.input_2}</h2>
@@ -238,6 +237,14 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
     <div onClick={outsideClickHandler} className={s.auth + ' ' + (show ? s.auth__active : '')}>
       <div onClick={insideClickHandler} className={s.auth__form}>
         <div className={s.auth__form__container}>
+          {page === 1 && <p className={s.auth__form__container__back} onClick={() => handleClick()}>
+            <svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.41475 0.316623L0.202765 7.40897C0.129032 7.4934 0.0769276 7.58487 0.0464514 7.68338C0.0154837 7.78188 0 7.88742 0 8C0 8.11258 0.0154837 8.21812 0.0464514 8.31662C0.0769276 8.41513 0.129032 8.5066 0.202765 8.59103L6.41475 15.7045C6.58679 15.9015 6.80184 16 7.05991 16C7.31797 16 7.53917 15.8945 7.7235 15.6834C7.90783 15.4723 8 15.226 8 14.9446C8 14.6631 7.90783 14.4169 7.7235 14.2058L2.30415 8L7.7235 1.7942C7.89554 1.59719 7.98157 1.35458 7.98157 1.06639C7.98157 0.777625 7.8894 0.527704 7.70507 0.316623C7.52074 0.10554 7.30568 0 7.05991 0C6.81413 0 6.59908 0.10554 6.41475 0.316623Z"
+                fill="#A0A0A0"/>
+            </svg>
+            {translates.back}
+          </p>}
           <h1>{translates.title}</h1>
           {returnPage()}
           <div className={s.auth__form__container__button}>

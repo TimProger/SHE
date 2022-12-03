@@ -6,7 +6,7 @@
   flex-direction: column;
   user-select: none;
   width: 35px;
-  z-index: 999999999999999999;
+  z-index: $z-index-popup;
   color: $text-sec;
 
   &__limit{
