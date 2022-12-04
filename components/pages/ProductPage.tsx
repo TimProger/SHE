@@ -51,11 +51,8 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
           }
         }else{
           const id = seen[index]
-          console.log(id)
           seen.splice(index, 1)
-          console.log(seen)
           seen.push(id)
-          console.log(seen)
           Storage.set('seen', seen)
         }
       }else{
@@ -85,7 +82,6 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
 
   useEffect(()=>{
     if(user.isAuth){
-      console.log(basket.products, more)
       const includes = basket.products.filter((el)=>el.more === more.id)
       if(includes[0]){
         setBasketProduct(basket.products.filter((el)=>el.more === more.id)[0])

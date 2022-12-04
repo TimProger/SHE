@@ -29,7 +29,6 @@ export const basketSlice = createSlice({
       }
     },
     removeFromBasket: (state: IBasketState, action: PayloadAction<number>) => {
-      console.log(action.payload)
       const product = state.products.find((el)=>el.more === action.payload)
       if(product){
         let index = state.products.indexOf(product)

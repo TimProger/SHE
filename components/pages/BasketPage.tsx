@@ -41,7 +41,6 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
   useEffect(()=>{
-    console.log(products)
     if(products.length === 0){
       setNewProducts([])
       setSelected([])
@@ -71,8 +70,6 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
               el.count = products[index].count
               return el
             }))
-            // @ts-ignore
-            console.log('res', res.data)
             // @ts-ignore
             setSelected([...res.data])
           }
@@ -140,7 +137,6 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
       }
       return;
     }else{
-      console.log(product, selected)
       let arr = selected.filter((el)=>el.more !== product.more)
       if(user.isAuth){
         $api.patch(`${locale}/basket/${product.more}/`, {
@@ -555,7 +551,6 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
     // data.append('area', area);
 
     const fullAdress = `${area} ${city} ${street} ${house} ${apart}`
-    console.log(fullAdress)
 
     data.append('address', fullAdress);
     data.append('pay_online', 'False');
@@ -563,7 +558,6 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
 
     $api.post(`/${locale}/order/buy/`, data)
       .then((res) => {
-        console.log(res)
         setDone(res.data)
         setPage(2)
         dispatch(getBasket(''))

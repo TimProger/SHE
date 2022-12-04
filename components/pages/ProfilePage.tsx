@@ -211,7 +211,6 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
   const [page, setPage] = useState<number>(1)
 
   useEffect(()=>{
-    console.log(query)
     if(query.page){
       setPage(+query.page)
     }
