@@ -196,7 +196,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
                 {/*<Dropdown value={} options={} handler={} />*/}
                 <div>
                   {/* @ts-ignore */}
-                  До: <Dropdown type={'limit'} handler={(e: MouseEvent, value: number)=>onToggleLimitClick(e, value)} value={limit} options={limitArr} />
+                  {locale === 'ru' ? 'До' : 'To'}: <Dropdown type={'limit'} handler={(e: MouseEvent, value: number)=>onToggleLimitClick(e, value)} value={limit} options={limitArr} />
                 </div>
               </div>
             </div>
@@ -228,7 +228,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
                 <div className={s.catalog__container__products__footer}>
                   <div>
                     {/* @ts-ignore */}
-                    До: <Dropdown type={'limit'} handler={(e: MouseEvent, value: number)=>onToggleLimitClick(e, value)} value={limit} options={limitArr} />
+                    {locale === 'ru' ? 'До' : 'To'}: <Dropdown type={'limit'} handler={(e: MouseEvent, value: number)=>onToggleLimitClick(e, value)} value={limit} options={limitArr} />
                   </div>
                 </div>
                 <div className={s.catalog__container__products__pages}>
