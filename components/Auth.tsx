@@ -182,7 +182,7 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
         setPage(0);
         dispatch(getUser())
         setShow(false)
-        window.location.replace(`/${locale === 'ru' ? '' : 'en'}/profile`)
+        window.location.replace(`/${locale}/profile`)
       })
       .catch((err) => {
         if(err.response.data.detail == "Код не верный"){

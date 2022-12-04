@@ -66,7 +66,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
   useEffect(()=>{
     if(typeof window !== undefined){
       if(!Storage.get('accessToken')){
-        window.location.replace(`/${locale === 'ru' ? '' : 'en'}/`)
+        window.location.replace(`/${locale}/`)
       }else{
         if(user){
           setFirstName(user.first_name)
@@ -192,7 +192,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
     dispatch(exit())
     Storage.delete('accessToken')
     Storage.delete('refreshToken')
-    window.location.replace(`/${locale === 'ru' ? '' : 'en'}/`)
+    window.location.replace(`/${locale}/`)
 
   }
 
@@ -202,7 +202,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
         dispatch(exit())
         Storage.delete('accessToken')
         Storage.delete('refreshToken')
-        window.location.replace(`/${locale === 'ru' ? '' : 'en'}/`)
+        window.location.replace(`/${locale}/`)
 
       })
   }
