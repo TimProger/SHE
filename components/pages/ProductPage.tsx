@@ -39,8 +39,8 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
     if(window){
       const seen = Storage.get('seen')
       if(seen){
-        const item = seen.indexOf(product.id)
-        if(item === -1){
+        const index = seen.indexOf(product.id)
+        if(index === -1){
           if(seen.length === 4){
             seen.shift()
             seen.push(product.id)
@@ -50,6 +50,12 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
             Storage.set('seen', seen)
           }
         }else{
+          const id = seen[index]
+          console.log(id)
+          seen.splice(index, 1)
+          console.log(seen)
+          seen.push(id)
+          console.log(seen)
           Storage.set('seen', seen)
         }
       }else{

@@ -160,6 +160,32 @@
       }
     }
   }
+
+  &__seen{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    &__cards{
+      height: 400px;
+      display: flex;
+      align-items: center;
+
+      &__card{
+        margin-right: auto;
+      }
+    }
+
+    &__not_found{
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $text-sec;
+    }
+  }
 }
 
 .new__block{

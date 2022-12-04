@@ -9,10 +9,11 @@ import {useAppDispatch} from "../hooks/useTypedDispatch";
 import Stock from "../public/images/stock.png";
 
 interface ICardProps {
-  product: IProduct
+  product: IProduct;
+  className?: string;
 }
 
-const Card: React.FC<ICardProps> = ({product}) => {
+const Card: React.FC<ICardProps> = ({product, className}) => {
   const dispatch = useAppDispatch()
   const [more, setMore] = useState<IProductMore>(product.product_more[0])
   const [mainImage, setMainImage] = useState<IProductImage | null>(null)
@@ -59,7 +60,7 @@ const Card: React.FC<ICardProps> = ({product}) => {
   },[])
 
   return (
-    <div className={s.card + ` ${is_new && s.card__new} ${is_hit && s.card__hit}`}>
+    <div className={s.card + ` ${is_new && s.card__new} ${is_hit && s.card__hit} ${className ? className : ''}`}>
       <div className={s.card__header}>
         <div className={s.card__header__new}>
           {is_new && <div className={s.card__new__block}>New</div>}

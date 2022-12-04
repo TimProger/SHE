@@ -10,8 +10,8 @@
   color: $text-main;
 
   &__image{
-    position: absolute;
-    top: 0;
+    position: relative;
+    top: -35px;
     height: 300px;
     overflow: hidden;
 

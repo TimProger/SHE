@@ -8,7 +8,9 @@ import Head from "next/head";
 import {useAppDispatch} from "../../hooks/useTypedDispatch";
 import Dropdown from "../Dropdown";
 import {$api} from "../../http/api";
-import {IFilter, IProduct} from "../../types/Product.types";
+import {IFilter, IProduct, IProductShort} from "../../types/Product.types";
+import {Storage} from "../../utils/storage";
+import {getFavs} from "../../store/ActionCreators/Fav.ac";
 
 interface ICatalogProps {
   translates: any;
@@ -159,6 +161,23 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
     })
   }
 
+  const [seen, setSeen] = useState<IProduct[]>([])
+
+  useEffect(()=>{
+    const data = Storage.get('seen')
+    if(data && data.length > 0){
+      data.map((el: string, index: number)=>{
+        $api.post<IProduct[]>(`/${locale}/product/favs/`, {
+          ids: el+',1'
+        })
+          .then((res)=>{
+            seen[index] = res.data[0]
+            setSeen([...seen])
+          })
+      })
+    }
+  },[locale])
+
   return (
     <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
       <Head>
@@ -226,6 +245,18 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
                   </svg> : <p className={s.catalog__container__products__pages__pl}></p>}
                 </div>
               </div>
+            </div>
+            <div className={s.catalog__seen}>
+              <h1>{locale === 'ru' ? 'Недавно просмотренные' : 'Recently viewed'}</h1>
+              {seen.length > 0
+                ? <div className={s.catalog__seen__cards}>
+                  {seen.map((el, index)=>{
+                    return <Card className={s.catalog__seen__cards__card} product={el} key={index} />
+                  })}
+                </div>
+                : <p className={s.catalog__seen__not_found}>
+                  {locale === 'ru' ? 'Вы не просмотрели ни одного товара' : 'You haven\'t viewed any products'}
+                </p>}
             </div>
           </div>
         </Container>
