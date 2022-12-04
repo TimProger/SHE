@@ -72,13 +72,13 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
   },[product])
 
   useEffect(()=>{
-    const includes = fav.products.filter((el)=>el.id === product.id)
+    const includes = fav.products.filter((el)=>el.id === more.id)
     if(includes[0]){
       setIsFav(true)
     }else{
       setIsFav(false)
     }
-  }, [fav.products])
+  }, [fav.products, more])
 
   useEffect(()=>{
     if(user.isAuth){
