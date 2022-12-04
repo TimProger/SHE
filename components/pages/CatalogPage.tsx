@@ -196,7 +196,6 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
                           <label htmlFor={el.name+'i'+index}>{elem.name}</label>
                         </div>
                       })}
-
                     </div>
                   </div>
                 })}

@@ -13,6 +13,7 @@ import {useTypedSelector} from "../../hooks/useTypedSelector";
 import Button from "../Button";
 import Stock from "../../public/images/stock.png";
 import Link from "next/link";
+import {Storage} from "../../utils/storage";
 
 interface IProductPageProps {
   translates: any;
@@ -33,6 +34,31 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
   const [more, setMore] = useState<IProductMore>(product.product_more[0])
   const [mainImage, setMainImage] = useState<string>(product.images[0] ? `${API_BASE_URL}/${product.images[0].image}` : `${Stock.src}`)
   const [basketProduct, setBasketProduct] = useState<IBasketProduct | null>(null)
+
+  useEffect(()=>{
+    if(window){
+      const seen = Storage.get('seen')
+      if(seen){
+        const item = seen.indexOf(product.id)
+        if(item === -1){
+          if(seen.length === 4){
+            seen.shift()
+            seen.push(product.id)
+            Storage.set('seen', seen)
+          }else{
+            seen.push(product.id)
+            Storage.set('seen', seen)
+          }
+        }else{
+          Storage.set('seen', seen)
+        }
+      }else{
+        const seen = []
+        seen.push(product.id)
+        Storage.set('seen', seen)
+      }
+    }
+  },[])
 
   useEffect(()=>{
     const id = more.id
