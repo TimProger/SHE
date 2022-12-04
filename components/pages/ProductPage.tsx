@@ -91,9 +91,9 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
         setIsBasket(false)
       }
     }else{
-      const includes = basket.products.filter((el)=>el.id === product.id)
+      const includes = basket.products.filter((el)=>el.more === more.id)
       if(basket.products.includes(includes[0])){
-        setBasketProduct(basket.products.filter((el)=>el.id === product.id)[0])
+        setBasketProduct(basket.products.filter((el)=>el.more === more.id)[0])
         setIsBasket(true)
       }else{
         setBasketProduct(null)
