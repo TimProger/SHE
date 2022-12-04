@@ -34,7 +34,7 @@ export const favSlice = createSlice({
       Storage.set('favs', JSON.stringify([]))
     },
     removeFromFavs: (state: IFavState, action: PayloadAction<number>) => {
-      const product = state.products.find((el)=>el.id === action.payload)
+      const product = state.products.find((el)=>el.more === action.payload)
       if(product){
         let index = state.products.indexOf(product)
         state.products.splice(index, 1)
