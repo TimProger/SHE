@@ -43,9 +43,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
   })
 
   const [limit, setLimit] = useState<number>(20)
-  const [limitState, setLimitState] = useState(false);
   const [limitArr, setLimitArr] = useState<number[]>([20, 40, 60]);
-  const [limitPage, setLimitPage] = useState(0)
 
   useEffect(()=>{
     $api.get(`${locale}/product/catalog/get_filters`)
@@ -165,6 +163,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
   useEffect(()=>{
     const data = Storage.get('seen')
     if(data && data.length > 0){
+      console.log()
       data.map((el: string, index: number)=>{
         $api.post<IProduct[]>(`/${locale}/product/favs/`, {
           ids: el+',1'
