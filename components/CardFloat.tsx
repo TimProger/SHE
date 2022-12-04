@@ -45,7 +45,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const addToBasketHandler = () => {
     if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.more}/`, {
+        $api.patch(`${locale}/basket/${product.id}/`, {
           count: product.count + 1
         })
           .then((res)=>{
@@ -54,7 +54,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           .catch(()=>{})
     }else{
       const obj = {
-        id: product.more,
+        id: product.id,
         more: product.more,
         buy_now: true,
         count: 1
@@ -66,14 +66,14 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
   const removeFromBasketHandler = () => {
     if(user.isAuth){
       if(product.count <= 1){
-        $api.delete(`${locale}/basket/${product.more}`)
+        $api.delete(`${locale}/basket/${product.id}`)
           .then((res)=>{
-            dispatch(killProduct(product.more))
+            dispatch(killProduct(product.id))
           })
           .catch(()=>{
           })
       }else{
-        $api.patch(`${locale}/basket/${product.more}/`, {
+        $api.patch(`${locale}/basket/${product.id}/`, {
           count: product.count - 1
         })
           .then((res)=>{
@@ -90,7 +90,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const killProductFromBasketHandler = () => {
     if(user.isAuth){
-      $api.delete(`${locale}/basket/${product.more}`)
+      $api.delete(`${locale}/basket/${product.id}`)
         .then((res)=>{
           dispatch(killProduct(product.more))
         })

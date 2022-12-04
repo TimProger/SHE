@@ -23,8 +23,8 @@ const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
       // Проверить на isAuth и если true, то не заходить в Storage
       // и сразу отправлять запрос за favs и basket
       const favs = Storage.get('favs')
-      if(favs && favs.length > 0){
-        dispatch(getFavs({ids: favs, locale}))
+      if(favs && JSON.parse(favs).length > 0){
+        dispatch(getFavs({ids: JSON.parse(favs), locale}))
       }
     }
   }, [])

@@ -126,7 +126,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
     const includes = selected.find((el)=>el.more === product.more)
     if(!includes){
       if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.more}/`, {
+        $api.patch(`${locale}/basket/${product.id}/`, {
           buy_now: true
         })
           .then(()=>{
@@ -139,7 +139,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
     }else{
       let arr = selected.filter((el)=>el.more !== product.more)
       if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.more}/`, {
+        $api.patch(`${locale}/basket/${product.id}/`, {
           buy_now: false
         })
           .then(()=>{
@@ -155,7 +155,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const selectAllProductHandler = () => {
     if(user.isAuth){
       newProducts.map((el)=>{
-        $api.patch(`${locale}/basket/${el.more}/`, {
+        $api.patch(`${locale}/basket/${el.id}/`, {
           buy_now: true
         })
       })
@@ -166,7 +166,7 @@ const BasketPage: React.FC<IBasketProps> = ({translates}) => {
   const removeAllProductFromBasketHandler = () => {
     if(user.isAuth){
       newProducts.map((el)=>{
-        $api.delete(`${locale}/basket/${el.more}/`)
+        $api.delete(`${locale}/basket/${el.id}/`)
           .then(()=>{
             setNewProducts([])
             setSelected([])

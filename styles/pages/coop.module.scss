@@ -1,6 +1,9 @@
 @import "../colors";
 
 .coop {
+    margin-bottom: 80px;
+    margin-top: 50px;
+
     &__imgBackGround {
         background: url('../../public/images/coopBackGround.png');
         background-size: cover;

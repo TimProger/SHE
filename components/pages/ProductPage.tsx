@@ -72,7 +72,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
   },[product])
 
   useEffect(()=>{
-    const includes = fav.products.filter((el)=>el.id === more.id)
+    const includes = fav.products.filter((el)=>el.more === more.id)
     if(includes[0]){
       setIsFav(true)
     }else{
@@ -100,7 +100,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
         setIsBasket(false)
       }
     }
-  }, [basket.products])
+  }, [basket.products, more])
 
   const addToBasketHandler = () => {
     if(user.isAuth){
@@ -135,7 +135,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
 
   const removeFromBasketHandler = () => {
     if(user.isAuth){
-      const includes = basket.products.filter((el)=>el.product === more.id)
+      const includes = basket.products.filter((el)=>el.more === more.id)
       if(includes[0].count <= 1){
         $api.delete(`${locale}/basket/${includes[0].id}`)
           .then((res)=>{

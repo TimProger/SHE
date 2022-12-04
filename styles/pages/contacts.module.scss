@@ -1,59 +1,67 @@
 @import "../colors";
 
 .contacts {
+  width: 100%;
+  margin-bottom: 312px;
+
+  &__wrapper {
     width: 100%;
-    margin-bottom: 312px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 80px;
+    margin-top: 50px;
+    gap: 50px;
 
-    &__wrapper {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-
-        & h2 {
-            margin-bottom: 20px;
-            font-weight: 600;
-            font-size: 16px;
-        }
+    & h1{
+      font-weight: 600;
+      font-size: 40px;
+      line-height: 41px;
     }
 
-    &__phone {
-        font-weight: 600;
-        font-size: 24px;
+    & h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 16px;
     }
+  }
 
-    &__email {
-        font-weight: 600;
-        font-size: 24px;
+  &__phone {
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  &__email {
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  &__address {
+    font-weight: 600;
+    font-size: 24px;
+    text-decoration-line: underline;
+
+    & a{
+        color: $text-main;
     }
+  }
 
-    &__address {
-        font-weight: 600;
-        font-size: 24px;
-        text-decoration-line: underline;
+  &__social_networks {
 
-        & a{
-            color: $text-main;
-        }
+    &__buttons {
+      align-items: center;
+      display: flex;
+
+      & svg {
+          cursor: pointer;
+      }
+
+      & svg:nth-child(1) {
+          margin-right: 18px;
+      }
+
+      & svg:nth-child(2) {
+          margin-right: 28px;
+      }
     }
-
-    &__social_networks {
-
-        &__buttons {
-            align-items: center;
-            display: flex;
-
-            & svg {
-                cursor: pointer;
-            }
-
-            & svg:nth-child(1) {
-                margin-right: 18px;
-            }
-
-            & svg:nth-child(2) {
-                margin-right: 28px;
-            }
-        }
-    }
+  }
 }
