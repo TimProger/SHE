@@ -251,7 +251,9 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
               {seen.length > 0
                 ? <div className={s.catalog__seen__cards}>
                   {seen.map((el, index)=>{
-                    return <Card className={s.catalog__seen__cards__card} product={el} key={index} />
+                    return <div className={s.catalog__seen__cards__card}>
+                      <Card product={el} key={index} />
+                    </div>
                   })}
                 </div>
                 : <p className={s.catalog__seen__not_found}>
