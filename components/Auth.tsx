@@ -11,6 +11,7 @@ import {useAppDispatch} from "../hooks/useTypedDispatch";
 import Countries from '../public/images/countries/countries'
 import {onToggleLanguageClick} from "../utils/changeCurrentLanguage";
 import Link from "next/link";
+import {useRouter} from "next/router";
 
 interface IAuthProps {
   translates: any;
@@ -79,6 +80,7 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
       phone: '90'
     },
   ])
+  const {locale} = useRouter()
   const [country, setCountry] = useState(countries[0])
   const [phone, setPhone] = useState<string>(`+${country.phone} `)
   const [code, setCode] = useState('')
@@ -180,7 +182,7 @@ const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
         setPage(0);
         dispatch(getUser())
         setShow(false)
-        window.location.replace('/profile')
+        window.location.replace(`/${locale === 'ru' ? '' : 'en'}/profile`)
       })
       .catch((err) => {
         if(err.response.data.detail == "Код не верный"){

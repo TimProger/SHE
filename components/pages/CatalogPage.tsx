@@ -10,7 +10,6 @@ import Dropdown from "../Dropdown";
 import {$api} from "../../http/api";
 import {IFilter, IProduct, IProductShort} from "../../types/Product.types";
 import {Storage} from "../../utils/storage";
-import {getFavs} from "../../store/ActionCreators/Fav.ac";
 
 interface ICatalogProps {
   translates: any;

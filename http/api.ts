@@ -46,7 +46,7 @@ $api.interceptors.response.use((config: AxiosResponse) => {
             return $api.request(originalRequest);
         } catch (e) {
             Storage.delete('accessToken');
-            window.location.replace('/')
+            window.location.replace(`/`)
         }
     }
     throw error;

@@ -11,6 +11,7 @@ import {useAppDispatch} from "../hooks/useTypedDispatch";
 import Countries from '../public/images/countries/countries'
 import {onToggleLanguageClick} from "../utils/changeCurrentLanguage";
 import Link from "next/link";
+import {useRouter} from "next/router";
 
 interface IPartnershipProps {
   translates: any;
@@ -26,6 +27,7 @@ interface IPartnershipErrors {
 const Partnership: React.FC<IPartnershipProps> = ({translates, show, setShow}) => {
   const dispatch = useAppDispatch()
 
+  const {locale} = useRouter()
   const [countries, setCountries] = useState([
     {
       title: translates.countries.russia,
@@ -182,7 +184,7 @@ const Partnership: React.FC<IPartnershipProps> = ({translates, show, setShow}) =
         setPage(0);
         dispatch(getUser())
         setShow(false)
-        window.location.replace('/profile')
+        window.location.replace(`/${locale === 'ru' ? '' : 'en'}/profile`)
       })
       .catch((err) => {
         if(err.response.data.detail == "Код не верный"){
