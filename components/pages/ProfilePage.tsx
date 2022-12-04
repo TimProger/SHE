@@ -8,7 +8,7 @@ import {useAppDispatch} from "../../hooks/useTypedDispatch";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {Storage} from "../../utils/storage";
 import {$api, API_BASE_URL} from "../../http/api";
-import {exit} from "../../store/Slices/Profile.slice";
+import {exit, setImage} from "../../store/Slices/Profile.slice";
 import Button from "../Button";
 import ProfileImg from '../../public/images/profile_mock.png'
 import {IOrder} from "../../types/Product.types";
@@ -101,6 +101,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
 
     // @ts-ignore
     setSelectedFile(files[0])
+    dispatch(setImage(files[0]))
 
     if(files[0]){
       data.append('user_image', files[0]);
@@ -337,7 +338,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
               <div className={s.profile__info__info}>
                 <div>
                   <label title="&nbsp;" className='profileImgInputLabel' htmlFor="profileImgInput">
-                    <img src={user?.user_image ? (selectedFile ? URL.createObjectURL(selectedFile) : `${API_BASE_URL}${user?.user_image}`) : ProfileImg.src} alt="user_image"/>
+                    <img src={user?.user_image ? (typeof user.user_image !== 'string' ? URL.createObjectURL(user.user_image) : `${API_BASE_URL}${user?.user_image}`) : ProfileImg.src} alt="user_image"/>
                     <input title="&nbsp;" accept="image/*" id='profileImgInput' className='profileImgInput' type='file' onChange={changeFile} />
                   </label>
                 </div>

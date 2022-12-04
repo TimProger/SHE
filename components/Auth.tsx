@@ -27,7 +27,7 @@ interface IAuthErrors {
 const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
   const dispatch = useAppDispatch()
 
-  const {isAuth, error, isLoading} = useTypedSelector(state => state.auth)
+  const {isAuth, error, isLoading} = useTypedSelector(state => state.profile)
   const [countries, setCountries] = useState([
     {
       title: translates.countries.russia,

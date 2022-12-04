@@ -27,6 +27,12 @@ export const profileSlice = createSlice({
       state.user = null
       state.isAuth = false
       state.history = null
+    },
+    setImage: (state: IProfileState, action: PayloadAction<any>) => {
+      if(state.user){
+        state.user.user_image = action.payload
+
+      }
     }
   },
   extraReducers: {
@@ -46,6 +52,6 @@ export const profileSlice = createSlice({
   }
 })
 
-export const { exit } = profileSlice.actions
+export const { exit, setImage } = profileSlice.actions
 
 export default profileSlice.reducer
