@@ -171,7 +171,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
   }
 
   return (
-    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
+    <Layout links={translates.footer.links} titles={translates.footer.titles}>
       <Head>
         <title>{product.name} | ™SHE</title>
         <meta name={"description"} content={product.about || 'Product page description'} />

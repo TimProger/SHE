@@ -10,10 +10,9 @@ import Dropdown from "./Dropdown";
 import Auth from "./Auth";
 import {$api, API_BASE_URL} from "../http/api";
 import ProfileImg from '../public/images/profile_mock.png'
+import {useTranslation} from "next-i18next";
 
 interface IHeaderProps {
-  btns: any;
-  auth: any;
 }
 
 interface IHeaderStateCollection {
@@ -30,7 +29,7 @@ interface IHeaderState {
   collection: IHeaderStateCollection[];
 }
 
-const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
+const Header: React.FC<IHeaderProps> = ({}) => {
   const dispatch = useAppDispatch()
   const { locale, query } = useRouter()
   const [searchValue, setSearchValue] = useState('')
@@ -43,6 +42,17 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
   const fav = useTypedSelector(state => state.fav)
   const basket = useTypedSelector(state => state.basket)
   const [headerState, setHeaderState] = useState<IHeaderState[]>([])
+
+  const { t } = useTranslation('common')
+
+  const btns = {
+    home: t('header.home'),
+    catalogue: t('header.catalogue'),
+    coop: t('header.coop'),
+    about: t('header.about'),
+    contacts: t('header.contacts'),
+    search: t('header.search')
+  }
 
   useEffect(()=>{
     $api.get(`${locale}/product/catalog/`)
@@ -93,7 +103,7 @@ const Header: React.FC<IHeaderProps> = ({btns, auth}) => {
 
   return (
     <>
-      <Auth translates={auth} show={showAuth} setShow={setShowAuth}/>
+      <Auth show={showAuth} setShow={setShowAuth}/>
       <header className={s.header}>
         <div className={s.wrapper}>
           <div className={s.top}>

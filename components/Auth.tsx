@@ -12,9 +12,9 @@ import Countries from '../public/images/countries/countries'
 import {onToggleLanguageClick} from "../utils/changeCurrentLanguage";
 import Link from "next/link";
 import {useRouter} from "next/router";
+import {useTranslation} from "next-i18next";
 
 interface IAuthProps {
-  translates: any;
   show: boolean;
   setShow: (isShow: boolean) => void;
 }
@@ -24,8 +24,37 @@ interface IAuthErrors {
   code: string;
 }
 
-const Auth: React.FC<IAuthProps> = ({translates, show, setShow}) => {
+const Auth: React.FC<IAuthProps> = ({show, setShow}) => {
   const dispatch = useAppDispatch()
+
+  const { t } = useTranslation('common')
+
+  const translates = {
+    error_code_1: t('auth.error_code_1'),
+    title: t('auth.title'),
+    paragraph_1: t('auth.paragraph_1'),
+    paragraph_2: t('auth.paragraph_2'),
+    input_1: t('auth.input_1'),
+    input_2: t('auth.input_2'),
+    button: t('auth.button'),
+    text: t('auth.text'),
+    link: t('auth.link'),
+    back: t('auth.back'),
+    countries: {
+      russia: t('auth.countries.country_russia'),
+      usa: t('auth.countries.country_usa'),
+      uar: t('auth.countries.country_uar'),
+      korea: t('auth.countries.country_korea'),
+      bel: t('auth.countries.country_bel'),
+      azerb: t('auth.countries.country_azerb'),
+      england: t('auth.countries.country_england'),
+      oae: t('auth.countries.country_oae'),
+      india: t('auth.countries.country_india'),
+      turkey: t('auth.countries.country_turkey')
+    }
+  }
+
+  console.log(translates)
 
   const {isAuth, error, isLoading} = useTypedSelector(state => state.profile)
   const [countries, setCountries] = useState([

@@ -23,7 +23,7 @@ const AboutPage: React.FC<IProductPageProps> = ({translates, about}) => {
 
   return (
     <>
-        <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
+        <Layout links={translates.footer.links} titles={translates.footer.titles}>
         <Head>
             <title>{translates.title} | ™SHE</title>
         </Head>
@@ -32,7 +32,7 @@ const AboutPage: React.FC<IProductPageProps> = ({translates, about}) => {
                 <div className={s.about__wrapper}>
                     <div className={s.about__first}>
                         <div className={s.about__first__title}>
-                            {about.title1}
+                            {about.title}
                         </div>
                         <div className={s.about__first__text}>
                             <span>{about.about}</span>

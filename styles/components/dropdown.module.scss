@@ -1,4 +1,4 @@
-@import "../colors";
+@import "../vars";
 
 .dropdown{
   display: flex;
@@ -6,7 +6,7 @@
   flex-direction: column;
   user-select: none;
   width: 35px;
-  z-index: $z-index-popup;
+  z-index: $z-index-dropdown;
   color: $text-sec;
 
   &__limit{
@@ -112,7 +112,7 @@
     opacity: 0;
     transition: all 0.5s;
     position: absolute;
-    margin-top: 35px;
+    margin-top: 40px;
     flex-direction: column;
     border: 1px solid black;
   }

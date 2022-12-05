@@ -23,7 +23,7 @@ const CoopPage: React.FC<IProductPageProps> = ({translates, coop}) => {
   return (
     <>
       <Partnership translates={translates.partnership} show={showAuth} setShow={setShowAuth} />
-      <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
+      <Layout links={translates.footer.links} titles={translates.footer.titles}>
         <Head>
           <title>{translates.title} | ™SHE</title>
         </Head>

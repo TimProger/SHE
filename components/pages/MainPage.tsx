@@ -39,12 +39,12 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
   }
 
   return (
-    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
+    <Layout links={translates.footer.links} titles={translates.footer.titles}>
       <Head>
         <title>{translates.title} | ™SHE</title>
         <meta name="description" content={locale === 'ru'
-          ? "™SHE предлагает более 100 уникальных профессиональных цветов гель-лаков. Наши продукты имеют высокую пигментацию, устойчивы к сколам и долго вам прослужат. Купите свой любимый профессиональный гель-лак для ногтей онлайн. "
-          : ""} />
+          ? "™SHE предлагает более 100 уникальных профессиональных цветов гель-лаков. Наши продукты имеют высокую пигментацию, устойчивы к сколам и долго вам прослужат. Купите свой любимый профессиональный гель-лак для ногтей онлайн."
+          : "™SHE offers more than 100 unique professional gel polish colors. Our products are highly pigmented, resistant to chipping and will last you a long time. Buy your favorite professional gel nail polish online."} />
       </Head>
       <div>
         <Swiper

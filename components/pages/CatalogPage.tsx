@@ -187,7 +187,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
   },[locale])
 
   return (
-    <Layout btns={translates.header} links={translates.footer.links} titles={translates.footer.titles} auth={translates.auth}>
+    <Layout links={translates.footer.links} titles={translates.footer.titles}>
       <Head>
         <title>{translates.title} | ™SHE</title>
       </Head>
