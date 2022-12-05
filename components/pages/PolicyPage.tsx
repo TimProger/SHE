@@ -18,16 +18,12 @@ interface IPolicyPageProps {
 }
 
 const PolicyPage: React.FC<IPolicyPageProps> = ({translates, data}) => {
-  const { locale } = useRouter()
-  const dispatch = useAppDispatch()
 
   function urlify(text: any) {
     var urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.replace(urlRegex, function(url: any) {
       return '<a href="' + url + '">' + url + '</a>';
     })
-    // or alternatively
-    // return text.replace(urlRegex, '<a href="$1">$1</a>')
   }
 
   return (

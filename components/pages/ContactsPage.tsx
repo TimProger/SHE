@@ -1,7 +1,7 @@
 import Layout from "../../layout/layout";
 import s from '../../styles/pages/contacts.module.scss'
 import {useRouter} from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import Container from "../Container";
 import Head from "next/head";
 import {useAppDispatch} from "../../hooks/useTypedDispatch";
@@ -12,7 +12,7 @@ interface IContactsPageProps {
   contacts: any;
 }
 
-const ContactsPage: React.FC<IContactsPageProps> = ({translates, contacts}) => {
+const ContactsPage: React.FC<IContactsPageProps> = ({contacts}) => {
   const { locale } = useRouter()
   const dispatch = useAppDispatch()
 
@@ -36,7 +36,7 @@ const ContactsPage: React.FC<IContactsPageProps> = ({translates, contacts}) => {
               </div>
               <div className={s.contacts__address}>
                 <h2>{contacts.title3}</h2>
-                <Link href={'https://yandex.ru/maps/-/CCUjULH9GB'}>{contacts.adress}</Link>
+                <Link href={'https://yandex.ru/maps/-/CCUjULH9GB'}>{contacts.address}</Link>
               </div>
               <div className={s.contacts__social_networks}>
                 <h2>{contacts.title4}</h2>
