@@ -45,7 +45,6 @@
   }
 
   &__new{
-    user-select: none;
 
     .card__header__new__discount{
       color: $block-main;
@@ -65,7 +64,6 @@
   }
 
   &__hit{
-    user-select: none;
 
     .card__header__new__discount{
       color: $block-frth;

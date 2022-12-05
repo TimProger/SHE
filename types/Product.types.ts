@@ -59,7 +59,7 @@ export interface IProduct {
   is_new: boolean;
   is_hit: boolean;
   article: string;
-  type_product: string;
+  product_type: string;
   about_text: string;
   about_title: string;
   ml: number;

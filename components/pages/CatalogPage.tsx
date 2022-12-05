@@ -49,22 +49,23 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
     $api.get(`${locale}/product/catalog/get_filters`)
       .then((res)=>{
         setFilters(res.data)
+        const data = new FormData()
+        if(query.category){
+          // @ts-ignore
+          data.append('category', query.category)
+          toggleFilter(`${query.category}`, 'category')
+        }
+        if(query.collection){
+          // @ts-ignore
+          data.append('collection', query.collection)
+        }
+        $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
+          .then((res)=>{
+            setPages(Math.ceil(res.data.count_pages))
+            setProducts(res.data.data)
+          })
       })
-    const data = new FormData()
-    if(query.category){
-      // @ts-ignore
-      data.append('category', query.category)
-    }
-    if(query.collection){
-      // @ts-ignore
-      data.append('collection', query.collection)
-    }
-    $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
-      .then((res)=>{
-        setPages(Math.ceil(res.data.count_pages))
-        setProducts(res.data.data)
-      })
-  },[locale, limit])
+  },[locale, limit, query])
 
   useEffect(()=>{
     const data = new FormData()
@@ -133,6 +134,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
 
   useEffect(()=>{
     const data = new FormData()
+    console.log(usedFilters.category)
     if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
@@ -163,16 +165,18 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
   useEffect(()=>{
     const data = Storage.get('seen')
     if(data && data.length > 0){
-      console.log()
-      data.map((el: string, index: number)=>{
-        $api.post<IProduct[]>(`/${locale}/product/favs/`, {
-          ids: el+',1'
-        })
-          .then((res)=>{
-            seen[index] = res.data[0]
-            setSeen([...seen])
-          })
+      console.log('')
+      $api.post<IProduct[]>(`/${locale}/product/favs/`, {
+        ids: data.join(',')
       })
+        .then((res)=>{
+          data.map((el: string, index: number)=>{
+            console.log(res.data, data)
+            const item = res.data.filter((el)=> el.id === +data[index])
+            seen[index] = item[0]
+          })
+          setSeen([...seen])
+        })
     }
   },[locale])
 

@@ -99,6 +99,7 @@
           height: 100px;
           cursor: pointer;
           object-fit: cover;
+          object-position: 1px 0.5px;
         }
 
         &__active{
@@ -142,6 +143,7 @@
           width: 100%;
           height: 100%;
           object-fit: cover;
+          object-position: 0px -20px;
         }
       }
     }
