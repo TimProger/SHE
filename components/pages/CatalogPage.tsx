@@ -53,11 +53,17 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
         if(query.category){
           // @ts-ignore
           data.append('category', query.category)
-          toggleFilter(`${query.category}`, 'category')
+          usedFilters.category.push(+`${query.category}`)
         }
         if(query.collection){
           // @ts-ignore
           data.append('collection', query.collection)
+          usedFilters.collection.push(+`${query.collection}`)
+        }
+        if(query.type){
+          // @ts-ignore
+          data.append('type', query.type)
+          usedFilters.type.push(+`${query.type}`)
         }
         $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
           .then((res)=>{

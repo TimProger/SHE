@@ -181,7 +181,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
           <div className={s.container__product}>
             <div className={s.container__product__header}>
               <div className={s.container__product__header__path}>
-                <Link href={'/'}>{locale === 'ru' ? 'Главная' : 'Home'}</Link> / <Link href={'/catalog'}>{locale === 'ru' ? 'Каталог' : 'Catalog'}</Link> / <Link href={`/catalog?type=${product.product_type}`}>{product.type}</Link> / <Link href={`/product/${product.id}`}>{product.name}</Link>
+                <Link href={'/'}>{locale === 'ru' ? 'Главная' : 'Home'}</Link> / <Link href={'/catalog'}>{locale === 'ru' ? 'Каталог' : 'Catalog'}</Link> / <Link href={`/catalog?collection=${product.product_type}`}>{product.type}</Link> / <Link href={`/product/${product.id}`}>{product.name}</Link>
               </div>
               <article className={s.container__product__header__article}>
                 {translates.article} {product.article}
