@@ -241,7 +241,7 @@ const Product: React.FC<IProductPageProps> = ({translates, product}) => {
                       <div onClick={addToBasketHandler}>+</div>
                     </div>
                     : <div style={{display: 'flex'}}>
-                        <Button onClick={addToBasketHandler} text={translates.addToBasket} />
+                        <Button className={s.container__product__product__info__button__add} onClick={addToBasketHandler} text={translates.addToBasket} />
                       </div>}
                   {<div onClick={toggleFavHandler} className={s.container__product__product__info__button__fav + ' ' + (isFav ? s.container__product__product__info__button__fav__active : '')}>
                     <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">

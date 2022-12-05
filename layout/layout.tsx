@@ -9,6 +9,7 @@ import icon_16 from "../public/images/favicon/icon_16.png";
 import icon_24 from "../public/images/favicon/icon_24.png";
 import icon_32 from "../public/images/favicon/icon_32.png";
 import icon_64 from "../public/images/favicon/icon_64.png";
+import {useRouter} from "next/router";
 
 interface IMainLayoutProps {
   btns: any;
@@ -32,12 +33,19 @@ const Layout: React.FC<IMainLayoutProps>
          description,
          keywords
        }) => {
-    return (
+  const { locale } = useRouter()
+
+  return (
         <>
               <div className={s.mobile_alert}>
                 <div className={s.mobile_alert__container}>
-                  <h1>Мы работаем над этим!</h1>
-                  <div>Мобильная версия сайта сейчас недоступна. Мы работаем над ее созданием.<br /> Вы можете перейти на старую версию сайта по кнопке.</div>
+                  <h1>{locale === 'ru' ? 'Мы работаем над этим!' : 'We still working on it!'}</h1>
+                  <div>{locale === 'ru'
+                      ? 'Мобильная версия сайта сейчас недоступна. Мы работаем над ее созданием.'
+                      : 'The mobile version of the site is currently unavailable. We\'re working on it.'} <br />
+                    {locale === 'ru'
+                      ? 'Вы можете перейти на старую версию сайта по кнопке ниже.'
+                      : 'You can go to the old version of the site by clicking the button below'}</div>
                   <Button type={'link'} href={'https://tmshe.ru'} text='Перейти' />
                 </div>
               </div>

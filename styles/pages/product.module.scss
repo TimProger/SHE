@@ -220,10 +220,11 @@
           color: $text-thrd;
           padding: 15px 50px;
           cursor: pointer;
+          width: 300px;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.2s;
+          transition: all 0.3s;
 
           &:active{
             background: $block-main;
@@ -231,7 +232,6 @@
 
           &__active{
             user-select: none;
-            width: 300px;
             padding: 0 20px 0 20px;
             display: flex;
             gap: 40px;
