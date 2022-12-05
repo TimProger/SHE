@@ -23,31 +23,18 @@ const Contacts: React.FC = () => {
   const { locale } = useRouter()
   const { t } = useTranslation('contacts')
 
-  const translates = {
-    title1: t('title1'),
-    title2: t('title2'),
-    title3: t('title3'),
-    title4: t('title4'),
-    address: t('address'),
-  }
-
-  useEffect(()=>{
-
-  }, [])
-
   return (
     <>
-      {/*<ContactsPage translates={translates} contacts={translates.contacts}/>*/}
       <Layout>
         <Head>
-          <title>{translates.title1} | ™SHE</title>
+          <title>{t('title1')} | ™SHE</title>
         </Head>
         <div className={s.contacts}>
           <Container>
             <div className={s.contacts__wrapper}>
-              <h1>{translates.title1}</h1>
+              <h1>{t('title1')}</h1>
               <div className={s.contacts__phone}>
-                <h2>{translates.title2}</h2>
+                <h2>{t('title2')}</h2>
                 <p>+7 (915) 565-20-27</p>
               </div>
               <div className={s.contacts__email}>
@@ -55,11 +42,11 @@ const Contacts: React.FC = () => {
                 <p>info@tmshe.ru</p>
               </div>
               <div className={s.contacts__address}>
-                <h2>{translates.title3}</h2>
-                <Link href={'https://yandex.ru/maps/-/CCUjULH9GB'}>{translates.address}</Link>
+                <h2>{t('title3')}</h2>
+                <Link href={'https://yandex.ru/maps/-/CCUjULH9GB'}>{t('address')}</Link>
               </div>
               <div className={s.contacts__social_networks}>
-                <h2>{translates.title4}</h2>
+                <h2>{t('title4')}</h2>
                 <div className={s.contacts__social_networks__buttons}>
                   <Link href={'https://vk.com/tm_she'}>
                     <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
