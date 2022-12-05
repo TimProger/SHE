@@ -9,7 +9,6 @@ import img1 from '../../public/images/about1.png'
 import img2 from '../../public/images/about2.png'
 import img3 from '../../public/images/about3.png'
 import img4 from '../../public/images/about4.png'
-import Button from "../Button";
 
 interface IProductPageProps {
   translates: any;
