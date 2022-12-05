@@ -12,8 +12,6 @@ import icon_64 from "../public/images/favicon/icon_64.png";
 import {useRouter} from "next/router";
 
 interface IMainLayoutProps {
-  links: any;
-  titles: any;
   children: React.ReactNode;
   title?: string;
   description?: string;
@@ -22,8 +20,6 @@ interface IMainLayoutProps {
 
 const Layout: React.FC<IMainLayoutProps>
     = ({
-         links,
-         titles,
          children,
          title,
          description,
@@ -56,7 +52,7 @@ const Layout: React.FC<IMainLayoutProps>
       <div className={s.container}>
         <Header />
         {children}
-        <Footer links={links} titles={titles} />
+        <Footer />
       </div>
     </>
   );

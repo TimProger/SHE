@@ -1,13 +1,36 @@
 import s from '../styles/components/footer.module.scss'
 import React from "react";
 import Link from "next/link";
+import {useTranslation} from "next-i18next";
 
 interface IFooterProps {
-  links: any;
-  titles: any;
 }
 
-const Footer: React.FC<IFooterProps> = ({links, titles}) => {
+const Footer: React.FC<IFooterProps> = ({}) => {
+
+  const { t } = useTranslation('common')
+
+  const titles = {
+    profile: t('footer.titles.profile'),
+    info:  t('footer.titles.info'),
+    contacts:  t('footer.titles.contacts'),
+    video:  t('footer.titles.video'),
+  }
+
+  const links = {
+    profile_link1: t('footer.links.profile_link1'),
+    profile_link2: t('footer.links.profile_link2'),
+    info_link1: t('footer.links.info_link1'),
+    info_link2: t('footer.links.info_link2'),
+    info_link3: t('footer.links.info_link3'),
+    contacts_link1: t('footer.links.contacts_link1'),
+    contacts_link2: t('footer.links.contacts_link2'),
+    contacts_link3: t('footer.links.contacts_link3'),
+    video_link1: t('footer.links.video_link1'),
+    video_link2: t('footer.links.video_link2'),
+    video_link3: t('footer.links.video_link3'),
+    video_link4: t('footer.links.video_link4'),
+  }
 
   return (
     <footer className={s.footer}>

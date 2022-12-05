@@ -31,7 +31,7 @@ const PolicyPage: React.FC<IPolicyPageProps> = ({translates, data}) => {
   }
 
   return (
-    <Layout links={translates.footer.links} titles={translates.footer.titles}>
+    <Layout>
       <Head>
         <title>{translates.title} | ™SHE</title>
       </Head>

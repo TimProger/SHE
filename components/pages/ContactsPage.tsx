@@ -18,7 +18,7 @@ const ContactsPage: React.FC<IContactsPageProps> = ({translates, contacts}) => {
 
   return (
     <>
-      <Layout links={translates.footer.links} titles={translates.footer.titles}>
+      <Layout>
         <Head>
           <title>{contacts.title1} | ™SHE</title>
         </Head>

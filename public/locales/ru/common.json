@@ -32,5 +32,27 @@
       "country_turkey": "Турция",
       "error_code_1": "Код не верный"
     }
+  },
+  "footer": {
+    "titles": {
+      "profile": "Профиль",
+      "info": "Информация",
+      "contacts": "Контакты",
+      "video": "Видео ™SHE"
+    },
+    "links": {
+      "profile_link1": "Профиль",
+      "profile_link2": "Мои заказы",
+      "info_link1": "О нас",
+      "info_link2": "Документы",
+      "info_link3": "Сотрудничество",
+      "contacts_link1": "+7 (915) 565-20-27",
+      "contacts_link2": "info@tmshe.ru",
+      "contacts_link3": "Белгород, пр-кт Богдана Хмельницкого, 62Ак1",
+      "video_link1": "Наш канал",
+      "video_link2": "Работа с Aqua base",
+      "video_link3": "Обзор прочных баз",
+      "video_link4": "Дизайны"
+    }
   }
 }

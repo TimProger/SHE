@@ -322,7 +322,7 @@ const Product: React.FC<IProfilePageProps> = ({translates}) => {
   },[page])
 
   return (
-    <Layout links={translates.footer.links} titles={translates.footer.titles}>
+    <Layout>
       <Head>
         <title>{translates.title} | ™SHE</title>
       </Head>

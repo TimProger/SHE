@@ -39,7 +39,7 @@ const FavPage: React.FC<IFavProps> = ({translates}) => {
   }, [locale, products])
 
   return (
-    <Layout links={translates.footer.links} titles={translates.footer.titles}>
+    <Layout>
       <Head>
         <title>{translates.title} | ™SHE</title>
       </Head>

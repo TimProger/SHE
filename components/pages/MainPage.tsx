@@ -39,7 +39,7 @@ const MainPage: React.FC<IMainProps> = ({translates, slides, slidesNew, slidesHi
   }
 
   return (
-    <Layout links={translates.footer.links} titles={translates.footer.titles}>
+    <Layout>
       <Head>
         <title>{translates.title} | ™SHE</title>
         <meta name="description" content={locale === 'ru'

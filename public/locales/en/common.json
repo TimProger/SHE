@@ -31,5 +31,27 @@
       "country_turkey": "Turkey",
       "error_code_1": "Wrong code"
     }
+  },
+  "footer": {
+    "titles": {
+      "profile": "Profile",
+      "info": "Information",
+      "contacts": "Contacts",
+      "video": "Video ™SHE"
+    },
+    "links": {
+      "profile_link1": "Profile",
+      "profile_link2": "Payment",
+      "info_link1": "About us",
+      "info_link2": "Documents",
+      "info_link3": "Collaboration",
+      "contacts_link1": "+7 (915) 565-20-27",
+      "contacts_link2": "info@tmshe.ru",
+      "contacts_link3": "Belgorod, Bogdan Khmelnitsky Ave., 62Ak1",
+      "video_link1": "Our channel",
+      "video_link2": "Work with Aqua base",
+      "video_link3": "Overview of solid bases",
+      "video_link4": "Designs"
+    }
   }
 }

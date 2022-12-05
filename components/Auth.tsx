@@ -54,8 +54,6 @@ const Auth: React.FC<IAuthProps> = ({show, setShow}) => {
     }
   }
 
-  console.log(translates)
-
   const {isAuth, error, isLoading} = useTypedSelector(state => state.profile)
   const [countries, setCountries] = useState([
     {

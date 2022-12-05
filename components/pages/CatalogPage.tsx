@@ -140,7 +140,6 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
 
   useEffect(()=>{
     const data = new FormData()
-    console.log(usedFilters.category)
     if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
@@ -187,7 +186,7 @@ const CatalogPage: React.FC<ICatalogProps> = ({translates}) => {
   },[locale])
 
   return (
-    <Layout links={translates.footer.links} titles={translates.footer.titles}>
+    <Layout>
       <Head>
         <title>{translates.title} | ™SHE</title>
       </Head>

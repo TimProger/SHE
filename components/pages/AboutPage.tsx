@@ -23,7 +23,7 @@ const AboutPage: React.FC<IProductPageProps> = ({translates, about}) => {
 
   return (
     <>
-        <Layout links={translates.footer.links} titles={translates.footer.titles}>
+      <Layout>
         <Head>
             <title>{translates.title} | ™SHE</title>
         </Head>
@@ -49,7 +49,7 @@ const AboutPage: React.FC<IProductPageProps> = ({translates, about}) => {
                         <div className={s.about__first__img}>
                             <img src={img2.src} alt="" />
                         </div>
-                        
+
                     </div>
                     <div className={s.about__second}>
                         <div className={s.about__first__img}>
@@ -72,7 +72,7 @@ const AboutPage: React.FC<IProductPageProps> = ({translates, about}) => {
                 </div>
             </Container>
         </div>
-        </Layout>
+      </Layout>
     </>
   )
 }
