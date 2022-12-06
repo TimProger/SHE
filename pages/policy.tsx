@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props: {
       data: policyData,
-      ...(await serverSideTranslations(locale as string, ['policy', 'common']))
+      ...(await serverSideTranslations(locale as string ?? 'ru', ['policy', 'common']))
     },
     revalidate: 10,
   }

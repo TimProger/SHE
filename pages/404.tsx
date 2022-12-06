@@ -33,7 +33,7 @@ export default function NotFound() {
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['coop', 'common']))
+      ...(await serverSideTranslations(locale as string ?? 'ru', ['coop', 'common']))
     },
     revalidate: 10
   }

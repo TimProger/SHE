@@ -370,7 +370,7 @@ const Profile: React.FC = () => {
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['profile', 'common'])),
+      ...(await serverSideTranslations(locale as string ?? 'ru', ['profile', 'common'])),
     },
     revalidate: 10
   }

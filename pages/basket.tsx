@@ -601,7 +601,7 @@ const Basket: React.FC = () => {
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['basket', 'common']))
+      ...(await serverSideTranslations(locale as string ?? 'ru', ['basket', 'common']))
     },
     revalidate: 10
   }

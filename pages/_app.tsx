@@ -39,7 +39,7 @@ const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
 
   useEffect(()=>{
     if(profileState.isAuth){
-      dispatch(getBasket(locale || 'ru'))
+      dispatch(getBasket(locale ?? 'ru'))
     }
   }, [profileState.isAuth])
 

@@ -68,7 +68,7 @@ const Contacts: React.FC = () => {
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['common', 'contacts',]))
+      ...(await serverSideTranslations(locale as string ?? 'ru', ['common', 'contacts',]))
     },
     revalidate: 10
   }

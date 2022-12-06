@@ -42,7 +42,7 @@ const Layout: React.FC<IMainLayoutProps>
         </div>
       </div>
       <Head>
-        <title>{title || 'Главная | ™SHE'}</title>
+        <title>{title}</title>
         <meta name="keywords" content={keywords || "SHE, ™SHE, Гель, Лак, Лаки, Gel, Дёшево, Купить"} />
         <link rel="icon" type="image/png" sizes="16x16" href={icon_16.src} />
         <link rel="icon" type="image/png" sizes="24x24" href={icon_24.src} />

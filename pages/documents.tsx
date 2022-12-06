@@ -71,7 +71,7 @@ const Documents: React.FC = () => {
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['common', 'documents']))
+      ...(await serverSideTranslations(locale as string ?? 'ru', ['common', 'documents']))
     },
     revalidate: 10
   }
