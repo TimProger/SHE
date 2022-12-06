@@ -5,15 +5,6 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useRouter} from "next/router";
 import BasketPage from "../components/pages/BasketPage";
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  return {
-    props:{
-      ...(await serverSideTranslations(locale as string, ['basket', 'auth', 'common', 'footer']))
-    },
-    revalidate: 10
-  }
-}
-
 const Basket: React.FC = () => {
   const { locale } = useRouter()
   const { t } = useTranslation()
@@ -68,5 +59,14 @@ const Basket: React.FC = () => {
     />
   );
 };
+
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  return {
+    props:{
+      ...(await serverSideTranslations(locale as string, ['basket', 'auth', 'common', 'footer']))
+    },
+    revalidate: 10
+  }
+}
 
 export default Basket;

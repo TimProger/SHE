@@ -9,15 +9,6 @@ import Container from "../components/Container";
 import s from "../styles/pages/contacts.module.scss";
 import Link from "next/link";
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  return {
-    props:{
-      ...(await serverSideTranslations(locale as string, ['common', 'contacts',]))
-    },
-    revalidate: 10
-  }
-}
-
 const Contacts: React.FC = () => {
 
   const { locale } = useRouter()
@@ -73,5 +64,14 @@ const Contacts: React.FC = () => {
     </>
   );
 };
+
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  return {
+    props:{
+      ...(await serverSideTranslations(locale as string, ['common', 'contacts',]))
+    },
+    revalidate: 10
+  }
+}
 
 export default Contacts;

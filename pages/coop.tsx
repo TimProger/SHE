@@ -11,15 +11,6 @@ import Container from "../components/Container";
 import coopDescriptionImg from "../public/images/coopDescription.png";
 import Button from "../components/Button";
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  return {
-    props:{
-      ...(await serverSideTranslations(locale as string, ['coop', 'common']))
-    },
-    revalidate: 10
-  }
-}
-
 const Coop: React.FC = () => {
 
   const { locale } = useRouter()
@@ -83,5 +74,14 @@ const Coop: React.FC = () => {
     </>
   );
 };
+
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  return {
+    props:{
+      ...(await serverSideTranslations(locale as string, ['coop', 'common']))
+    },
+    revalidate: 10
+  }
+}
 
 export default Coop;

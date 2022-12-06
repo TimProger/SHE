@@ -7,23 +7,6 @@ import MainPage from "../components/pages/MainPage";
 import {IProduct, ISlide} from "../types/Product.types";
 import {API_BASE_URL} from "../http/api";
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  const slides = await fetch(`${API_BASE_URL}/${locale}/product/slider`)
-  const products = await fetch(`${API_BASE_URL}/${locale}/product`)
-  const productsData: IProduct[] = await products.json()
-  const slidesData: ISlide[] = await slides.json()
-
-  return {
-    props: {
-      slides: slidesData,
-      slidesNew: productsData.filter(el => el.is_new),
-      slidesHit: productsData.filter(el => el.is_hit),
-      ...(await serverSideTranslations(locale as string, ['main', 'auth', 'common', 'footer']))
-    },
-    revalidate: 10,
-  }
-}
-
 interface IMainProps {
   slides: ISlide[],
   slidesNew: IProduct[],
@@ -43,6 +26,23 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
   }
 
   return (<MainPage translates={translates} slides={slides} slidesNew={slidesNew} slidesHit={slidesHit} />)
+}
+
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  const slides = await fetch(`${API_BASE_URL}/${locale}/product/slider`)
+  const products = await fetch(`${API_BASE_URL}/${locale}/product`)
+  const productsData: IProduct[] = await products.json()
+  const slidesData: ISlide[] = await slides.json()
+
+  return {
+    props: {
+      slides: slidesData,
+      slidesNew: productsData.filter(el => el.is_new),
+      slidesHit: productsData.filter(el => el.is_hit),
+      ...(await serverSideTranslations(locale as string, ['main', 'auth', 'common', 'footer']))
+    },
+    revalidate: 10,
+  }
 }
 
 export default Main

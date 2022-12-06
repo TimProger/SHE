@@ -6,15 +6,6 @@ import FavPage from "../components/pages/FavPage";
 import {GetStaticProps} from "next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  return {
-    props:{
-      ...(await serverSideTranslations(locale as string ?? 'ru', ['fav', 'auth', 'common', 'footer']))
-    },
-    revalidate: 10
-  }
-}
-
 const Favorites: React.FC = () => {
 
   const { locale } = useRouter()
@@ -36,5 +27,14 @@ const Favorites: React.FC = () => {
     <FavPage translates={translates} />
   );
 };
+
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  return {
+    props:{
+      ...(await serverSideTranslations(locale as string ?? 'ru', ['fav', 'auth', 'common', 'footer']))
+    },
+    revalidate: 10
+  }
+}
 
 export default Favorites;

@@ -11,15 +11,6 @@ import {API_BASE_URL} from "../http/api";
 import Button from "../components/Button";
 import Layout from "../layout/layout";
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  return {
-    props:{
-      ...(await serverSideTranslations(locale as string, ['common', 'documents']))
-    },
-    revalidate: 10
-  }
-}
-
 const Documents: React.FC = () => {
 
   const { locale } = useRouter()
@@ -76,5 +67,14 @@ const Documents: React.FC = () => {
     </Layout>
   );
 };
+
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  return {
+    props:{
+      ...(await serverSideTranslations(locale as string, ['common', 'documents']))
+    },
+    revalidate: 10
+  }
+}
 
 export default Documents;

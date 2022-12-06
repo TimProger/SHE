@@ -6,24 +6,12 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import s from '../styles/pages/404.module.scss'
 import { useTranslation } from 'next-i18next';
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  return {
-    props:{
-      ...(await serverSideTranslations(locale as string, ['coop', 'common', 'footer']))
-    },
-    revalidate: 10
-  }
-}
-
 export default function NotFound() {
 
   const { t } = useTranslation()
 
   const translates = {
     title: t('coop:title__404'),
-    clear: t('fav:clear'),
-    empty: t('fav:empty'),
-    toCatalogue: t('fav:toCatalogue'),
   }
   return (
     <Layout>
@@ -40,4 +28,13 @@ export default function NotFound() {
       </Container>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  return {
+    props:{
+      ...(await serverSideTranslations(locale as string, ['coop', 'common']))
+    },
+    revalidate: 10
+  }
 }

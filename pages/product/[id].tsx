@@ -18,40 +18,6 @@ import s from "../../styles/pages/product.module.scss";
 import Link from "next/link";
 import Button from "../../components/Button";
 
-interface Props {
-  locales: string[];
-  locale: string;
-}
-
-export const getStaticPaths = async ({locales, locale}: Props) => {
-  const res = await fetch(`${API_BASE_URL}/all_product`)
-  const data = await res.json()
-  const paths: any[] = []
-  data.map((el: { id: string; }) => {
-    for (const locale of locales) {
-      paths.push({
-        params: {
-          id: el.id.toString(),
-        },
-        locale,
-      });
-    }
-  })
-  return { paths, fallback: false }
-}
-
-export const getStaticProps: GetStaticProps = async ({locale, params}) => {
-  const res = await fetch(`${API_BASE_URL}/${locale}/product/${params?.id}`)
-  const product = await res.json()
-  return {
-    props:{
-      product: product,
-      ...(await serverSideTranslations(locale as string, ['product', 'common', 'footer']))
-    },
-    revalidate: 10
-  }
-}
-
 interface IProductProps {
   product: IProduct
 }
@@ -324,6 +290,40 @@ const Product: React.FC<IProductProps> = ({product}) => {
       </div>
     </Layout>
   )
+}
+
+interface Props {
+  locales: string[];
+  locale: string;
+}
+
+export const getStaticPaths = async ({locales, locale}: Props) => {
+  const res = await fetch(`${API_BASE_URL}/all_product`)
+  const data = await res.json()
+  const paths: any[] = []
+  data.map((el: { id: string; }) => {
+    for (const locale of locales) {
+      paths.push({
+        params: {
+          id: el.id.toString(),
+        },
+        locale,
+      });
+    }
+  })
+  return { paths, fallback: false }
+}
+
+export const getStaticProps: GetStaticProps = async ({locale, params}) => {
+  const res = await fetch(`${API_BASE_URL}/${locale}/product/${params?.id}`)
+  const product = await res.json()
+  return {
+    props:{
+      product: product,
+      ...(await serverSideTranslations(locale as string, ['product', 'common', 'footer']))
+    },
+    revalidate: 10
+  }
 }
 
 export default Product

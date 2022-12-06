@@ -9,18 +9,6 @@ import Head from "next/head";
 import Container from "../components/Container";
 import s from "../styles/pages/policy.module.scss";
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  const data = await fetch(`${API_BASE_URL}/profile/${locale}/agreement/`)
-  const policyData = await data.json()
-  return {
-    props: {
-      data: policyData,
-      ...(await serverSideTranslations(locale as string, ['policy', 'common']))
-    },
-    revalidate: 10,
-  }
-}
-
 interface IPolicyProps {
   data: {
     id: number;
@@ -63,6 +51,18 @@ const Policy: React.FC<IPolicyProps> = ({data}) => {
       </div>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  const data = await fetch(`${API_BASE_URL}/profile/${locale}/agreement/`)
+  const policyData = await data.json()
+  return {
+    props: {
+      data: policyData,
+      ...(await serverSideTranslations(locale as string, ['policy', 'common']))
+    },
+    revalidate: 10,
+  }
 }
 
 export default Policy

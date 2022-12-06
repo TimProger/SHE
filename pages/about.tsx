@@ -12,32 +12,10 @@ import img2 from "../public/images/about2.png";
 import img3 from "../public/images/about3.png";
 import img4 from "../public/images/about4.png";
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  return {
-    props:{
-      ...(await serverSideTranslations(locale as string, ['common', 'footer', 'about']))
-    },
-    revalidate: 10
-  }
-}
-
 const About: React.FC = () => {
 
   const { locale } = useRouter()
   const { t } = useTranslation('about')
-
-  const translates = {
-    title: t('title'),
-    title2: t('title2'),
-    title3: t('title3'),
-    title4: t('title4'),
-    about: t('about'),
-    paragraph_1: t('paragraph_1'),
-    paragraph_2: t('paragraph_2'),
-    paragraph_3: t('paragraph_3'),
-    paragraph_4: t('paragraph_4'),
-    connect: t('connect'),
-  }
 
   useEffect(()=>{
 
@@ -46,7 +24,7 @@ const About: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>{translates.title} | ™SHE</title>
+        <title>{t('title')} | ™SHE</title>
       </Head>
       <div className={s.about}>
         <Container>
@@ -96,5 +74,14 @@ const About: React.FC = () => {
     </Layout>
   );
 };
+
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  return {
+    props:{
+      ...(await serverSideTranslations(locale as string, ['common', 'footer', 'about']))
+    },
+    revalidate: 10
+  }
+}
 
 export default About;
