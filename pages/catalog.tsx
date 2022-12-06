@@ -8,7 +8,7 @@ import {IFilter, IProduct} from "../types/Product.types";
 import {$api} from "../http/api";
 import s from "../styles/pages/catalog.module.scss";
 import {Storage} from "../utils/storage";
-import Layout from "../layout/layout";
+import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
 import Dropdown from "../components/Dropdown";

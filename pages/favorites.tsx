@@ -7,7 +7,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {removeAllProductFromFav} from "../store/Slices/Fav.slice";
 import {IBasketProductFull} from "../types/Product.types";
 import {getFavs} from "../store/ActionCreators/Fav.ac";
-import Layout from "../layout/layout";
+import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
 import s from "../styles/pages/fav.module.scss";

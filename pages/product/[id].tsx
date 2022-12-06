@@ -11,7 +11,7 @@ import Stock from "../../public/images/stock.png";
 import {Storage} from "../../utils/storage";
 import {addToBasket, removeFromBasket} from "../../store/Slices/Basket.slice";
 import {toggleFav} from "../../store/Slices/Fav.slice";
-import Layout from "../../layout/layout";
+import Layout from "../../components/Layout";
 import Head from "next/head";
 import Container from "../../components/Container";
 import s from "../../styles/pages/product.module.scss";

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import {GetStaticProps} from "next";
 import Container from '../components/Container'
-import Layout from '../layout/layout'
+import Layout from '../components/Layout'
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import s from '../styles/pages/404.module.scss'
 import { useTranslation } from 'next-i18next';

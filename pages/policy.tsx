@@ -4,7 +4,7 @@ import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
 import React from "react";
 import {API_BASE_URL} from "../http/api";
-import Layout from "../layout/layout";
+import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
 import s from "../styles/pages/policy.module.scss";

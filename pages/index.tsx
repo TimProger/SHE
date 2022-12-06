@@ -12,7 +12,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Lazy, Navigation, Pagination} from "swiper";
 import s from "../styles/pages/main.module.scss";
 import Card from "../components/Card";
-import Layout from "../layout/layout";
+import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
 

@@ -13,7 +13,7 @@ import CardFloat from "../components/CardFloat";
 import Button from "../components/Button";
 import Link from "next/link";
 import {getBasket} from "../store/ActionCreators/Basket.ac";
-import Layout from "../layout/layout";
+import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
 

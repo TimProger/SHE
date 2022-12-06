@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 import {GetStaticProps} from "next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Partnership from "../components/Partnership";
-import Layout from "../layout/layout";
+import Layout from "../components/Layout";
 import Head from "next/head";
 import s from "../styles/pages/coop.module.scss";
 import Container from "../components/Container";

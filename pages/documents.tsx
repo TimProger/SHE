@@ -9,7 +9,7 @@ import Container from "../components/Container";
 import Link from "next/link";
 import {API_BASE_URL} from "../http/api";
 import Button from "../components/Button";
-import Layout from "../layout/layout";
+import Layout from "../components/Layout";
 
 const Documents: React.FC = () => {
 

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import Layout from "../layout/layout";
+import Layout from "../components/Layout";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation, withTranslation} from "next-i18next";
 import { GetStaticProps } from 'next'
