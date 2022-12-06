@@ -20,7 +20,7 @@ export const favSlice = createSlice({
   initialState,
   reducers: {
     toggleFav: (state: IFavState, action: PayloadAction<IFavProduct>) => {
-      const includes = state.products.filter((el)=>el.id === action.payload.id)
+      const includes = state.products.filter((el)=>el.more === action.payload.more)
       if(!state.products.includes(includes[0])){
         state.products.push(action.payload)
       }else{

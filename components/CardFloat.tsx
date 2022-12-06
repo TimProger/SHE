@@ -45,13 +45,14 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
 
   const addToBasketHandler = () => {
     if(user.isAuth){
-        $api.patch(`${locale}/basket/${product.id}/`, {
-          count: product.count + 1
+      console.log(product)
+      $api.patch(`${locale}/basket/${product.id}/`, {
+        count: product.count + 1
+      })
+        .then((res)=>{
+          dispatch(addToBasket(res.data))
         })
-          .then((res)=>{
-            dispatch(addToBasket(res.data))
-          })
-          .catch(()=>{})
+        .catch(()=>{})
     }else{
       const obj = {
         id: product.id,
@@ -135,10 +136,10 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           <div onClick={removeFromBasketHandler}>-</div>
           {user.isAuth ? product.count : basket && basket.count}
           <div onClick={addToBasketHandler}>+</div>
-        </div>
-          : <svg onClick={isInBasket ? removeFromBasketHandler : addToBasketHandler} className={s.card__price__basket} width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path className={isInBasket ? s.card__price__basket__active : ''} d="M5 9V5C5 2.79 6.795 1 9 1C11.21 1 13 2.795 13 5V9M1 7H17V23H1V7Z" stroke="#A0A0A0" strokeLinecap="round"/>
-        </svg>
+        </div> : <p></p>
+        //   : <svg onClick={isInBasket ? removeFromBasketHandler : addToBasketHandler} className={s.card__price__basket} width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        //   <path className={isInBasket ? s.card__price__basket__active : ''} d="M5 9V5C5 2.79 6.795 1 9 1C11.21 1 13 2.795 13 5V9M1 7H17V23H1V7Z" stroke="#A0A0A0" strokeLinecap="round"/>
+        // </svg>
         }
       </div>
     </div>
