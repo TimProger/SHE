@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {useTypedSelector} from "../hooks/useTypedSelector";
 import {useTranslation} from "next-i18next";
 import {GetStaticProps} from "next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";

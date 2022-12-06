@@ -1,14 +1,20 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 import {GetStaticProps} from "next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import CoopPage from "../components/pages/CoopPage";
+import Partnership from "../components/Partnership";
+import Layout from "../layout/layout";
+import Head from "next/head";
+import s from "../styles/pages/coop.module.scss";
+import Container from "../components/Container";
+import coopDescriptionImg from "../public/images/coopDescription.png";
+import Button from "../components/Button";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props:{
-      ...(await serverSideTranslations(locale as string, ['coop', 'auth', 'common', 'footer', 'fav']))
+      ...(await serverSideTranslations(locale as string, ['coop', 'common']))
     },
     revalidate: 10
   }
@@ -17,58 +23,64 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
 const Coop: React.FC = () => {
 
   const { locale } = useRouter()
-  const { t } = useTranslation()
+  const { t } = useTranslation('coop')
 
-  const translates = {
-    title: t('fav:title3'),
-    clear: t('fav:clear'),
-    empty: t('fav:empty'),
-    toCatalogue: t('fav:toCatalogue'),
-    partnership: {
-      error_code_1: t('coop:partnership_error_code_1'),
-      title: t('coop:partnership_title'),
-      paragraph_1: t('coop:partnership_paragraph_1'),
-      paragraph_2: t('coop:partnership_paragraph_2'),
-      name: t('coop:partnership_input_name'),
-      name_pl: t('coop:partnership_input_name_pl'),
-      phone: t('coop:partnership_input_phone'),
-      message: t('coop:partnership_input_message'),
-      message_pl: t('coop:partnership_input_message_pl'),
-      button: t('coop:partnership_button'),
-      text: t('coop:partnership_text'),
-      link: t('coop:partnership_link'),
-      countries: {
-        russia: t('coop:partnership_country_russia'),
-        usa: t('coop:partnership_country_usa'),
-        uar: t('coop:partnership_country_uar'),
-        korea: t('coop:partnership_country_korea'),
-        bel: t('coop:partnership_country_bel'),
-        azerb: t('coop:partnership_country_azerb'),
-        england: t('coop:partnership_country_england'),
-        oae: t('coop:partnership_country_oae'),
-        india: t('coop:partnership_country_india'),
-        turkey: t('coop:partnership_country_turkey'),
-      },
-    },
-    coop: {
-      partnership: t('coop:partnership'),
-      title1: t('coop:title1'),
-      title2: t('coop:title2'),
-      paragraph_1: t('coop:paragraph_1'),
-      paragraph_2: t('coop:paragraph_2'),
-      discount1: t('coop:discount1'),
-      discount2: t('coop:discount2'),
-      connect: t('coop:connect'),
-      button: t('coop:button'),
-    },
-  }
-
-  useEffect(()=>{
-
-  }, [])
+  const [showAuth, setShowAuth] = useState(false)
 
   return (
-    <CoopPage translates={translates} coop={translates.coop} />
+    <>
+      <Partnership show={showAuth} setShow={setShowAuth} />
+      <Layout>
+        <Head>
+          <title>{t('title')} | ™SHE</title>
+        </Head>
+        <div className={s.coop}>
+          <Container>
+            <h2 className={s.coop__title}>{t('title')}</h2>
+          </Container>
+          <div className={s.coop__imgBackGround}></div>
+          <Container>
+            <div className={s.coop__body}>
+              <div className={s.coop__body__special_conditions}>
+                <h2>{t('title1')}</h2>
+                <div className={s.coop__body__special_conditions__description}>{t('paragraph_1')}
+                </div>
+                <div className={s.coop__body__special_conditions__discounts}>
+                  <div>
+                    <div className={s.coop__body__special_conditions__discounts__title}>{t('discount1')}</div>
+                    <ul className={s.coop__body__special_conditions__discounts__first}>
+                      <li>30%</li>
+                      <li>20%</li>
+                      <li>15%</li>
+                      <li>10%</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className={s.coop__body__special_conditions__discounts__title}>{t('discount2')}</div>
+                    <ul className={s.coop__body__special_conditions__discounts__second}>
+                      <li>40.000₽</li>
+                      <li>30.000₽</li>
+                      <li>20.000₽</li>
+                      <li>10.000₽</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className={s.coop__body__request}>
+                <div className={s.coop__body__request__img}>
+                  <img src={coopDescriptionImg.src} alt="coopDescriptionImage" />
+                </div>
+                <h2 className={s.coop__body__request__title}>{t('title2')}</h2>
+                <div className={s.coop__body__special_conditions__description}>{t('paragraph_2')}
+                </div>
+                <Button text={t('button')} onClick={() => setShowAuth(true)}/>
+                <div className={s.coop__body__request__contacts}>{t('connect')}</div>
+              </div>
+            </div>
+          </Container>
+        </div>
+      </Layout>
+    </>
   );
 };
 

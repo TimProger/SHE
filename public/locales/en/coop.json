@@ -1,5 +1,5 @@
 {
-  "partnership":"Partnership",
+  "title": "Partnership",
   "title1": "Wholesale conditions",
   "title2": "Representative of TM SHE",
   "paragraph_1":  "We provide wholesale terms of cooperation for studios, schools and shops. With wholesale cooperation, we provide:",
@@ -9,22 +9,28 @@
   "connect": "Or you can contact the manager directly by phone +7 (915) 565-20-27",
   "button": "Send a request",
   "title__404": "Page not found",
-  "partnership_title": "Partnership",
-  "partnership_paragraph_1": "For detailed information on the conditions of representation you need to fill out a form and we will contact you within one hour.",
-  "partnership_input_name": "Name",
-  "partnership_input_name_pl": "Mary",
-  "partnership_input_phone": "Phone",
-  "partnership_input_message": "Message",
-  "partnership_input_message_pl": "Your message",
-  "partnership_button": "Send request",
-  "partnership_country_russia": "Russia",
-  "partnership_country_usa": "USA",
-  "partnership_country_uar": "UAR",
-  "partnership_country_korea": "South Korea",
-  "partnership_country_bel": "Belarus",
-  "partnership_country_azerb": "Azerbaijan",
-  "partnership_country_england": "United Kingdom",
-  "partnership_country_oae": "UAE",
-  "partnership_country_india": "India",
-  "partnership_country_turkey": "Turkey"
+  "partnership": {
+    "title": "Partnership",
+    "paragraph_1": "For detailed information on the conditions of representation you need to fill out a form and we will contact you within one hour.",
+    "inputs": {
+      "name": "Name",
+      "name_pl": "Mary",
+      "phone": "Phone",
+      "message": "Message",
+      "message_pl": "Your message"
+    },
+    "button": "Send request"
+  },
+  "countries": {
+    "russia": "Russia",
+    "usa": "USA",
+    "uar": "UAR",
+    "korea": "South Korea",
+    "bel": "Belarus",
+    "azerb": "Azerbaijan",
+    "england": "United Kingdom",
+    "oae": "UAE",
+    "india": "India",
+    "turkey": "Turkey"
+  }
 }

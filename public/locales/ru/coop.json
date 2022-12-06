@@ -1,5 +1,5 @@
 {
-  "partnership":"Сотрудничество",
+  "title": "Сотрудничество",
   "title1": "Оптовые условия",
   "title2": "Преставитель TM SHE",
   "paragraph_1":  "Мы предоставляем оптовые условия сотрудничества для студий, школ и магазинов. При оптовом сотрудничестве мы предоставляем:",
@@ -9,22 +9,28 @@
   "connect": "Или Вы можете обратиться непосредственно к менеджеру по телефону +7 (915) 565-20-27",
   "button": "Отправить заявку",
   "title__404": "Страница не найдена",
-  "partnership_title": "Партнёрство",
-  "partnership_paragraph_1": "Для получения подробной информации по условиям представительства Вам нужно заполнить форму и мы свяжемся с Вами в течении часа.",
-  "partnership_input_name": "Имя",
-  "partnership_input_name_pl": "Мария",
-  "partnership_input_phone": "Телефон",
-  "partnership_input_message": "Сообщение",
-  "partnership_input_message_pl": "Ваше сообщение",
-  "partnership_button": "Отправить заявку",
-  "partnership_country_russia": "Россия",
-  "partnership_country_usa": "США",
-  "partnership_country_uar": "ЮАР",
-  "partnership_country_korea": "Южная Корея",
-  "partnership_country_bel": "Беларусь",
-  "partnership_country_azerb": "Азербайджан",
-  "partnership_country_england": "Великобритания",
-  "partnership_country_oae": "ОАЭ",
-  "partnership_country_india": "Индия",
-  "partnership_country_turkey": "Турция"
+  "partnership": {
+    "title": "Партнёрство",
+    "paragraph_1": "Для получения подробной информации по условиям представительства Вам нужно заполнить форму и мы свяжемся с Вами в течении часа.",
+    "inputs": {
+      "name": "Имя",
+      "name_pl": "Мария",
+      "phone": "Телефон",
+      "message": "Сообщение",
+      "message_pl": "Ваше сообщение"
+    },
+    "button": "Отправить заявку"
+  },
+  "countries": {
+    "russia": "Россия",
+    "usa": "США",
+    "uar": "ЮАР",
+    "korea": "Южная Корея",
+    "bel": "Беларусь",
+    "azerb": "Азербайджан",
+    "england": "Великобритания",
+    "oae": "ОАЭ",
+    "india": "Индия",
+    "turkey": "Турция"
+  }
 }

@@ -3,7 +3,6 @@ import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 import {GetStaticProps} from "next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import CoopPage from "../components/pages/CoopPage";
 import AboutPage from '../components/pages/AboutPage';
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {

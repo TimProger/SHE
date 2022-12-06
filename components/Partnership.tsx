@@ -12,9 +12,9 @@ import Countries from '../public/images/countries/countries'
 import {onToggleLanguageClick} from "../utils/changeCurrentLanguage";
 import Link from "next/link";
 import {useRouter} from "next/router";
+import {useTranslation} from "next-i18next";
 
 interface IPartnershipProps {
-  translates: any;
   show: boolean;
   setShow: (isShow: boolean) => void;
 }
@@ -24,58 +24,59 @@ interface IPartnershipErrors {
   code: string;
 }
 
-const Partnership: React.FC<IPartnershipProps> = ({translates, show, setShow}) => {
+const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
   const dispatch = useAppDispatch()
+  const { t } = useTranslation('coop')
 
   const {locale} = useRouter()
   const [countries, setCountries] = useState([
     {
-      title: translates.countries.russia,
+      title: t('countries.russia'),
       img: Countries.russia.src,
       phone: '7'
     },
     {
-      title: translates.countries.usa,
+      title: t('countries.usa'),
       img: Countries.usa.src,
       phone: '1'
     },
     {
-      title: translates.countries.uar,
+      title: t('countries.uar'),
       img: Countries.uar.src,
       phone: '27'
     },
     {
-      title: translates.countries.korea,
+      title: t('countries.korea'),
       img: Countries.korea.src,
       phone: '82'
     },
     {
-      title: translates.countries.bel,
+      title: t('countries.bel'),
       img: Countries.bel.src,
       phone: '375'
     },
     {
-      title: translates.countries.azerb,
+      title: t('countries.azerb'),
       img: Countries.azerb.src,
       phone: '994'
     },
     {
-      title: translates.countries.england,
+      title: t('countries.england'),
       img: Countries.england.src,
       phone: '44'
     },
     {
-      title: translates.countries.oae,
+      title: t('countries.oae'),
       img: Countries.oae.src,
       phone: '971'
     },
     {
-      title: translates.countries.india,
+      title: t('countries.india'),
       img: Countries.india.src,
       phone: '91'
     },
     {
-      title: translates.countries.turkey,
+      title: t('countries.turkey'),
       img: Countries.turkey.src,
       phone: '90'
     },
@@ -163,7 +164,7 @@ const Partnership: React.FC<IPartnershipProps> = ({translates, show, setShow}) =
       })
       .catch((err) => {
         if(err.response.detail === "Код не верный"){
-          setErrors(prev => Object.assign(prev, {code: translates.error_code_1}))
+          setErrors(prev => Object.assign(prev, {code: t('error_code_1')}))
         }
         setIsError(true);
         setIsDisabled(false);
@@ -188,7 +189,7 @@ const Partnership: React.FC<IPartnershipProps> = ({translates, show, setShow}) =
       })
       .catch((err) => {
         if(err.response.data.detail == "Код не верный"){
-          setErrors(prev => Object.assign(prev, {code: translates.error_code_1}))
+          setErrors(prev => Object.assign(prev, {code: t('error_code_1')}))
         }else{
           setErrors(prev => Object.assign(prev, {code: 'Произошла ошибка при проверке кода'}))
         }
@@ -214,21 +215,21 @@ const Partnership: React.FC<IPartnershipProps> = ({translates, show, setShow}) =
     <div onClick={outsideClickHandler} className={s.auth + ' ' + (show ? s.auth__active : '')}>
       <div onClick={insideClickHandler} className={s.auth__form}>
         <div className={s.auth__form__container}>
-          <h1>{translates.title}</h1>
-          <p>{translates.paragraph_1}</p>
+          <h1>{t('partnership.title')}</h1>
+          <p>{t('partnership.paragraph_1')}</p>
           <Dropdown type={'counties'} handler={(e: MouseEvent, value: any)=>setCountry(value)} value={country} options={countries || []} />
           <div className={s.auth__form__container__input}>
-            <h2>{translates.phone}</h2>
+            <h2>{t('partnership.inputs.phone')}</h2>
             <input value={phone} onChange={onChangePhone} type="text"/>
-            <h2>{translates.name}</h2>
-            <input value={name} placeholder={translates.name_pl} onChange={(e)=>{setName(e.currentTarget.value)}} type="text"/>
+            <h2>{t('partnership.inputs.name')}</h2>
+            <input value={name} placeholder={t('partnership.inputs.name_pl')} onChange={(e)=>{setName(e.currentTarget.value)}} type="text"/>
             <h2>Email</h2>
             <input value={email} placeholder={'info@tmshe.ru'} onChange={(e)=>{setEmail(e.currentTarget.value)}} type="email"/>
-            <h2>{translates.message}</h2>
-            <input value={message} placeholder={translates.message_pl} onChange={(e)=>{setMessage(e.currentTarget.value)}} type="text"/>
+            <h2>{t('partnership.inputs.message')}</h2>
+            <input value={message} placeholder={t('partnership.inputs.message_pl')} onChange={(e)=>{setMessage(e.currentTarget.value)}} type="text"/>
           </div>
           <div className={s.auth__form__container__button}>
-            <Button disabled={isDisabled} onClick={authHandler} text={translates.button} />
+            <Button disabled={isDisabled} onClick={authHandler} text={t('partnership.button')} />
             <p>
               {errors.phone && <p>{errors.phone}</p>}
               {errors.code && <p>{errors.code}</p>}
