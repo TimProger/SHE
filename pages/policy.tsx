@@ -4,7 +4,10 @@ import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
 import React from "react";
 import {API_BASE_URL} from "../http/api";
-import PolicyPage from "../components/pages/PolicyPage";
+import Layout from "../layout/layout";
+import Head from "next/head";
+import Container from "../components/Container";
+import s from "../styles/pages/policy.module.scss";
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   const data = await fetch(`${API_BASE_URL}/profile/${locale}/agreement/`)
@@ -12,31 +15,54 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props: {
       data: policyData,
-      ...(await serverSideTranslations(locale as string, ['policy', 'auth', 'common', 'footer']))
+      ...(await serverSideTranslations(locale as string, ['policy', 'common']))
     },
     revalidate: 10,
   }
 }
 
-interface IPolicyData {
-  id: number;
-  title: string;
-  text: string;
-}
-
 interface IPolicyProps {
-  data: IPolicyData[],
+  data: {
+    id: number;
+    title: string;
+    text: string;
+  }[],
 }
 
 const Policy: React.FC<IPolicyProps> = ({data}) => {
   const { locale } = useRouter()
-  const { t } = useTranslation()
+  const { t } = useTranslation('policy')
 
-  const translates = {
-    title: t('policy:title'),
+  function urlify(text: any) {
+    var urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, function(url: any) {
+      return '<a href="' + url + '">' + url + '</a>';
+    })
   }
 
-  return (<PolicyPage translates={translates} data={data} />)
+  return (
+    <Layout>
+      <Head>
+        <title>{t('title')} | ™SHE</title>
+      </Head>
+      <div>
+        <Container>
+          <div className={s.policy}>
+            <h1>{t('title')}</h1>
+            <ul>
+              {data.map((el, index)=>{
+                let html = urlify(el.text);
+                return <div>
+                  <li><h2>{el.title}</h2></li>
+                  <p dangerouslySetInnerHTML={{ __html: html }} />
+                </div>
+              })}
+            </ul>
+          </div>
+        </Container>
+      </div>
+    </Layout>
+  )
 }
 
 export default Policy
