@@ -46,7 +46,6 @@ const Profile: React.FC = () => {
   const [ordersActive, setOrdersActive] = useState<IOrder[]>([])
   const [ordersHistory, setOrdersHistory] = useState<IOrder[]>([])
   const [email, setEmail] = useState('')
-  const [selectedFile, setSelectedFile] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState({
     first: null,
@@ -100,8 +99,6 @@ const Profile: React.FC = () => {
     const target = e.target as HTMLInputElement;
     const files = target.files as FileList;
 
-    // @ts-ignore
-    setSelectedFile(files[0])
     dispatch(setImage(files[0]))
 
     if(files[0]){

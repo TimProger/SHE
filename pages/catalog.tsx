@@ -54,18 +54,15 @@ const Catalog: React.FC<ICatalogProps> = () => {
         setFilters(res.data)
         const data = new FormData()
         if(query.category){
-          // @ts-ignore
-          data.append('category', query.category)
+          data.append('category', `${query.category}`)
           usedFilters.category.push(+`${query.category}`)
         }
         if(query.collection){
-          // @ts-ignore
-          data.append('collection', query.collection)
+          data.append('collection', `${query.collection}`)
           usedFilters.collection.push(+`${query.collection}`)
         }
         if(query.type){
-          // @ts-ignore
-          data.append('type', query.type)
+          data.append('type', `${query.type}`)
           usedFilters.type.push(+`${query.type}`)
         }
         $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
@@ -203,10 +200,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
                 </h1>
               </div>
               <div className={s.catalog__header__bottom}>
-                {/*<Dropdown value={} options={} handler={} />*/}
                 <div>
-                  {/* @ts-ignore */}
-                  {locale === 'ru' ? 'До' : 'To'}: <Dropdown type={'limit'} handler={(e: MouseEvent, value: number)=>onToggleLimitClick(e, value)} value={limit} options={limitArr} />
+                  {locale === 'ru' ? 'До' : 'To'}: <Dropdown type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
                 </div>
               </div>
             </div>
@@ -220,7 +215,6 @@ const Catalog: React.FC<ICatalogProps> = () => {
                         return <div className={s.catalog__container__filters__block__option}>
                           {/* @ts-ignore */}
                           <input checked={usedFilters[`${el.name}`].includes(elem.id)} onChange={(e)=>toggleFilter(e.target.value, el.name)} type="checkbox" value={elem.id} name={el.name+'i'+index} id={el.name+'i'+index}/>
-                          {/* @ts-ignore */}
                           {elem.color &&  <span style={{background: elem.color}} className={s.catalog__container__filters__block__color} /> }
                           <label htmlFor={el.name+'i'+index}>{elem.name}</label>
                         </div>
@@ -237,8 +231,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                 </div>
                 <div className={s.catalog__container__products__footer}>
                   <div>
-                    {/* @ts-ignore */}
-                    {locale === 'ru' ? 'До' : 'To'}: <Dropdown type={'limit'} handler={(e: MouseEvent, value: number)=>onToggleLimitClick(e, value)} value={limit} options={limitArr} />
+                    {locale === 'ru' ? 'До' : 'To'}: <Dropdown type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
                   </div>
                 </div>
                 <div className={s.catalog__container__products__pages}>

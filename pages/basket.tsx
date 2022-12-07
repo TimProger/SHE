@@ -47,9 +47,7 @@ const Basket: React.FC = () => {
       $api.get<IBasketProductFull[]>(`/${locale}/basket/`)
         .then((res)=>{
           if(res.data){
-            // @ts-ignore
             setNewProducts(res.data.length > 0 ? res.data : [])
-            // @ts-ignore
             setSelected([...res.data.filter((el)=> el.buy_now)])
           }
         }).catch((e)=>{
@@ -66,7 +64,6 @@ const Basket: React.FC = () => {
                 el.count = products[index].count
                 return el
               }))
-              // @ts-ignore
               setSelected([...res.data])
             }
           }).catch((e)=>{
@@ -459,8 +456,7 @@ const Basket: React.FC = () => {
             </div>
             <div className={s.order__delivery}>
               <h2>{t('order.inputs.delivery')}</h2>
-              { /*@ts-ignore*/ }
-              <div className={s.order__delivery__radios} onChange={(e: FormEvent<HTMLInputElement>)=>setDelivery(e.target.value)}>
+              <div className={s.order__delivery__radios} onChange={(e: ChangeEvent<HTMLInputElement>)=>setDelivery(e.target.value)}>
                 <div>
                   <input checked={delivery === "1"} type="radio" value="1" name="delivery" id={'self'}/>
                   <label htmlFor="self">{t('order.inputs.radio_1')}</label>
@@ -490,8 +486,7 @@ const Basket: React.FC = () => {
               }) : <p>{t('empty')}</p>}
             </div>
             <h2>{t('order.payment_methods')}</h2>
-            { /*@ts-ignore*/ }
-            <div className={s.order__orders__payment} onChange={(e: FormEvent<HTMLInputElement>)=>setPayment('cash')}>
+            <div className={s.order__orders__payment} onChange={(e: ChangeEvent<HTMLInputElement>)=>setPayment('cash')}>
               <div className={s.order__orders__payment__radio}>
                 <div>
                   <input disabled={true} checked={false} type="radio" value="card" name="payment" id={'card'}/>

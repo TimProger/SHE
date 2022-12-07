@@ -99,7 +99,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
               <div className={s.container__products__title__arrows}>
                 <div onClick={()=> {
                   // @ts-ignore
-                  mySwiper && mySwiper.slidePrev()
+                  mySwiper.slidePrev()
                 }} className={s.arrow_back}>
                   <svg width="30" height="8" viewBox="0 0 30 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M28.6666 3.5C28.9428 3.5 29.1666 3.72386 29.1666 4C29.1666 4.27614 28.9428 4.5 28.6666 4.5V3.5ZM0.979738 4.35355C0.784477 4.15829 0.784477 3.84171 0.979738 3.64645L4.16172 0.464466C4.35698 0.269204 4.67356 0.269204 4.86883 0.464466C5.06409 0.659728 5.06409 0.976311 4.86883 1.17157L2.0404 4L4.86883 6.82843C5.06409 7.02369 5.06409 7.34027 4.86883 7.53553C4.67356 7.7308 4.35698 7.7308 4.16172 7.53553L0.979738 4.35355ZM28.6666 4.5H1.33329V3.5H28.6666V4.5Z" fill="black"/>
@@ -107,7 +107,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
                 </div>
                 <div onClick={()=> {
                   // @ts-ignore
-                  mySwiper && mySwiper.slideNext()
+                  mySwiper.slideNext()
                 }} className={s.arrow_next}>
                   <svg width="30" height="8" viewBox="0 0 30 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.33331 3.5C1.05717 3.5 0.833313 3.72386 0.833313 4C0.833313 4.27614 1.05717 4.5 1.33331 4.5V3.5ZM29.0202 4.35355C29.2155 4.15829 29.2155 3.84171 29.0202 3.64645L25.8382 0.464466C25.643 0.269204 25.3264 0.269204 25.1311 0.464466C24.9359 0.659728 24.9359 0.976311 25.1311 1.17157L27.9595 4L25.1311 6.82843C24.9359 7.02369 24.9359 7.34027 25.1311 7.53553C25.3264 7.7308 25.643 7.7308 25.8382 7.53553L29.0202 4.35355ZM1.33331 4.5H28.6666V3.5H1.33331V4.5Z" fill="black"/>

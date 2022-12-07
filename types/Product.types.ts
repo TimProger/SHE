@@ -92,13 +92,13 @@ export interface IOrder {
   sum: number
 }
 
-interface IFilterOption {
-  id: number;
-  name: string;
-}
-
 export interface IFilter {
   name: string;
-  option: IFilterOption[];
+  option: {
+    id: number;
+    name: string;
+    color?: string;
+    color_name?: string;
+  }[];
   name_lang: string;
 }

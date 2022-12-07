@@ -34,7 +34,7 @@ const Favorites: React.FC = () => {
 
   useEffect(()=>{
     // @ts-ignore
-    setNewProducts([...products])
+    setNewProducts([...products]);
   }, [locale, products])
 
   return (

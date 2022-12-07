@@ -78,7 +78,6 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           count: product.count - 1
         })
           .then((res)=>{
-            // @ts-ignore
             dispatch(removeFromBasket(product.more))
           })
           .catch(()=>{
