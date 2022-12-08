@@ -53,5 +53,11 @@
       "video_link3": "Overview of solid bases",
       "video_link4": "Designs"
     }
+  },
+  "not_found": {
+    "title": "We still working on it!",
+    "paragraph_1": "The mobile version of the site is currently unavailable. We're working on it.",
+    "paragraph_2": "You can go to the old version of the site by clicking the button below",
+    "button": "Go to"
   }
 }

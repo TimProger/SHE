@@ -43,7 +43,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
   return (
     <Layout>
       <Head>
-        <title>{t('title')} | aSHE</title>
+        <title>{t('title')} | ™SHE</title>
         <meta name="description" content={locale === 'ru'
           ? "™SHE предлагает более 100 уникальных профессиональных цветов гель-лаков. Наши продукты имеют высокую пигментацию, устойчивы к сколам и долго вам прослужат. Купите свой любимый профессиональный гель-лак для ногтей онлайн."
           : "™SHE offers more than 100 unique professional gel polish colors. Our products are highly pigmented, resistant to chipping and will last you a long time. Buy your favorite professional gel nail polish online."} />

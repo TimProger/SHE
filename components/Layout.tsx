@@ -10,6 +10,7 @@ import icon_24 from "../public/images/favicon/icon_24.png";
 import icon_32 from "../public/images/favicon/icon_32.png";
 import icon_64 from "../public/images/favicon/icon_64.png";
 import {useRouter} from "next/router";
+import {useTranslation} from "next-i18next";
 
 interface IMainLayoutProps {
   children: React.ReactNode;
@@ -25,20 +26,17 @@ const Layout: React.FC<IMainLayoutProps>
          description,
          keywords
        }) => {
+
   const { locale } = useRouter()
+  const { t } = useTranslation('common')
 
   return (
     <>
       <div className={s.mobile_alert}>
         <div className={s.mobile_alert__container}>
-          <h1>{locale === 'ru' ? 'Мы работаем над этим!' : 'We still working on it!'}</h1>
-          <div>{locale === 'ru'
-              ? 'Мобильная версия сайта сейчас недоступна. Мы работаем над ее созданием.'
-              : 'The mobile version of the site is currently unavailable. We\'re working on it.'} <br />
-            {locale === 'ru'
-              ? 'Вы можете перейти на старую версию сайта по кнопке ниже.'
-              : 'You can go to the old version of the site by clicking the button below'}</div>
-          <Button type={'link'} href={'https://tmshe.ru'} text='Перейти' />
+          <h1>{t('not_found.title')}</h1>
+          <div>{t('not_found.paragraph_1')} <br />{t('not_found.paragraph_2')}</div>
+          <Button type={'link'} href={'https://tmshe.ru'} text={t('not_found.button')} />
         </div>
       </div>
       <Head>
