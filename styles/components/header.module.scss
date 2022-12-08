@@ -341,4 +341,11 @@
   .wrapper {
     width: 1000px;
   }
+
+  .popup_active{
+
+    &__container{
+      width: 1000px;
+    }
+  }
 }

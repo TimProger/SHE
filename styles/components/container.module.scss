@@ -11,5 +11,13 @@
     flex-direction: column;
     margin-bottom: 20px;
   }
+}
 
+@media screen and (max-width: 1400px) {
+  .container {
+
+    &__wrapper{
+      width: 1000px;
+    }
+  }
 }

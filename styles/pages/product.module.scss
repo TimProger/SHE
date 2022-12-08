@@ -279,3 +279,31 @@
     }
   }
 }
+
+@media screen and (max-width: 1400px) {
+  .container__product{
+
+    &__product{
+      width: 250px;
+
+      &__info{
+
+        &__button{
+          gap: 0;
+        }
+      }
+
+      &__images{
+
+        &__main{
+          padding-right: 20px;
+          padding-left: 20px;
+
+          & img{
+            object-position: top;
+          }
+        }
+      }
+    }
+  }
+}

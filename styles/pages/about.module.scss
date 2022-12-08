@@ -2,56 +2,74 @@
 
 .about {
 
-    &__wrapper {
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 80px;
+    margin-top: 50px;
+  }
+
+  &__first {
+    display: flex;
+    flex-direction: column;
+    width: 576px;
+
+    &__title {
+      font-weight: 600;
+      font-size: 40px;
+      margin-bottom: 40px;
+      line-height: 41px;
+    }
+
+    &__text {
+      line-height: 140%;
+      font-weight: 400;
+      font-size: 16px;
+      margin-bottom: 50px;
+
+      & span {
+        color: $block-main;
+      }
+
+      &__last {
+        margin-bottom: 20px;
+      }
+    }
+
+    &__connection {
+      align-items: center;
+      display: flex;
+      width: 410px;
+      justify-content: space-between;
+    }
+
+    &__img {
+      margin-bottom: 50px;
+
+      & img{
         width: 100%;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 80px;
-        margin-top: 50px;
+      }
+    }
+  }
+
+  &__second {
+    display: flex;
+    flex-direction: column;
+    width: 576px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+
+  .about{
+
+    &__first{
+        width: 460px;
     }
 
-    &__first {
-        display: flex;
-        flex-direction: column;
-        width: 576px;
-
-        &__title {
-            font-weight: 600;
-            font-size: 40px;
-            margin-bottom: 40px;
-            line-height: 41px;
-        }
-
-        &__text {
-            line-height: 140%;
-            font-weight: 400;
-            font-size: 16px;
-            margin-bottom: 50px;
-
-            & span {
-                color: $block-main;
-            }
-
-            &__last {
-                margin-bottom: 20px;
-            }
-        }
-
-        &__connection {
-            align-items: center;
-            display: flex;
-            width: 410px;
-            justify-content: space-between;
-        }
-
-        &__img {
-            margin-bottom: 50px;
-        }
+    &__second{
+        width: 460px;
     }
-
-    &__second {
-        display: flex;
-        flex-direction: column;
-        width: 576px;
-    }
+  }
 }
