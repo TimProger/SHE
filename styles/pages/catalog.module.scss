@@ -177,6 +177,10 @@
         position: relative;
         margin-right: auto;
       }
+
+      &__card:last-child{
+        margin-right: 0;
+      }
     }
 
     &__not_found{
