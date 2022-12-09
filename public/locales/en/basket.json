@@ -9,6 +9,7 @@
   "back": "Back",
   "toCatalogue": "To the catalog",
   "title_1": "Recipient",
+  "auth": "To make an order you must be logged in",
   "order": {
     "title": "Address",
     "inputs": {

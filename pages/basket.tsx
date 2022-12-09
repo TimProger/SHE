@@ -593,7 +593,7 @@ const Basket: React.FC = () => {
               </h1>}
               {isAuth
                 ? (page !== 2 && <Button disabled={isDisabled} text={t('buy')} onClick={handleClick}/>)
-                : <Button onClick={()=>dispatch(toggleShowAuth(true))} text={'Авторизоваться'}/>}
+                : <Button onClick={()=>dispatch(toggleShowAuth(true))} text={t('auth')}/>}
             </div>
           </div>
         </Container>
