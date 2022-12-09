@@ -5,5 +5,18 @@
   "title4": "Exporting a catalog in EXCEL format",
   "title5": "Test Protocol 42.22.08845.pdf",
   "title6": "Declaration of Conformity Registered 16999058 of 08 09 2022.docx",
+  "info": {
+    "title": "Company information",
+    "address": "Actual address: 308015, Russia, Belgorod Region, Belgorod, Chicherina Street, 50a",
+    "email": "EMail: info@tmshe.ru",
+    "phone": "Phone: +7-906-567-3537",
+    "requisites": {
+      "name": "Requisites: IE Chubaro Ilya Vladimirovich",
+      "inn": "INN 183113142407",
+      "ogrnip": "OGRNIP 322310000027332",
+      "address": "Legal address: 308000, Belgorod region, the city of Belgorod",
+      "phone": "Phone/fax: +7-906-567-3537"
+    }
+  },
   "button": "Export"
 }

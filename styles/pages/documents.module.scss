@@ -4,7 +4,7 @@
 
     &__wrapper {
         width: 100%;
-        margin-bottom: 284px;
+        margin-bottom: 84px;
         display: flex;
         flex-direction: column;
 
@@ -19,8 +19,9 @@
     }
 
     & h2 {
+        font-size: 18px;
         font-weight: 600;
-        margin-bottom: 44px;
+        margin-bottom: 24px;
     }
 
     & a{
@@ -56,6 +57,23 @@
             font-size: 24px;
             display: flex;
             align-items: center;
+            text-decoration-line: underline;
+        }
+    }
+
+    &__info{
+        margin-top: 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        & h2{
+            margin-bottom: 0;
+        }
+
+        & p{
+            font-weight: 600;
+            font-size: 24px;
         }
     }
 }

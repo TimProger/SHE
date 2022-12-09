@@ -23,6 +23,7 @@ const Footer: React.FC<IFooterProps> = ({}) => {
     info_link1: t('footer.links.info_link1'),
     info_link2: t('footer.links.info_link2'),
     info_link3: t('footer.links.info_link3'),
+    info_link4: t('footer.links.info_link4'),
     contacts_link1: t('footer.links.contacts_link1'),
     contacts_link2: t('footer.links.contacts_link2'),
     contacts_link3: t('footer.links.contacts_link3'),
@@ -60,6 +61,7 @@ const Footer: React.FC<IFooterProps> = ({}) => {
               <Link href={'/about'}>{links.info_link1}</Link><br/><br/> {/* О нас */}
               <Link href={'/documents'}>{links.info_link2}</Link><br/><br/> {/* Документы */}
               <Link href={'/coop'}>{links.info_link3}</Link><br/><br/> {/* Сотрудничество */}
+              <Link href={'/policy'}>{links.info_link4}</Link><br/><br/> {/* Политика конфиденциальности */}
             </td>
             <td>
               <Link href={'/contacts'}>{links.contacts_link1}</Link><br/><br/>

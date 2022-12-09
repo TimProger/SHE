@@ -61,6 +61,19 @@ const Documents: React.FC = () => {
                 href={'https://docs.google.com/spreadsheets/d/1N36PsiRX6w9lfBdollKrGf1HXDeQ3D6u/edit#gid=1385872957'}
                 text={t('button')} />
             </div>
+            <div className={s.documents__info}>
+              <h2>{t('info.title')}</h2>
+              <p>{t('info.address')}</p>
+              <p>{t('info.email')}</p>
+              <p>{t('info.phone')}</p>
+              <div>
+                <p>{t('info.requisites.name')}</p>
+                <p>{t('info.requisites.inn')}</p>
+                <p>{t('info.requisites.ogrnip')}</p>
+                <p>{t('info.requisites.address')}</p>
+                <p>{t('info.requisites.phone')}</p>
+              </div>
+            </div>
           </div>
         </Container>
       </div>
