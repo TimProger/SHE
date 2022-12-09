@@ -13,6 +13,7 @@ import Head from "next/head";
 import Container from "../components/Container";
 import Dropdown from "../components/Dropdown";
 import Card from "../components/Card";
+import Button from "../components/Button";
 
 interface ICatalogProps {
 }
@@ -44,7 +45,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     min_price: null,
     max_price: null
   })
-
+  const [filtered, setFiltered] = useState<boolean>(false)
   const [limit, setLimit] = useState<number>(20)
   const [limitArr, setLimitArr] = useState<number[]>([20, 40, 60]);
 
@@ -56,14 +57,17 @@ const Catalog: React.FC<ICatalogProps> = () => {
         if(query.category){
           data.append('category', `${query.category}`)
           usedFilters.category.push(+`${query.category}`)
+          setFiltered(true)
         }
         if(query.collection){
           data.append('collection', `${query.collection}`)
           usedFilters.collection.push(+`${query.collection}`)
+          setFiltered(true)
         }
         if(query.type){
           data.append('type', `${query.type}`)
           usedFilters.type.push(+`${query.type}`)
+          setFiltered(true)
         }
         $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
           .then((res)=>{
@@ -71,7 +75,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
             setProducts(res.data.data)
           })
       })
-  },[locale, limit, query])
+  },[locale, query])
 
   useEffect(()=>{
     const data = new FormData()
@@ -79,14 +83,13 @@ const Catalog: React.FC<ICatalogProps> = () => {
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
-
     $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
       .then((res)=>{
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
       })
-  },[page, limit])
+  },[page])
 
   const onToggleLimitClick = (e: MouseEvent, value: number) => {
     setLimit(value)
@@ -146,10 +149,26 @@ const Catalog: React.FC<ICatalogProps> = () => {
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
+        setPage(1)
         setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
       })
-  },[usedFilters, limit])
+  },[limit])
+
+  const useFilters = () => {
+    const data = new FormData()
+    if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
+    if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
+    if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
+    if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
+    $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
+      .then((res)=>{
+        setPage(1)
+        setPages(Math.ceil(res.data.count_pages))
+        setProducts(res.data.data)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+  }
 
   const displayPages = () => {
     const arr = []
@@ -222,6 +241,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                     </div>
                   </div>
                 })}
+                <Button onClick={()=>useFilters()} text={'Применить'} />
               </div>
               <div className={s.catalog__container__products}>
                 <div className={s.catalog__container__products__cards}>
