@@ -170,9 +170,6 @@ const Product: React.FC<IProductProps> = ({product}) => {
 
   const [infoPage, setInfoPage] = useState(1);
 
-  const scrollHandler = (e: React.UIEvent<HTMLElement>) => {
-  }
-
   return (
     <Layout>
       <Head>
@@ -202,7 +199,6 @@ const Product: React.FC<IProductProps> = ({product}) => {
                       src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
                       alt={'img'} />
                   })}
-                  <div onClick={(e: React.UIEvent<HTMLElement>)=>scrollHandler(e)}></div>
                 </div>
                 <div className={s.container__product__product__images__main}>
                   <div className={s.container__product__product__images__main__tags}>
