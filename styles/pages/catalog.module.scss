@@ -52,15 +52,27 @@
     &__filters{
       border: 1px solid $text-main;
       padding: 40px 20px;
+      width: 350px;
       height: auto;
       display: flex;
       flex-direction: column;
-      gap: 40px;
 
       &__block{
         display: flex;
         flex-direction: column;
-        gap: 20px;
+
+        & h3{
+          cursor: pointer;
+        }
+
+        &__open{
+          display: flex !important;
+          flex-direction: column;
+        }
+
+        &__closed{
+          display: none !important;
+        }
 
         &__option{
           display: flex;
@@ -92,6 +104,21 @@
           & div{
             display: flex;
             flex-direction: row;
+          }
+        }
+
+        &__header{
+          width: 100%;
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: center;
+          cursor: pointer;
+          justify-content: space-between;
+          padding-top: 20px;
+          padding-bottom: 20px;
+
+          &:hover h3{
+            color: $block-main;
           }
         }
       }
