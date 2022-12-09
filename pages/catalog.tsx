@@ -253,7 +253,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                     </div>
                   </div>
                 })}
-                <Button onClick={()=>useFilters()} text={t('filters.button')} />
+                <Button className={s.catalog__container__filters__button} onClick={()=>useFilters()} text={t('filters.button')} />
               </div>
               <div className={s.catalog__container__products}>
                 <div className={s.catalog__container__products__cards}>

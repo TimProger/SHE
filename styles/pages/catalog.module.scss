@@ -57,6 +57,10 @@
       display: flex;
       flex-direction: column;
 
+      &__button{
+        margin-top: 40px;
+      }
+
       &__block{
         display: flex;
         flex-direction: column;
