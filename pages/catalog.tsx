@@ -241,7 +241,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                         <path d="M11.1223 1.38952L6.3941 5.53084C6.33781 5.57999 6.27683 5.61473 6.21116 5.63505C6.14549 5.65569 6.07513 5.66602 6.00008 5.66602C5.92503 5.66602 5.85467 5.65569 5.789 5.63505C5.72333 5.61473 5.66235 5.57999 5.60606 5.53084L0.863757 1.38952C0.732418 1.27482 0.666748 1.13145 0.666748 0.959411C0.666748 0.787367 0.737108 0.639902 0.87783 0.517014C1.01855 0.394126 1.18273 0.332683 1.37035 0.332683C1.55798 0.332683 1.72216 0.394126 1.86288 0.517014L6.00008 4.12992L10.1373 0.517014C10.2686 0.402319 10.4304 0.344971 10.6225 0.344971C10.815 0.344971 10.9816 0.406415 11.1223 0.529303C11.2631 0.65219 11.3334 0.795559 11.3334 0.95941C11.3334 1.12326 11.2631 1.26663 11.1223 1.38952Z" fill="#A0A0A0"/>
                       </svg>
                     </div>
-                    <div className={open[index] ? s.catalog__container__filters__block__open : s.catalog__container__filters__block__closed}>
+                    <div className={s.catalog__container__filters__block__container + ` ${open[index] ? s.catalog__container__filters__block__open : s.catalog__container__filters__block__closed}`}>
                       {el.option.map((elem, index)=>{
                         return <div className={s.catalog__container__filters__block__option}>
                           {/* @ts-ignore */}

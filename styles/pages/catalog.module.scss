@@ -69,13 +69,21 @@
           cursor: pointer;
         }
 
+        &__container{
+          transition: height 0.5s;
+          height: 0;
+          overflow: hidden;
+          overflow-y: auto;
+        }
+
         &__open{
-          display: flex !important;
+          opacity: 1;
           flex-direction: column;
+          height: 300px !important;
         }
 
         &__closed{
-          display: none !important;
+          opacity: 0;
         }
 
         &__option{

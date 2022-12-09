@@ -32,3 +32,20 @@ body {
 .swiper-pagination-bullet-active {
   background: $block-sec !important;
 }
+
+html{
+  scrollbar-color: $block-main #00000000;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+  background-color: $block-thrd;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $block-main;
+  border-radius: 5px;
+}
