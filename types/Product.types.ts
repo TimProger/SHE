@@ -80,16 +80,17 @@ export interface IFavProduct {
 export interface IOrder {
   id: number;
   id_user_id: number;
-  order_id: string
-  status_id: number
-  data_order: string
-  address: string
-  chek: string
+  order_id: string;
+  status_id: number;
+  data_order: string;
+  delivery_id: number;
+  address: string;
+  chek: string;
   pay: boolean;
   name: string;
   buy_now: boolean;
   price: number;
-  sum: number
+  sum: number;
 }
 
 export interface IFilter {

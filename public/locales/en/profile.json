@@ -18,7 +18,19 @@
     },
     "orders": {
       "notfound": "Orders not found",
-      "toCatalogue": "To catalog"
+      "toCatalogue": "To catalog",
+      "order": {
+        "active": "Active",
+        "info": {
+          "name": "Order",
+          "date": "Date",
+          "quantity": "Quantity of products",
+          "delivery": "Delivery method",
+          "delivery_1": "Self-delivery",
+          "delivery_2": "By transport company"
+        },
+        "history": "Order history"
+      }
     },
     "settings": {
       "delete": "Delete account",

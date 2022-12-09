@@ -253,7 +253,7 @@ const Profile: React.FC = () => {
             {orders.length > 0
               ? <div className={s.profile__pages__page__products__container}>
                 <div className={s.profile__pages__page__products__active}>
-                  <h2>Активные</h2>
+                  <h2>{t('pages.orders.order.active')}</h2>
                   {ordersActive.map((el, index) => {
                     return <div className={s.profile__pages__page__products__active__product}>
                       <div>
@@ -261,10 +261,10 @@ const Profile: React.FC = () => {
                           <img src="" alt=""/>
                         </div>
                         <div className={s.profile__pages__page__products__active__product__info}>
-                          <h2>Заказ #{el.order_id}</h2>
-                          <p>Дата: <span>{new Date(el.data_order).toLocaleString().split(', ').join(' ')}</span></p>
-                          <p>Кол-во товаров: <span>3</span></p>
-                          <p>Способ доставки: <span>Транспортной компанией</span></p>
+                          <h2>{t('pages.orders.order.info.name')} #{el.order_id}</h2>
+                          <p>{t('pages.orders.order.info.date')}: <span>{new Date(el.data_order).toLocaleString().split(', ').join(' ')}</span></p>
+                          <p>{t('pages.orders.order.info.quantity')}: <span>3</span></p>
+                          <p>{t('pages.orders.order.info.delivery')}: <span>{el.delivery_id === 2 ? t('pages.orders.order.info.delivery_2') : t('pages.orders.order.info.delivery_1')}</span></p>
                         </div>
                       </div>
                       <div className={s.profile__pages__page__products__active__product__price}>
@@ -275,7 +275,7 @@ const Profile: React.FC = () => {
                   })}
                 </div>
                 <div className={s.profile__pages__page__products__history}>
-                  <h2>История заказов</h2>
+                  <h2>{t('pages.orders.order.history')}</h2>
                   {ordersHistory.map((el, index) => {
                     return <div className={s.profile__pages__page__products__active__product}>
                       <div>
@@ -283,10 +283,10 @@ const Profile: React.FC = () => {
                           <img src="" alt=""/>
                         </div>
                         <div className={s.profile__pages__page__products__active__product__info}>
-                          <h2>Заказ #{el.order_id}</h2>
-                          <p>Дата: <span>{new Date(el.data_order).toLocaleString().split(', ').join(' ')}</span></p>
-                          <p>Кол-во товаров: <span>3</span></p>
-                          <p>Способ доставки: <span>Транспортной компанией</span></p>
+                          <h2>{t('pages.orders.order.info.name')} #{el.order_id}</h2>
+                          <p>{t('pages.orders.order.info.date')}: <span>{new Date(el.data_order).toLocaleString().split(', ').join(' ')}</span></p>
+                          <p>{t('pages.orders.order.info.quantity')}: <span>3</span></p>
+                          <p>{t('pages.orders.order.info.delivery')}: <span>{el.delivery_id === 2 ? t('pages.orders.order.info.delivery_2') : t('pages.orders.order.info.delivery_1')}</span></p>
                         </div>
                       </div>
                       <div className={s.profile__pages__page__products__active__product__price}>

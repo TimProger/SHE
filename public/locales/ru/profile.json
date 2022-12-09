@@ -18,7 +18,19 @@
     },
     "orders": {
       "notfound": "У вас нет заказов",
-      "toCatalogue": "В каталог"
+      "toCatalogue": "В каталог",
+      "order": {
+        "active": "Активные",
+        "info": {
+          "name": "Заказ",
+          "date": "Дата",
+          "quantity": "Кол-во товаров",
+          "delivery": "Способ доставки",
+          "delivery_1": "Самовывоз",
+          "delivery_2": "Транспортной компанией"
+        },
+        "history": "История заказов"
+      }
     },
     "settings": {
       "delete": "Удалить аккаунт",
