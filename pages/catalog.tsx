@@ -253,7 +253,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                     </div>
                   </div>
                 })}
-                <Button onClick={()=>useFilters()} text={'Применить'} />
+                <Button onClick={()=>useFilters()} text={t('filters.button')} />
               </div>
               <div className={s.catalog__container__products}>
                 <div className={s.catalog__container__products__cards}>
@@ -282,7 +282,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
               </div>
             </div>
             <div className={s.catalog__seen}>
-              <h1>{locale === 'ru' ? 'Недавно просмотренные' : 'Recently viewed'}</h1>
+              <h1>{t('seen')}</h1>
               {seen.length > 0
                 ? <div className={s.catalog__seen__cards}>
                   {seen.map((el, index)=>{
@@ -292,7 +292,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                   })}
                 </div>
                 : <p className={s.catalog__seen__not_found}>
-                  {locale === 'ru' ? 'Вы не просмотрели ни одного товара' : 'You haven\'t viewed any products'}
+                  {t('seen_nothing')}
                 </p>}
             </div>
           </div>

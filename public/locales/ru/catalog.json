@@ -4,5 +4,10 @@
   "hits": "Hits",
   "welcome": "Welcome!",
   "sale": "The promotion is valid until",
-  "more": "More"
+  "more": "More",
+  "seen": "Недавно просмотренные",
+  "seen_nothing": "Вы не просмотрели ни одного товара",
+  "filters": {
+    "button": "Применить"
+  }
 }

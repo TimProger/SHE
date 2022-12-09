@@ -4,5 +4,10 @@
   "hits": "Hits",
   "welcome": "Welcome!",
   "sale": "The promotion is valid until",
-  "more": "More"
+  "more": "More",
+  "seen": "Recently viewed",
+  "seen_nothing": "You haven't viewed any products",
+  "filters": {
+    "button": "Apply"
+  }
 }
