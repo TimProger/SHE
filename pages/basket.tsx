@@ -17,6 +17,10 @@ import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
 import {toggleShowAuth} from "../store/Slices/Profile.slice";
+import mir_logo from '../public/images/mir_logo.png'
+import visa_logo from '../public/images/visa_logo.png'
+import jcb_logo from '../public/images/jcb_logo.png'
+import ms_logo from '../public/images/ms_logo.png'
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -487,10 +491,10 @@ const Basket: React.FC = () => {
               }) : <p>{t('empty')}</p>}
             </div>
             <h2>{t('order.payment_methods')}</h2>
-            <div className={s.order__orders__payment} onChange={(e: ChangeEvent<HTMLInputElement>)=>setPayment('cash')}>
+            <div className={s.order__orders__payment} onChange={(e: ChangeEvent<HTMLInputElement>)=>setPayment(e.target.value)}>
               <div className={s.order__orders__payment__radio}>
                 <div>
-                  <input disabled={true} checked={false} type="radio" value="card" name="payment" id={'card'}/>
+                  <input checked={payment === 'card'} type="radio" value="card" name="payment" id={'card'}/>
                   <label htmlFor="card">{t('order.inputs.radio_3')}</label>
                 </div>
               </div>
@@ -498,9 +502,15 @@ const Basket: React.FC = () => {
                 <div>
                   <input checked={payment === 'cash'} type="radio" value="cash" name="payment" id={'cash'}/>
                   <label htmlFor="cash">{t('order.inputs.radio_4')}</label>
-                </div> <p>{t('order.about_payment')}</p>
+                </div>
               </div>
             </div>
+            {payment === 'card' ? <div className={s.order__orders__payment__images}>
+              <img src={mir_logo.src} alt="mir_logo"/>
+              <img src={ms_logo.src} alt="ms_logo"/>
+              <img src={visa_logo.src} alt="visa_logo"/>
+              <img src={jcb_logo.src} alt="jcb_logo"/>
+            </div> : payment === 'cash' ? <p className={s.order__orders__payment__text}>{t('order.about_payment')}</p> : <p></p>}
           </div>
         </div>)
       case 2:

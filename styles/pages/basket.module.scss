@@ -214,20 +214,35 @@
       display: flex;
       gap: 20px;
 
+      &__images{
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      &__text{
+        margin-left:135px;
+        font-size: 14px;
+        color: $text-sec;
+        margin-top: 20px;
+      }
+
       &__radio{
         display: flex;
         flex-direction: column;
         gap: 5px;
 
-        & p{
-          margin-left:23px;
-          font-size: 14px;
-          color: $text-sec;
-        }
-
         & div{
           display: flex;
           gap: 10px;
+
+          & input{
+            cursor: pointer;
+          }
+
+          & label{
+            cursor: pointer;
+          }
         }
       }
     }
