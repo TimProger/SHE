@@ -236,6 +236,7 @@
             display: flex;
             gap: 40px;
             background: $block-main !important;
+            border-right: 2px solid $text-thrd;
 
             & div{
               font-size: 30px;
