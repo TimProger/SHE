@@ -52,7 +52,7 @@
     &__filters{
       border: 1px solid $text-main;
       padding: 40px 20px;
-      width: 350px;
+      width: 314px;
       height: auto;
       display: flex;
       flex-direction: column;
@@ -70,7 +70,7 @@
         }
 
         &__container{
-          transition: height 0.5s;
+          transition: height 0.3s;
           height: 0;
           overflow: hidden;
           overflow-y: auto;
@@ -103,8 +103,8 @@
           display: inline-block;
           border: 1px solid #1E1D1D20;
           background: #dcb395;
-          height: 15px;
-          width: 15px;
+          min-height: 15px;
+          min-width: 15px;
           border-radius: 50%;
         }
 
