@@ -13,10 +13,9 @@ import {onToggleLanguageClick} from "../utils/changeCurrentLanguage";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
+import {toggleShowAuth} from "../store/Slices/Profile.slice";
 
 interface IAuthProps {
-  show: boolean;
-  setShow: (isShow: boolean) => void;
 }
 
 interface IAuthErrors {
@@ -24,10 +23,12 @@ interface IAuthErrors {
   code: string;
 }
 
-const Auth: React.FC<IAuthProps> = ({show, setShow}) => {
+const Auth: React.FC<IAuthProps> = () => {
   const dispatch = useAppDispatch()
 
   const { t } = useTranslation('common')
+
+  const {showAuth} = useTypedSelector(state => state.profile)
 
   const translates = {
     error_code_1: t('auth.error_code_1'),
@@ -172,7 +173,7 @@ const Auth: React.FC<IAuthProps> = ({show, setShow}) => {
   }
 
   const outsideClickHandler = () => {
-    setShow(false)
+    dispatch(toggleShowAuth(false))
   }
 
   const insideClickHandler = (e: MouseEvent) => {
@@ -208,7 +209,7 @@ const Auth: React.FC<IAuthProps> = ({show, setShow}) => {
         setCode('');
         setPage(0);
         dispatch(getUser())
-        setShow(false)
+        dispatch(toggleShowAuth(false))
         window.location.replace(`/${locale}/profile`)
       })
       .catch((err) => {
@@ -263,7 +264,7 @@ const Auth: React.FC<IAuthProps> = ({show, setShow}) => {
   }
 
   return (
-    <div onClick={outsideClickHandler} className={s.auth + ' ' + (show ? s.auth__active : '')}>
+    <div onClick={outsideClickHandler} className={s.auth + ' ' + (showAuth ? s.auth__active : '')}>
       <div onClick={insideClickHandler} className={s.auth__form}>
         <div className={s.auth__form__container}>
           {page === 1 && <p className={s.auth__form__container__back} onClick={() => handleClick()}>

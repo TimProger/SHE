@@ -18,3 +18,21 @@ export const getBasket = createAsyncThunk(
     }
   }
 )
+
+export const getBasketNoAuth = createAsyncThunk(
+  'basket/getBasketNoAuth',
+  async ({ids, locale}: {ids: number[][]; locale?: string}, thunkAPI) => {
+    try {
+      const response = await $api.get<IBasketProductFull[]>(`/${locale}/basket/new/${ids.length > 0 && `?ids=${ids.map((el)=>el[0]).join(',')}`}`)
+      console.log(response.data)
+      return response.data.map((el, index) => ({
+        id: el.id,
+        count: ids.filter((elem)=>elem[0]===el.more)[0][1] || 1,
+        buy_now: el.buy_now,
+        more: el.more
+      }));
+    } catch (e) {
+      return thunkAPI.rejectWithValue("Не удалось найти товары")
+    }
+  }
+)

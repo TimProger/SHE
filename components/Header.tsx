@@ -11,6 +11,7 @@ import Auth from "./Auth";
 import {$api, API_BASE_URL} from "../http/api";
 import ProfileImg from '../public/images/profile_mock.png'
 import {useTranslation} from "next-i18next";
+import {toggleShowAuth} from "../store/Slices/Profile.slice";
 
 interface IHeaderProps {
 }
@@ -34,7 +35,6 @@ const Header: React.FC<IHeaderProps> = ({}) => {
   const { locale, query } = useRouter()
   const [searchValue, setSearchValue] = useState('')
   const [showSearch, setShowSearch] = useState(false)
-  const [showAuth, setShowAuth] = useState(false)
   const router = useRouter()
 
   const {isLoading, error, products} = useTypedSelector(state => state.product)
@@ -103,7 +103,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
 
   return (
     <>
-      <Auth show={showAuth} setShow={setShowAuth}/>
+      <Auth />
       <header className={s.header}>
         <div className={s.wrapper}>
           <div className={s.top}>
@@ -180,7 +180,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
                   ? <Link href="/profile" className={s.top__btns__btn + ' ' + s.top__btns__image}>
                       <img src={user?.user_image ? (typeof user.user_image !== 'string' ? URL.createObjectURL(user.user_image) : `${API_BASE_URL}${user?.user_image}`) : ProfileImg.src} alt='user'/>
                     </Link>
-                  : <div onClick={()=>setShowAuth(true)} className={s.top__btns__test}>
+                  : <div onClick={()=>dispatch(toggleShowAuth(true))} className={s.top__btns__test}>
                     <svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clipPath="url(#clip0_413_3)">
                         <circle cx="250.5" cy="182.5" r="88.5" stroke="black" strokeWidth="16"/>
@@ -220,7 +220,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
             <div className={s.popup_active__container}>
               <ul className={s.popup_active__list}>
                 {headerState.length > 0 && headerState.map((el, index)=>{
-                  return <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onMouseOver={()=>setPopupArr(el.collection)}><Link href={`/catalog?category=${el.id}`}>{el.name}</Link>
+                  return <li className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel} onClick={()=>setPopupState(false)} onMouseOver={()=>setPopupArr(el.collection)}><Link href={`/catalog?category=${el.id}`}>{el.name}</Link>
                     {el.collection.length > 0 && <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1.39001 0.877758L5.53133 5.60599C5.58048 5.66228 5.61522 5.72326 5.63554 5.78893C5.65618 5.8546 5.6665 5.92496 5.6665 6.00001C5.6665 6.07506 5.65618 6.14542 5.63554 6.21109C5.61522 6.27676 5.58048 6.33774 5.53133 6.39403L1.39001 11.1363C1.27531 11.2677 1.13194 11.3333 0.959899 11.3333C0.787856 11.3333 0.64039 11.263 0.517503 11.1223C0.394615 10.9815 0.333171 10.8174 0.333171 10.6297C0.333171 10.4421 0.394615 10.2779 0.517503 10.1372L4.13041 6.00001L0.517502 1.86281C0.402806 1.73147 0.345459 1.56973 0.345459 1.3776C0.345459 1.18509 0.406902 1.01848 0.52979 0.877758C0.652678 0.737037 0.796047 0.666676 0.959898 0.666676C1.12375 0.666676 1.26712 0.737037 1.39001 0.877758Z" fill="black"/>
                     </svg>}
@@ -229,7 +229,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
               </ul>
               <ul onMouseLeave={()=>setPopupArr([])} className={popupArr.length > 0 ? s.popup_semilist_active :  s.popup_semilist}>
                 {popupArr.map((el)=>{
-                  return <li><Link href={`/catalog?collection=${el.master_id}`}>{el.name}</Link></li>
+                  return <li onClick={()=>setPopupState(false)}><Link href={`/catalog?collection=${el.master_id}`}>{el.name}</Link></li>
                 })}
               </ul>
             </div>

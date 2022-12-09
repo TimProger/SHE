@@ -9,7 +9,7 @@ import {getFavs} from "../store/ActionCreators/Fav.ac";
 import {useRouter} from "next/router";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {getUser} from "../store/ActionCreators/Profile.ac";
-import {getBasket} from "../store/ActionCreators/Basket.ac";
+import {getBasket, getBasketNoAuth} from "../store/ActionCreators/Basket.ac";
 
 const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
 
@@ -40,6 +40,12 @@ const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
   useEffect(()=>{
     if(profileState.isAuth){
       dispatch(getBasket(locale ?? 'ru'))
+    }else{
+      const basket = Storage.get('basket')
+      console.log(basket)
+      if(basket && JSON.parse(basket).length > 0) {
+        dispatch(getBasketNoAuth({locale: locale ?? 'ru', ids: JSON.parse(basket)}))
+      }
     }
   }, [profileState.isAuth])
 

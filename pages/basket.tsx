@@ -16,6 +16,7 @@ import {getBasket} from "../store/ActionCreators/Basket.ac";
 import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
+import {toggleShowAuth} from "../store/Slices/Profile.slice";
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -561,13 +562,19 @@ const Basket: React.FC = () => {
     setIsDisabled(true)
     switch (page){
       case 0:
-        setPage(1)
+        if(isAuth){
+          setPage(1)
+        }
         break;
       case 1:
-        makeOrder()
+        if(isAuth){
+          makeOrder()
+        }
         break;
     }
   }
+
+  const {isAuth} = useTypedSelector(state => state.profile)
 
   return (
     <Layout>
@@ -584,7 +591,9 @@ const Basket: React.FC = () => {
               </h1>:<h1 className={s.basket__info__text}>
                 {totalPriceNew} {locale === 'ru' ? '₽' : '$'}
               </h1>}
-              {page !== 2 && <Button disabled={isDisabled} text={t('buy')} onClick={handleClick}/>}
+              {isAuth
+                ? (page !== 2 && <Button disabled={isDisabled} text={t('buy')} onClick={handleClick}/>)
+                : <Button onClick={()=>dispatch(toggleShowAuth(true))} text={'Авторизоваться'}/>}
             </div>
           </div>
         </Container>

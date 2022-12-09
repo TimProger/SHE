@@ -1,7 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {IBasketProduct, IFavProduct, IProduct, IProductMore} from "../../types/Product.types";
-import {getBasket} from "../ActionCreators/Basket.ac";
+import {getBasket, getBasketNoAuth} from "../ActionCreators/Basket.ac";
 import {getFavs} from "../ActionCreators/Fav.ac";
+import {Storage} from "../../utils/storage";
 
 interface IBasketState {
   isLoading: boolean;
@@ -27,6 +28,8 @@ export const basketSlice = createSlice({
         const index = state.products.indexOf(includes[0])
         state.products[index].count += 1
       }
+      Storage.set('basket', JSON.stringify(state.products.map((el, index)=>[el.more, el.count])))
+
     },
     removeFromBasket: (state: IBasketState, action: PayloadAction<number>) => {
       const product = state.products.find((el)=>el.more === action.payload)
@@ -36,10 +39,12 @@ export const basketSlice = createSlice({
         if(state.products[index].count <= 0){
           state.products.splice(index, 1)
         }
+        Storage.set('basket', JSON.stringify(state.products.map((el, index)=>[el.more, el.count])))
       }
     },
     removeAllProductFromBasket: (state: IBasketState) => {
       state.products = []
+      Storage.set('basket', JSON.stringify([]))
     },
     killProduct: (state: IBasketState, action: PayloadAction<number>) => {
       const product = state.products.find((el)=>el.more === action.payload)
@@ -48,6 +53,7 @@ export const basketSlice = createSlice({
         state.products.splice(index, 1)
       }
       state.products = [...state.products]
+      Storage.set('basket', JSON.stringify(state.products.map((el, index)=>[el.more, el.count])))
     },
   },
   extraReducers: {
@@ -60,6 +66,18 @@ export const basketSlice = createSlice({
       state.isLoading = true;
     },
     [getBasket.rejected.type]: (state,  action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload
+    },
+    [getBasketNoAuth.fulfilled.type]: (state, action: PayloadAction<IBasketProduct[]>) => {
+      state.isLoading = false;
+      state.error = null
+      state.products = action.payload;
+    },
+    [getBasketNoAuth.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [getBasketNoAuth.rejected.type]: (state,  action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload
     },
