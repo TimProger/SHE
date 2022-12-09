@@ -34,18 +34,18 @@ body {
 }
 
 html{
-  scrollbar-color: $block-main #00000000;
+  scrollbar-color: $scroll-main #00000000;
   scrollbar-width: thin;
 }
 
 ::-webkit-scrollbar{
   width: 10px;
   height: 10px;
-  background-color: $block-thrd;
+  background-color: $scroll-sec;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $block-main;
+  background: $scroll-main;
   border-radius: 5px;
 }
