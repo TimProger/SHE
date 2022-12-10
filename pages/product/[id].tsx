@@ -205,7 +205,7 @@ const Product: React.FC<IProductProps> = ({product}) => {
                     {product.is_new && <div className={s.container__product__product__images__main__new}>New</div>}
                     {product.is_hit && <div className={s.container__product__product__images__main__hit}>Hit</div>}
                   </div>
-                  <img src={mainImage} alt={product.name}/>
+                  <img src={mainImage}  alt={product.name}/>
                 </div>
               </div>
               <div className={s.container__product__product__info}>
