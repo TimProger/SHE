@@ -47,7 +47,47 @@ const Catalog: React.FC<ICatalogProps> = () => {
   })
   const [filtered, setFiltered] = useState<boolean>(false)
   const [limit, setLimit] = useState<number>(20)
+  const [sort, setSort] = useState<{
+    name: string;
+    value: string;
+  }>({
+    name: '',
+    value: ''
+  })
   const [limitArr, setLimitArr] = useState<number[]>([20, 40, 60]);
+  const [sortArr, setSortArr] = useState<{
+    name: string;
+    value: string;
+  }[]>([])
+
+  useEffect(()=>{
+    setSort({
+      name: t('sort.newest_newer'),
+      value: 'is_new desc'
+    })
+    setSortArr([
+      {
+        name: t('sort.newest_newer'),
+        value: 'is_new desc'
+      },
+      {
+        name: t('sort.newest_older'),
+        value: 'is_new asc'
+      },
+      // {
+      //   name: t('sort.price_expensive'),
+      //   value: 'price desc'
+      // },
+      // {
+      //   name: t('sort.price_cheaper'),
+      //   value: 'price asc'
+      // },
+      {
+        name: t('sort.popularity'),
+        value: 'is_hit desc'
+      }
+    ])
+  },[locale])
 
   useEffect(()=>{
     $api.get(`${locale}/product/catalog/get_filters`)
@@ -79,6 +119,9 @@ const Catalog: React.FC<ICatalogProps> = () => {
 
   useEffect(()=>{
     const data = new FormData()
+    if(sort.value){
+      data.append('order', sort.value)
+    }
     if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
@@ -93,6 +136,13 @@ const Catalog: React.FC<ICatalogProps> = () => {
 
   const onToggleLimitClick = (e: MouseEvent, value: number) => {
     setLimit(value)
+  }
+
+  const onToggleSortClick = (e: MouseEvent, value: {
+    name: string,
+    value: string
+  }) => {
+    setSort(value)
   }
 
   const toggleFilter = (value: string, type: string) => {
@@ -155,8 +205,23 @@ const Catalog: React.FC<ICatalogProps> = () => {
       })
   },[limit])
 
+  useEffect(()=>{
+    if(!sort.value) return
+    const data = new FormData()
+    data.append('order', sort.value)
+    $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
+      .then((res)=>{
+        setPage(1)
+        setPages(Math.ceil(res.data.count_pages))
+        setProducts(res.data.data)
+      })
+  },[sort])
+
   const useFilters = () => {
     const data = new FormData()
+    if(sort.value){
+      data.append('order', sort.value)
+    }
     if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
@@ -228,6 +293,9 @@ const Catalog: React.FC<ICatalogProps> = () => {
               <div className={s.catalog__header__bottom}>
                 <div>
                   {locale === 'ru' ? 'До' : 'To'}: <Dropdown type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
+                </div>
+                <div>
+                  {locale === 'ru' ? 'Сортировать по' : 'Sort by'}: <Dropdown type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
                 </div>
               </div>
             </div>

@@ -7,6 +7,13 @@
   "more": "More",
   "seen": "Недавно просмотренные",
   "seen_nothing": "Вы не просмотрели ни одного товара",
+  "sort": {
+    "newest_newer": "Новизне, новее",
+    "newest_older": "Новизне, старее",
+    "price_expensive": "Цене, дороже",
+    "price_cheaper": "Цене, дешевле",
+    "popularity": "Популярности"
+  },
   "filters": {
     "button": "Применить"
   }

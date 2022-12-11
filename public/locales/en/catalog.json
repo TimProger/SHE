@@ -7,6 +7,13 @@
   "more": "More",
   "seen": "Recently viewed",
   "seen_nothing": "You haven't viewed any products",
+  "sort": {
+    "newest_newer": "Newest, newer",
+    "newest_older": "Newest, older",
+    "price_expensive": "Price, highest first",
+    "price_cheaper": "Price, lowest first",
+    "popularity": "Popularity"
+  },
   "filters": {
     "button": "Apply"
   }
