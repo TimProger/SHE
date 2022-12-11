@@ -7,6 +7,7 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import {toggleFav} from "../store/Slices/Fav.slice";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
 import Stock from "../public/images/stock.png";
+import {useRouter} from "next/router";
 
 interface ICardProps {
   product: IProduct;
@@ -15,6 +16,7 @@ interface ICardProps {
 
 const Card: React.FC<ICardProps> = ({product, className}) => {
   const dispatch = useAppDispatch()
+  const {locale} = useRouter()
   const [more, setMore] = useState<IProductMore>(product.product_more[0])
   const [mainImage, setMainImage] = useState<IProductImage | null>(null)
 
@@ -90,7 +92,7 @@ const Card: React.FC<ICardProps> = ({product, className}) => {
             <p>{product.product_more.map(el=>el.ml).join('/')} ml</p>
             <span style={{background: product.color}} className={s.card__content__footer__color} />
           </div>
-          <div>{product.product_more[0].price} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</div>
+          <div>{locale === 'ru' ? 'от' : 'from'} {product.product_more[0].price} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</div>
         </div>
       </div>
     </div>
