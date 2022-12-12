@@ -49,10 +49,10 @@ const Coop: React.FC = () => {
                   <div>
                     <div className={s.coop__body__special_conditions__discounts__title}>{t('discount2')}</div>
                     <ul className={s.coop__body__special_conditions__discounts__second}>
-                      <li>40.000₽</li>
-                      <li>30.000₽</li>
-                      <li>20.000₽</li>
-                      <li>10.000₽</li>
+                      <li>{locale === 'ru' ? '40.000₽' : '640$'}</li>
+                      <li>{locale === 'ru' ? '30.000₽' : '480$'}</li>
+                      <li>{locale === 'ru' ? '20.000₽' : '320$'}</li>
+                      <li>{locale === 'ru' ? '10.000₽' : '160$'}</li>
                     </ul>
                   </div>
                 </div>
