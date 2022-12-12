@@ -232,6 +232,31 @@ const Catalog: React.FC<ICatalogProps> = () => {
         setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        setFiltered(false)
+        if(usedFilters.category.length > 0 || usedFilters.color.length > 0 || usedFilters.collection.length > 0 || usedFilters.type.length > 0) setFiltered(true)
+      })
+  }
+
+  const clearFilters = () => {
+    setUsedFilters({
+      category: [],
+      color: [],
+      collection: [],
+      type: [],
+      min_price: null,
+      max_price: null
+    })
+    const data = new FormData()
+    if(sort.value){
+      data.append('order', sort.value)
+    }
+    $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
+      .then((res)=>{
+        setPage(1)
+        setPages(Math.ceil(res.data.count_pages))
+        setProducts(res.data.data)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setFiltered(false)
       })
   }
 
@@ -321,7 +346,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
                     </div>
                   </div>
                 })}
-                <Button className={s.catalog__container__filters__button} onClick={()=>useFilters()} text={t('filters.button')} />
+                <Button className={s.catalog__container__filters__button__apply} onClick={()=>useFilters()} text={t('filters.button')} />
+                {filtered && <Button className={s.catalog__container__filters__button + ` ${s.catalog__container__filters__button__clear}`} onClick={()=>clearFilters()} text={t('filters.clear')} />}
               </div>
               <div className={s.catalog__container__products}>
                 <div className={s.catalog__container__products__cards}>

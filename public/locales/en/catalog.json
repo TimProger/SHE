@@ -15,6 +15,7 @@
     "popularity": "Popularity"
   },
   "filters": {
-    "button": "Apply"
+    "button": "Apply",
+    "clear": "Clear"
   }
 }

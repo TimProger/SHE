@@ -60,6 +60,7 @@ export interface IProduct {
   is_hit: boolean;
   article: string;
   product_type: string;
+  category_id: number;
   about_text: string;
   about_title: string;
   ml: number;
