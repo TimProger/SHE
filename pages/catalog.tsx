@@ -51,8 +51,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
     name: string;
     value: string;
   }>({
-    name: '',
-    value: ''
+    name: locale === 'ru' ? 'Не выбрано' : 'Nothing',
+    value: 'is_new desc'
   })
   const [limitArr, setLimitArr] = useState<number[]>([20, 40, 60]);
   const [sortArr, setSortArr] = useState<{
@@ -60,15 +60,15 @@ const Catalog: React.FC<ICatalogProps> = () => {
     value: string;
   }[]>([
     {
-      name: t('sort.newest_newer'),
+      name: locale === 'ru' ? 'Новизне, новее' : 'Newest, newer',
       value: 'is_new desc'
     },
     {
-      name: t('sort.newest_older'),
+      name: locale === 'ru' ? 'Новизне, старее' : 'Newest, older',
       value: 'is_new asc'
     },
     {
-      name: t('sort.popularity'),
+      name: locale === 'ru' ? 'Популярности' : 'Popularity',
       value: 'is_hit desc'
     }
   ])
@@ -88,7 +88,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
         value: 'is_hit desc'
       }
     ]
-    setSort(arr[0])
+    setSort({
+        name: locale === 'ru' ? 'Не выбрано' : 'Nothing',
+        value: 'is_new desc'
+      })
     setSortArr(arr)
   },[locale])
 
@@ -122,9 +125,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
 
   useEffect(()=>{
     const data = new FormData()
-    if(sort.value){
-      data.append('order', sort.value)
-    }
+    data.append('order', sort.value)
     if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
@@ -196,6 +197,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
 
   useEffect(()=>{
     const data = new FormData()
+    data.append('order', sort.value)
     if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
@@ -222,13 +224,12 @@ const Catalog: React.FC<ICatalogProps> = () => {
 
   const useFilters = () => {
     const data = new FormData()
-    if(sort.value){
-      data.append('order', sort.value)
-    }
+    data.append('order', sort.value)
     if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
+    console.log('data', data)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
@@ -250,9 +251,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
       max_price: null
     })
     const data = new FormData()
-    if(sort.value){
-      data.append('order', sort.value)
-    }
+    data.append('order', sort.value)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
