@@ -79,8 +79,9 @@ const Profile: React.FC = () => {
           let number = user.phone.toString().substring(phoneLen-10, 11)
           console.log('number', number)
 
-          let formattedPhone: string = `+${digits}`
-          formattedPhone += ' ' + number.substring(0, 3);
+          let formattedPhone: string = ''
+
+          formattedPhone += `+${digits || 7} ` + number.substring(0, 3);
           formattedPhone += ' ' + number.substring(3, 6);
           formattedPhone += ' ' + number.substring(6, 8);
           formattedPhone += ' ' + number.substring(8, 10);
@@ -306,7 +307,7 @@ const Profile: React.FC = () => {
                   </label>
                 </div>
                 <div>
-                  <h2>{user?.first_name || firstName || t('pages.info.inputs.first')} {user?.last_name || lastName || t('pages.info.inputs.last')}</h2>
+                  <h2>{firstName || user?.first_name || t('pages.info.inputs.first')} {lastName || user?.last_name || t('pages.info.inputs.last')}</h2>
                   <p>{t('status')}</p>
                 </div>
               </div>
