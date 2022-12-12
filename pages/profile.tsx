@@ -26,7 +26,7 @@ const Profile: React.FC = () => {
   const dispatch = useAppDispatch()
   const {t} = useTranslation('profile');
 
-  const { isAuth, isLoading, user } = useTypedSelector(state => state.profile)
+  const { user } = useTypedSelector(state => state.profile)
 
   const status = [
     'Created',
@@ -50,7 +50,6 @@ const Profile: React.FC = () => {
   const [errors, setErrors] = useState({
     first: null,
     last: null,
-    phone: null,
     email: null,
   })
 
@@ -72,9 +71,13 @@ const Profile: React.FC = () => {
           setFirstName(user.first_name)
           setLastName(user.last_name)
           setEmail(user.email)
+          console.log('user.phone', user.phone)
           let phoneLen = user.phone.toString().length
+          console.log('phoneLen', phoneLen)
           let digits = user.phone.toString().substring(0, phoneLen-10)
+          console.log('digits', digits)
           let number = user.phone.toString().substring(phoneLen-10, 11)
+          console.log('number', number)
 
           let formattedPhone: string = `+${digits}`
           formattedPhone += ' ' + number.substring(0, 3);
@@ -82,6 +85,7 @@ const Profile: React.FC = () => {
           formattedPhone += ' ' + number.substring(6, 8);
           formattedPhone += ' ' + number.substring(8, 10);
 
+          console.log('formattedPhone', formattedPhone)
           setPhoneUpd(formattedPhone);
           setDigits(digits)
 
@@ -120,41 +124,6 @@ const Profile: React.FC = () => {
     setIsSuccess(false)
   }
 
-  const onChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
-    let phoneVal = e.target.value.replace(/\D/g, ""),
-      formattedPhone = `+${digits}`
-
-    if(!phoneVal){
-      setPhoneUpd('');
-    }
-
-    const phoneLen = digits.length
-
-    if (phoneVal.length > phoneLen) {
-      formattedPhone += ' ' + phoneVal.substring(phoneLen, phoneLen+3);
-    }
-
-    if (phoneVal.length >= phoneLen+4) {
-      formattedPhone += ' ' + phoneVal.substring(phoneLen+3, phoneLen+6);
-    }
-
-    if (phoneVal.length >= phoneLen+7) {
-      formattedPhone += ' ' + phoneVal.substring(phoneLen+6, phoneLen+8);
-    }
-
-    if (phoneVal.length >= phoneLen+9) {
-      formattedPhone += ' ' + phoneVal.substring(phoneLen+8, phoneLen+10);
-    }
-
-    setPhoneUpd(formattedPhone);
-    if(formattedPhone.length === phoneLen+15){
-      setErrors(prev => Object.assign(prev, {phone: null}))
-    }else{
-      setErrors(prev => Object.assign(prev, {phone: 'Телефон слишком короткий'}))
-    }
-    setIsSuccess(false)
-  }
-
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
     if(!validEmailRegex.test(e.target.value)){
@@ -170,9 +139,6 @@ const Profile: React.FC = () => {
 
     if(!errors.email && email.length > 0){
       data.append('email', email);
-    }
-    if(!errors.phone && phoneUpd.length > 0){
-      data.append('phone', phoneUpd.replace(/\s/g, '').replace(/\+/, ''));
     }
     if(!errors.first && firstName.length > 0){
       data.append('first_name', firstName);
@@ -231,7 +197,7 @@ const Profile: React.FC = () => {
                 </div>
                 <div>
                   <h3>{t('pages.info.inputs.phone')}</h3>
-                  <input value={phoneUpd} onChange={onChangePhone} placeholder={'+7 999 999 99 99'} type="text"/>
+                  <input disabled={true} value={phoneUpd} placeholder={'+7 999 999 99 99'} type="text"/>
                 </div>
                 <div>
                   <h3>Email</h3>

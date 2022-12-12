@@ -540,29 +540,29 @@ const Basket: React.FC = () => {
   }
 
   const makeOrder = () => {
+    const profile_data = new FormData()
+    const order_data = new FormData()
 
-    if(email || phoneUpd || firstName || lastName){
+    profile_data.append('email', email);
+    profile_data.append('phone', phoneUpd.replace(/\s/g, '').replace(/\+/, ''));
+    profile_data.append('first_name', firstName);
+    profile_data.append('last_name', lastName);
 
-    }
-
-    const data = new FormData()
-    // data.append('email', email);
-    // data.append('phone', phoneUpd.replace(/\s/g, '').replace(/\+/, ''));
-    // data.append('firstName', firstName);
-    // data.append('lastName', lastName);
-    // data.append('area', area);
 
     const fullAdress = `${area} ${city} ${street} ${house} ${apart}`
+    order_data.append('address', fullAdress);
+    order_data.append('pay_online', 'False');
+    order_data.append('delivery', delivery);
 
-    data.append('address', fullAdress);
-    data.append('pay_online', 'False');
-    data.append('delivery', delivery);
-
-    $api.post(`/${locale}/order/buy/`, data)
-      .then((res) => {
-        setDone(res.data)
-        setPage(2)
-        dispatch(getBasket(''))
+    $api.patch('/profile/', profile_data)
+      .then(()=>{
+        $api.post(`/${locale}/order/buy/`, order_data)
+          .then((res) => {
+            setDone(res.data)
+            setPage(2)
+          })
+          .catch((res)=>{
+          })
       })
       .catch((res)=>{
       })
