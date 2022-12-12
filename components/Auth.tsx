@@ -25,91 +25,83 @@ interface IAuthErrors {
 
 const Auth: React.FC<IAuthProps> = () => {
   const dispatch = useAppDispatch()
+  const {locale} = useRouter()
 
   const { t } = useTranslation('common')
 
   const {showAuth} = useTypedSelector(state => state.profile)
 
-  const translates = {
-    error_code_1: t('auth.error_code_1'),
-    title: t('auth.title'),
-    paragraph_1: t('auth.paragraph_1'),
-    paragraph_2: t('auth.paragraph_2'),
-    input_1: t('auth.input_1'),
-    input_2: t('auth.input_2'),
-    button: t('auth.button'),
-    text: t('auth.text'),
-    link: t('auth.link'),
-    back: t('auth.back'),
-    countries: {
-      russia: t('auth.countries.country_russia'),
-      usa: t('auth.countries.country_usa'),
-      uar: t('auth.countries.country_uar'),
-      korea: t('auth.countries.country_korea'),
-      bel: t('auth.countries.country_bel'),
-      azerb: t('auth.countries.country_azerb'),
-      england: t('auth.countries.country_england'),
-      oae: t('auth.countries.country_oae'),
-      india: t('auth.countries.country_india'),
-      turkey: t('auth.countries.country_turkey')
-    }
-  }
+  const [countries, setCountries] = useState<{
+    title: string;
+    img: string;
+    phone: string
+  }[]>([{
+    title: t('auth.countries.country_russia'),
+    img: Countries.russia.src,
+    phone: '7'
+  }])
+  const [country, setCountry] = useState(countries[0])
 
-  const {isAuth, error, isLoading} = useTypedSelector(state => state.profile)
-  const [countries, setCountries] = useState([
-    {
-      title: translates.countries.russia,
+  useEffect(()=>{
+    setCountries([
+      {
+        title: t('auth.countries.country_russia'),
+        img: Countries.russia.src,
+        phone: '7'
+      },
+      {
+        title: t('auth.countries.country_usa'),
+        img: Countries.usa.src,
+        phone: '1'
+      },
+      {
+        title: t('auth.countries.country_uar'),
+        img: Countries.uar.src,
+        phone: '27'
+      },
+      {
+        title: t('auth.countries.country_korea'),
+        img: Countries.korea.src,
+        phone: '82'
+      },
+      {
+        title: t('auth.countries.country_bel'),
+        img: Countries.bel.src,
+        phone: '375'
+      },
+      {
+        title: t('auth.countries.country_azerb'),
+        img: Countries.azerb.src,
+        phone: '994'
+      },
+      {
+        title: t('auth.countries.country_england'),
+        img: Countries.england.src,
+        phone: '44'
+      },
+      {
+        title: t('auth.countries.country_oae'),
+        img: Countries.oae.src,
+        phone: '971'
+      },
+      {
+        title: t('auth.countries.country_india'),
+        img: Countries.india.src,
+        phone: '91'
+      },
+      {
+        title: t('auth.countries.country_turkey'),
+        img: Countries.turkey.src,
+        phone: '90'
+      },
+    ])
+    setCountry({
+      title: t('auth.countries.country_russia'),
       img: Countries.russia.src,
       phone: '7'
-    },
-    {
-      title: translates.countries.usa,
-      img: Countries.usa.src,
-      phone: '1'
-    },
-    {
-      title: translates.countries.uar,
-      img: Countries.uar.src,
-      phone: '27'
-    },
-    {
-      title: translates.countries.korea,
-      img: Countries.korea.src,
-      phone: '82'
-    },
-    {
-      title: translates.countries.bel,
-      img: Countries.bel.src,
-      phone: '375'
-    },
-    {
-      title: translates.countries.azerb,
-      img: Countries.azerb.src,
-      phone: '994'
-    },
-    {
-      title: translates.countries.england,
-      img: Countries.england.src,
-      phone: '44'
-    },
-    {
-      title: translates.countries.oae,
-      img: Countries.oae.src,
-      phone: '971'
-    },
-    {
-      title: translates.countries.india,
-      img: Countries.india.src,
-      phone: '91'
-    },
-    {
-      title: translates.countries.turkey,
-      img: Countries.turkey.src,
-      phone: '90'
-    },
-  ])
-  const {locale} = useRouter()
-  const [country, setCountry] = useState(countries[0])
+    })
+    setPhone(`+7 `)
+  },[locale])
   const [phone, setPhone] = useState<string>(`+${country.phone} `)
   const [code, setCode] = useState('')
   const [isError, setIsError] = useState<boolean>(false);
@@ -189,7 +181,7 @@ const Auth: React.FC<IAuthProps> = () => {
       })
       .catch((err) => {
         if(err.response.detail === "Код не верный"){
-          setErrors(prev => Object.assign(prev, {code: translates.error_code_1}))
+          setErrors(prev => Object.assign(prev, {code: t('auth.error_code_1')}))
         }
         setIsError(true);
         setIsDisabled(false);
@@ -214,7 +206,7 @@ const Auth: React.FC<IAuthProps> = () => {
       })
       .catch((err) => {
         if(err.response.data.detail == "Код не верный"){
-          setErrors(prev => Object.assign(prev, {code: translates.error_code_1}))
+          setErrors(prev => Object.assign(prev, {code: t('auth.error_code_1')}))
         }else{
           setErrors(prev => Object.assign(prev, {code: 'Произошла ошибка при проверке кода'}))
         }
@@ -232,18 +224,18 @@ const Auth: React.FC<IAuthProps> = () => {
     switch (page){
       case 0:
         return <>
-          <p>{translates.paragraph_1}</p>
+          <p>{t('auth.paragraph_1')}</p>
           <Dropdown type={'counties'} handler={(e: MouseEvent, value: any)=>setCountry(value)} value={country} options={countries || []} />
           <div className={s.auth__form__container__input}>
-            <h2>{translates.input_1}</h2>
+            <h2>{t('auth.input_1')}</h2>
             <input value={phone} onChange={onChangePhone} type="text"/>
           </div>
         </>
       case 1:
         return <>
-          <p>{translates.paragraph_2}</p>
+          <p>{t('auth.paragraph_2')}</p>
           <div className={s.auth__form__container__input}>
-            <h2>{translates.input_2}</h2>
+            <h2>{t('auth.input_2')}</h2>
             <input value={code} onChange={onChangeCode} type="text" placeholder={'* * * *'}/>
           </div>
         </>
@@ -273,19 +265,19 @@ const Auth: React.FC<IAuthProps> = () => {
                 d="M6.41475 0.316623L0.202765 7.40897C0.129032 7.4934 0.0769276 7.58487 0.0464514 7.68338C0.0154837 7.78188 0 7.88742 0 8C0 8.11258 0.0154837 8.21812 0.0464514 8.31662C0.0769276 8.41513 0.129032 8.5066 0.202765 8.59103L6.41475 15.7045C6.58679 15.9015 6.80184 16 7.05991 16C7.31797 16 7.53917 15.8945 7.7235 15.6834C7.90783 15.4723 8 15.226 8 14.9446C8 14.6631 7.90783 14.4169 7.7235 14.2058L2.30415 8L7.7235 1.7942C7.89554 1.59719 7.98157 1.35458 7.98157 1.06639C7.98157 0.777625 7.8894 0.527704 7.70507 0.316623C7.52074 0.10554 7.30568 0 7.05991 0C6.81413 0 6.59908 0.10554 6.41475 0.316623Z"
                 fill="#A0A0A0"/>
             </svg>
-            {translates.back}
+            {t('auth.back')}
           </p>}
-          <h1>{translates.title}</h1>
+          <h1>{t('auth.title')}</h1>
           {returnPage()}
           <div className={s.auth__form__container__button}>
-            <Button disabled={isDisabled} onClick={authHandler} text={translates.button} />
+            <Button disabled={isDisabled} onClick={authHandler} text={t('auth.button')} />
             <p>
               {errors.phone && <p>{errors.phone}</p>}
               {errors.code && <p>{errors.code}</p>}
             </p>
           </div>
-          <p>{translates.text} <Link href="/policy" passHref>
-              {translates.link}
+          <p>{t('auth.text')} <Link href="/policy" passHref>
+              {t('auth.link')}
             </Link></p>
         </div>
       </div>
