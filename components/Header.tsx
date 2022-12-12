@@ -100,6 +100,15 @@ const Header: React.FC<IHeaderProps> = ({}) => {
   const [popupState, setPopupState] = useState(false);
   const [popupArr, setPopupArr] = useState<IHeaderStateCollection[]>([]);
   const [popupPage, setPopupPage] = useState(0)
+  const [catalog, setCatalog] = useState(false)
+
+  const catalogTimer = () => {
+    setCatalog(true)
+    setPopupState(false)
+    setTimeout(()=>{
+      setCatalog(false)
+    },5000)
+  }
 
   return (
     <>
@@ -203,7 +212,14 @@ const Header: React.FC<IHeaderProps> = ({}) => {
                 <Link href="/" locale={router.locale}>{btns.home}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
-                <Link onMouseOver={()=>setPopupState(true)} onMouseLeave={()=>setPopupState(false)} href="/catalog" locale={router.locale}>{btns.catalogue}</Link>
+                {catalog
+                  ? <Link href="/catalog"
+                      locale={router.locale}>{btns.catalogue}</Link>
+                  : <Link onClick={() => catalogTimer()}
+                      onMouseOver={() => setPopupState(true)}
+                      onMouseLeave={() => setPopupState(false)}
+                      href="/catalog"
+                      locale={router.locale}>{btns.catalogue}</Link>}
               </div>
               <div className={s.bottom__btns__btn}>
                 <Link href="/coop" locale={router.locale}>{btns.coop}</Link>
