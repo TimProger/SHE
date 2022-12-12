@@ -58,35 +58,38 @@ const Catalog: React.FC<ICatalogProps> = () => {
   const [sortArr, setSortArr] = useState<{
     name: string;
     value: string;
-  }[]>([])
-
-  useEffect(()=>{
-    setSort({
+  }[]>([
+    {
       name: t('sort.newest_newer'),
       value: 'is_new desc'
-    })
-    setSortArr([
+    },
+    {
+      name: t('sort.newest_older'),
+      value: 'is_new asc'
+    },
+    {
+      name: t('sort.popularity'),
+      value: 'is_hit desc'
+    }
+  ])
+
+  useEffect(()=>{
+    let arr = [
       {
-        name: t('sort.newest_newer'),
+        name: locale === 'ru' ? 'Новизне, новее' : 'Newest, newer',
         value: 'is_new desc'
       },
       {
-        name: t('sort.newest_older'),
+        name: locale === 'ru' ? 'Новизне, старее' : 'Newest, older',
         value: 'is_new asc'
       },
-      // {
-      //   name: t('sort.price_expensive'),
-      //   value: 'price desc'
-      // },
-      // {
-      //   name: t('sort.price_cheaper'),
-      //   value: 'price asc'
-      // },
       {
-        name: t('sort.popularity'),
+        name: locale === 'ru' ? 'Популярности' : 'Popularity',
         value: 'is_hit desc'
       }
-    ])
+    ]
+    setSort(arr[0])
+    setSortArr(arr)
   },[locale])
 
   useEffect(()=>{
@@ -351,13 +354,16 @@ const Catalog: React.FC<ICatalogProps> = () => {
               </div>
               <div className={s.catalog__container__products}>
                 <div className={s.catalog__container__products__cards}>
-                  {products.length > 0 && products.map((el)=>{
+                  {products.length > 0 ? products.map((el)=>{
                     return <div><Card product={el}  /></div>
-                  })}
+                  }) : <div className={s.catalog__container__products__nothing}>{t('nothing_is_found')}</div>}
                 </div>
                 <div className={s.catalog__container__products__footer}>
                   <div>
                     {locale === 'ru' ? 'До' : 'To'}: <Dropdown type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
+                  </div>
+                  <div>
+                    {locale === 'ru' ? 'Сортировать по' : 'Sort by'}: <Dropdown type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
                   </div>
                 </div>
                 <div className={s.catalog__container__products__pages}>
