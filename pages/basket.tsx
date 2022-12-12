@@ -202,8 +202,9 @@ const Basket: React.FC = () => {
       let digits = user.user.phone.toString().substring(0, phoneLen-10)
       let number = user.user.phone.toString().substring(phoneLen-10, 11)
 
-      let formattedPhone: string = `+${digits}`
-      formattedPhone += ' ' + number.substring(0, 3);
+      let formattedPhone: string = ''
+
+      formattedPhone += `+${digits} ` + number.substring(0, 3);
       formattedPhone += ' ' + number.substring(3, 6);
       formattedPhone += ' ' + number.substring(6, 8);
       formattedPhone += ' ' + number.substring(8, 10);
@@ -231,39 +232,39 @@ const Basket: React.FC = () => {
     }
   }
 
-  const onChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
-    let phoneVal = e.target.value.replace(/\D/g, ""),
-      formattedPhone = `+7`
-
-    if(!phoneVal){
-      setPhoneUpd('');
-    }
-
-    const phoneLen = 1
-
-    if (phoneVal.length > phoneLen) {
-      formattedPhone += ' ' + phoneVal.substring(phoneLen, phoneLen+3);
-    }
-
-    if (phoneVal.length >= phoneLen+4) {
-      formattedPhone += ' ' + phoneVal.substring(phoneLen+3, phoneLen+6);
-    }
-
-    if (phoneVal.length >= phoneLen+7) {
-      formattedPhone += ' ' + phoneVal.substring(phoneLen+6, phoneLen+8);
-    }
-
-    if (phoneVal.length >= phoneLen+9) {
-      formattedPhone += ' ' + phoneVal.substring(phoneLen+8, phoneLen+10);
-    }
-
-    setPhoneUpd(formattedPhone);
-    if(formattedPhone.length === phoneLen+15){
-      setErrors(prev => Object.assign(prev, {phone: null}))
-    }else{
-      setErrors(prev => Object.assign(prev, {phone: locale === 'ru' ? 'Введите номер телефона' : 'Enter valid phone number'}))
-    }
-  }
+  // const onChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
+  //   let phoneVal = e.target.value.replace(/\D/g, ""),
+  //     formattedPhone = `+7`
+  //
+  //   if(!phoneVal){
+  //     setPhoneUpd('');
+  //   }
+  //
+  //   const phoneLen = 1
+  //
+  //   if (phoneVal.length > phoneLen) {
+  //     formattedPhone += ' ' + phoneVal.substring(phoneLen, phoneLen+3);
+  //   }
+  //
+  //   if (phoneVal.length >= phoneLen+4) {
+  //     formattedPhone += ' ' + phoneVal.substring(phoneLen+3, phoneLen+6);
+  //   }
+  //
+  //   if (phoneVal.length >= phoneLen+7) {
+  //     formattedPhone += ' ' + phoneVal.substring(phoneLen+6, phoneLen+8);
+  //   }
+  //
+  //   if (phoneVal.length >= phoneLen+9) {
+  //     formattedPhone += ' ' + phoneVal.substring(phoneLen+8, phoneLen+10);
+  //   }
+  //
+  //   setPhoneUpd(formattedPhone);
+  //   if(formattedPhone.length === phoneLen+15){
+  //     setErrors(prev => Object.assign(prev, {phone: null}))
+  //   }else{
+  //     setErrors(prev => Object.assign(prev, {phone: locale === 'ru' ? 'Введите номер телефона' : 'Enter valid phone number'}))
+  //   }
+  // }
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -416,7 +417,7 @@ const Basket: React.FC = () => {
               </div>
               <div className={s.order__inputs__container}>
                 <h3>{t('order.inputs.phone')}</h3>
-                <input className={errors.phone ? s.order__inputs__input_error : ''} value={phoneUpd} onChange={onChangePhone} placeholder={'+7 999 999 99 99'} type="text"/>
+                <input disabled={true} className={errors.phone ? s.order__inputs__input_error : ''} value={phoneUpd} placeholder={'+7 999 999 99 99'} type="text"/>
                 <p>{errors.phone ? errors.phone : ''}</p>
               </div>
               <div className={s.order__inputs__container}>

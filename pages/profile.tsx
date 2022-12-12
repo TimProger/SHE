@@ -71,17 +71,13 @@ const Profile: React.FC = () => {
           setFirstName(user.first_name)
           setLastName(user.last_name)
           setEmail(user.email)
-          console.log('user.phone', user.phone)
           let phoneLen = user.phone.toString().length
-          console.log('phoneLen', phoneLen)
           let digits = user.phone.toString().substring(0, phoneLen-10)
-          console.log('digits', digits)
           let number = user.phone.toString().substring(phoneLen-10, 11)
-          console.log('number', number)
 
           let formattedPhone: string = ''
 
-          formattedPhone += `+${digits || 7} ` + number.substring(0, 3);
+          formattedPhone += `+${digits} ` + number.substring(0, 3);
           formattedPhone += ' ' + number.substring(3, 6);
           formattedPhone += ' ' + number.substring(6, 8);
           formattedPhone += ' ' + number.substring(8, 10);
