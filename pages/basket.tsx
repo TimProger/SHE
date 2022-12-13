@@ -364,6 +364,7 @@ const Basket: React.FC = () => {
         setIsDisabled(false)
         break
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   },[page])
 
   const returnPages = () => {

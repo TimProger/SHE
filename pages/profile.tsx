@@ -82,7 +82,6 @@ const Profile: React.FC = () => {
           formattedPhone += ' ' + number.substring(6, 8);
           formattedPhone += ' ' + number.substring(8, 10);
 
-          console.log('formattedPhone', formattedPhone)
           setPhoneUpd(formattedPhone);
           setDigits(digits)
 

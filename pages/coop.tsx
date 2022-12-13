@@ -26,11 +26,11 @@ const Coop: React.FC = () => {
           <title>{t('title')} | ™SHE</title>
         </Head>
         <div className={s.coop}>
-          <Container>
+          <Container className={s.coop__container}>
             <h2 className={s.coop__title}>{t('title')}</h2>
           </Container>
           <div className={s.coop__imgBackGround}></div>
-          <Container>
+          <Container no_margin={true}>
             <div className={s.coop__body}>
               <div className={s.coop__body__special_conditions}>
                 <h2>{t('title1')}</h2>

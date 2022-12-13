@@ -89,7 +89,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
             )
           })}
         </Swiper>
-        <Container>
+        <Container className={s.container__relative} no_margin={true}>
           <div className={s.container__products}>
             <div className={s.container__products__header}>
               <div className={s.container__products__title}>

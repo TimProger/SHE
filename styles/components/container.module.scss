@@ -6,10 +6,15 @@
 
   &__wrapper{
     width: 1400px;
+    margin-top: 150px;
     display: flex;
     align-items: center;
     flex-direction: column;
     margin-bottom: 20px;
+  }
+
+  &__no_margin{
+    margin: 0;
   }
 }
 

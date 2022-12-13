@@ -2,7 +2,6 @@
 
 .coop {
   margin-bottom: 80px;
-  margin-top: 50px;
 
   &__imgBackGround {
     background-image: url('../../public/images/coopBackGround.png');
@@ -20,17 +19,23 @@
     font-weight: 600;
     font-size: 40px;
     margin-bottom: 20px;
+    margin-top: 50px;
   }
 
   &__body {
     margin-bottom: 38px;
-    margin-top: 78px;
+    margin-top: 50px;
     width: 100%;
     display: flex;
     justify-content: space-between;
 
     &__special_conditions {
       width: 676px;
+
+      & h2{
+
+        margin: 0;
+      }
 
       &__description {
         margin: 40px 0px;
@@ -39,7 +44,6 @@
       }
 
       &__discounts {
-        width: 501px;
         justify-content: space-between;
         display:flex ;
 

@@ -25,12 +25,19 @@
   }
 }
 
+.container__relative{
+  top: 200px;
+  flex-direction: column;
+}
+
 .container__products{
   margin-top: 50px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
+  top: 200px;
 
   &__title{
     display: flex;
@@ -200,6 +207,8 @@
 @media screen and (max-width: 1400px) {
 
   .swiper{
+    position: relative;
+    top: 200px;
 
     &__slide{
 

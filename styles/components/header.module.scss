@@ -2,15 +2,22 @@
 
 .header {
   width: 100%;
-  background: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 180px;
+  transition: transform 0.2s ease-in-out;
+  background: white;
+  z-index: 999;
+  position: fixed;
+  transform: translateY(0);
+
+  &__close{
+    transform: translateY(-200px) !important;
+  }
 }
 
 .wrapper {
-  // position: relative;
   height: 100%;
   width: 1400px;
   display: flex;
@@ -232,7 +239,7 @@
         &:after {
           display:block;
           content: '';
-          border-bottom: solid 2px $text-main;
+          border-bottom: solid 1px $text-main;
           transform: scaleX(0);
           transition: transform 500ms ease-in-out;
           width: 100%;
