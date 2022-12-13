@@ -264,8 +264,28 @@ const Catalog: React.FC<ICatalogProps> = () => {
 
   const displayPages = () => {
     const arr = []
-    for(let i=0;i<pages;i++){
-      arr.push(i+1)
+    if(pages > 5){
+      arr[0] = 1
+      for(let i=0;i<4;i++){
+        if(page === 1){
+          arr.push(page+i+1)
+        }else{
+          if(page+i >= pages){
+            arr[3] = pages-1
+            arr[2] = pages-2
+            arr[1] = pages-3
+            break
+          }else{
+            arr.push(page+i)
+          }
+        }
+      }
+      arr[4] = pages
+
+    }else{
+      for(let i=0;i<pages;i++){
+        arr.push(i+1)
+      }
     }
     return arr.map((el)=>{
       return <div
