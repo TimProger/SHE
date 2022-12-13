@@ -110,17 +110,14 @@ const Header: React.FC<IHeaderProps> = ({}) => {
     },5000)
   }
 
-  const [showHeader, setShowHeader] = useState<boolean>(false)
   let scrollValue = 0
 
   useEffect(()=>{
     if(typeof window === undefined) return
     const handleScroll = () => {
       if(scrollValue > window.pageYOffset){
-        setShowHeader(false)
         document.querySelector(`.${s.header}`)?.classList.remove(s.header__close)
       }else{
-        setShowHeader(true)
         setPopupState(false)
         document.querySelector(`.${s.header}`)?.classList.add(s.header__close)
       }
