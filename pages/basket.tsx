@@ -607,6 +607,13 @@ const Basket: React.FC = () => {
                 ? (page !== 2 && <Button disabled={isDisabled} text={t('buy')} onClick={handleClick}/>)
                 : <Button onClick={()=>dispatch(toggleShowAuth(true))} text={t('auth')}/>}
             </div>
+            {isAuth && page === 1 && payment === 'card' && <div className={s.basket__payment__info}>
+              <div className={s.basket__payment__info__col_1}>
+                <div>{t('order.payment__info.info_1')}</div>
+                <div>{t('order.payment__info.info_2')}</div>
+              </div>
+              <div className={s.basket__payment__info__col_2}>{t('order.payment__info.info_3')}</div>
+            </div>}
           </div>
         </Container>
       </div>

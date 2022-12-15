@@ -33,6 +33,11 @@
       "radio_3": "Card",
       "radio_4": "Cash"
     },
+    "payment__info": {
+      "info_1": "To pay (enter your card details) you will be redirected to the payment gateway of Sberbank. Connection with the payment gateway and information transfer is performed in secure mode using the SSL encryption protocol. If your bank supports Verified By Visa, MasterCard SecureCode, MIR Accept, J-Secure secure Internet payment technology, you may also need to enter a special password to make a payment.\n\nTranslated with www.DeepL.com/Translator (free version)",
+      "info_2": "The term of return of goods of proper quality is 30 days from the date of receipt of goods.Return of transferred funds, is made to your bank account within 5-30 working days (the period depends on the bank which issued your bank card).",
+      "info_3": "This site supports 256-bit encryption. The confidentiality of personal information is ensured by Sberbank. The entered information will not be provided to third parties, except as required by Russian law. Payments by bank cards are made in strict accordance with the requirements of the payment systems MIR, Visa Int., MasterCard Europe Sprl, JCB."
+    },
     "about_delivery": "A manager will contact you to clarify information about the delivery and further registration of the order.",
     "payment": "Payment",
     "products": "Products",

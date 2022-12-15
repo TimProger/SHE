@@ -6,6 +6,31 @@
   margin-bottom: 50px;
   color: $text-main;
 
+  &__payment{
+
+    &__info{
+      color: $text-sec;
+      margin-top: 50px;
+      display: flex;
+      justify-content: space-between;
+
+      &__col{
+
+        &_1{
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
+          width: 47%;
+        }
+
+        &_2{
+          width: 47%;
+
+        }
+      }
+    }
+  }
+
   &__inputs{
     width: 66%;
     display: flex;
