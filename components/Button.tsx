@@ -10,15 +10,17 @@ interface IButtonProps {
   href?: string;
   disabled?: boolean;
   success?: boolean;
+  style_type?: string
 }
 
 const Button: React.FC<IButtonProps> = (props) => {
+  const className = s.button + ` ${props.className} ${props.success ? s.button__success : ''}  ${props.style_type === "outer" ? s.button__styles__outer : s.button__styles__inner}`
   switch (props.type){
     case 'link':
       return (
         <Link
           href={props.href || '/'}
-          className={s.button + ` ${props.className} ${props.success ? s.button__success : ''}`}
+          className={className}
         >
           {props.text}
         </Link>
@@ -28,7 +30,7 @@ const Button: React.FC<IButtonProps> = (props) => {
         <button
           disabled={props.disabled}
           onClick={props.onClick}
-          className={s.button + ` ${props.className} ${props.success ? s.button__success : ''}`}
+          className={className}
         >
           {props.text}
         </button>
@@ -38,7 +40,7 @@ const Button: React.FC<IButtonProps> = (props) => {
         <button
           disabled={props.disabled}
           onClick={props.onClick}
-          className={s.button + ` ${props.className} ${props.success ? s.button__success : ''}`}
+          className={className}
         >
           {props.text}
         </button>

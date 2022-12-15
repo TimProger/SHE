@@ -369,7 +369,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                   </div>
                 })}
                 <Button className={s.catalog__container__filters__button__apply} onClick={()=>useFilters()} text={t('filters.button')} />
-                {filtered && <Button className={s.catalog__container__filters__button + ` ${s.catalog__container__filters__button__clear}`} onClick={()=>clearFilters()} text={t('filters.clear')} />}
+                {filtered && <Button style_type={'outer'} className={s.catalog__container__filters__button + ` ${s.catalog__container__filters__button__clear}`} onClick={()=>clearFilters()} text={t('filters.clear')} />}
               </div>
               <div className={s.catalog__container__products}>
                 <div className={s.catalog__container__products__cards}>

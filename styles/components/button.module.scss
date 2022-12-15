@@ -1,8 +1,6 @@
 @import "../vars";
 
 .button {
-  background: #000000;
-  color: $text-thrd !important;
   padding: 15px 50px;
   cursor: pointer;
   display: flex;
@@ -12,6 +10,20 @@
   outline: none;
   border: none;
   font-size: 18px;
+
+  &__styles{
+
+    &__inner{
+      background: #000000;
+      color: $text-thrd !important;
+    }
+
+    &__outer{
+      border: 1px solid #000000;
+      background: $block-thrd;
+      color: #000000 !important;
+    }
+  }
 
   &__success{
     background: $block-success;
