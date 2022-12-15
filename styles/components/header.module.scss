@@ -9,12 +9,7 @@
   transition: transform 0.2s ease-in-out;
   background: white;
   z-index: 999;
-  position: fixed;
   transform: translateY(0);
-
-  &__close{
-    transform: translateY(-200px) !important;
-  }
 }
 
 .wrapper {

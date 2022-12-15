@@ -112,23 +112,23 @@ const Header: React.FC<IHeaderProps> = ({}) => {
 
   let scrollValue = 0
 
-  useEffect(()=>{
-    if(typeof window === undefined) return
-    const handleScroll = () => {
-      if(scrollValue > window.pageYOffset){
-        document.querySelector(`.${s.header}`)?.classList.remove(s.header__close)
-      }else{
-        setPopupState(false)
-        document.querySelector(`.${s.header}`)?.classList.add(s.header__close)
-      }
-      scrollValue = +window.pageYOffset
-    }
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  },[])
+  // useEffect(()=>{
+  //   if(typeof window === undefined) return
+  //   const handleScroll = () => {
+  //     if(scrollValue > window.pageYOffset){
+  //       document.querySelector(`.${s.header}`)?.classList.remove(s.header__close)
+  //     }else{
+  //       setPopupState(false)
+  //       document.querySelector(`.${s.header}`)?.classList.add(s.header__close)
+  //     }
+  //     scrollValue = +window.pageYOffset
+  //   }
+  //   window.addEventListener('scroll', handleScroll)
+  //
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // },[])
 
   return (
     <>
