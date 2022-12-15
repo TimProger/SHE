@@ -70,6 +70,7 @@ const Documents: React.FC = () => {
                 <p>{t('info.requisites.name')}</p>
                 <p>{t('info.requisites.inn')}</p>
                 <p>{t('info.requisites.ogrnip')}</p>
+                <p>{t('info.requisites.payment')}</p>
                 <p>{t('info.requisites.address')}</p>
                 <p>{t('info.requisites.phone')}</p>
               </div>
