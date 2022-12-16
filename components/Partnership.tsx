@@ -99,6 +99,72 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
     setPhone(`+${country.phone} `)
   },[country])
 
+  useEffect(()=>{
+    setCountries([
+      {
+        title: locale === 'ru' ? 'Россия' : 'Russia',
+        img: Countries.russia.src,
+        phone: '7'
+      },
+      {
+        title: locale === 'ru' ? 'США' : 'USA',
+        img: Countries.usa.src,
+        phone: '1'
+      },
+      {
+        title: locale === 'ru' ? 'ЮАР' : 'UAR',
+        img: Countries.uar.src,
+        phone: '27'
+      },
+      {
+        title: locale === 'ru' ? 'Южная Корея' : 'South Korea',
+        img: Countries.korea.src,
+        phone: '82'
+      },
+      {
+        title: locale === 'ru' ? 'Беларусь' : 'Belarus',
+        img: Countries.bel.src,
+        phone: '375'
+      },
+      {
+        title: locale === 'ru' ? 'Азербайджан' : 'Azerbaijan',
+        img: Countries.azerb.src,
+        phone: '994'
+      },
+      {
+        title: locale === 'ru' ? 'Великобритания' : 'United Kingdom',
+        img: Countries.england.src,
+        phone: '44'
+      },
+      {
+        title: locale === 'ru' ? 'ОАЭ' : 'UAE',
+        img: Countries.oae.src,
+        phone: '971'
+      },
+      {
+        title: locale === 'ru' ? 'Индия' : 'India',
+        img: Countries.india.src,
+        phone: '91'
+      },
+      {
+        title: locale === 'ru' ? 'Турция' : 'Turkey',
+        img: Countries.turkey.src,
+        phone: '90'
+      },
+    ])
+    setCountry(locale === 'ru'
+      ? {
+        title: locale === 'ru' ? 'Россия' : 'Russia',
+        img: Countries.russia.src,
+        phone: '7'
+      } :
+      {
+        title: locale === 'ru' ? 'США' : 'USA',
+        img: Countries.usa.src,
+        phone: '1'
+      })
+  },[locale])
+
   const onChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
     let phoneVal = e.target.value.replace(/\D/g, ""),
       formattedPhone = `+${country.phone} `
@@ -134,17 +200,6 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
     }
 
     isError && setIsError(false);
-  }
-
-  const onChangeCode = (e: ChangeEvent<HTMLInputElement>) => {
-    let codeVal = e.target.value.replace(/\D/g, "")
-    setCode(prev => codeVal.length > 4 ? prev : codeVal.split('').join(' '))
-
-    if(codeVal.length === 4){
-      setIsDisabled(false)
-    }else if(codeVal.length <= 3){
-      setIsDisabled(true)
-    }
   }
 
   const outsideClickHandler = () => {
