@@ -112,18 +112,22 @@
   }
 
   &__open{
-    display: flex !important;
-    opacity: 1 !important;
+    height: 400px !important;
+    border-top: none;
+    border-bottom: 1px solid black !important;
   }
 
   &__options{
     width: 60%;
-    display: none;
-    opacity: 0;
-    transition: all 0.5s;
+    display: flex;
+    transition: height 0.5s ease-in-out;
     position: absolute;
-    margin-top: 40px;
+    margin-top: 43px;
     flex-direction: column;
+    height: 0;
     border: 1px solid black;
+    border-top: none;
+    border-bottom: none;
+    overflow: hidden;
   }
 }

@@ -43,64 +43,73 @@ const Auth: React.FC<IAuthProps> = () => {
   const [country, setCountry] = useState(countries[0])
 
   useEffect(()=>{
+    setPhone(`+${country.phone} `)
+  },[country])
+
+  useEffect(()=>{
     setCountries([
       {
-        title: t('auth.countries.country_russia'),
+        title: locale === 'ru' ? 'Россия' : 'Russia',
         img: Countries.russia.src,
         phone: '7'
       },
       {
-        title: t('auth.countries.country_usa'),
+        title: locale === 'ru' ? 'США' : 'USA',
         img: Countries.usa.src,
         phone: '1'
       },
       {
-        title: t('auth.countries.country_uar'),
+        title: locale === 'ru' ? 'ЮАР' : 'UAR',
         img: Countries.uar.src,
         phone: '27'
       },
       {
-        title: t('auth.countries.country_korea'),
+        title: locale === 'ru' ? 'Южная Корея' : 'South Korea',
         img: Countries.korea.src,
         phone: '82'
       },
       {
-        title: t('auth.countries.country_bel'),
+        title: locale === 'ru' ? 'Беларусь' : 'Belarus',
         img: Countries.bel.src,
         phone: '375'
       },
       {
-        title: t('auth.countries.country_azerb'),
+        title: locale === 'ru' ? 'Азербайджан' : 'Azerbaijan',
         img: Countries.azerb.src,
         phone: '994'
       },
       {
-        title: t('auth.countries.country_england'),
+        title: locale === 'ru' ? 'Великобритания' : 'United Kingdom',
         img: Countries.england.src,
         phone: '44'
       },
       {
-        title: t('auth.countries.country_oae'),
+        title: locale === 'ru' ? 'ОАЭ' : 'UAE',
         img: Countries.oae.src,
         phone: '971'
       },
       {
-        title: t('auth.countries.country_india'),
+        title: locale === 'ru' ? 'Индия' : 'India',
         img: Countries.india.src,
         phone: '91'
       },
       {
-        title: t('auth.countries.country_turkey'),
+        title: locale === 'ru' ? 'Турция' : 'Turkey',
         img: Countries.turkey.src,
         phone: '90'
       },
     ])
-    setCountry({
-      title: t('auth.countries.country_russia'),
-      img: Countries.russia.src,
-      phone: '7'
-    })
-    setPhone(`+7 `)
+    setCountry(locale === 'ru'
+      ? {
+        title: locale === 'ru' ? 'Россия' : 'Russia',
+        img: Countries.russia.src,
+        phone: '7'
+      } :
+      {
+        title: locale === 'ru' ? 'США' : 'USA',
+        img: Countries.usa.src,
+        phone: '1'
+      })
   },[locale])
   const [phone, setPhone] = useState<string>(`+${country.phone} `)
   const [code, setCode] = useState('')
