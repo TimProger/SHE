@@ -58,7 +58,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
   const [sortArr, setSortArr] = useState<{
     name: string;
     value: string;
-  }[]>([
+  }[]>(
+    [
     {
       name: locale === 'ru' ? 'Новизне, новее' : 'Newest, newer',
       value: 'is_new desc'
@@ -71,7 +72,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
       name: locale === 'ru' ? 'Популярности' : 'Popularity',
       value: 'is_hit desc'
     }
-  ])
+  ]
+  )
 
   useEffect(()=>{
     let arr = [
@@ -89,9 +91,9 @@ const Catalog: React.FC<ICatalogProps> = () => {
       }
     ]
     setSort({
-        name: locale === 'ru' ? 'Не выбрано' : 'Nothing',
+        name: locale === 'ru' ? 'Новизне, новее' : 'Newest, newer',
         value: 'is_new desc'
-      })
+      },)
     setSortArr(arr)
   },[locale])
 
@@ -100,6 +102,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
       .then((res)=>{
         setFilters(res.data)
         const data = new FormData()
+        data.append('order', sort.value)
         usedFilters.category = []
         usedFilters.collection = []
         usedFilters.type = []
@@ -126,23 +129,54 @@ const Catalog: React.FC<ICatalogProps> = () => {
       })
   },[locale, query])
 
-  useEffect(()=>{
+  const changePage = (page: number) => {
     const data = new FormData()
     data.append('order', sort.value)
     if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
       .then((res)=>{
-        window.scrollTo({ top: 0, behavior: 'smooth' });
         setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
       })
-  },[page])
+  }
+
+  const changeLimit = () => {
+    const data = new FormData()
+    data.append('order', sort.value)
+    if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
+    if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
+    if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
+    if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
+    $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
+      .then((res)=>{
+        setPage(1)
+        setPages(Math.ceil(res.data.count_pages))
+        setProducts(res.data.data)
+      })
+  }
+
+  const changeSort = (sort: {
+    name: string,
+    value: string
+  }) => {
+    if(!sort.value) return
+    const data = new FormData()
+    data.append('order', sort.value)
+    $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
+      .then((res)=>{
+        setPage(1)
+        setPages(Math.ceil(res.data.count_pages))
+        setProducts(res.data.data)
+      })
+  }
 
   const onToggleLimitClick = (e: MouseEvent, value: number) => {
     setLimit(value)
+    changeLimit()
   }
 
   const onToggleSortClick = (e: MouseEvent, value: {
@@ -150,6 +184,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     value: string
   }) => {
     setSort(value)
+    changeSort(value)
   }
 
   const toggleFilter = (value: string, type: string) => {
@@ -198,33 +233,6 @@ const Catalog: React.FC<ICatalogProps> = () => {
     setUsedFilters(Object.assign({}, usedFilters))
   }
 
-  useEffect(()=>{
-    const data = new FormData()
-    data.append('order', sort.value)
-    if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
-    if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
-    if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
-    if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
-    $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
-      .then((res)=>{
-        setPage(1)
-        setPages(Math.ceil(res.data.count_pages))
-        setProducts(res.data.data)
-      })
-  },[limit])
-
-  useEffect(()=>{
-    if(!sort.value) return
-    const data = new FormData()
-    data.append('order', sort.value)
-    $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
-      .then((res)=>{
-        setPage(1)
-        setPages(Math.ceil(res.data.count_pages))
-        setProducts(res.data.data)
-      })
-  },[sort])
-
   const useFilters = () => {
     const data = new FormData()
     data.append('order', sort.value)
@@ -265,6 +273,11 @@ const Catalog: React.FC<ICatalogProps> = () => {
       })
   }
 
+  const togglePageHandler = (el: number) =>{
+    setPage(el)
+    changePage(el)
+  }
+
   const displayPages = () => {
     const arr = []
     if(pages > 5){
@@ -292,7 +305,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     }
     return arr.map((el)=>{
       return <div
-        onClick={()=>setPage(el)}
+        onClick={()=>togglePageHandler(el)}
         className={s.catalog__container__products__pages__page + ' ' + (page === el && s.catalog__container__products__pages__active)}>
         {el}
       </div>
