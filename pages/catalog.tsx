@@ -144,7 +144,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
       })
   }
 
-  const changeLimit = () => {
+  const changeLimit = (limit: number) => {
     const data = new FormData()
     data.append('order', sort.value)
     if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
@@ -176,7 +176,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
 
   const onToggleLimitClick = (e: MouseEvent, value: number) => {
     setLimit(value)
-    changeLimit()
+    changeLimit(value)
   }
 
   const onToggleSortClick = (e: MouseEvent, value: {
