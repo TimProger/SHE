@@ -265,7 +265,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
               </ul>
               <ul onMouseLeave={()=>setPopupArr([])} className={popupArr.length > 0 ? s.popup_semilist_active :  s.popup_semilist}>
                 {popupArr.map((el, index)=>{
-                  return <li key={index} onClick={()=>setPopupState(false)}><Link href={`/catalog?collection=${el.master_id}`}>{el.name}</Link></li>
+                  return <li key={index} onClick={()=>setPopupState(false)}><Link href={`catalog?collection=${el.master_id}`}>{el.name}</Link></li>
                 })}
               </ul>
             </div>

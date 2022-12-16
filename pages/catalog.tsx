@@ -100,19 +100,22 @@ const Catalog: React.FC<ICatalogProps> = () => {
       .then((res)=>{
         setFilters(res.data)
         const data = new FormData()
+        usedFilters.category = []
+        usedFilters.collection = []
+        usedFilters.type = []
         if(query.category){
           data.append('category', `${query.category}`)
-          usedFilters.category.push(+`${query.category}`)
+          usedFilters.category = [+`${query.category}`]
           setFiltered(true)
         }
         if(query.collection){
           data.append('collection', `${query.collection}`)
-          usedFilters.collection.push(+`${query.collection}`)
+          usedFilters.collection = [+`${query.collection}`]
           setFiltered(true)
         }
         if(query.type){
           data.append('type', `${query.type}`)
-          usedFilters.type.push(+`${query.type}`)
+          usedFilters.type = [+`${query.type}`]
           setFiltered(true)
         }
         $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
