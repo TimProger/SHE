@@ -41,7 +41,6 @@ const Dropdown: React.FC<DropdownProps> = ({
               if(el.title !== value.title){
                 return <div
                   onClick={(e)=>{
-                    setOpen(false)
                     handler(e, el)
                   }}
                   className={s.dropdown_form__block} key={index}>
