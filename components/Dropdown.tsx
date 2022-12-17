@@ -40,7 +40,10 @@ const Dropdown: React.FC<DropdownProps> = ({
             {options.map((el, index)=>{
               if(el.title !== value.title){
                 return <div
-                  onClick={(e)=>handler(e, el)}
+                  onClick={(e)=>{
+                    setOpen(false)
+                    handler(e, el)
+                  }}
                   className={s.dropdown_form__block} key={index}>
                   <div>
                     <img src={el.img} alt={el.title}/>
@@ -85,7 +88,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           </div>
           <div style={{marginTop: '30px'}} className={s.dropdown__options + ' ' + (open && s.dropdown__open)}>
             {options.map((el, index)=>{
-              if(el !== value){
+              if(el.name !== value.name){
                 return <div
                   onClick={(e)=>handler(e, el)}
                   className={s.dropdown__options__option} key={index}>

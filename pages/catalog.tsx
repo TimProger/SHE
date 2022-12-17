@@ -47,19 +47,11 @@ const Catalog: React.FC<ICatalogProps> = () => {
   })
   const [filtered, setFiltered] = useState<boolean>(false)
   const [limit, setLimit] = useState<number>(20)
-  const [sort, setSort] = useState<{
-    name: string;
-    value: string;
-  }>({
-    name: locale === 'ru' ? 'Не выбрано' : 'Nothing',
-    value: 'is_new desc'
-  })
   const [limitArr, setLimitArr] = useState<number[]>([20, 40, 60]);
   const [sortArr, setSortArr] = useState<{
     name: string;
     value: string;
-  }[]>(
-    [
+  }[]>([
     {
       name: locale === 'ru' ? 'Новизне, новее' : 'Newest, newer',
       value: 'is_new desc'
@@ -72,8 +64,11 @@ const Catalog: React.FC<ICatalogProps> = () => {
       name: locale === 'ru' ? 'Популярности' : 'Popularity',
       value: 'is_hit desc'
     }
-  ]
-  )
+  ])
+  const [sort, setSort] = useState<{
+    name: string;
+    value: string;
+  }>(sortArr[0])
 
   useEffect(()=>{
     let arr = [
@@ -91,9 +86,9 @@ const Catalog: React.FC<ICatalogProps> = () => {
       }
     ]
     setSort({
-        name: locale === 'ru' ? 'Новизне, новее' : 'Newest, newer',
-        value: 'is_new desc'
-      },)
+      name: locale === 'ru' ? 'Новизне, новее' : 'Newest, newer',
+      value: 'is_new desc'
+    })
     setSortArr(arr)
   },[locale])
 

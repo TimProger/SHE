@@ -31,30 +31,27 @@
   }
 
   &__open{
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+    clip: rect(auto, auto, 10rem, auto) !important;
+    border-bottom: 1px solid $block-main;
   }
 
   &__options{
     background: white !important;
-    opacity: 0;
-    display: none;
-    visibility: hidden;
-    transition: all 0.5s;
+    display: flex;
     position: absolute;
     margin-top: 20px;
     flex-direction: column;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-bottom: 1px solid $block-main;
-
-    &:last-child{
-      padding-bottom: 10px;
-    }
+    border: none;
+    transition: clip 0.3s ease-in-out;
+    height: auto;
+    clip: rect(auto, auto, 0, auto);
+    overflow: hidden;
+    padding: 0 0 10px 0;
 
     &__option{
       background: white !important;
+      padding-left: 10px;
+      padding-right: 10px;
       &:hover{
         cursor: pointer;
         color: $block-main;
