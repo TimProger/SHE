@@ -209,7 +209,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
                   ? <Link href="/profile" className={s.top__btns__btn + ' ' + s.top__btns__image}>
                       <img src={user?.user_image ? (typeof user.user_image !== 'string' ? URL.createObjectURL(user.user_image) : `${API_BASE_URL}${user?.user_image}`) : ProfileImg.src} alt='user'/>
                     </Link>
-                  : <div onClick={()=>dispatch(toggleShowAuth(true))} className={s.top__btns__test}>
+                  : <div onClick={()=>dispatch(toggleShowAuth(true))} className={s.top__btns__auth}>
                     <svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clipPath="url(#clip0_413_3)">
                         <circle cx="250.5" cy="182.5" r="88.5" stroke="black" strokeWidth="16"/>

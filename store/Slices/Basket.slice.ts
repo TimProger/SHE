@@ -47,7 +47,7 @@ export const basketSlice = createSlice({
       Storage.set('basket', JSON.stringify([]))
     },
     killProduct: (state: IBasketState, action: PayloadAction<number>) => {
-      const product = state.products.find((el)=>el.more === action.payload)
+      const product = state.products.find((el)=>el.id === action.payload)
       if(product){
         let index = state.products.indexOf(product)
         state.products.splice(index, 1)
@@ -61,6 +61,7 @@ export const basketSlice = createSlice({
       state.isLoading = false;
       state.error = null
       state.products = action.payload;
+      Storage.set('basket', JSON.stringify(state.products.map((el, index)=>[el.more, el.count])))
     },
     [getBasket.pending.type]: (state) => {
       state.isLoading = true;
@@ -73,6 +74,7 @@ export const basketSlice = createSlice({
       state.isLoading = false;
       state.error = null
       state.products = action.payload;
+      Storage.set('basket', JSON.stringify(state.products.map((el, index)=>[el.more, el.count])))
     },
     [getBasketNoAuth.pending.type]: (state) => {
       state.isLoading = true;
