@@ -271,7 +271,9 @@ const Product: React.FC<IProductProps> = ({product}) => {
                       <p><span>{t('ml')}: </span>{product.product_more.map((el)=>el.ml).join(' / ')}</p>
                     </div>
                     <div className={s.container__product__info__content__title}>
-                      {product.about_text}
+                      {product.about_text.split(/\r?\n/).map((el, index)=>{
+                        return el && <><p key={index}>{el}</p><br/></>
+                      })}
                     </div>
                   </div>
                   :
