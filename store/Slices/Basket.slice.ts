@@ -29,7 +29,6 @@ export const basketSlice = createSlice({
         state.products[index].count += 1
       }
       Storage.set('basket', JSON.stringify(state.products.map((el, index)=>[el.more, el.count])))
-
     },
     removeFromBasket: (state: IBasketState, action: PayloadAction<number>) => {
       const product = state.products.find((el)=>el.more === action.payload)
@@ -38,6 +37,7 @@ export const basketSlice = createSlice({
         state.products[index].count -= 1
         if(state.products[index].count <= 0){
           state.products.splice(index, 1)
+
         }
         Storage.set('basket', JSON.stringify(state.products.map((el, index)=>[el.more, el.count])))
       }
