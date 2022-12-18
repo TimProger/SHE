@@ -96,7 +96,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
         })
         .catch(()=>{})
     }else{
-      dispatch(killProduct(product.more))
+      dispatch(killProduct(product.id))
     }
   }
 

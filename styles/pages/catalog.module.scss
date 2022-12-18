@@ -230,11 +230,12 @@
     &__cards{
       height: 400px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
 
       &__card{
         position: relative;
-        margin-right: auto;
+        width: 300px;
       }
 
       &__card:last-child{
@@ -278,4 +279,21 @@
   top: -5px;
   margin: 2px;
   user-select: none;
+}
+
+
+@media screen and (max-width: 1400px) {
+  .catalog {
+
+    &__seen {
+
+      &__cards {
+
+        &__card {
+          position: relative;
+          width: 205px;
+        }
+      }
+    }
+  }
 }

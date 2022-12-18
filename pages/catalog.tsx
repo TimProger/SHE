@@ -415,11 +415,18 @@ const Catalog: React.FC<ICatalogProps> = () => {
               <h1>{t('seen')}</h1>
               {seen.length > 0
                 ? <div className={s.catalog__seen__cards}>
-                  {seen.map((el, index)=>{
-                    return <div className={s.catalog__seen__cards__card}>
-                      <Card product={el} key={index} />
+                    <div className={s.catalog__seen__cards__card}>
+                      {seen[0] ? <Card product={seen[0]} /> : <div></div>}
                     </div>
-                  })}
+                    <div className={s.catalog__seen__cards__card}>
+                      {seen[1] ? <Card product={seen[1]} /> : <div></div>}
+                    </div>
+                    <div className={s.catalog__seen__cards__card}>
+                      {seen[2] ? <Card product={seen[2]} /> : <div></div>}
+                    </div>
+                    <div className={s.catalog__seen__cards__card}>
+                      {seen[3] ? <Card product={seen[3]} /> : <div></div>}
+                    </div>
                 </div>
                 : <p className={s.catalog__seen__not_found}>
                   {t('seen_nothing')}
