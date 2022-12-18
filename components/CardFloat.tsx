@@ -78,7 +78,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           count: product.count - 1
         })
           .then((res)=>{
-            dispatch(removeFromBasket(product.more))
+            dispatch(removeFromBasket(product.id))
           })
           .catch(()=>{
           })
@@ -92,7 +92,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     if(user.isAuth){
       $api.delete(`${locale}/basket/${product.id}`)
         .then((res)=>{
-          dispatch(killProduct(product.more))
+          dispatch(killProduct(product.id))
         })
         .catch(()=>{})
     }else{

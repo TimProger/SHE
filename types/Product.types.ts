@@ -92,6 +92,7 @@ export interface IOrder {
   buy_now: boolean;
   price: number;
   sum: number;
+  count_product: number;
 }
 
 export interface IFilter {

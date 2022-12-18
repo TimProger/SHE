@@ -55,7 +55,7 @@ const Profile: React.FC = () => {
 
   useEffect(()=>{
     if(orders.length > 0){
-      const orders_active = orders.filter((el)=>el.status_id !== 2)
+      const orders_active = orders.filter((el)=>el.status_id !== 1)
       setOrdersActive(orders_active)
       const orders_history = orders.filter((el)=>+el.status_id === 1)
       setOrdersHistory(orders_history)
@@ -225,7 +225,7 @@ const Profile: React.FC = () => {
                         <div className={s.profile__pages__page__products__active__product__info}>
                           <h2>{t('pages.orders.order.info.name')} #{el.order_id}</h2>
                           <p>{t('pages.orders.order.info.date')}: <span>{new Date(el.data_order).toLocaleString().split(', ').join(' ')}</span></p>
-                          <p>{t('pages.orders.order.info.quantity')}: <span>3</span></p>
+                          <p>{t('pages.orders.order.info.quantity')}: <span>{el.count_product}</span></p>
                           <p>{t('pages.orders.order.info.delivery')}: <span>{el.delivery_id === 2 ? t('pages.orders.order.info.delivery_2') : t('pages.orders.order.info.delivery_1')}</span></p>
                         </div>
                       </div>
@@ -247,7 +247,7 @@ const Profile: React.FC = () => {
                         <div className={s.profile__pages__page__products__active__product__info}>
                           <h2>{t('pages.orders.order.info.name')} #{el.order_id}</h2>
                           <p>{t('pages.orders.order.info.date')}: <span>{new Date(el.data_order).toLocaleString().split(', ').join(' ')}</span></p>
-                          <p>{t('pages.orders.order.info.quantity')}: <span>3</span></p>
+                          <p>{t('pages.orders.order.info.quantity')}: <span>{el.count_product}</span></p>
                           <p>{t('pages.orders.order.info.delivery')}: <span>{el.delivery_id === 2 ? t('pages.orders.order.info.delivery_2') : t('pages.orders.order.info.delivery_1')}</span></p>
                         </div>
                       </div>

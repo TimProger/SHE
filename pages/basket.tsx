@@ -535,7 +535,7 @@ const Basket: React.FC = () => {
                 </div>
               }) : <p>{t('empty')}</p>}
             </div>
-            <h2 className={s.done__delivery}>{t('order.inputs.delivery')}: <span>{done.delivery_id === 2 ? t('order.inputs.delivery_2') : t('delivery_1')}</span></h2>
+            <h2 className={s.done__delivery}>{t('order.inputs.delivery')}: <span>{done.delivery_id === 2 ? t('order.inputs.delivery_2') : t('order.inputs.delivery_1')}</span></h2>
           </div>
         )
     }
