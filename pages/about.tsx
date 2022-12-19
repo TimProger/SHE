@@ -52,21 +52,16 @@ const About: React.FC = () => {
               <div className={s.about__first__img}>
                 <img src={img2.src} alt="img1" />
               </div>
-              <div className={s.about__first__payment__about}>
+              <div className={s.about__payment__about}>
                 <h1>{t('payment__info.title')}</h1>
                 <p>{t('payment__info.about')}</p>
+                <div className={s.about__payment__imgs}>
+                  <img src={mir_logo.src} alt="mir_logo"/>
+                  <img src={ms_logo.src} alt="ms_logo"/>
+                  <img src={visa_logo.src} alt="visa_logo"/>
+                  <img src={jcb_logo.src} alt="jcb_logo"/>
+                </div>
               </div>
-              <div className={s.about__first__payment__imgs}>
-                <img src={mir_logo.src} alt="mir_logo"/>
-                <img src={ms_logo.src} alt="ms_logo"/>
-                <img src={visa_logo.src} alt="visa_logo"/>
-                <img src={jcb_logo.src} alt="jcb_logo"/>
-              </div>
-              <div className={s.about__first__payment__col_1}>
-                <div>{t('payment__info.info_1')}</div>
-                <div>{t('payment__info.info_2')}</div>
-              </div>
-
             </div>
             <div className={s.about__second}>
               <div className={s.about__first__img}>
@@ -85,7 +80,15 @@ const About: React.FC = () => {
               </h1>
               <div className={s.about__first__text}>{t('paragraph_4')}
               </div>
-              <div className={s.about__first__payment__col_2}>{t('payment__info.info_3')}</div>
+            </div>
+          </div>
+          <div className={s.about__payment}>
+            <div className={s.about__payment__col_1}>
+              <div>{t('payment__info.info_1')}</div>
+              <div>{t('payment__info.info_2')}</div>
+            </div>
+            <div className={s.about__payment__col_2}>
+              {t('payment__info.info_3')}
             </div>
           </div>
         </Container>
