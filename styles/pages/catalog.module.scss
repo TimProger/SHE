@@ -37,7 +37,6 @@
       & div{
         width: auto;
         display: flex;
-        gap: 10px;
         color: $text-sec;
       }
     }
@@ -57,6 +56,9 @@
       height: auto;
       display: flex;
       flex-direction: column;
+      position: sticky;
+      top: 30px;
+      margin-bottom: 140px;
 
       &__button{
         margin-bottom: 20px;
@@ -173,7 +175,6 @@
         & div{
           display: flex;
           width: auto;
-          gap: 10px;
           color: $text-sec;
         }
       }
@@ -284,6 +285,13 @@
 
 @media screen and (max-width: 1400px) {
   .catalog {
+
+    &__container{
+
+      &__filters{
+        margin-bottom: 160px;
+      }
+    }
 
     &__seen {
 

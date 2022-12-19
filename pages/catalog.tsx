@@ -334,6 +334,29 @@ const Catalog: React.FC<ICatalogProps> = () => {
     setOpen([...open])
   }
 
+  const [filtersTopPx, setFiltersTopPx] = useState<number>(0)
+
+  function myFunction() {
+    var filters = document.getElementsByClassName(s.catalog__container__filters)[0] as HTMLElement;
+    if(filters){
+      console.log(window.pageYOffset, filters.offsetTop, filters.style.top.split('px')[0])
+      if (window.pageYOffset > filters.offsetTop-+filters.style.top.split('px')[0]) {
+        setFiltersTopPx(window.pageYOffset-+filters.style.height-300)
+      } else {
+        setFiltersTopPx(0)
+      }
+    }
+  }
+
+  // useEffect(()=>{
+  //   if(typeof window){
+  //     window.addEventListener('scroll', myFunction)
+  //     return () => {
+  //       window.removeEventListener('scroll', myFunction)
+  //     }
+  //   }
+  // })
+
   return (
     <Layout>
       <Head>

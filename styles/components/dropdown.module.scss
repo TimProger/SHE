@@ -46,7 +46,7 @@
     height: auto;
     clip: rect(auto, auto, 0, auto);
     overflow: hidden;
-    padding: 0 0 10px 0;
+    padding: 0 0 5px 0;
 
     &__option{
       background: white !important;
@@ -119,12 +119,22 @@
     display: flex;
     transition: height 0.5s ease-in-out;
     position: absolute;
-    margin-top: 43px;
     flex-direction: column;
     height: 0;
     border: 1px solid black;
     border-top: none;
     border-bottom: none;
     overflow: hidden;
+    margin-top: 30px;
+  }
+}
+
+
+@media screen and (max-width: 1400px) {
+  .dropdown {
+
+    &__options {
+      margin-top: 20px;
+    }
   }
 }
