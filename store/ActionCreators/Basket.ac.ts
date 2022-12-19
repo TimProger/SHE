@@ -21,6 +21,12 @@ export const getBasket = createAsyncThunk(
           }else{
             return await $api.post(`${locale}/basket/`, {
               product: el[0]
+            }).then(async (res)=>{
+              if(el[1] > 1){
+                return await $api.patch(`${locale}/basket/${res.data.id}/`, {
+                  count: el[1]
+                })
+              }
             })
           }
         })
