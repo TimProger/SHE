@@ -57,7 +57,7 @@ const Profile: React.FC = () => {
 
   useEffect(()=>{
     if(orders.length > 0){
-      const orders_active = orders.filter((el)=>el.status_id !== 1)
+      const orders_active = orders.filter((el)=>+el.status_id !== 2)
       setOrdersActive(orders_active)
       const orders_history = orders.filter((el)=>+el.status_id === 1)
       setOrdersHistory(orders_history)

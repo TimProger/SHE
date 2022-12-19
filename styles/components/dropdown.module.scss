@@ -47,6 +47,8 @@
     clip: rect(auto, auto, 0, auto);
     overflow: hidden;
     padding: 0 0 5px 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 
     &__option{
       background: white !important;
@@ -125,10 +127,9 @@
     border-top: none;
     border-bottom: none;
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 43px;
   }
 }
-
 
 @media screen and (max-width: 1400px) {
   .dropdown {
