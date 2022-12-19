@@ -89,7 +89,7 @@ const Card: React.FC<ICardProps> = ({product, className}) => {
         </Link>
         <div className={s.card__content__footer}>
           <div className={s.card__content__footer__info}>
-            <p>{product.product_more.map(el=>el.ml).join('/')} ml</p>
+            <p>{product.product_more.map(el=>el.ml).join('/')} {locale === 'ru' ? 'мл' : 'ml'}</p>
             <span style={{background: product.color}} className={s.card__content__footer__color} />
           </div>
           <div>{locale === 'ru' ? 'от' : 'from'} {product.product_more[0].price} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</div>

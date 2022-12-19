@@ -11,12 +11,13 @@
     width: 70%;
     height: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 10px;
 
     &__image{
       width: 200px;
-      height: 220px;
+      height: 185px;
       overflow: hidden;
 
       & img{
@@ -26,6 +27,7 @@
 
     &__info{
       width: 80%;
+      height: 100%;
       display: flex;
       justify-content: space-around;
       flex-direction: column;
