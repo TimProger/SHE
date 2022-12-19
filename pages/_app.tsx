@@ -40,7 +40,6 @@ const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
   useEffect(()=>{
     if(profileState.isAuth){
       const basket = Storage.get('basket')
-      console.log(basket)
       if(basket && JSON.parse(basket).length > 0) {
         dispatch(getBasket({locale: locale ?? 'ru', ids: JSON.parse(basket)}))
       }else{
@@ -48,7 +47,6 @@ const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
       }
     }else{
       const basket = Storage.get('basket')
-      console.log(basket)
       if(basket && JSON.parse(basket).length > 0) {
         dispatch(getBasketNoAuth({locale: locale ?? 'ru', ids: JSON.parse(basket)}))
       }

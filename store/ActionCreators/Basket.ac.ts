@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {$api} from "../../http/api";
 import {IBasketProductFull} from "../../types/Product.types";
+import {Storage} from "../../utils/storage";
 
 export const getBasket = createAsyncThunk(
   'basket/getBasket',
@@ -10,10 +11,8 @@ export const getBasket = createAsyncThunk(
       if(ids && ids.length > 0){
         const data = await $api.get<IBasketProductFull[]>(`/${locale}/basket/`)
         const newArr = ids.map(async (el, index)=>{
-          // @ts-ignore
           const includes = data.data.filter((elem)=>{
             console.log(data, el)
-            // @ts-ignore
             return elem.more === el[0]
           })
           if(includes[0]){
@@ -31,7 +30,10 @@ export const getBasket = createAsyncThunk(
           }
         })
         if(newArr) {
+          console.log('newArr', newArr)
           const response = await $api.get<IBasketProductFull[]>(`/${locale}/basket/`)
+
+          Storage.set('basket', JSON.stringify(response.data.map((el, index)=>[el.more, el.count])))
           return response.data.map((el) => ({
             id: el.id,
             count: el.count,

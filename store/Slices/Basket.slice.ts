@@ -55,7 +55,6 @@ export const basketSlice = createSlice({
       state.products = [...state.products]
       console.log(state.products)
       Storage.set('basket', JSON.stringify(state.products.map((el, index)=>[el.more, el.count])))
-      console.log(state.products)
     },
   },
   extraReducers: {

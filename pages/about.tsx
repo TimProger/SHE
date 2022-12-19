@@ -11,6 +11,10 @@ import img1 from "../public/images/about1.png";
 import img2 from "../public/images/about2.png";
 import img3 from "../public/images/about3.png";
 import img4 from "../public/images/about4.png";
+import mir_logo from "../public/images/mir_logo.png";
+import ms_logo from "../public/images/ms_logo.png";
+import visa_logo from "../public/images/visa_logo.png";
+import jcb_logo from "../public/images/jcb_logo.png";
 
 const About: React.FC = () => {
 
@@ -30,9 +34,9 @@ const About: React.FC = () => {
         <Container>
           <div className={s.about__wrapper}>
             <div className={s.about__first}>
-              <div className={s.about__first__title}>
+              <h1 className={s.about__first__title}>
                 {t('title')}
-              </div>
+              </h1>
               <div className={s.about__first__text}>
                 <span>{t('about')}</span>
                 <br />
@@ -42,11 +46,25 @@ const About: React.FC = () => {
               <div className={s.about__first__img}>
                 <img src={img1.src} alt="img0" />
               </div>
-              <div className={s.about__first__title}>{t('title2')}</div>
+              <h1 className={s.about__first__title}>{t('title2')}</h1>
               <div className={s.about__first__text}>{t('paragraph_2')}
               </div>
               <div className={s.about__first__img}>
                 <img src={img2.src} alt="img1" />
+              </div>
+              <div className={s.about__first__payment__about}>
+                <h1>{t('payment__info.title')}</h1>
+                <p>{t('payment__info.about')}</p>
+              </div>
+              <div className={s.about__first__payment__imgs}>
+                <img src={mir_logo.src} alt="mir_logo"/>
+                <img src={ms_logo.src} alt="ms_logo"/>
+                <img src={visa_logo.src} alt="visa_logo"/>
+                <img src={jcb_logo.src} alt="jcb_logo"/>
+              </div>
+              <div className={s.about__first__payment__col_1}>
+                <div>{t('payment__info.info_1')}</div>
+                <div>{t('payment__info.info_2')}</div>
               </div>
 
             </div>
@@ -54,19 +72,20 @@ const About: React.FC = () => {
               <div className={s.about__first__img}>
                 <img src={img3.src} alt="img2" />
               </div>
-              <div className={s.about__first__title}>
+              <h1 className={s.about__first__title}>
                 {t('title3')}
-              </div>
+              </h1>
               <div className={s.about__first__text}>{t('paragraph_3')}
               </div>
               <div className={s.about__first__img}>
                 <img src={img4.src} alt="img3" />
               </div>
-              <div className={s.about__first__title}>
+              <h1 className={s.about__first__title}>
                 {t('title4')}
-              </div>
+              </h1>
               <div className={s.about__first__text}>{t('paragraph_4')}
               </div>
+              <div className={s.about__first__payment__col_2}>{t('payment__info.info_3')}</div>
             </div>
           </div>
         </Container>
