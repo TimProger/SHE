@@ -15,7 +15,7 @@
     overflow: hidden;
 
     & img{
-      width: 100%;
+      width: 300px;
       user-select: none;
     }
   }
@@ -159,6 +159,11 @@
 
     &__image{
       height: 210px;
+
+      & img{
+        width: 205px;
+        user-select: none;
+      }
     }
   }
 }
