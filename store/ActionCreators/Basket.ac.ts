@@ -10,7 +10,7 @@ export const getBasket = createAsyncThunk(
       const {locale, ids} = props
       if(ids && ids.length > 0){
         const data = await $api.get<IBasketProductFull[]>(`/${locale}/basket/`)
-        const newArr = ids.map(async (el, index)=>{
+        const newArr = await Promise.all(ids.map(async (el, index)=>{
           const includes = data.data.filter((elem)=>{
             console.log(data, el)
             return elem.more === el[0]
@@ -28,7 +28,7 @@ export const getBasket = createAsyncThunk(
               }
             })
           }
-        })
+        }))
         if(newArr) {
           console.log('newArr', newArr)
           const response = await $api.get<IBasketProductFull[]>(`/${locale}/basket/`)

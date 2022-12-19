@@ -7,7 +7,7 @@ import {useAppDispatch} from "../hooks/useTypedDispatch";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {IBasketProductFull} from "../types/Product.types";
 import {$api} from "../http/api";
-import {removeAllProductFromBasket} from "../store/Slices/Basket.slice";
+import {removeAllProductFromBasket, setBasket} from "../store/Slices/Basket.slice";
 import s from "../styles/pages/basket.module.scss";
 import CardFloat from "../components/CardFloat";
 import Button from "../components/Button";

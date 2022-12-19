@@ -30,6 +30,10 @@ export const basketSlice = createSlice({
       }
       Storage.set('basket', JSON.stringify(state.products.map((el, index)=>[el.more, el.count])))
     },
+    setBasket: (state: IBasketState, action: PayloadAction<IBasketProduct[]>) => {
+      state.products = [...action.payload]
+      Storage.set('basket', JSON.stringify(state.products.map((el, index)=>[el.more, el.count])))
+    },
     removeFromBasket: (state: IBasketState, action: PayloadAction<number>) => {
       const product = state.products.find((el)=>el.more === action.payload)
       if(product){
@@ -87,6 +91,6 @@ export const basketSlice = createSlice({
   }
 })
 
-export const { addToBasket, removeFromBasket, removeAllProductFromBasket, killProduct } = basketSlice.actions
+export const { addToBasket, removeFromBasket, removeAllProductFromBasket, killProduct, setBasket } = basketSlice.actions
 
 export default basketSlice.reducer

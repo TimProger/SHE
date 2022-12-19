@@ -47,7 +47,7 @@ const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
       }
     }else{
       const basket = Storage.get('basket')
-      if(basket && JSON.parse(basket).length > 0) {
+      if(!profileState.isLoading && basket && JSON.parse(basket).length > 0) {
         dispatch(getBasketNoAuth({locale: locale ?? 'ru', ids: JSON.parse(basket)}))
       }
     }
