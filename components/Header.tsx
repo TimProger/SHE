@@ -130,6 +130,16 @@ const Header: React.FC<IHeaderProps> = ({}) => {
   //   };
   // },[])
 
+  const [basketCount, setBasketCount] = useState(0)
+
+  useEffect(()=>{
+    let totalCount = 0
+    basket.products.map((el)=>{
+      totalCount += el.count
+    })
+    setBasketCount(totalCount)
+  },[basket.products])
+
   return (
     <>
       <Auth />
@@ -203,7 +213,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
                           strokeLinecap="round"/>
                   </svg>
                   {basket.products.length > 0 &&
-                    <div className={s.top__btns__btn__count}>{basket.products.length > 9 ? '9+' : basket.products.length}</div>}
+                    <div className={s.top__btns__btn__count}>{basketCount > 9 ? '9+' : basketCount}</div>}
                 </Link>}
                 {isAuth
                   ? <Link href="/profile" className={s.top__btns__btn + ' ' + s.top__btns__image}>

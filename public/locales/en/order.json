@@ -1,0 +1,26 @@
+{
+  "title": "Order #",
+  "title_0": "Created.",
+  "title_1": "Pending payment.",
+  "title_2": "Successfully paid.",
+  "title_3": "Not paid.",
+  "title_4": "Cancelled.",
+  "empty": "Basket is empty",
+  "order": {
+    "title": "Address",
+    "inputs": {
+      "delivery": "Delivery method",
+      "delivery_1": "Self-delivery",
+      "delivery_2": "By transport company",
+      "radio_1": "Self-delivery",
+      "radio_2": "By transport company",
+      "radio_3": "Card",
+      "radio_4": "Cash"
+    },
+    "about_delivery": "A manager will contact you to clarify information about the delivery and further registration of the order.",
+    "payment": "Payment",
+    "products": "Products",
+    "payment_methods": "Payment methods",
+    "about_payment": "Payment upon delivery"
+  }
+}

@@ -30,7 +30,6 @@ interface IUsedFilters {
 const Catalog: React.FC<ICatalogProps> = () => {
   const { locale, query } = useRouter()
   const { t } = useTranslation('catalog')
-  const dispatch = useAppDispatch()
 
   const [types, setTypes] = useState<string[]>([])
   const [page, setPage] = useState<number>(1)

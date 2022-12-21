@@ -15,6 +15,7 @@ import Button from "../components/Button";
 import Head from "next/head";
 import Container from "../components/Container";
 import ProfileImg from "../public/images/profile_mock.png";
+import Link from "next/link";
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -219,7 +220,7 @@ const Profile: React.FC = () => {
                 <div className={s.profile__pages__page__products__active}>
                   <h2>{t('pages.orders.order.active')}</h2>
                   {ordersActive.map((el, index) => {
-                    return <div className={s.profile__pages__page__products__active__product}>
+                    return <Link href={`/order?${el.bank_id ? `bank_id=${el.bank_id}` : `order_id=${el.order_id.split('-')[1]}`}`}><div className={s.profile__pages__page__products__active__product}>
                       <div>
                         <div className={s.profile__pages__page__products__active__product__imgs}>
                           <img src="" alt=""/>
@@ -232,10 +233,10 @@ const Profile: React.FC = () => {
                         </div>
                       </div>
                       <div className={s.profile__pages__page__products__active__product__price}>
-                        <h2>{status[el.status_id-1]}</h2>
+                        <h2>{t(`order_status.status_${el.status}`)}</h2>
                         <h1>{el.sum} {locale === 'ru' ? '₽' : '$'}</h1>
                       </div>
-                    </div>
+                    </div></Link>
                   })}
                 </div>
                 <div className={s.profile__pages__page__products__history}>

@@ -82,7 +82,9 @@ export interface IOrder {
   id: number;
   id_user_id: number;
   order_id: string;
+  bank_id: string | null;
   status_id: number;
+  status: number;
   data_order: string;
   delivery_id: number;
   address: string;
@@ -93,6 +95,18 @@ export interface IOrder {
   price: number;
   sum: number;
   count_product: number;
+  order_list: {
+    id: number;
+    order_id: number;
+    product_id: number;
+    name: string;
+    ml: number;
+    color: string;
+    article: string;
+    image: string;
+    money: number;
+    count: number;
+  }[];
 }
 
 export interface IFilter {

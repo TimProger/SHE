@@ -2,6 +2,13 @@
   "title": "Profile",
   "exit": "Exit",
   "status": "Client",
+  "order_status": {
+    "status_0": "Created.",
+    "status_1": "Pending payment.",
+    "status_2": "Successfully paid.",
+    "status_3": "Not paid.",
+    "status_4": "Cancelled."
+  },
   "pages": {
     "info": {
       "why_title": "Why we need this information",

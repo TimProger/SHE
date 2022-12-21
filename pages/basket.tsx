@@ -561,8 +561,6 @@ const Basket: React.FC = () => {
       .then(()=>{
         $api.post(`/${locale}/order/buy/`, order_data)
           .then((res) => {
-            setDone(res.data)
-            setPage(2)
           })
           .catch((res)=>{
           })
