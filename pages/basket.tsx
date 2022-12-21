@@ -21,6 +21,7 @@ import mir_logo from '../public/images/mir_logo.png'
 import visa_logo from '../public/images/visa_logo.png'
 import jcb_logo from '../public/images/jcb_logo.png'
 import ms_logo from '../public/images/ms_logo.png'
+import {Storage} from "../utils/storage";
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -561,6 +562,11 @@ const Basket: React.FC = () => {
       .then(()=>{
         $api.post(`/${locale}/order/buy/`, order_data)
           .then((res) => {
+            setSelected([])
+            setNewProducts([])
+            Storage.set('basket', [])
+            dispatch(setBasket([]))
+            window.location.replace('profile')
           })
           .catch((res)=>{
           })

@@ -1,10 +1,10 @@
 {
   "title": "Order #",
-  "title_0": "Created.",
-  "title_1": "Pending payment.",
-  "title_2": "Successfully paid.",
-  "title_3": "Not paid.",
-  "title_4": "Cancelled.",
+  "title_0": "Created",
+  "title_1": "Pending payment",
+  "title_2": "Successfully paid",
+  "title_3": "Not paid",
+  "title_4": "Cancelled",
   "empty": "Basket is empty",
   "order": {
     "title": "Address",

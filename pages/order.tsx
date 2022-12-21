@@ -66,16 +66,18 @@ const Order: React.FC = () => {
                     </div>
                     <div className={s.order__products__product__info}>
                       <div><h2>{el.name}</h2><p>x{el.count || 1}</p></div>
-                      <p className={s.card__content__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
-                        <span style={{background: el.color}} className={s.card__content__info__color__block} />
+                      <p className={s.order__products__product__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
+                        <span style={{background: el.color}} className={s.order__products__product__info__color__block} />
                       </p>
-                      <p className={s.card__content__info__size}>{locale === 'ru' ? 'Объём, мл' : 'Size, ml'}:
+                      <p className={s.order__products__product__info__size}>{locale === 'ru' ? 'Объём, мл' : 'Size, ml'}:
                         <span>{el.ml}</span>
                       </p>
-                      <p className={s.card__content__info__articul}>{locale === 'ru' ? 'Артикул' : 'Article'}: <span>{el.article}</span></p>
+                      <p className={s.order__products__product__info__articul}>{locale === 'ru' ? 'Артикул' : 'Article'}: <span>{el.article}</span></p>
                     </div>
                   </div>
-                  <h1>{(el.money * (el.count || 1)).toFixed(2)} {locale === 'ru' ? '₽' : '$'}</h1>
+                  <div className={s.order__products__product__price}>
+                    <h1>{(el.money * (el.count || 1)).toFixed(2)} {locale === 'ru' ? '₽' : '$'}</h1>
+                  </div>
                 </div></Link>
               })}
             </div>
