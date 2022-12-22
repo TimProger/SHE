@@ -40,7 +40,7 @@ const Order: React.FC = () => {
         })
     }else{
     }
-  }, [query])
+  }, [query, locale])
 
   return (
     <Layout>
