@@ -113,7 +113,7 @@
         &__active{
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 40px;
 
           &__product{
             display: flex;
@@ -121,6 +121,7 @@
             gap: 20px;
             width: 100%;
             color: $text-main;
+            margin-bottom: 20px;
 
             &:hover h2, &:hover h1{
               color: $block-main !important;
@@ -140,6 +141,8 @@
               & img{
                 width: 43%;
                 height: 43%;
+                object-fit: cover;
+                object-position: top;
               }
 
               & div{

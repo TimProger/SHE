@@ -76,7 +76,7 @@ const Order: React.FC = () => {
                     </div>
                   </div>
                   <div className={s.order__products__product__price}>
-                    <h1>{(el.money * (el.count || 1)).toFixed(2)} {locale === 'ru' ? '₽' : '$'}</h1>
+                    <h1>{(el.money * (el.count || 1)).toFixed(2)} {done.price_currency === 'RUB' ? '₽' : '$'}</h1>
                   </div>
                 </div></Link>
               })}

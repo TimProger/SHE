@@ -240,7 +240,7 @@ const Profile: React.FC = () => {
                       </div>
                       <div className={s.profile__pages__page__products__active__product__price}>
                         <h2>{t(`order_status.status_${el.status}`)}</h2>
-                        <h1>{el.sum} {locale === 'ru' ? '₽' : '$'}</h1>
+                        <h1>{el.sum.toFixed(2)} {el.price_currency === 'RUB' ? '₽' : '$'}</h1>
                       </div>
                     </div></Link>
                   })}
