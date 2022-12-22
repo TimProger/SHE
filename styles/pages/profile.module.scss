@@ -134,6 +134,25 @@
             &__imgs{
               width: 156px;
               height: 156px;
+              display: flex;
+              flex-wrap: wrap;
+
+              & img{
+                width: 43%;
+                height: 43%;
+              }
+
+              & div{
+                width: 43%;
+                height: 43%;
+                border: 1px solid $block-main;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $block-main;
+                font-size: 24px;
+                font-weight: 800;
+              }
             }
 
             &__price{

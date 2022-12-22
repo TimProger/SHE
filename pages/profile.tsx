@@ -223,7 +223,13 @@ const Profile: React.FC = () => {
                     return <Link href={`/order?${el.bank_id ? `bank_id=${el.bank_id}` : `order_id=${el.order_id.split('-')[1]}`}`}><div className={s.profile__pages__page__products__active__product}>
                       <div>
                         <div className={s.profile__pages__page__products__active__product__imgs}>
-                          <img src="" alt=""/>
+                          {el.order_list.map((elem, index)=>{
+                            if(index > 3) return
+                            if(index === 3 && el.order_list[4]) {
+                              return <div>{el.order_list.length - 3}+</div>
+                            }
+                            return <img src={`${API_BASE_URL}/${elem.image}`} alt={""} />
+                          })}
                         </div>
                         <div className={s.profile__pages__page__products__active__product__info}>
                           <h2>{t('pages.orders.order.info.name')} #{el.order_id}</h2>
