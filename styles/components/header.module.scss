@@ -249,20 +249,29 @@
 }
 
 .popup {
-  display: none;
+  z-index: $z-index-popup;
+  display: flex;
+  position: absolute;
+  clip: rect(auto, auto, 0, auto);
+  transition: clip 0.5s;
+  top: 177px;
+  background-color: $block-thrd;
+  overflow: hidden;
 }
-
 
 .popup_active{
   border-bottom: 1px solid $block-main;
   top: 177px;
   width: 100%;
-  height: auto;
-  z-index: $z-index-popup;
   background-color: $block-thrd;
-  position: absolute;
-  display: flex;
   gap: 30px;
+  z-index: $z-index-popup;
+  height: auto;
+  display: flex;
+  position: absolute;
+  clip: rect(auto, auto, 44rem, auto);
+  transition: clip 0.3s ease-in;
+  overflow: hidden;
 
   &__container {
     width: 1400px;
@@ -273,15 +282,17 @@
   }
 
   &__list {
-    width: 272px;
+    width: 300px;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 516px;
+    overflow-y: auto;
     margin-right: 32px;
 
     & li {
       position: relative;
       margin-bottom: 24px;
+      margin-right: 24px;
     }
 
     & li:last-child{
