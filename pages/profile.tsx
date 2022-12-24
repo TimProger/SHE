@@ -29,16 +29,6 @@ const Profile: React.FC = () => {
 
   const { user } = useTypedSelector(state => state.profile)
 
-  const status = [
-    'Created',
-    'Accepted',
-    'Waiting',
-    'Delivery',
-    'Point',
-    'Received',
-    'Error',
-  ]
-
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [phoneUpd, setPhoneUpd] = useState('')
@@ -219,7 +209,7 @@ const Profile: React.FC = () => {
                 <div className={s.profile__pages__page__products__active}>
                   <h2>{t('pages.orders.order.active')}</h2>
                   {ordersActive.map((el, index) => {
-                    return <Link href={`/order?${el.bank_id ? `bank_id=${el.bank_id}` : `order_id=${el.order_id.split('-')[1]}`}`}><div className={s.profile__pages__page__products__active__product}>
+                    return <Link href={`/order?${el.pay_online ? `orderId=${el.pay_online}` : `order_id=${el.order_id.split('-')[1]}`}`}><div className={s.profile__pages__page__products__active__product}>
                       <div>
                         <div className={s.profile__pages__page__products__active__product__imgs}>
                           {el.order_list.map((elem, index)=>{

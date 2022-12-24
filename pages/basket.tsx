@@ -555,7 +555,7 @@ const Basket: React.FC = () => {
 
     const fullAdress = `${area} ${city} ${street} ${house} ${apart}`
     order_data.append('address', fullAdress);
-    order_data.append('pay_online', 'False');
+    order_data.append('pay_online', payment === "card" ? 'True' :'False');
     order_data.append('delivery', delivery);
 
     $api.patch('/profile/', profile_data)
@@ -564,6 +564,7 @@ const Basket: React.FC = () => {
           .then((res) => {
             dispatch(setBasket([]))
             if(payment === "card"){
+              window.location.replace(res.data)
             }else{
               push(`order/?order_id=${res.data.order_id.split('-')[1]}`)
             }

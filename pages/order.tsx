@@ -20,10 +20,7 @@ const Order: React.FC = () => {
   const { t } = useTranslation('order')
   const dispatch = useAppDispatch()
 
-  const {products, isLoading, error} = useTypedSelector(state => state.basket)
   const profile = useTypedSelector(state => state.profile)
-
-  const [selected, setSelected] = useState<IBasketProductFull[]>([])
 
   const [done, setDone] = useState<IOrder | null>(null)
 
@@ -31,8 +28,8 @@ const Order: React.FC = () => {
     if(typeof window !== undefined) {
       if (Storage.get('accessToken')) {
         if(profile.isAuth){
-          if (query.bank_id) {
-            $api.get(`/order/my_orders/?bank_id=${query.bank_id}`)
+          if (query.orderId) {
+            $api.get(`${locale}/order/my_orders/?bank_id=${query.orderId}`)
               .then((res) => {
                 setDone(res.data)
               })

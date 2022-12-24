@@ -96,6 +96,7 @@ export interface IOrder {
   sum: number;
   count_product: number;
   price_currency: string;
+  pay_online: string;
   order_list: {
     id: number;
     order_id: number;
