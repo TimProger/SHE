@@ -21,6 +21,7 @@
     "payment": "Payment",
     "products": "Products",
     "payment_methods": "Payment methods",
-    "about_payment": "Payment upon delivery"
+    "about_payment": "Payment upon delivery",
+    "total_price": "Total price"
   }
 }

@@ -13,32 +13,44 @@ import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
 import Stock from "../public/images/stock.png";
+import {Storage} from "../utils/storage";
 
 const Order: React.FC = () => {
-  const { locale, query } = useRouter()
+  const { push, locale, query } = useRouter()
   const { t } = useTranslation('order')
   const dispatch = useAppDispatch()
 
   const {products, isLoading, error} = useTypedSelector(state => state.basket)
-  const {isAuth} = useTypedSelector(state => state.profile)
+  const profile = useTypedSelector(state => state.profile)
 
   const [selected, setSelected] = useState<IBasketProductFull[]>([])
 
   const [done, setDone] = useState<IOrder | null>(null)
 
   useEffect(()=>{
-    if(query.bank_id){
-      $api.get(`/order/my_orders/?bank_id=${query.bank_id}`)
-        .then((res)=>{
-          setDone(res.data)
-        })
-    }else if(query.order_id){
-      $api.get(`${locale}/order/my_orders/?id=${query.order_id}`)
-        .then((res)=>{
-          setDone(res.data)
-          console.log(res.data)
-        })
-    }else{
+    if(typeof window !== undefined) {
+      if (Storage.get('accessToken')) {
+        if(profile.isAuth){
+          if (query.bank_id) {
+            $api.get(`/order/my_orders/?bank_id=${query.bank_id}`)
+              .then((res) => {
+                setDone(res.data)
+              })
+              .catch((res) => {
+                push('/')
+              })
+          } else if (query.order_id) {
+            $api.get(`${locale}/order/my_orders/?id=${query.order_id}`)
+              .then((res) => {
+                setDone(res.data)
+                console.log(res.data)
+              })
+          } else {
+          }
+        }
+      } else {
+        push('/')
+      }
     }
   }, [query, locale])
 
@@ -84,6 +96,9 @@ const Order: React.FC = () => {
             <h2
               className={s.order__delivery}>{t('order.inputs.delivery')}: <span>{done.delivery_id === 2 ? t('order.inputs.delivery_2') : t('order.inputs.delivery_1')}</span>
             </h2>
+            <h1
+              className={s.order__delivery}>{t('order.total_price')}: <span>{done.sum} {done.price_currency === 'RUB' ? '₽' : '$'}</span>
+            </h1>
           </div>}
         </Container>
       </div>

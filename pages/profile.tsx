@@ -55,7 +55,6 @@ const Profile: React.FC = () => {
   })
 
   // Test
-
   useEffect(()=>{
     if(orders.length > 0){
       const orders_active = orders.filter((el)=>+el.status_id !== 2)
@@ -261,8 +260,8 @@ const Profile: React.FC = () => {
                         </div>
                       </div>
                       <div className={s.profile__pages__page__products__active__product__price}>
-                        <h2>{status[1]}</h2>
-                        <h1>{el.sum} {locale === 'ru' ? '₽' : '$'}</h1>
+                        <h2>{t(`order_status.status_${el.status}`)}</h2>
+                        <h1>{el.sum.toFixed(2)} {locale === 'ru' ? '₽' : '$'}</h1>
                       </div>
                     </div>
                   })}

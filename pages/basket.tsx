@@ -28,7 +28,7 @@ const validEmailRegex = RegExp(
 );
 
 const Basket: React.FC = () => {
-  const { locale } = useRouter()
+  const { push, locale } = useRouter()
   const { t } = useTranslation('basket')
   const dispatch = useAppDispatch()
 
@@ -483,7 +483,7 @@ const Basket: React.FC = () => {
             </div>
             <h2>{t('order.products')}</h2>
             <div className={s.order__orders__products}>
-              {selected.length > 0 ? selected.map((el, index)=>{
+              {products.length > 0 && selected.length > 0 ? selected.map((el, index)=>{
                 return <div className={s.order__orders__products__product}>
                   <div>
                     <Link href={`${locale}/product/${el.product_id}`}><h3>{el.name}</h3></Link>
@@ -562,11 +562,12 @@ const Basket: React.FC = () => {
       .then(()=>{
         $api.post(`/${locale}/order/buy/`, order_data)
           .then((res) => {
-            setSelected([])
-            setNewProducts([])
-            Storage.set('basket', [])
             dispatch(setBasket([]))
-            window.location.replace('profile')
+            if(payment === "card"){
+              push('profile')
+            }else{
+              push(`order/?order_id=${res.data.order_id.split('-')[1]}`)
+            }
           })
           .catch((res)=>{
           })

@@ -21,6 +21,7 @@
     "products": "Товары",
     "payment": "Оплата",
     "payment_methods": "Способы оплаты",
-    "about_payment": "Оплата при получении"
+    "about_payment": "Оплата при получении",
+    "total_price": "Сумма заказа"
   }
 }
