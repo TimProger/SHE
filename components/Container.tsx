@@ -14,7 +14,7 @@ const Container: React.FC<ContainerProps> = ({
 }) => {
   return (
     <main className={s.container}>
-      <div className={s.container__wrapper + ` ${className ? className : ''} ${no_margin && s.container__no_margin}`}>
+      <div className={s.container__wrapper + ` ${className ? className : ''} ${no_margin ? s.container__no_margin : ''}`}>
         {children}
       </div>
     </main>

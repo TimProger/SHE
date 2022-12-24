@@ -242,13 +242,11 @@ const Header: React.FC<IHeaderProps> = ({}) => {
                 <Link href="/" locale={router.locale}>{btns.home}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
-                {catalog
-                  ? <Link href="/catalog"
+                {popupState
+                  ? <Link onClick={() => setPopupState(false)} href=""
                       locale={router.locale}>{btns.catalogue}</Link>
-                  : <Link onClick={() => catalogTimer()}
-                      onMouseOver={() => setPopupState(true)}
-                      onMouseLeave={() => setPopupState(false)}
-                      href="/catalog"
+                  : <Link onClick={() => setPopupState(true)}
+                      href = ""
                       locale={router.locale}>{btns.catalogue}</Link>}
               </div>
               <div className={s.bottom__btns__btn}>

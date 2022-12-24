@@ -300,7 +300,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     return arr.map((el)=>{
       return <div
         onClick={()=>togglePageHandler(el)}
-        className={s.catalog__container__products__pages__page + ' ' + (page === el && s.catalog__container__products__pages__active)}>
+        className={s.catalog__container__products__pages__page + ' ' + (page === el ? s.catalog__container__products__pages__active : '')}>
         {el}
       </div>
     })
