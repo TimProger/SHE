@@ -564,7 +564,6 @@ const Basket: React.FC = () => {
           .then((res) => {
             dispatch(setBasket([]))
             if(payment === "card"){
-              push('profile')
             }else{
               push(`order/?order_id=${res.data.order_id.split('-')[1]}`)
             }
