@@ -249,6 +249,7 @@
 }
 
 .popup {
+  width: 100%;
   z-index: $z-index-popup;
   display: flex;
   position: absolute;
@@ -279,6 +280,28 @@
     margin: 0 auto;
     padding: 50px 0px;
     border-top: 1px solid $block-main;
+  }
+
+  &__semilist {
+    display: none;
+  }
+
+  &__semilist_active {
+    display: flex;
+    flex-direction: column;
+    width: 272px;
+
+    & li {
+      margin-bottom: 30px;
+    }
+
+    & a {
+      color: $text-main;
+    }
+
+    & a:hover{
+      color: $block-main;
+    }
   }
 
   &__list {
@@ -324,28 +347,6 @@
       color: $block-main;
     }
 
-  }
-
-  .popup_semilist {
-    display: none;
-  }
-
-  .popup_semilist_active {
-    display: flex;
-    flex-direction: column;
-    width: 272px;
-
-    & li {
-      margin-bottom: 30px;
-    }
-
-    & a {
-      color: $text-main;
-    }
-
-    & a:hover{
-      color: $block-main;
-    }
   }
 }
 
