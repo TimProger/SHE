@@ -160,6 +160,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
     if(!sort.value) return
     const data = new FormData()
     data.append('order', sort.value)
+    if(usedFilters.category.length > 0) data.append('category', usedFilters.category.join(','))
+    if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
+    if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
+    if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
