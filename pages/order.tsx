@@ -14,6 +14,7 @@ import Head from "next/head";
 import Container from "../components/Container";
 import Stock from "../public/images/stock.png";
 import {Storage} from "../utils/storage";
+import Button from "../components/Button";
 
 const Order: React.FC = () => {
   const { push, locale, query } = useRouter()
@@ -25,31 +26,34 @@ const Order: React.FC = () => {
   const [done, setDone] = useState<IOrder | null>(null)
 
   useEffect(()=>{
-    if(typeof window !== undefined) {
-      if (Storage.get('accessToken')) {
-        if(profile.isAuth){
-          if (query.orderId) {
-            $api.get(`${locale}/order/my_orders/?bank_id=${query.orderId}`)
-              .then((res) => {
-                setDone(res.data)
-              })
-              .catch((res) => {
-                push('/')
-              })
-          } else if (query.order_id) {
-            $api.get(`${locale}/order/my_orders/?id=${query.order_id}`)
-              .then((res) => {
-                setDone(res.data)
-                console.log(res.data)
-              })
-          } else {
+    const asyncEffect = async () => {
+      if(typeof window !== undefined) {
+        if (Storage.get('accessToken')) {
+          if(profile.isAuth){
+            if (query.orderId) {
+              $api.get(`${locale}/order/my_orders/?bank_id=${query.orderId}`)
+                .then((res) => {
+                  setDone(res.data)
+                })
+                .catch((res) => {
+                  push('/')
+                })
+            } else if (query.order_id) {
+              $api.get(`${locale}/order/my_orders/?id=${query.order_id}`)
+                .then((res) => {
+                  setDone(res.data)
+                  console.log(res.data)
+                })
+            } else {
+            }
           }
+        } else {
+          push('/')
         }
-      } else {
-        push('/')
       }
     }
-  }, [query, locale])
+    asyncEffect()
+  }, [query, locale, profile.isAuth])
 
   return (
     <Layout>
@@ -94,8 +98,15 @@ const Order: React.FC = () => {
               className={s.order__delivery}>{t('order.inputs.delivery')}: <span>{done.delivery_id === 2 ? t('order.inputs.delivery_2') : t('order.inputs.delivery_1')}</span>
             </h2>
             <h1
-              className={s.order__delivery}>{t('order.total_price')}: <span>{done.sum} {done.price_currency === 'RUB' ? '₽' : '$'}</span>
+              className={s.order__price}>{t('order.total_price')}: <span>{done.sum} {done.price_currency === 'RUB' ? '₽' : '$'}</span>
             </h1>
+            {query.orderId && done.status === 1 && <div className={s.order__pay}>
+              <div>
+                <h1>Ваш заказ не оплачен</h1>
+                <p>Чтобы оплатить заказ, перейдите на страницу оплаты по кнопке ниже</p>
+              </div>
+              <Button text={'Оплатить'} type={'link'} href={`${done.details}`} />
+            </div>}
           </div>}
         </Container>
       </div>

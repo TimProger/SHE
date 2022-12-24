@@ -44,12 +44,11 @@ const Profile: React.FC = () => {
     email: null,
   })
 
-  // Test
   useEffect(()=>{
     if(orders.length > 0){
-      const orders_active = orders.filter((el)=>+el.status_id !== 2)
+      const orders_active = orders.filter((el)=>+el.status_id !== 7 && +el.status_id !== 6 && +el.status_id !== 5)
       setOrdersActive(orders_active)
-      const orders_history = orders.filter((el)=>+el.status_id === 1)
+      const orders_history = orders.filter((el)=>+el.status_id === 7 || +el.status_id === 6 || +el.status_id === 5)
       setOrdersHistory(orders_history)
     }
   },[orders])

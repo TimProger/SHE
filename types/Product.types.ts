@@ -80,6 +80,7 @@ export interface IFavProduct {
 
 export interface IOrder {
   id: number;
+  details: string;
   id_user_id: number;
   order_id: string;
   bank_id: string | null;

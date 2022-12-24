@@ -5,9 +5,12 @@
   "order_status": {
     "status_0": "Created",
     "status_1": "Pending payment",
-    "status_2": "Successfully paid",
-    "status_3": "Not paid",
-    "status_4": "Cancelled"
+    "status_2": "Pleasantly",
+    "status_3": "Delivery",
+    "status_4": "Paid",
+    "status_5": "Failed",
+    "status_6": "Refunded",
+    "status_7": "Completed"
   },
   "pages": {
     "info": {
