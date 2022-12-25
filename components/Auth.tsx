@@ -181,9 +181,52 @@ const Auth: React.FC<IAuthProps> = () => {
     e.stopPropagation()
   }
 
+  const [delay, setDelay] = useState<string>('31')
+
+  useEffect(()=>{
+    if(window){
+      if(Storage.get('code_delay') !== '31'){
+        setDelay(Storage.get('code_delay'))
+        console.log(Storage.get('code_delay'))
+      }
+    }
+  }, [])
+
+  const startTimer = () => {
+    let time = delay;
+
+    let timeFunc = () => {
+      if(+time === 0) {
+        clearInterval(timeFunctionInterval);
+        setDelay('31')
+        Storage.set('code_delay', '31')
+        return
+      }
+      time = +time - 1 + ''
+      if(+time < 10) {
+        setDelay('0' + time)
+        Storage.set('code_delay', '0' + time)
+        return
+      }
+      setDelay(time)
+      Storage.set('code_delay', time)
+    }
+    let timeFunctionInterval =  setInterval(timeFunc, 1000);
+  }
+
+  useEffect(()=>{
+    if(delay !== '31'){
+      startTimer()
+    }
+  }, [delay])
+
   const sendCode = () => {
     let phoneUpd = phone.replace(/\s/g, '').replace(/\+/, '')
-
+    if(delay === '31'){
+      Storage.set('code_delay', '30')
+      setDelay('30')
+    }
+    startTimer()
     AuthService.confirm_phone(+phoneUpd)
       .then((res) => {
         setPage(1)
@@ -246,6 +289,7 @@ const Auth: React.FC<IAuthProps> = () => {
           <div className={s.auth__form__container__input}>
             <h2>{t('auth.input_2')}</h2>
             <input value={code} onChange={onChangeCode} type="text" placeholder={'* * * *'}/>
+            {+delay <= 30 ? <p>Отправить код ещё раз через {delay} секунд</p> : <p onClick={sendCode}>Отправить код ещё раз</p>}
           </div>
         </>
     }
