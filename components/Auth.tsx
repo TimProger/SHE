@@ -260,7 +260,7 @@ const Auth: React.FC<IAuthProps> = () => {
         if(err.response.data.detail == "Код не верный"){
           setErrors(prev => Object.assign(prev, {code: t('auth.error_code_1')}))
         }else{
-          setErrors(prev => Object.assign(prev, {code: 'Произошла ошибка при проверке кода'}))
+          setErrors(prev => Object.assign(prev, {code: 'Error'}))
         }
         setIsError(true);
         setIsDisabled(false);

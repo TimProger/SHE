@@ -19,7 +19,7 @@
     "text": "При регистрации вы соглашаетесь с",
     "link": "политикой конфиденциальности",
     "back": "Назад",
-    "error_code_1": "Wrong code",
+    "error_code_1": "Код не верный",
     "countries": {
       "country_russia": "Россия",
       "country_usa": "США",

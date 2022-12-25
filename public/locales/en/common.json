@@ -19,6 +19,7 @@
     "text": "By registering, you agree to",
     "link": "privacy policy",
     "back": "Back",
+    "error_code_1": "Wrong code",
     "countries": {
       "country_russia": "Russia",
       "country_usa": "USA",
@@ -30,7 +31,6 @@
       "country_oae": "UAE",
       "country_india": "India",
       "country_turkey": "Turkey",
-      "error_code_1": "Wrong code"
     }
   },
   "footer": {
