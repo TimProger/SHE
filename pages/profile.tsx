@@ -23,7 +23,7 @@ const validEmailRegex = RegExp(
 
 const Profile: React.FC = () => {
 
-  const { locale, query } = useRouter()
+  const { push, locale, query } = useRouter()
   const dispatch = useAppDispatch()
   const {t} = useTranslation('profile');
 
@@ -56,7 +56,7 @@ const Profile: React.FC = () => {
   useEffect(()=>{
     if(typeof window !== undefined){
       if(!Storage.get('accessToken')){
-        window.location.replace(`/${locale}/`)
+        push('/')
       }else{
         if(user){
           setFirstName(user.first_name)
@@ -144,7 +144,7 @@ const Profile: React.FC = () => {
     dispatch(exit())
     Storage.delete('accessToken')
     Storage.delete('refreshToken')
-    window.location.replace(`/${locale}/`)
+    push('/')
 
   }
 
@@ -154,7 +154,7 @@ const Profile: React.FC = () => {
         dispatch(exit())
         Storage.delete('accessToken')
         Storage.delete('refreshToken')
-        window.location.replace(`/${locale}/`)
+        push('/')
 
       })
   }

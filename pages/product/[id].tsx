@@ -40,28 +40,28 @@ const Product: React.FC<IProductProps> = ({product}) => {
 
   useEffect(()=>{
     if(window){
-      const seen = Storage.get('seen')
+      const seen = JSON.parse(Storage.get('seen'))
       if(seen){
         const index = seen.indexOf(product.id)
         if(index === -1){
           if(seen.length === 4){
             seen.shift()
             seen.push(product.id)
-            Storage.set('seen', seen)
+            Storage.set('seen', JSON.stringify(seen))
           }else{
             seen.push(product.id)
-            Storage.set('seen', seen)
+            Storage.set('seen', JSON.stringify(seen))
           }
         }else{
           const id = seen[index]
           seen.splice(index, 1)
           seen.push(id)
-          Storage.set('seen', seen)
+          Storage.set('seen', JSON.stringify(seen))
         }
       }else{
         const seen = []
         seen.push(product.id)
-        Storage.set('seen', seen)
+        Storage.set('seen', JSON.stringify(seen))
       }
     }
   },[])

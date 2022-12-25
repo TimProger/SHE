@@ -563,7 +563,7 @@ const Basket: React.FC = () => {
         $api.post(`/${locale}/order/buy/`, order_data)
           .then((res) => {
             if(payment === "card"){
-              Storage.set('basket', [])
+              Storage.set('basket', JSON.stringify([]))
               window.location.replace(res.data)
             }else{
               dispatch(removeAllProductFromBasket())

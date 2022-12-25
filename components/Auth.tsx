@@ -25,7 +25,7 @@ interface IAuthErrors {
 
 const Auth: React.FC<IAuthProps> = () => {
   const dispatch = useAppDispatch()
-  const {locale} = useRouter()
+  const {push,  locale} = useRouter()
 
   const { t } = useTranslation('common')
 
@@ -211,7 +211,7 @@ const Auth: React.FC<IAuthProps> = () => {
         setPage(0);
         dispatch(getUser())
         dispatch(toggleShowAuth(false))
-        window.location.replace(`/${locale}/profile`)
+        push(`/${locale}/profile`)
       })
       .catch((err) => {
         if(err.response.data.detail == "Код не верный"){
