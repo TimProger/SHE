@@ -279,7 +279,7 @@ const Auth: React.FC<IAuthProps> = () => {
           <h1>{t('auth.title')}</h1>
           {returnPage()}
           <div className={s.auth__form__container__button}>
-            <Button disabled={isDisabled} onClick={authHandler} text={t('auth.button')} />
+            <Button disabled={isDisabled} onClick={authHandler} text={page === 0 ? t('auth.button_1') : t('auth.button_2')} />
             <p>
               {errors.phone && <p>{errors.phone}</p>}
               {errors.code && <p>{errors.code}</p>}

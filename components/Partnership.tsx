@@ -210,60 +210,8 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
     e.stopPropagation()
   }
 
-  const sendCode = () => {
-    let phoneUpd = phone.replace(/\s/g, '').replace(/\+/, '')
-
-    AuthService.confirm_phone(+phoneUpd)
-      .then((res) => {
-        setPage(1)
-      })
-      .catch((err) => {
-        if(err.response.detail === "Код не верный"){
-          setErrors(prev => Object.assign(prev, {code: t('error_code_1')}))
-        }
-        setIsError(true);
-        setIsDisabled(false);
-      })
-  }
-
-  const confirmCode = () => {
-    let codeUpd = code.replace(/\s/g, '')
-    let phoneUpd = phone.replace(/\s/g, '').replace(/\+/, '')
-
-    AuthService.confirm_code(+phoneUpd, +codeUpd)
-      .then((res) => {
-        Storage.set('accessToken', `Bearer ${res.data.access_token}`);
-        Storage.set('refreshToken', `Bearer ${res.data.refresh_token}`)
-        setErrors({phone: '', code: ''});
-        setPhone('');
-        setCode('');
-        setPage(0);
-        dispatch(getUser())
-        setShow(false)
-        window.location.replace(`/${locale}/profile`)
-      })
-      .catch((err) => {
-        if(err.response.data.detail == "Код не верный"){
-          setErrors(prev => Object.assign(prev, {code: t('error_code_1')}))
-        }else{
-          setErrors(prev => Object.assign(prev, {code: 'Произошла ошибка при проверке кода'}))
-        }
-        setIsError(true);
-        setIsDisabled(false);
-      })
-  }
-
   const authHandler = () => {
     setIsDisabled(true)
-
-    switch (page){
-      case 0:
-        sendCode()
-        break;
-      case 1:
-        confirmCode()
-        break;
-    }
   }
 
   return (

@@ -42,7 +42,6 @@ const Order: React.FC = () => {
               $api.get(`${locale}/order/my_orders/?id=${query.order_id}`)
                 .then((res) => {
                   setDone(res.data)
-                  console.log(res.data)
                 })
             } else {
             }
@@ -102,10 +101,10 @@ const Order: React.FC = () => {
             </h1>
             {query.orderId && done.status === 1 && <div className={s.order__pay}>
               <div>
-                <h1>Ваш заказ не оплачен</h1>
-                <p>Чтобы оплатить заказ, перейдите на страницу оплаты по кнопке ниже</p>
+                <h1>{t('order.buy.title')}</h1>
+                <p>{t('order.buy.paragraph_1')}</p>
               </div>
-              <Button text={'Оплатить'} type={'link'} href={`${done.details}`} />
+              <Button text={t('order.buy.button_1')} type={'link'} href={`${done.details}`} />
             </div>}
           </div>}
         </Container>

@@ -562,10 +562,11 @@ const Basket: React.FC = () => {
       .then(()=>{
         $api.post(`/${locale}/order/buy/`, order_data)
           .then((res) => {
-            dispatch(removeAllProductFromBasket())
             if(payment === "card"){
+              Storage.set('basket', [])
               window.location.replace(res.data)
             }else{
+              dispatch(removeAllProductFromBasket())
               push(`order/?order_id=${res.data.order_id.split('-')[1]}`)
             }
           })

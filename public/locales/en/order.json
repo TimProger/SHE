@@ -25,6 +25,11 @@
     "products": "Products",
     "payment_methods": "Payment methods",
     "about_payment": "Payment upon delivery",
-    "total_price": "Total price"
+    "total_price": "Total price",
+    "buy": {
+      "title": "Your order is unpaid",
+      "paragraph_1": "To pay for your order, go to the payment page using the button below",
+      "button_1": "Pay for order"
+    }
   }
 }
