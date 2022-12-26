@@ -33,7 +33,8 @@ const Basket: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const user = useTypedSelector(state => state.profile)
-  const {products, isLoading, error} = useTypedSelector(state => state.basket)
+  const {products} = useTypedSelector(state => state.basket)
+  const {isAuth} = useTypedSelector(state => state.profile)
 
   const [newProducts, setNewProducts] = useState<IBasketProductFull[]>([])
   const [selected, setSelected] = useState<IBasketProductFull[]>([])
@@ -182,7 +183,17 @@ const Basket: React.FC = () => {
   const [phoneUpd, setPhoneUpd] = useState('')
   const [digits, setDigits] = useState('')
   const [email, setEmail] = useState('')
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<{
+    first: null | string;
+    last: null | string;
+    phone: null | string;
+    email: null | string;
+    area: null | string;
+    city: null | string;
+    street: null | string;
+    house: null | string;
+    apart: null | string;
+  }>({
     first: null,
     last: null,
     phone: null,
@@ -354,23 +365,36 @@ const Basket: React.FC = () => {
         setIsDisabled(false)
         break
       case 1:
-        if (errors.email || email.length <= 0) return
-        if (errors.phone || phoneUpd.length <= 0) return
-        if (errors.first || firstName.length <= 0) return
-        if (errors.last || lastName.length <= 0) return
-        if (errors.area || area.length <= 0) return
-        if (errors.city || city.length <= 0) return
-        if (errors.house || house.length <= 0) return
-        if (errors.apart || apart.length <= 0) return
+        if (errors.email || email.length <= 0) {
+          return
+        }
+        if (errors.first || firstName.length <= 0) {
+          return
+        }
+        if (errors.last || lastName.length <= 0) {
+          return
+        }
+        if (errors.area || area.length <= 0) {
+          return
+        }
+        if (errors.city || city.length <= 0) {
+          return
+        }
+        if (errors.house || house.length <= 0) {
+          return
+        }
+        if (errors.apart || apart.length <= 0) {
+          return
+        }
         setIsDisabled(false)
         break
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   },[page])
 
   const returnPages = () => {
     switch (page){
       case 0:
+        console.log('newProducts', newProducts)
         return (<>
           <div className={s.basket__header}>
             <h1>{t('title')}</h1>
@@ -543,6 +567,44 @@ const Basket: React.FC = () => {
     }
   }
 
+  const handleScrollTop = () => {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+    setIsDisabled(false)
+    if (email.length <= 0) {
+      errors.email = locale === 'ru' ? 'Введите корректный Email' : 'Enter valid Email'
+      setIsDisabled(true)
+    }
+    if (firstName.length <= 0) {
+      errors.first = locale === 'ru' ? 'Введите имя' : 'Enter firstname'
+      setIsDisabled(true)
+    }
+    if (lastName.length <= 0) {
+      errors.last = locale === 'ru' ? 'Введите фамилию' : 'Enter lastname'
+      setIsDisabled(true)
+    }
+    if (area.length <= 0) {
+      errors.area = locale === 'ru' ? 'Введите область' : 'Enter area'
+      setIsDisabled(true)
+    }
+    if (city.length <= 0) {
+      errors.city = locale === 'ru' ? 'Введите город' : 'Enter city'
+      setIsDisabled(true)
+    }
+    if (house.length <= 0) {
+      errors.street = locale === 'ru' ? 'Введите улицу' : 'Enter street'
+      setIsDisabled(true)
+    }
+    if (house.length <= 0) {
+      errors.house = locale === 'ru' ? 'Введите квартиру' : 'Enter house'
+      setIsDisabled(true)
+    }
+    if (apart.length <= 0) {
+      errors.apart = locale === 'ru' ? 'Введите номер квартиры' : 'Enter the apartment number'
+      setIsDisabled(true)
+    }
+    setErrors(JSON.parse(JSON.stringify(errors)))
+  }
+
   const makeOrder = () => {
     const profile_data = new FormData()
     const order_data = new FormData()
@@ -562,13 +624,8 @@ const Basket: React.FC = () => {
       .then(()=>{
         $api.post(`/${locale}/order/buy/`, order_data)
           .then((res) => {
-            if(payment === "card"){
-              Storage.set('basket', JSON.stringify([]))
-              window.location.replace(res.data)
-            }else{
-              dispatch(removeAllProductFromBasket())
-              push(`order/?order_id=${res.data.order_id.split('-')[1]}`)
-            }
+            dispatch(removeAllProductFromBasket())
+            push(`order/?order_id=${res.data.order_id.split('-')[1]}`)
           })
           .catch((res)=>{
           })
@@ -593,7 +650,6 @@ const Basket: React.FC = () => {
     }
   }
 
-  const {isAuth} = useTypedSelector(state => state.profile)
 
   return (
     <Layout>
@@ -611,7 +667,7 @@ const Basket: React.FC = () => {
                 {totalPriceNew} {locale === 'ru' ? '₽' : '$'}
               </h1>}
               {isAuth
-                ? (page !== 2 && <Button disabled={isDisabled} text={t('buy')} onClick={handleClick}/>)
+                ? (page !== 2 && <Button text={t('buy')} onClick={isDisabled ? handleScrollTop : handleClick}/>)
                 : <Button onClick={()=>dispatch(toggleShowAuth(true))} text={t('auth')}/>}
             </div>
             {isAuth && page === 1 && payment === 'card' && <div className={s.basket__payment__info}>

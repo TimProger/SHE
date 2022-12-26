@@ -243,11 +243,11 @@ const Header: React.FC<IHeaderProps> = ({}) => {
               </div>
               <div className={s.bottom__btns__btn}>
                 {popupState
-                  ? <Link onClick={() => setPopupState(false)} href=""
+                  ? <Link onClick={() => {
+                    setPopupState(false)
+                  }} href="/catalog"
                       locale={router.locale}>{btns.catalogue}</Link>
-                  : <Link onClick={() => setPopupState(true)}
-                      href = ""
-                      locale={router.locale}>{btns.catalogue}</Link>}
+                  : <a style={{cursor: 'pointer'}} onClick={() => setPopupState(true)}>{btns.catalogue}</a>}
               </div>
               <div className={s.bottom__btns__btn}>
                 <Link href="/coop" locale={router.locale}>{btns.coop}</Link>
@@ -273,7 +273,9 @@ const Header: React.FC<IHeaderProps> = ({}) => {
               </ul>
               <ul onMouseLeave={()=>setPopupArr([])} className={popupArr.length > 0 ? s.popup_active__semilist_active :  s.popup_active__semilist}>
                 {popupArr.map((el, index)=>{
-                  return <li key={index} onClick={()=>setPopupState(false)}><Link href={`catalog?collection=${el.master_id}`}>{el.name}</Link></li>
+                  return <li key={index} onClick={()=>setPopupState(false)}>
+                    <Link href={`/catalog?collection=${el.master_id}`}>{el.name}</Link>
+                  </li>
                 })}
               </ul>
             </div>

@@ -6,16 +6,16 @@ interface IStorage {
 
 export const Storage: IStorage = {
   set: (name, item) => {
-    localStorage.setItem("she_" + name, JSON.stringify(item));
+    localStorage.setItem("tmshe_" + name, JSON.stringify(item));
   },
   get: (name) => {
-    const item = localStorage.getItem("she_" + name);
+    const item = localStorage.getItem("tmshe_" + name);
 
     if (item) {
       return JSON.parse(item);
     }
   },
   delete: (name) => {
-    localStorage.removeItem("she_" + name);
+    localStorage.removeItem("tmshe_" + name);
   },
 };

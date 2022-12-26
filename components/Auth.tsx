@@ -183,15 +183,6 @@ const Auth: React.FC<IAuthProps> = () => {
 
   const [delay, setDelay] = useState<string>('31')
 
-  useEffect(()=>{
-    if(window){
-      if(Storage.get('code_delay') !== '31'){
-        setDelay(Storage.get('code_delay'))
-        console.log(Storage.get('code_delay'))
-      }
-    }
-  }, [])
-
   const startTimer = () => {
     let time = delay;
 
@@ -199,17 +190,14 @@ const Auth: React.FC<IAuthProps> = () => {
       if(+time === 0) {
         clearInterval(timeFunctionInterval);
         setDelay('31')
-        Storage.set('code_delay', '31')
         return
       }
       time = +time - 1 + ''
       if(+time < 10) {
         setDelay('0' + time)
-        Storage.set('code_delay', '0' + time)
         return
       }
       setDelay(time)
-      Storage.set('code_delay', time)
     }
     let timeFunctionInterval =  setInterval(timeFunc, 1000);
   }
@@ -223,7 +211,6 @@ const Auth: React.FC<IAuthProps> = () => {
   const sendCode = () => {
     let phoneUpd = phone.replace(/\s/g, '').replace(/\+/, '')
     if(delay === '31'){
-      Storage.set('code_delay', '30')
       setDelay('30')
     }
     startTimer()

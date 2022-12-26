@@ -40,8 +40,9 @@ const Product: React.FC<IProductProps> = ({product}) => {
 
   useEffect(()=>{
     if(window){
-      const seen = JSON.parse(Storage.get('seen'))
+      let seen = Storage.get('seen')
       if(seen){
+        seen = JSON.parse(seen)
         const index = seen.indexOf(product.id)
         if(index === -1){
           if(seen.length === 4){

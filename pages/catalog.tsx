@@ -313,9 +313,9 @@ const Catalog: React.FC<ICatalogProps> = () => {
   const [seen, setSeen] = useState<IProduct[]>([])
 
   useEffect(()=>{
-    const data = JSON.parse(Storage.get('seen'))
-    if(data && data.length > 0){
-      console.log('')
+    let data = Storage.get('seen')
+    if(data && JSON.parse(data).length > 0){
+      data = JSON.parse(data)
       $api.post<IProduct[]>(`/${locale}/product/favs/`, {
         ids: data.join(',')
       })

@@ -29,6 +29,12 @@
     }
   }
 
+  &__container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__delivery{
 
     & span{
@@ -48,26 +54,16 @@
   &__pay{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 20px;
-
-    & div{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-
-      & h1{
-
-      }
-
-      & p{
-
-      }
-    }
 
     & span{
       color: $text-sec;
       font-weight: 100;
+    }
+
+    & a{
+      font-size: 16px;
     }
   }
 
@@ -86,10 +82,13 @@
       justify-content: space-between;
       color: $text-main;
 
-      &:hover h2, &:hover h1{
-        color: $block-main !important;
+      &__price{
+        height: 160px;
       }
 
+      &:hover h3, &:hover h1{
+        color: $block-main !important;
+      }
 
       &__content{
         display: flex;

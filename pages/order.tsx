@@ -63,13 +63,13 @@ const Order: React.FC = () => {
         <Container>
           {done && <div className={s.order}>
             <div className={s.order__header}>
-              <h1>{t(`title_${done.status}`)}</h1>
+              <h2>{t(`title_${done.status}`)}</h2>
               <p>{locale === 'ru' ? 'Дата' : 'Date'}: <span>{new Date(done.data_order).toLocaleString().split(', ').join(' ')}</span>
               </p>
             </div>
-            <h2 className={s.order__order_id}>{locale === 'ru' ? 'Номер заказа' : 'Order id'}: #{done.order_id}</h2>
+            <h3 className={s.order__order_id}>{locale === 'ru' ? 'Номер заказа' : 'Order id'}: #{done.order_id}</h3>
             <div className={s.order__products}>
-              <h2>{t('order.products')}</h2>
+              <h3>{t('order.products')}</h3>
               {done.order_list.map((el, index) => {
                 return <Link href={`/product/${el.product_id}`}><div className={s.order__products__product}>
                   <div className={s.order__products__product__content}>
@@ -77,7 +77,7 @@ const Order: React.FC = () => {
                       <img src={el.image ? `${API_BASE_URL}${`${el.image}`.split('').shift() === '/' ? '' : '/'}${el.image}` : `${Stock.src}`} alt={el.name} />
                     </div>
                     <div className={s.order__products__product__info}>
-                      <div><h2>{el.name}</h2><p>x{el.count || 1}</p></div>
+                      <div><h3>{el.name}</h3><p>x{el.count || 1}</p></div>
                       <p className={s.order__products__product__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
                         <span style={{background: el.color}} className={s.order__products__product__info__color__block} />
                       </p>
@@ -88,22 +88,20 @@ const Order: React.FC = () => {
                     </div>
                   </div>
                   <div className={s.order__products__product__price}>
-                    <h1>{(el.money * (el.count || 1)).toFixed(2)} {done.price_currency === 'RUB' ? '₽' : '$'}</h1>
+                    <h2>{(el.money * (el.count || 1)).toFixed(2)} {done.price_currency === 'RUB' ? '₽' : '$'}</h2>
                   </div>
                 </div></Link>
               })}
             </div>
-            <h2
-              className={s.order__delivery}>{t('order.inputs.delivery')}: <span>{done.delivery_id === 2 ? t('order.inputs.delivery_2') : t('order.inputs.delivery_1')}</span>
-            </h2>
-            <h1
-              className={s.order__price}>{t('order.total_price')}: <span>{done.sum} {done.price_currency === 'RUB' ? '₽' : '$'}</span>
-            </h1>
-            {query.orderId && done.status === 1 && <div className={s.order__pay}>
-              <div>
-                <h1>{t('order.buy.title')}</h1>
-                <p>{t('order.buy.paragraph_1')}</p>
-              </div>
+            <div className={s.order__container}>
+              <h3
+                className={s.order__delivery}>{t('order.inputs.delivery')}: <span>{done.delivery_id === 2 ? t('order.inputs.delivery_2') : t('order.inputs.delivery_1')}</span>
+              </h3>
+              <h2
+                className={s.order__price}>{t('order.total_price')}: <span>{done.sum} {done.price_currency === 'RUB' ? '₽' : '$'}</span>
+              </h2>
+            </div>
+            {done.pay_online && done.status === 1 && <div className={s.order__pay}>
               <Button text={t('order.buy.button_1')} type={'link'} href={`${done.details}`} />
             </div>}
           </div>}
