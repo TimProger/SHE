@@ -101,6 +101,10 @@ const Order: React.FC = () => {
                 className={s.order__price}>{t('order.total_price')}: <span>{done.sum} {done.price_currency === 'RUB' ? '₽' : '$'}</span>
               </h2>
             </div>
+            {done.pay_online && done.status === 0 &&<div className={s.order__confirming}>
+              <h3 className={s.order__price}>{t('confirming_1')}</h3>
+              <p className={s.order__price}>{t('confirming_2')}</p>
+            </div>}
             {done.pay_online && done.status === 1 && <div className={s.order__pay}>
               <Button text={t('order.buy.button_1')} type={'link'} href={`${done.details}`} />
             </div>}
