@@ -113,8 +113,13 @@
 
         &__tags{
           position: absolute;
-          display: flex;
-          gap: 10px;
+
+          &__container{
+            width: 435px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+          }
         }
 
         &__new{

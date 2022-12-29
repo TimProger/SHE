@@ -203,8 +203,10 @@ const Product: React.FC<IProductProps> = ({product}) => {
                 </div>
                 <div className={s.container__product__product__images__main}>
                   <div className={s.container__product__product__images__main__tags}>
-                    {product.is_new && <div className={s.container__product__product__images__main__new}>New</div>}
-                    {product.is_hit && <div className={s.container__product__product__images__main__hit}>Hit</div>}
+                    <div className={s.container__product__product__images__main__tags__container}>
+                      {product.is_new && <div className={s.container__product__product__images__main__new}>New</div>}
+                      {product.is_hit && <div className={s.container__product__product__images__main__hit}>Hit</div>}
+                    </div>
                   </div>
                   <img src={mainImage}  alt={product.name}/>
                 </div>
@@ -254,8 +256,8 @@ const Product: React.FC<IProductProps> = ({product}) => {
             <div className={s.container__product__info}>
               <div className={s.container__product__info__menu}>
                 <div className={s.container__product__info__menu__wrapper}>
-                  <p style={{borderBottom : infoPage == 1 ? '1px solid black' : 'none'}} onClick={()=> setInfoPage(1)}>Информация</p>
-                  <p style={{borderBottom : infoPage == 2 ? '1px solid black' : 'none'}} onClick={()=> setInfoPage(2)}>Видео</p>
+                  <p style={{borderBottom : infoPage == 1 ? '1px solid black' : 'none'}} onClick={()=> setInfoPage(1)}>{locale === "ru" ? 'Информация' : 'Information'}</p>
+                  {/*<p style={{borderBottom : infoPage == 2 ? '1px solid black' : 'none'}} onClick={()=> setInfoPage(2)}>Видео</p>*/}
                 </div>
               </div>
               <div className={s.container__product__info__content}>
