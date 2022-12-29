@@ -62,6 +62,14 @@ const Catalog: React.FC<ICatalogProps> = () => {
     {
       name: locale === 'ru' ? 'Популярности' : 'Popularity',
       value: 'is_hit desc'
+    },
+    {
+      name: locale === 'ru' ? 'Алфавиту, возрастание' : 'Alphabet, ascending',
+      value: 'name desc'
+    },
+    {
+      name: locale === 'ru' ? 'Алфавиту, убывание' : 'Alphabet, descending',
+      value: 'name asc'
     }
   ])
   const [sort, setSort] = useState<{
@@ -82,6 +90,14 @@ const Catalog: React.FC<ICatalogProps> = () => {
       {
         name: locale === 'ru' ? 'Популярности' : 'Popularity',
         value: 'is_hit desc'
+      },
+      {
+        name: locale === 'ru' ? 'Алфавиту, возрастание' : 'Alphabet, ascending',
+        value: 'name desc'
+      },
+      {
+        name: locale === 'ru' ? 'Алфавиту, убывание' : 'Alphabet, descending',
+        value: 'name asc'
       }
     ]
     setSort({

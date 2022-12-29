@@ -45,15 +45,6 @@ const Header: React.FC<IHeaderProps> = ({}) => {
 
   const { t } = useTranslation('common')
 
-  const btns = {
-    home: t('header.home'),
-    catalogue: t('header.catalogue'),
-    coop: t('header.coop'),
-    about: t('header.about'),
-    contacts: t('header.contacts'),
-    search: t('header.search')
-  }
-
   useEffect(()=>{
     $api.get(`${locale}/product/catalog/`)
       .then((res)=>{
@@ -164,7 +155,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
                         clearTimeout(typingTimer);
                       }}
                       className={!showSearch ? s.top__btns__btn__search__unactive : s.top__btns__btn__search__active}
-                      placeholder={btns.search} type="text" value={searchValue}
+                      placeholder={t('header.search')} type="text" value={searchValue}
                     />
                     {
                       showSearch && isLoading
@@ -239,24 +230,24 @@ const Header: React.FC<IHeaderProps> = ({}) => {
           <div className={s.bottom}>
             <div className={s.bottom__btns}>
               <div className={s.bottom__btns__btn}>
-                <Link href="/" locale={router.locale}>{btns.home}</Link>
+                <Link href="/" locale={router.locale}>{t('header.home')}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
                 {popupState
                   ? <Link onClick={() => {
                     setPopupState(false)
                   }} href="/catalog"
-                      locale={router.locale}>{btns.catalogue}</Link>
-                  : <a style={{cursor: 'pointer'}} onClick={() => setPopupState(true)}>{btns.catalogue}</a>}
+                      locale={router.locale}>{t('header.catalogue')}</Link>
+                  : <a style={{cursor: 'pointer'}} onClick={() => setPopupState(true)}>{t('header.catalogue')}</a>}
               </div>
               <div className={s.bottom__btns__btn}>
-                <Link href="/coop" locale={router.locale}>{btns.coop}</Link>
+                <Link href="/coop" locale={router.locale}>{t('header.coop')}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
-                <Link href="/about" locale={router.locale}>{btns.about}</Link>
+                <Link href="/about" locale={router.locale}>{t('header.about')}</Link>
               </div>
               <div className={s.bottom__btns__btn}>
-                <Link href="/contacts" locale={router.locale}>{btns.contacts}</Link>
+                <Link href="/contacts" locale={router.locale}>{t('header.contacts')}</Link>
               </div>
             </div>
           </div>
