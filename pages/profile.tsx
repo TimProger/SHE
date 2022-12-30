@@ -146,7 +146,6 @@ const Profile: React.FC = () => {
   const exitHandler = () => {
     dispatch(exit())
     Storage.delete('accessToken')
-    Storage.delete('refreshToken')
     push('/')
 
   }
@@ -156,7 +155,6 @@ const Profile: React.FC = () => {
       .then(()=>{
         dispatch(exit())
         Storage.delete('accessToken')
-        Storage.delete('refreshToken')
         push('/')
 
       })

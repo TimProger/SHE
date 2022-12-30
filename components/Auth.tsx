@@ -234,7 +234,6 @@ const Auth: React.FC<IAuthProps> = () => {
     AuthService.confirm_code(+phoneUpd, +codeUpd)
       .then((res) => {
         Storage.set('accessToken', `Bearer ${res.data.access_token}`);
-        Storage.set('refreshToken', `Bearer ${res.data.refresh_token}`)
         setErrors({phone: '', code: ''});
         setPhone('');
         setCode('');
