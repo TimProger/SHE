@@ -9,13 +9,14 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import {IOrder} from "../types/Product.types";
 import {Storage} from "../utils/storage";
 import {$api, API_BASE_URL} from "../http/api";
-import {exit, setImage} from "../store/Slices/Profile.slice";
+import {exit, setImage, setUser} from "../store/Slices/Profile.slice";
 import s from "../styles/pages/profile.module.scss";
 import Button from "../components/Button";
 import Head from "next/head";
 import Container from "../components/Container";
 import ProfileImg from "../public/images/profile_mock.png";
 import Link from "next/link";
+import {IUser} from "../types/Profile.types";
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -135,8 +136,10 @@ const Profile: React.FC = () => {
     }
 
     $api.patch('/profile/', data)
-      .then(()=>{
+      .then((res)=>{
+        dispatch(setUser(res.data))
         setIsSuccess(true)
+        console.log(res.data)
       })
   }
 

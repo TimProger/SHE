@@ -98,7 +98,7 @@ const Order: React.FC = () => {
                 className={s.order__delivery}>{t('order.inputs.delivery')}: <span>{done.delivery_id === 2 ? t('order.inputs.delivery_2') : t('order.inputs.delivery_1')}</span>
               </h3>
               <h2
-                className={s.order__price}>{t('order.total_price')}: <span>{done.sum} {done.price_currency === 'RUB' ? '₽' : '$'}</span>
+                className={s.order__price}>{t('order.total_price')}: <span>{done.sum.toFixed(2)} {done.price_currency === 'RUB' ? '₽' : '$'}</span>
               </h2>
             </div>
             {done.pay_online && done.status === 0 &&<div className={s.order__confirming}>

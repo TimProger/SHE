@@ -36,6 +36,9 @@ export const profileSlice = createSlice({
 
       }
     },
+    setUser: (state: IProfileState, action: PayloadAction<IUser>) => {
+      state.user = action.payload
+    },
     toggleShowAuth: (state: IProfileState, action: PayloadAction<boolean>) => {
       state.showAuth = action.payload
     }
@@ -57,6 +60,6 @@ export const profileSlice = createSlice({
   }
 })
 
-export const { exit, setImage, toggleShowAuth } = profileSlice.actions
+export const { exit, setImage, setUser, toggleShowAuth } = profileSlice.actions
 
 export default profileSlice.reducer

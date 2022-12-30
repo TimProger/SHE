@@ -296,6 +296,21 @@ const Basket: React.FC = () => {
   const [payment, setPayment] = useState('cash')
   const [done, setDone] = useState<any | null>(null)
 
+  useEffect(()=>{
+    if(window){
+      let address = Storage.get('address')
+      if(address){
+        console.log(address)
+        address = JSON.parse(address)
+        setArea(address.area)
+        setCity(address.city)
+        setStreet(address.street)
+        setHouse(address.house)
+        setApart(address.apart)
+      }
+    }
+  },[])
+
   const onChangeArea = (e: ChangeEvent<HTMLInputElement>) => {
     setArea(e.target.value)
     if(e.target.value.length <= 0){
@@ -620,6 +635,14 @@ const Basket: React.FC = () => {
     order_data.append('pay_online', payment === "card" ? 'True' :'False');
     order_data.append('delivery', delivery);
 
+    Storage.set('address', JSON.stringify({
+      area: area,
+      city: city,
+      street: street,
+      house: house,
+      apart: apart,
+    }))
+
     $api.patch('/profile/', profile_data)
       .then(()=>{
         $api.post(`/${locale}/order/buy/`, order_data)
@@ -635,6 +658,10 @@ const Basket: React.FC = () => {
   }
 
   const handleClick = () => {
+    if(isDisabled || selected.length <= 0 || totalPriceNew <= 0) {
+      push('catalog')
+      return
+    }
     setIsDisabled(true)
     switch (page){
       case 0:
@@ -667,7 +694,9 @@ const Basket: React.FC = () => {
                 {totalPriceNew} {locale === 'ru' ? '₽' : '$'}
               </h1>}
               {isAuth
-                ? (page !== 2 && <Button text={t('buy')} onClick={isDisabled ? handleScrollTop : handleClick}/>)
+                ? (page === 0
+                  ? <Button text={t('buy')} onClick={handleClick}/>
+                  : <Button text={t('buy')} onClick={isDisabled ? handleScrollTop : handleClick}/>)
                 : <Button onClick={()=>dispatch(toggleShowAuth(true))} text={t('auth')}/>}
             </div>
             {isAuth && page === 1 && payment === 'card' && <div className={s.basket__payment__info}>

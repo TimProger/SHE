@@ -92,12 +92,12 @@ const Catalog: React.FC<ICatalogProps> = () => {
         value: 'is_hit desc'
       },
       {
-        name: locale === 'ru' ? 'Алфавиту, возрастание' : 'Alphabet, ascending',
-        value: 'name desc'
+        name: locale === 'ru' ? 'Алфавиту, по возрастанию' : 'Alphabet, ascending',
+        value: 'name asc'
       },
       {
-        name: locale === 'ru' ? 'Алфавиту, убывание' : 'Alphabet, descending',
-        value: 'name asc'
+        name: locale === 'ru' ? 'Алфавиту, по убыванию' : 'Alphabet, descending',
+        value: 'name desc'
       }
     ]
     setSort({
