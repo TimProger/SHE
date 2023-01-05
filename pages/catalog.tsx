@@ -75,7 +75,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
   const [sort, setSort] = useState<{
     name: string;
     value: string;
-  }>(sortArr[0])
+  }>({
+    name: locale === 'ru' ? 'Алфавиту, по возрастанию' : 'Alphabet, ascending',
+    value: 'name asc'
+  })
 
   useEffect(()=>{
     let arr = [
@@ -101,8 +104,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
       }
     ]
     setSort({
-      name: locale === 'ru' ? 'Новизне, новее' : 'Newest, newer',
-      value: 'is_new desc'
+      name: locale === 'ru' ? 'Алфавиту, по возрастанию' : 'Alphabet, ascending',
+      value: 'name asc'
     })
     setSortArr(arr)
   },[locale])
@@ -254,7 +257,6 @@ const Catalog: React.FC<ICatalogProps> = () => {
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
-    console.log('data', data)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
@@ -337,7 +339,6 @@ const Catalog: React.FC<ICatalogProps> = () => {
       })
         .then((res)=>{
           data.map((el: string, index: number)=>{
-            console.log(res.data, data)
             const item = res.data.filter((el)=> el.id === +data[index])
             seen[index] = item[0]
           })

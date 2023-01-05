@@ -77,7 +77,7 @@ const Profile: React.FC = () => {
           setPhoneUpd(formattedPhone);
           setDigits(digits)
 
-          $api.get(`${locale}/order/my_orders`)
+          $api.get(`${locale}/order/my_orders/`)
             .then((res)=>{
               setOrders(res.data)
             })
@@ -139,7 +139,6 @@ const Profile: React.FC = () => {
       .then((res)=>{
         dispatch(setUser(res.data))
         setIsSuccess(true)
-        console.log(res.data)
       })
   }
 

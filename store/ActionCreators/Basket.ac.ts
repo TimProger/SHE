@@ -12,7 +12,6 @@ export const getBasket = createAsyncThunk(
         const data = await $api.get<IBasketProductFull[]>(`/${locale}/basket/`)
         const newArr = await Promise.all(ids.map(async (el, index)=>{
           const includes = data.data.filter((elem)=>{
-            console.log(data, el)
             return elem.more === el[0]
           })
           if(includes[0]){
@@ -30,7 +29,6 @@ export const getBasket = createAsyncThunk(
           }
         }))
         if(newArr) {
-          console.log('newArr', newArr)
           const response = await $api.get<IBasketProductFull[]>(`/${locale}/basket/`)
 
           Storage.set('basket', JSON.stringify(response.data.map((el, index)=>[el.more, el.count])))
@@ -61,7 +59,6 @@ export const getBasketNoAuth = createAsyncThunk(
   async ({ids, locale}: {ids: number[][]; locale?: string}, thunkAPI) => {
     try {
       const response = await $api.get<IBasketProductFull[]>(`/${locale}/basket/new/${ids.length > 0 && `?ids=${ids.map((el)=>el[0]).join(',')}`}`)
-      console.log(response.data)
       return response.data.map((el, index) => ({
         id: el.id,
         count: ids.filter((elem)=>elem[0]===el.more)[0][1] || 1,

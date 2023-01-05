@@ -87,7 +87,7 @@ const Basket: React.FC = () => {
   useEffect(()=>{
     setIsDisabled(true)
     if(user.isAuth){
-      $api.get<number>(`/${locale}/basket/price`)
+      $api.get<number>(`/${locale}/basket/price/`)
         .then((res)=>{
           let totalC = 0
           selected.map((el)=>{
@@ -300,7 +300,6 @@ const Basket: React.FC = () => {
     if(window){
       let address = Storage.get('address')
       if(address){
-        console.log(address)
         address = JSON.parse(address)
         setArea(address.area)
         setCity(address.city)
@@ -409,7 +408,6 @@ const Basket: React.FC = () => {
   const returnPages = () => {
     switch (page){
       case 0:
-        console.log('newProducts', newProducts)
         return (<>
           <div className={s.basket__header}>
             <h1>{t('title')}</h1>

@@ -46,14 +46,13 @@ $api.interceptors.request.use(authInterceptor)
 
 // Function that will be called to refresh authorization
 const refreshAuthLogic = async (error: any) => {
-    console.log('error', error)
     const originalRequest = error.config;
     if (error.response && error.response.status === 401 && error.config && !error.config._isRetry) {
         originalRequest._isRetry = true;
         try {
             const response = await axios.post(`${API_BASE_URL}/jwt/refresh`, {}, {withCredentials: true})
             Storage.set('accessToken', 'Bearer ' + response.data.access);
-            window.location.reload()
+            window.location.replace('/')
         } catch (e) {
             Storage.delete('accessToken');
             window.location.replace('/')
