@@ -13,6 +13,7 @@ import ProfileImg from '../public/images/profile_mock.png'
 import {useTranslation} from "next-i18next";
 import {toggleShowAuth} from "../store/Slices/Profile.slice";
 import useOnclickOutside from "react-cool-onclickoutside";
+import {setProducts} from "../store/Slices/Product.slice";
 
 interface IHeaderProps {
 }
@@ -37,7 +38,8 @@ const Header: React.FC<IHeaderProps> = ({}) => {
   const [searchValue, setSearchValue] = useState('')
   const [showSearch, setShowSearch] = useState(false)
   const ref = useOnclickOutside(() => {
-    setShowSearch(false);
+    setShowSearch(false)
+    dispatch(setProducts(null))
   });
   const router = useRouter()
 
@@ -149,48 +151,54 @@ const Header: React.FC<IHeaderProps> = ({}) => {
               <div className={s.top__btns}>
                 <div className={`${s.top__btns__btn} ${s.top__btns__btn__search}`}>
                   <div className={s.top__btns__btn__container}>
-                    <input
-                      onChange={(e)=>handleSearchInput(e)}
-                      onKeyUp={(e)=>{
-                        clearTimeout(typingTimer);
-                        typingTimer = setTimeout(doneTyping, doneTypingInterval);
-                      }}
-                      onKeyDown={(e)=>{
-                        clearTimeout(typingTimer);
-                      }}
-                      className={!showSearch ? s.top__btns__btn__search__unactive : s.top__btns__btn__search__active}
-                      placeholder={t('header.search')} type="text" value={searchValue}
-                    />
-                    {
-                      showSearch && isLoading
-                        ? <div className={s.top__btns__btn__results}>
+                    <div
+                      className={s.top__btns__btn__container__results}
+                      ref={ref}>
+                      <input
+                        onChange={(e)=>handleSearchInput(e)}
+                        onKeyUp={(e)=>{
+                          clearTimeout(typingTimer);
+                          typingTimer = setTimeout(doneTyping, doneTypingInterval);
+                        }}
+                        onKeyDown={(e)=>{
+                          clearTimeout(typingTimer);
+                        }}
+                        className={!showSearch ? s.top__btns__btn__search__unactive : s.top__btns__btn__search__active}
+                        placeholder={t('header.search')} type="text" value={searchValue}
+                      />
+                      {
+                        showSearch && isLoading
+                          ? <div className={s.top__btns__btn__results}>
                             <div className={s.top__btns__btn__results__notfound}>
                               {locale === 'ru' ? 'Загрузка...' : 'Loading...'}
                             </div>
                           </div>
-                        : showSearch && products && (products.length > 0 ? <div ref={ref} className={s.top__btns__btn__results}>
-                            {products.map((el, index)=>{
-                              if(index === products.length-1){
-                                return (
-                                  <Link href={`/product/${el.id}`} className={s.top__btns__btn__results__result}>
-                                    {el.name}
-                                  </Link>
-                                )
-                              }
-                            return (
-                                <>
-                                  <Link href={`/product/${el.id}`}  className={s.top__btns__btn__results__result}>
-                                    {el.name}
-                                  </Link>
-                                  <p className={'line'} />
-                                </>
+                          : showSearch && products && (products.length > 0 ? <div className={s.top__btns__btn__results}>
+                          {products.map((el, index)=>{
+                            if(index === products.length-1){
+                              return (
+                                <Link href={`/product/${el.id}`} className={s.top__btns__btn__results__result}>
+                                  {el.name}
+                                </Link>
                               )
-                            })}
+                            }
+                            return (
+                              <>
+                                <Link href={`/product/${el.id}`}  className={s.top__btns__btn__results__result}>
+                                  {el.name}
+                                </Link>
+                                <p className={'line'} />
+                              </>
+                            )
+                          })}
                         </div> : <div className={s.top__btns__btn__results}>
                           <div className={s.top__btns__btn__results__notfound}>
                             {locale === 'ru' ? 'Ничего не найдено' : 'Nothing is found'}
                           </div>
-                        </div>)}
+                        </div>
+                        )
+                      }
+                    </div>
                   </div>
                   <svg onClick={(e: MouseEvent)=>handleSearchClick(e)} width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 20L15.514 15.506M18 9.5C18 11.7543 17.1045 13.9163 15.5104 15.5104C13.9163 17.1045 11.7543 18 9.5 18C7.24566 18 5.08365 17.1045 3.48959 15.5104C1.89553 13.9163 1 11.7543 1 9.5C1 7.24566 1.89553 5.08365 3.48959 3.48959C5.08365 1.89553 7.24566 1 9.5 1C11.7543 1 13.9163 1.89553 15.5104 3.48959C17.1045 5.08365 18 7.24566 18 9.5V9.5Z" stroke="#A0A0A0" strokeLinecap="round"/>

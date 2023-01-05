@@ -18,7 +18,7 @@ export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    setProducts: (state: IProductState, action: PayloadAction<IProduct[]>) => {
+    setProducts: (state: IProductState, action: PayloadAction<IProduct[] | null>) => {
       state.products = action.payload
     }
   },
