@@ -12,6 +12,7 @@ import {$api, API_BASE_URL} from "../http/api";
 import ProfileImg from '../public/images/profile_mock.png'
 import {useTranslation} from "next-i18next";
 import {toggleShowAuth} from "../store/Slices/Profile.slice";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 interface IHeaderProps {
 }
@@ -35,6 +36,9 @@ const Header: React.FC<IHeaderProps> = ({}) => {
   const { locale, query } = useRouter()
   const [searchValue, setSearchValue] = useState('')
   const [showSearch, setShowSearch] = useState(false)
+  const ref = useOnclickOutside(() => {
+    setShowSearch(false);
+  });
   const router = useRouter()
 
   const {isLoading, error, products} = useTypedSelector(state => state.product)
@@ -164,7 +168,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
                               {locale === 'ru' ? 'Загрузка...' : 'Loading...'}
                             </div>
                           </div>
-                        : showSearch && products && (products.length > 0 ? <div className={s.top__btns__btn__results}>
+                        : showSearch && products && (products.length > 0 ? <div ref={ref} className={s.top__btns__btn__results}>
                             {products.map((el, index)=>{
                               if(index === products.length-1){
                                 return (

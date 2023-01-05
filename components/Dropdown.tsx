@@ -1,5 +1,5 @@
 import s from '../styles/components/dropdown.module.scss'
-import React, {ChangeEvent, MouseEvent, useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useRouter} from "next/router";
 import useOnclickOutside from "react-cool-onclickoutside";
 
