@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from "./Header";
 import Head from "next/head";
 import Container from "./Container";
@@ -29,16 +29,32 @@ const Layout: React.FC<IMainLayoutProps>
 
   const { locale } = useRouter()
   const { t } = useTranslation('common')
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+
+  const resize = (e: any) => {
+    if(window){
+      let currentHideNav = (window.innerWidth <= 575);
+      currentHideNav ? setIsMobile(true) : setIsMobile(false)
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('resize', resize)
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  })
 
   return (
     <>
-      <div className={s.mobile_alert}>
+      {isMobile && <div className={s.mobile_alert}>
         <div className={s.mobile_alert__container}>
           <h1>{t('not_found.title')}</h1>
-          <div>{t('not_found.paragraph_1')} <br />{t('not_found.paragraph_2')}</div>
-          <Button type={'link'} href={'https://tmshe.ru'} text={t('not_found.button')} />
+          <div>{t('not_found.paragraph_1')} <br/>{t('not_found.paragraph_2')}</div>
+          <Button type={'link'} href={'https://tmshe.ru'} text={t('not_found.button')}/>
         </div>
-      </div>
+      </div>}
       <Head>
         <title>{title}</title>
         <meta name="keywords" content={keywords || "SHE, ™SHE, Гель, Лак, Лаки, Gel, Дёшево, Купить"} />

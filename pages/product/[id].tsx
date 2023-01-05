@@ -175,7 +175,10 @@ const Product: React.FC<IProductProps> = ({product}) => {
     <Layout>
       <Head>
         <title>{product.name} | ™SHE</title>
-        <meta name={"description"} content={product.about || 'Product page description'} />
+        {product.about && <meta name={"description"} content={product.about} />}
+        <meta name={"og:title"} content={`${product.name} | ™SHE` || `${t('meta.title')} | ™SHE`} />
+        {product.about && <meta name={"og:description"} content={product.about} />}
+        {product.images[0] && product.images[0].image && <meta name={"og:image"} content={`${API_BASE_URL}/${product.images[0].image}`} />}
       </Head>
       <div>
         <Container>
