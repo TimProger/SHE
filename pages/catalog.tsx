@@ -370,10 +370,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
               </div>
               <div className={s.catalog__header__bottom}>
                 <div>
-                  {locale === 'ru' ? 'До' : 'To'}: <Dropdown type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
+                  {locale === 'ru' ? 'До' : 'To'}: <Dropdown name={'limit'} type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
                 </div>
                 <div>
-                  {locale === 'ru' ? 'Сортировать по' : 'Sort by'}: <Dropdown type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
+                  {locale === 'ru' ? 'Сортировать по' : 'Sort by'}: <Dropdown name={'sort'} type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
                 </div>
               </div>
             </div>
@@ -410,10 +410,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
                 </div>
                 <div className={s.catalog__container__products__footer}>
                   <div>
-                    {locale === 'ru' ? 'До' : 'To'}: <Dropdown type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
+                    {locale === 'ru' ? 'До' : 'To'}: <Dropdown name={'limit'} type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
                   </div>
                   <div>
-                    {locale === 'ru' ? 'Сортировать по' : 'Sort by'}: <Dropdown type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
+                    {locale === 'ru' ? 'Сортировать по' : 'Sort by'}: <Dropdown name={'sort'} type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
                   </div>
                 </div>
                 <div className={s.catalog__container__products__pages}>
