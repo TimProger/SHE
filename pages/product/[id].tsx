@@ -17,15 +17,27 @@ import Container from "../../components/Container";
 import s from "../../styles/pages/product.module.scss";
 import Link from "next/link";
 import Button from "../../components/Button";
+import axios from "axios";
 
 interface IProductProps {
-  product: IProduct
+  product: IProduct;
+  notFound: boolean;
 }
 
-const Product: React.FC<IProductProps> = ({product}) => {
-  const { locale } = useRouter()
+const Product: React.FC<IProductProps> = ({product, notFound}) => {
+  const { locale, isFallback } = useRouter()
   const { t } = useTranslation('product')
   const dispatch = useAppDispatch()
+
+  if(isFallback){
+    return (<div>
+        <div>Loading</div>
+    </div>)
+  }
+
+  if(notFound){
+    alert('Not found')
+  }
 
   const [isFav, setIsFav] = useState<boolean>(false)
   const [isBasket, setIsBasket] = useState<boolean>(false)
@@ -315,12 +327,26 @@ export const getStaticPaths = async ({locales, locale}: Props) => {
       });
     }
   })
-  return { paths, fallback: false }
+  return {
+    paths,
+    fallback: true
+  }
 }
 
 export const getStaticProps: GetStaticProps = async ({locale, params}) => {
-  const res = await fetch(`${API_BASE_URL}/${locale}/product/${params?.id}`)
-  const product = await res.json()
+  const res = await axios.get(`${API_BASE_URL}/${locale}/product/${params?.id}`)
+    .catch((res)=>{
+      return undefined
+    })
+
+  if (!res) {
+    return {
+      notFound: true,
+    }
+  }
+
+  const product = await res.data
+
   return {
     props:{
       product: product,
