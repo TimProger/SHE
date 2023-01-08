@@ -21,10 +21,9 @@ import axios from "axios";
 
 interface IProductProps {
   product: IProduct;
-  notFound: boolean;
 }
 
-const Product: React.FC<IProductProps> = ({product, notFound}) => {
+const Product: React.FC<IProductProps> = ({product}) => {
   const { locale, isFallback } = useRouter()
   const { t } = useTranslation('product')
   const dispatch = useAppDispatch()
@@ -33,10 +32,6 @@ const Product: React.FC<IProductProps> = ({product, notFound}) => {
     return (<div>
         <div>Loading</div>
     </div>)
-  }
-
-  if(notFound){
-    alert('Not found')
   }
 
   const [isFav, setIsFav] = useState<boolean>(false)
@@ -206,13 +201,14 @@ const Product: React.FC<IProductProps> = ({product, notFound}) => {
             <div className={s.container__product__product}>
               <div className={s.container__product__product__images}>
                 <div className={s.container__product__product__images__slider}>
-                  {product.images.map((el)=>{
+                  {product.images.map((el, index)=>{
                     return <img
                       className={mainImage === `${API_BASE_URL}/${el.image}`
                         ? s.container__product__product__images__slider__active
                         : ''}
                       onClick={()=>setMainImage(`${API_BASE_URL}/${el.image}`)}
                       src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
+                      key={index}
                       alt={'img'} />
                   })}
                 </div>
@@ -290,7 +286,7 @@ const Product: React.FC<IProductProps> = ({product, notFound}) => {
                     </div>
                     <div className={s.container__product__info__content__title}>
                       {product.about_text.split(/\r?\n/).map((el, index)=>{
-                        return el && <><p key={index}>{el}</p><br/></>
+                        return el && <><p key={index}>{el}</p><br key={index+'b'}/></>
                       })}
                     </div>
                   </div>
@@ -329,7 +325,7 @@ export const getStaticPaths = async ({locales, locale}: Props) => {
   })
   return {
     paths,
-    fallback: true
+    fallback: 'blocking'
   }
 }
 
