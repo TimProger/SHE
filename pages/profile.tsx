@@ -17,6 +17,7 @@ import Container from "../components/Container";
 import ProfileImg from "../public/images/profile_mock.png";
 import Link from "next/link";
 import {IUser} from "../types/Profile.types";
+import Compliment from "../components/Compliment";
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -167,6 +168,15 @@ const Profile: React.FC = () => {
     }
   }, [])
 
+  const [compliment, setCompliment] = useState<boolean>(false)
+
+  useEffect(()=>{
+    const comp = Storage.get('profile_compliment')
+    if(!comp){
+      setCompliment(true)
+    }
+  }, [])
+
   const displayPage = () => {
     switch (page){
       case 1:
@@ -286,6 +296,7 @@ const Profile: React.FC = () => {
       <div>
         <Container>
           <div className={s.profile}>
+            {compliment && <Compliment type={'profile'} />}
             <div className={s.profile__info}>
               <div className={s.profile__info__header}>
                 <h1>{t('title')}</h1>

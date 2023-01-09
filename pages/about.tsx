@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 import {GetStaticProps} from "next";
@@ -15,14 +15,21 @@ import mir_logo from "../public/images/mir_logo.png";
 import ms_logo from "../public/images/ms_logo.png";
 import visa_logo from "../public/images/visa_logo.png";
 import jcb_logo from "../public/images/jcb_logo.png";
+import {Storage} from "../utils/storage";
+import Compliment from "../components/Compliment";
 
 const About: React.FC = () => {
 
   const { locale } = useRouter()
   const { t } = useTranslation('about')
 
-  useEffect(()=>{
+  const [compliment, setCompliment] = useState<boolean>(false)
 
+  useEffect(()=>{
+    const comp = Storage.get('about_compliment')
+    if(!comp){
+      setCompliment(true)
+    }
   }, [])
 
   return (
@@ -31,6 +38,7 @@ const About: React.FC = () => {
         <title>{t('title')} | ™SHE</title>
       </Head>
       <div className={s.about}>
+        {compliment && <Compliment type={'about'} />}
         <Container>
           <div className={s.about__wrapper}>
             <div className={s.about__first}>

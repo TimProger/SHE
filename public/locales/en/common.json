@@ -61,5 +61,23 @@
     "paragraph_1": "The mobile version of the site is currently unavailable. We're working on it.",
     "paragraph_2": "You can go to the old version of the site by clicking the button below",
     "button": "Go to"
+  },
+  "compliments": {
+    "profile": {
+      "title": "Our man!",
+      "description": "Thank you for becoming one with us. We are now one team!"
+    },
+    "contacts": {
+      "title": "We left our phone number!",
+      "description": "We are leaving you our contacts, with the hope that you will leave yours on the checkout page!"
+    },
+    "favs": {
+      "title": "Favorite products, for your favorite customer.",
+      "description": "We remember what you love. With love, TM SHE brand."
+    },
+    "about": {
+      "title": "Thank you!",
+      "description": "You are exploring us and we are grateful for that. I hope you like us, because we like you."
+    }
   }
 }

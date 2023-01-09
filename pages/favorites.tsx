@@ -14,6 +14,8 @@ import s from "../styles/pages/fav.module.scss";
 import CardFloat from "../components/CardFloat";
 import Button from "../components/Button";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
+import {Storage} from "../utils/storage";
+import Compliment from "../components/Compliment";
 
 const Favorites: React.FC = () => {
 
@@ -28,7 +30,8 @@ const Favorites: React.FC = () => {
   const {products, isLoading, error} = useTypedSelector(state => state.fav)
   const [newProducts, setNewProducts] = useState<IBasketProductFull[]>([])
 
-  useEffect(()=>{
+  useEffect(() => {
+    if(!products.length) return
     dispatch(getFavs({ids: products.map((el)=>el.more), locale}))
   },[locale])
 
@@ -36,6 +39,15 @@ const Favorites: React.FC = () => {
     // @ts-ignore
     setNewProducts([...products]);
   }, [locale, products])
+
+  const [compliment, setCompliment] = useState<boolean>(false)
+
+  useEffect(()=>{
+    const comp = Storage.get('favs_compliment')
+    if(!comp){
+      setCompliment(true)
+    }
+  }, [])
 
   return (
     <Layout>
@@ -45,6 +57,7 @@ const Favorites: React.FC = () => {
       <div>
         <Container>
           <div className={s.fav}>
+            {compliment && <Compliment type={'favs'} />}
             <div className={s.fav__header}>
               <h1>{t('title')}</h1>
               <div className={s.fav__header__btns}>

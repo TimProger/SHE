@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 import {GetStaticProps} from "next";
@@ -8,11 +8,22 @@ import Head from "next/head";
 import Container from "../components/Container";
 import s from "../styles/pages/contacts.module.scss";
 import Link from "next/link";
+import {Storage} from "../utils/storage";
+import Compliment from "../components/Compliment";
 
 const Contacts: React.FC = () => {
 
   const { locale } = useRouter()
   const { t } = useTranslation('contacts')
+
+  const [compliment, setCompliment] = useState<boolean>(false)
+
+  useEffect(()=>{
+    const comp = Storage.get('contacts_compliment')
+    if(!comp){
+      setCompliment(true)
+    }
+  }, [])
 
   return (
     <>
@@ -21,6 +32,7 @@ const Contacts: React.FC = () => {
           <title>{t('title1')} | ™SHE</title>
         </Head>
         <div className={s.contacts}>
+          {compliment && <Compliment type={'contacts'} />}
           <Container>
             <div className={s.contacts__wrapper}>
               <h1>{t('title1')}</h1>
