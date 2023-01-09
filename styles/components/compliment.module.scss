@@ -1,5 +1,10 @@
 @import "../vars";
 
+@keyframes ani {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
 .compliment {
   position: fixed;
   top: 0;
@@ -14,6 +19,18 @@
   color: $text-thrd;
   z-index: 9;
   cursor: pointer;
+  transition: opacity 0.2s linear 0.2s;
+  opacity: 0;
+
+  &__close{
+    transition: opacity 0.2s, visibility 0s linear 0.2s;
+    opacity: 0 !important;
+    visibility: hidden;
+  }
+
+  &__open{
+    opacity: 1 !important;
+  }
 
   &__container{
     width: 700px;
