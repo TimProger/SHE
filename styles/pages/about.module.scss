@@ -104,11 +104,40 @@
     }
 
     &__first{
-        width: 460px;
+      width: 460px;
     }
 
     &__second{
-        width: 460px;
+      width: 460px;
+    }
+  }
+}
+
+@media screen and (max-width: 1400px) {
+
+  .about{
+
+    &__wrapper{
+      flex-direction: column;
+    }
+
+    &__payment{
+
+      &__col_1{
+        width: 400px;
+      }
+
+      &__col_2{
+        width: 280px;
+      }
+    }
+
+    &__first{
+      width: 100%;
+    }
+
+    &__second{
+      width: 100%;
     }
   }
 }
