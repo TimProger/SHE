@@ -110,3 +110,26 @@
     }
   }
 }
+
+@media screen and (max-width: 1050px) {
+
+  .coop{
+
+    &__body{
+      flex-direction: column;
+      gap: 50px;
+
+      &__special_conditions{
+        width: 100%;
+      }
+
+      &__request{
+        width: 100%;
+
+        & img{
+          width: 100%;
+        }
+      }
+    }
+  }
+}
