@@ -369,10 +369,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
                 </h1>
               </div>
               <div className={s.catalog__header__bottom}>
-                <div>
+                <div className={s.catalog__sort}>
                   {locale === 'ru' ? 'До' : 'To'}: <Dropdown name={'limit'} type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
                 </div>
-                <div>
+                <div className={s.catalog__sort}>
                   {locale === 'ru' ? 'Сортировать по' : 'Sort by'}: <Dropdown name={'sort'} type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
                 </div>
               </div>
@@ -409,10 +409,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
                   }) : <div className={s.catalog__container__products__nothing}>{t('nothing_is_found')}</div>}
                 </div>
                 <div className={s.catalog__container__products__footer}>
-                  <div>
+                  <div className={s.catalog__sort}>
                     {locale === 'ru' ? 'До' : 'To'}: <Dropdown name={'limit'} type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
                   </div>
-                  <div>
+                  <div className={s.catalog__sort}>
                     {locale === 'ru' ? 'Сортировать по' : 'Sort by'}: <Dropdown name={'sort'} type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
                   </div>
                 </div>

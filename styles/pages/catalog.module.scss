@@ -53,6 +53,7 @@
       border: 1px solid $text-main;
       padding: 10px 20px;
       width: 314px;
+      max-width: 314px;
       height: auto;
       display: flex;
       flex-direction: column;
@@ -296,10 +297,66 @@
     &__seen {
 
       &__cards {
+        height: 300px;
 
         &__card {
           position: relative;
           width: 205px;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 1050px) {
+
+  .catalog{
+
+    &__seen{
+
+      &__cards{
+        height: 280px;
+      }
+    }
+
+    &__sort{
+      font-size: 13px;
+    }
+
+    &__container{
+
+      &__filters{
+        width: 243px;
+        max-width: 243px;
+        min-width: 243px;
+
+        &__block{
+
+          &__header{
+
+            & h3{
+              font-size: 16px;
+            }
+          }
+
+          &__option{
+
+            & label{
+              font-size: 14px;
+            }
+          }
+        }
+      }
+
+      &__products{
+
+        &__pages{
+          gap: 10px ;
+        }
+
+        &__cards{
+          justify-content: flex-end;
         }
       }
     }

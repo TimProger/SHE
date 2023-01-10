@@ -219,3 +219,21 @@
     }
   }
 }
+
+@media screen and (max-width: 1050px) {
+
+  .new{
+
+    height: auto !important;
+  }
+
+  .swiper{
+
+    &__slide{
+
+      &__wrapper{
+        width: 700px;
+      }
+    }
+  }
+}
