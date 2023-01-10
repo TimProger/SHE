@@ -13,7 +13,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 
     &__about{
       display: flex;
@@ -33,11 +33,16 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+
+      & div{
+        font-size: 16px;
+      }
     }
 
     &__col_2{
       width: 670px;
       color: $text-sec;
+      font-size: 16px;
     }
   }
 
@@ -114,6 +119,40 @@
 }
 
 @media screen and (max-width: 1050px) {
+
+  .about{
+
+    &__wrapper{
+      flex-direction: column;
+    }
+
+    &__payment{
+      flex-direction: column;
+      gap: 20px;
+
+      &__col_1{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      &__col_2{
+        width: 100%;
+      }
+    }
+
+    &__first{
+      width: 100%;
+    }
+
+    &__second{
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 720px) {
 
   .about{
 

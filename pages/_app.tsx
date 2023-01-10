@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import {AppProps} from 'next/app';
 import {wrapper} from "../store";
-import '../styles/globals.scss'
+import '../styles/_globals.scss'
 import {appWithTranslation} from "next-i18next";
 import {Storage} from "../utils/storage";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
