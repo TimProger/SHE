@@ -87,3 +87,38 @@
     }
   }
 }
+
+@media screen and (max-width: 1050px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 700px;
+
+    &__imgs{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 40px;
+    }
+  }
+
+  .footer{
+
+    &__table{
+      width: 100%;
+    }
+
+    & td {
+      vertical-align: top;
+      max-width: 220px;
+    }
+
+    &__img1{
+      width: 250px;
+    }
+
+    &__img2{
+      width: 300px;
+    }
+  }
+}

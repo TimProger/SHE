@@ -370,3 +370,16 @@
     }
   }
 }
+
+@media screen and (max-width: 1050px) {
+  .wrapper {
+    width: 700px;
+  }
+
+  .popup_active{
+
+    &__container{
+      width: 700px;
+    }
+  }
+}
