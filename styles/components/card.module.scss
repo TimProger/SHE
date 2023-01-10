@@ -185,6 +185,22 @@
     width: 160px;
     height: 280px;
 
+    &__new{
+
+      &__block{
+        padding: 10px;
+        font-size: 13px;
+      }
+    }
+
+    &__hit{
+
+      &__block{
+        padding: 10px;
+        font-size: 13px;
+      }
+    }
+
     &__content{
 
       & h2{
