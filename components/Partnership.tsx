@@ -215,13 +215,13 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
   }
 
   return (
-    <div onClick={outsideClickHandler} className={s.auth + ' ' + (show ? s.auth__active : '')}>
-      <div onClick={insideClickHandler} className={s.auth__form}>
-        <div className={s.auth__form__container}>
+    <div onClick={outsideClickHandler} className={s.partnership + ' ' + (show ? s.partnership__active : '')}>
+      <div onClick={insideClickHandler} className={s.partnership__form}>
+        <div className={s.partnership__form__container}>
           <h1>{t('partnership.title')}</h1>
           <p>{t('partnership.paragraph_1')}</p>
           <Dropdown type={'counties'} handler={(e: MouseEvent, value: any)=>setCountry(value)} value={country} options={countries || []} />
-          <div className={s.auth__form__container__input}>
+          <div className={s.partnership__form__container__input}>
             <h2>{t('partnership.inputs.phone')}</h2>
             <input value={phone} onChange={onChangePhone} type="text"/>
             <h2>{t('partnership.inputs.name')}</h2>
@@ -231,7 +231,7 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
             <h2>{t('partnership.inputs.message')}</h2>
             <input value={message} placeholder={t('partnership.inputs.message_pl')} onChange={(e)=>{setMessage(e.currentTarget.value)}} type="text"/>
           </div>
-          <div className={s.auth__form__container__button}>
+          <div className={s.partnership__form__container__button}>
             <Button disabled={isDisabled} onClick={authHandler} text={t('partnership.button')} />
             <p>
               {errors.phone && <p>{errors.phone}</p>}

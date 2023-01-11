@@ -275,7 +275,7 @@ const Auth: React.FC<IAuthProps> = () => {
           <div className={s.auth__form__container__input}>
             <h2>{t('auth.input_2')}</h2>
             <input value={code} onChange={onChangeCode} type="text" placeholder={'* * * *'}/>
-            {+delay <= 30 ? <p>Отправить код ещё раз через {delay} секунд</p> : <p onClick={sendCode}>Отправить код ещё раз</p>}
+            {+delay <= 30 ? <p>{locale === 'ru' ? 'Отправить код ещё раз через' : 'Send the code again in'} {delay} {locale === 'ru' ? 'секунд' : 'seconds'}</p> : <p onClick={sendCode}>Отправить код ещё раз</p>}
           </div>
         </>
     }

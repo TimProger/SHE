@@ -1,6 +1,6 @@
 @import "../vars";
 
-.auth{
+.partnership{
   position: fixed;
   width: 100%;
   height: 100vh;
@@ -17,7 +17,7 @@
     visibility: visible;
     opacity: 1 !important;
 
-    & .auth__form{
+    & .partnership__form{
       right: 0 !important;
     }
   }
@@ -83,6 +83,31 @@
           border-bottom: 1px solid black;
           padding: 25px 10px;
           font-size: 25px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .partnership{
+
+    &__form {
+      width: 600px;
+      font-size: 16px;
+
+      &__container{
+
+        & h1{
+          font-size: 35px;
+        }
+
+        & h2{
+          font-size: 20px;
+        }
+
+        & input{
+          font-size: 18px;
         }
       }
     }
