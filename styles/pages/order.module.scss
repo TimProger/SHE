@@ -167,3 +167,24 @@
   }
 }
 
+@media screen and (max-width: 1050px) {
+  .order{
+
+    &__price{
+      font-size: 18px;
+      min-width: 350px;
+      text-align: right;
+    }
+
+    &__products{
+
+      &__product{
+
+        &__image{
+          width: 165px;
+          height: 165px;
+        }
+      }
+    }
+  }
+}

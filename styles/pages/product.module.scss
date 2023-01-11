@@ -320,3 +320,15 @@
     }
   }
 }
+
+@media screen and (max-width: 1050px) {
+  .container__product {
+
+    &__header{
+
+      &__path{
+        display: none;
+      }
+    }
+  }
+}

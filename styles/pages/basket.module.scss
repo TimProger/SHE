@@ -409,3 +409,32 @@
     }
   }
 }
+
+@media screen and (max-width: 1050px) {
+  .order{
+
+    &__inputs{
+      width: 90%;
+    }
+  }
+
+  .basket {
+
+    &__payment{
+
+      &__info{
+        flex-direction: column;
+        gap: 20px;
+
+        &__col_1{
+          width: 100%;
+          gap: 20px;
+        }
+
+        &__col_2{
+          width: 100%;
+        }
+      }
+    }
+  }
+}
