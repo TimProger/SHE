@@ -4,7 +4,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
+  margin-top: 50px;
 
   &__info {
     margin-top: 40px;
@@ -86,6 +87,10 @@
       width: 650px;
       height: 100%;
 
+      &__footer{
+        display: none;
+      }
+
       &__slider{
         width: 100px;
         height: 100%;
@@ -95,11 +100,11 @@
         gap: 20px;
 
         & img{
-          width: 100%;
+          width: 100px;
           height: 100px;
           cursor: pointer;
           object-fit: cover;
-          object-position: 1px 0.5px;
+          object-position: 0px -0.5px;
         }
 
         &__active{
@@ -323,6 +328,113 @@
 
 @media screen and (max-width: 1050px) {
   .container__product {
+
+    &__product{
+      width: auto;
+
+      &__info{
+        width: 230px;
+
+        &__button{
+
+          &__fav{
+            display: none;
+          }
+
+          &__add{
+
+            &__active{
+              transition: none;
+              width: 230px;
+              height: 50px;
+              font-size: 14px;
+              gap: 25px;
+              padding: 0 9px;
+            }
+          }
+        }
+
+        & button{
+          width: 230px;
+          height: 50px;
+          font-size: 14px;
+          padding: 15px 25px;
+
+        }
+      }
+
+      &__images{
+        width: 450px;
+
+        &__slider{
+          width: 100%;
+          height: 100px;
+          z-index: $z-index-base;
+          flex-direction: row;
+
+          & img{
+            width: 100px;
+            height: 100px;
+            border: 1px solid $text-sec;
+            background: white;
+            user-select: none;
+          }
+
+          &__active{
+            border: 3px solid $block-main !important;
+          }
+        }
+
+        &__footer{
+          display: flex;
+          flex-direction: column;
+
+          &__container{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+
+            &__fav{
+              width: 50px;
+              height: 50px;
+              border: 1px solid $text-sec;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              background: $block-thrd;
+
+              &__active{
+                background: $block-main;
+                border: none !important;
+
+                & svg{
+                  fill: white;
+                }
+              }
+            }
+          }
+        }
+
+        &__main{
+          padding: 0;
+          position: absolute;
+          width: 450px;
+          height: 450px;
+          user-select: none;
+
+          &__tags{
+
+            &__container{
+              width: 450px;
+              user-select: text;
+            }
+          }
+        }
+      }
+    }
 
     &__header{
 

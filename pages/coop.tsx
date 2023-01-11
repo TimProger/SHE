@@ -27,7 +27,7 @@ const Coop: React.FC = () => {
         </Head>
         <div className={s.coop}>
           <Container className={s.coop__container}>
-            <h2 className={s.coop__title}>{t('title')}</h2>
+            <h1 className={s.coop__title}>{t('title')}</h1>
           </Container>
           <div className={s.coop__imgBackGround}></div>
           <Container no_margin={true}>

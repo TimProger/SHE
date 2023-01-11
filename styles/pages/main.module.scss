@@ -222,8 +222,20 @@
 
 @media screen and (max-width: 1050px) {
 
-  .new{
+  .container{
 
+    &__imgs{
+      flex-direction: column;
+      height: auto;
+
+      &__img{
+        width: 100%;
+        height: 370px;
+      }
+    }
+  }
+
+  .new{
     height: auto !important;
   }
 

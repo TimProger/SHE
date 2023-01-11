@@ -350,13 +350,14 @@
       }
 
       &__products{
+        width: 55%;
 
         &__pages{
           gap: 10px ;
         }
 
         &__cards{
-          justify-content: flex-end;
+          justify-content: space-between;
         }
       }
     }
