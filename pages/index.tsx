@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next'
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {IProduct, ISlide} from "../types/Product.types";
 import {API_BASE_URL} from "../http/api";
 import "swiper/css";
@@ -29,6 +29,8 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
 
   const [mySwiper, setMySwiper] = useState(null)
   const [mySwiper2, setMySwiper2] = useState(null)
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+  const [sliderCount, setSliderCount] = useState<number>(4)
 
   const displaySlides = (slidesArr: IProduct[]) => {
     return JSON.parse(JSON.stringify(slidesArr)).map((el: IProduct, index: number)=>{
@@ -39,6 +41,26 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
       )
     })
   }
+
+  const resize = (e: any) => {
+    if(window){
+      let currentHideNav = (window.innerWidth <= 575);
+      currentHideNav ? setIsMobile(true) : setIsMobile(false)
+      if(window.innerWidth > 1050){
+        setSliderCount(4)
+      }else if(window.innerWidth <= 1050) {
+        setSliderCount(3)
+      }
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('resize', resize)
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
 
   return (
     <Layout>
@@ -118,7 +140,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
               className={s.new}
               modules={[Navigation]}
               navigation={true}
-              slidesPerView={4}
+              slidesPerView={sliderCount}
               onInit={(ev) => {
                 // @ts-ignore
                 setMySwiper(ev)
@@ -156,7 +178,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
               modules={[Navigation]}
               navigation={true}
               className={s.new}
-              slidesPerView={4}
+              slidesPerView={sliderCount}
               onInit={(ev) => {
                 // @ts-ignore
                 setMySwiper2(ev)

@@ -25,6 +25,24 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      
+      & p{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        &:hover{
+          color: $block-main;
+
+          & svg{
+
+            & path{
+              stroke: $block-main !important;
+            }
+          }
+        }
+      }
     }
 
     &__bottom{
@@ -327,6 +345,7 @@
     &__container{
 
       &__filters{
+        display: none;
         width: 243px;
         max-width: 243px;
         min-width: 243px;
@@ -350,14 +369,14 @@
       }
 
       &__products{
-        width: 55%;
+        width: 100%;
 
         &__pages{
           gap: 10px ;
         }
 
         &__cards{
-          justify-content: space-between;
+          gap: 41px;
         }
       }
     }

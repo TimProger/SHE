@@ -44,7 +44,7 @@ const Layout: React.FC<IMainLayoutProps>
     return () => {
       window.removeEventListener('resize', resize)
     }
-  })
+  }, [])
 
   return (
     <>
