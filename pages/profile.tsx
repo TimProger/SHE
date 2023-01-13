@@ -201,13 +201,17 @@ const Profile: React.FC = () => {
                   <input value={email} onChange={onChangeEmail} placeholder={'info@tmshe.ru'} type="text"/>
                 </div>
               </div>
-              <div className={s.profile__pages__page__info__why}>
+              {!isMobile && <div className={s.profile__pages__page__info__why}>
                 <h3>{t('pages.info.why_title')}</h3>
                 <p>{t('pages.info.why_parag')}</p>
-              </div>
+              </div>}
             </div>
             {isSuccess ? <Button success={isSuccess} text={t('pages.info.save__success')} />
               : <Button onClick={onSubmitSave} text={t('pages.info.save')}/>}
+            {isMobile && <div className={s.profile__pages__page__info__why}>
+              <h3>{t('pages.info.why_title')}</h3>
+              <p>{t('pages.info.why_parag')}</p>
+            </div>}
           </div>
         )
       case 2:
@@ -287,6 +291,24 @@ const Profile: React.FC = () => {
   useEffect(()=>{
     setIsSuccess(false)
   },[page])
+
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+
+  const resize = (e: any) => {
+    if(window){
+      let currentHideNav = (window.innerWidth <= 700);
+      currentHideNav ? setIsMobile(true) : setIsMobile(false)
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('resize', resize)
+    resize(null)
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
 
   return (
     <Layout>
