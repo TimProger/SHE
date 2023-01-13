@@ -22,7 +22,6 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [open, setOpen] = useState(false)
   const ref = useOnclickOutside((e: any) => {
     if(type !== "counties") {
-      console.log(e.target.classList)
       if (e.target.classList[1] === name?.split(' ').join('')) {
         return
       }

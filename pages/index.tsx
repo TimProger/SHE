@@ -29,8 +29,6 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
 
   const [mySwiper, setMySwiper] = useState(null)
   const [mySwiper2, setMySwiper2] = useState(null)
-  const [isMobile, setIsMobile] = useState<boolean>(false)
-  const [sliderCount, setSliderCount] = useState<number>(4)
 
   const displaySlides = (slidesArr: IProduct[]) => {
     return JSON.parse(JSON.stringify(slidesArr)).map((el: IProduct, index: number)=>{
@@ -42,20 +40,33 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
     })
   }
 
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+  const [sliderCount, setSliderCount] = useState<number>(4)
+  const [pagination, setPagination] = useState<boolean>(false)
+
   const resize = (e: any) => {
     if(window){
       let currentHideNav = (window.innerWidth <= 575);
       currentHideNav ? setIsMobile(true) : setIsMobile(false)
       if(window.innerWidth > 1050){
         setSliderCount(4)
-      }else if(window.innerWidth <= 1050) {
+        setPagination(false)
+      }else if(window.innerWidth <= 1050 && window.innerWidth > 700) {
         setSliderCount(3)
+        setPagination(false)
+      }else if(window.innerWidth <= 700 && window.innerWidth > 575) {
+        setSliderCount(2)
+        setPagination(false)
+      }else if(window.innerWidth <= 575) {
+        setSliderCount(1)
+        setPagination(true)
       }
     }
   }
 
   useEffect(()=>{
     window.addEventListener('resize', resize)
+    resize(null)
 
     return () => {
       window.removeEventListener('resize', resize)
@@ -138,8 +149,12 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
             </div>
             <Swiper
               className={s.new}
-              modules={[Navigation]}
+              modules={[Navigation, Pagination]}
               navigation={true}
+              pagination={pagination && {
+                clickable: true,
+                bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`
+              }}
               slidesPerView={sliderCount}
               onInit={(ev) => {
                 // @ts-ignore
@@ -175,9 +190,13 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
               </div>
             </div>
             <Swiper
-              modules={[Navigation]}
-              navigation={true}
               className={s.new}
+              modules={[Navigation, Pagination]}
+              navigation={true}
+              pagination={pagination && {
+                clickable: true,
+                bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`
+              }}
               slidesPerView={sliderCount}
               onInit={(ev) => {
                 // @ts-ignore

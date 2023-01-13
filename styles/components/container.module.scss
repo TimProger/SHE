@@ -30,6 +30,7 @@
   .container {
 
     &__wrapper{
+
       width: 700px;
     }
   }
@@ -40,6 +41,7 @@
 
     &__wrapper{
       width: 100vw;
+      padding: 0 20px;
     }
   }
 }
