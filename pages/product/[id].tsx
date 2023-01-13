@@ -177,6 +177,40 @@ const Product: React.FC<IProductProps> = ({product}) => {
   }
 
   const [infoPage, setInfoPage] = useState(1);
+  const [width, setWidth] = useState<string>('desktop')
+
+  const resize = (e: any) => {
+    if(window){
+      if(window.innerWidth > 1050){
+        setWidth('desktop')
+      }else if(window.innerWidth <= 1050 && window.innerWidth > 720) {
+        setWidth('tablet')
+      }else if(window.innerWidth <= 720) {
+        setWidth('mobile')
+      }else{
+        setWidth('desktop')
+      }
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('resize', resize)
+    if(window){
+      if(window.innerWidth > 1050){
+        setWidth('desktop')
+      }else if(window.innerWidth <= 1050 && window.innerWidth > 720) {
+        setWidth('tablet')
+      }else if(window.innerWidth <= 720) {
+        setWidth('mobile')
+      }else{
+        setWidth('desktop')
+      }
+    }
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
 
   return (
     <Layout>
@@ -198,20 +232,24 @@ const Product: React.FC<IProductProps> = ({product}) => {
                 {t('article')} {product.article}
               </article>
             </div>
+            {width === 'mobile' && <div>
+              <h1 className={s.container__product__product__info__name}>{product.name}</h1>
+              <p className={s.container__product__product__info__about}>{product.about_title}</p>
+            </div>}
             <div className={s.container__product__product}>
               <div className={s.container__product__product__images}>
-                <div className={s.container__product__product__images__slider}>
-                  {product.images.map((el, index)=>{
+                {width === 'desktop' && <div className={s.container__product__product__images__slider}>
+                  {product.images.map((el, index) => {
                     return <img
                       className={mainImage === `${API_BASE_URL}/${el.image}`
                         ? s.container__product__product__images__slider__active
                         : ''}
-                      onClick={()=>setMainImage(`${API_BASE_URL}/${el.image}`)}
+                      onClick={() => setMainImage(`${API_BASE_URL}/${el.image}`)}
                       src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
                       key={index}
-                      alt={'img'} />
+                      alt={'img'}/>
                   })}
-                </div>
+                </div>}
                 <div className={s.container__product__product__images__main}>
                   <div className={s.container__product__product__images__main__tags}>
                     <div className={s.container__product__product__images__main__tags__container}>
@@ -231,11 +269,23 @@ const Product: React.FC<IProductProps> = ({product}) => {
                   <img src={mainImage}  alt={product.name}/>
                 </div>
               </div>
+              {width === 'mobile' && <div className={s.container__product__product__images__slider}>
+                {product.images.map((el, index) => {
+                  return <img
+                    className={mainImage === `${API_BASE_URL}/${el.image}`
+                      ? s.container__product__product__images__slider__active
+                      : ''}
+                    onClick={() => setMainImage(`${API_BASE_URL}/${el.image}`)}
+                    src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
+                    key={index}
+                    alt={'img'}/>
+                })}
+              </div>}
               <div className={s.container__product__product__info}>
-                <div>
+                {width !== 'mobile' && <div>
                   <h1 className={s.container__product__product__info__name}>{product.name}</h1>
                   <p className={s.container__product__product__info__about}>{product.about_title}</p>
-                </div>
+                </div>}
                 <p className={s.container__product__product__info__color}>{t('color')}: <span>{product.color_name}</span> <span style={{background: product.color}} className={s.container__product__product__info__color__block} />
                 </p>
                 <div className={s.container__product__product__info__size}>
@@ -273,6 +323,18 @@ const Product: React.FC<IProductProps> = ({product}) => {
                 </div>
               </div>
             </div>
+            {width === 'tablet' && <div className={s.container__product__product__images__slider}>
+              {product.images.map((el, index) => {
+                return <img
+                  className={mainImage === `${API_BASE_URL}/${el.image}`
+                    ? s.container__product__product__images__slider__active
+                    : ''}
+                  onClick={() => setMainImage(`${API_BASE_URL}/${el.image}`)}
+                  src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
+                  key={index}
+                  alt={'img'}/>
+              })}
+            </div>}
             <div className={s.container__product__info}>
               <div className={s.container__product__info__menu}>
                 <div className={s.container__product__info__menu__wrapper}>

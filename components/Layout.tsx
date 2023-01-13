@@ -40,6 +40,7 @@ const Layout: React.FC<IMainLayoutProps>
 
   useEffect(()=>{
     window.addEventListener('resize', resize)
+    resize(null)
 
     return () => {
       window.removeEventListener('resize', resize)
