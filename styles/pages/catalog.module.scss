@@ -204,7 +204,7 @@
         flex-wrap: wrap;
         gap: 30px;
 
-        & div{
+        &__div{
           position: relative;
         }
       }
@@ -301,7 +301,6 @@
   user-select: none;
 }
 
-
 @media screen and (max-width: 1400px) {
   .catalog {
 
@@ -325,7 +324,6 @@
     }
   }
 }
-
 
 @media screen and (max-width: 1050px) {
 
@@ -377,6 +375,38 @@
 
         &__cards{
           gap: 41px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+
+  .catalog{
+
+    &__header{
+
+      &__bottom{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+
+    &__container{
+
+      &__products{
+        width: 100%;
+
+        &__cards{
+          gap: 41px;
+          justify-content: center;
+          flex-direction: column;
+
+          &__div{
+            width: 100%;
+          }
         }
       }
     }

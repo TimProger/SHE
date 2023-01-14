@@ -135,9 +135,9 @@ const Header: React.FC<IHeaderProps> = ({}) => {
     if(window){
       if(window.innerWidth > 1050){
         setWidth('desktop')
-      }else if(window.innerWidth <= 1050 && window.innerWidth > 720) {
+      }else if(window.innerWidth <= 1050 && window.innerWidth > 700) {
         setWidth('tablet')
-      }else if(window.innerWidth <= 720 && window.innerWidth > 575) {
+      }else if(window.innerWidth <= 700) {
         setWidth('mobile')
       }else{
         setWidth('desktop')

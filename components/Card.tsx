@@ -27,13 +27,14 @@ const Card: React.FC<ICardProps> = ({product, className}) => {
   const favHandler = () => {
     const obj = {
       id: product.id,
-      more: more.id
+      more: more.id,
+      product_id: product.id
     }
     dispatch(toggleFav(obj))
   }
 
   useEffect(()=>{
-    const includes = products.filter((el)=>el.id === product.id)
+    const includes = products.filter((el)=>el.product_id === product.id)
     if(products.includes(includes[0])){
       setIsFav(true)
     }else{

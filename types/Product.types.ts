@@ -76,6 +76,7 @@ export interface IBasketProduct {
 export interface IFavProduct {
   id: number;
   more: number
+  product_id: number;
 }
 
 export interface IOrder {

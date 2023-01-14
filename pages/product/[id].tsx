@@ -171,7 +171,8 @@ const Product: React.FC<IProductProps> = ({product}) => {
   const toggleFavHandler = () => {
     const obj = {
       id: more.id,
-      more: more.id
+      more: more.id,
+      product_id: more.id
     }
     dispatch(toggleFav(obj))
   }
@@ -183,9 +184,9 @@ const Product: React.FC<IProductProps> = ({product}) => {
     if(window){
       if(window.innerWidth > 1050){
         setWidth('desktop')
-      }else if(window.innerWidth <= 1050 && window.innerWidth > 720) {
+      }else if(window.innerWidth <= 1050 && window.innerWidth > 700) {
         setWidth('tablet')
-      }else if(window.innerWidth <= 720) {
+      }else if(window.innerWidth <= 700) {
         setWidth('mobile')
       }else{
         setWidth('desktop')
@@ -198,9 +199,9 @@ const Product: React.FC<IProductProps> = ({product}) => {
     if(window){
       if(window.innerWidth > 1050){
         setWidth('desktop')
-      }else if(window.innerWidth <= 1050 && window.innerWidth > 720) {
+      }else if(window.innerWidth <= 1050 && window.innerWidth > 700) {
         setWidth('tablet')
-      }else if(window.innerWidth <= 720) {
+      }else if(window.innerWidth <= 700) {
         setWidth('mobile')
       }else{
         setWidth('desktop')

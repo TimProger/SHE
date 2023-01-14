@@ -225,8 +225,8 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {
     props: {
       slides: slidesData,
-      slidesNew: productsData.filter(el => el.is_new),
-      slidesHit: productsData.filter(el => el.is_hit),
+      slidesNew: productsData.filter(el => el.is_new).splice(0, 10),
+      slidesHit: productsData.filter(el => el.is_hit).splice(0, 10),
       ...(await serverSideTranslations(locale as string ?? 'ru', ['main', 'common']))
     },
     revalidate: 10,

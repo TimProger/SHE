@@ -125,6 +125,7 @@
       cursor: pointer;
       display: flex;
       align-items: center;
+      z-index: 1;
 
       & svg{
         fill: $block-thrd;
@@ -365,6 +366,8 @@
       & img{
         width: 400px;
         height: 400px;
+        object-fit: cover;
+        object-position: 0 0;
       }
     }
   }
