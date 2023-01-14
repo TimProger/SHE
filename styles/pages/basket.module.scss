@@ -135,6 +135,11 @@
     &__text{
       display: flex;
       gap: 100px;
+
+      & div{
+        min-width: 150px;
+        text-align: end;
+      }
     }
 
     &__button{
@@ -434,6 +439,127 @@
         &__col_2{
           width: 100%;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+
+  .order{
+
+    &__orders {
+
+      &__products {
+
+        &__product {
+
+          & a {
+            width: 200px;
+          }
+        }
+      }
+    }
+
+    &__inputs{
+      width: 100%;
+
+      &__container{
+        width: 47%;
+
+        & h3{
+          font-size: 14px;
+        }
+      }
+    }
+
+    &__delivery{
+
+      & p{
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .basket{
+
+    &__info{
+
+      &__text{
+        gap: 50px;
+
+        & div{
+          min-width: 150px;
+          text-align: end;
+        }
+      }
+    }
+  }
+
+  .order{
+
+    &__orders{
+
+      &__products{
+
+        &__product{
+
+          & a{
+            width: 200px;
+
+          }
+        }
+      }
+
+      &__payment{
+        flex-direction: column;
+
+        &__text{
+          margin-left: 23px;
+        }
+
+        & p{
+          width: 100%;
+        }
+      }
+    }
+
+    &__inputs{
+      width: 100%;
+      flex-direction: column;
+      flex-wrap: nowrap;
+
+      &__container{
+        width: 100%;
+
+        & h3{
+          font-size: 14px;
+        }
+      }
+    }
+
+    &__delivery{
+
+      &__radios{
+        flex-direction: column;
+      }
+
+      & p{
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .basket{
+
+    &__info{
+
+      &__text{
+        gap: 0;
       }
     }
   }
