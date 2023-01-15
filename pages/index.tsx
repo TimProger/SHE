@@ -76,7 +76,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
   return (
     <Layout>
       <Head>
-        <title>{t('title')} | ™SHE</title>
+        <title>{`${t('title')} | ™SHE`.replace('<!-\- -->','')}</title>
         <meta name="description" content={t('meta.description')} />
         <meta property="og:title" content={t('meta.description')} />
       </Head>

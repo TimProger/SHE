@@ -35,7 +35,7 @@ const About: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>{t('title')} | ™SHE</title>
+        <title>{`${t('title')} | ™SHE`.replace('<!-\- -->','')}</title>
       </Head>
       <div className={s.about}>
         {compliment && <Compliment type={'about'} />}

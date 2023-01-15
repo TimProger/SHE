@@ -404,7 +404,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
   return (
     <Layout>
       <Head>
-        <title>{t('title')} | ™SHE</title>
+        <title>{`${t('title')} | ™SHE`.replace('<!-\- -->','')}</title>
       </Head>
       <div>
         <Container>

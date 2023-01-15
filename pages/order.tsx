@@ -57,7 +57,7 @@ const Order: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>{t('title')}{done ? done.order_id : ''} | ™SHE</title>
+        <title>{`${t('title')}${done ? done.order_id : ''} | ™SHE`.replace('<!-- -->','')}</title>
       </Head>
       <div>
         <Container>

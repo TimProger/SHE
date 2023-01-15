@@ -29,7 +29,7 @@ const Contacts: React.FC = () => {
     <>
       <Layout>
         <Head>
-          <title>{t('title1')} | ™SHE</title>
+          <title>{`${t('title1')} | ™SHE`.replace('<!-\- -->','')}</title>
         </Head>
         <div className={s.contacts}>
           {compliment && <Compliment type={'contacts'} />}

@@ -19,7 +19,7 @@ const Documents: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>{t('title1')} | ™SHE</title>
+        <title>{`${t('title')} | ™SHE`.replace('<!-\- -->','')}</title>
       </Head>
       <div className={s.documents}>
         <Container>

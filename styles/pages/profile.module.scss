@@ -311,6 +311,10 @@
 
         &__info{
 
+          & button{
+            width: 80%;
+          }
+
           &__inputs{
             width: 100%;
             flex-wrap: nowrap;

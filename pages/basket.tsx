@@ -679,7 +679,7 @@ const Basket: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>{t('title')} | ™SHE</title>
+        <title>{`${t('title')} | ™SHE`.replace('<!-\- -->','')}</title>
       </Head>
       <div>
         <Container>

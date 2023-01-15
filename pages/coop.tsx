@@ -23,7 +23,7 @@ const Coop: React.FC = () => {
       <Partnership show={showAuth} setShow={setShowAuth} />
       <Layout>
         <Head>
-          <title>{t('title')} | ™SHE</title>
+          <title>{`${t('title')} | ™SHE`.replace('<!-\- -->','')}</title>
         </Head>
         <div className={s.coop}>
           <Container className={s.coop__container}>
