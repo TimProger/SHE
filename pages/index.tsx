@@ -148,7 +148,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
               </div>
             </div>
             <Swiper
-              className={s.new}
+              className={s.swiper}
               modules={[Navigation, Pagination]}
               navigation={true}
               pagination={pagination && {

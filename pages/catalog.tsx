@@ -15,6 +15,8 @@ import Dropdown from "../components/Dropdown";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import CardMobile from "../components/CardMobile";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Navigation, Pagination} from "swiper";
 
 interface ICatalogProps {
 }
@@ -389,6 +391,16 @@ const Catalog: React.FC<ICatalogProps> = () => {
     }
   }, [])
 
+  const displaySlides = (slidesArr: IProduct[]) => {
+    return JSON.parse(JSON.stringify(slidesArr)).map((el: IProduct, index: number)=>{
+      return (
+        <SwiperSlide key={index} className={s.new}>
+          <Card product={el}  />
+        </SwiperSlide>
+      )
+    })
+  }
+
   return (
     <Layout>
       <Head>
@@ -481,7 +493,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
             <div className={s.catalog__seen}>
               <h1>{t('seen')}</h1>
               {seen.length > 0
-                ? <div className={s.catalog__seen__cards}>
+                ? (width !== 'mobile' ? (<div className={s.catalog__seen__cards}>
                     {width === 'desktop' && <div className={s.catalog__seen__cards__card}>
                       {seen[0] ? <Card product={seen[0]}/> : <div></div>}
                     </div>}
@@ -494,10 +506,22 @@ const Catalog: React.FC<ICatalogProps> = () => {
                     <div className={s.catalog__seen__cards__card}>
                       {seen[3] ? <Card product={seen[3]} /> : <div></div>}
                     </div>
-                </div>
+                </div>)
+                  :
+                (<Swiper
+                  className={s.new}
+                  modules={[Navigation, Pagination]}
+                  pagination={{
+                    clickable: true,
+                    bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`
+                  }}
+                  slidesPerView={1}
+                >
+                  {displaySlides(seen)}
+                </Swiper>))
                 : <p className={s.catalog__seen__not_found}>
                   {t('seen_nothing')}
-                </p>}
+                </p> }
             </div>
           </div>
         </Container>

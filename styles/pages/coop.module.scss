@@ -131,3 +131,40 @@
     }
   }
 }
+
+@media screen and (max-width: 450px) {
+
+  .coop{
+
+    &__imgBackGround{
+      height: 300px;
+    }
+
+    &__body{
+
+      &__special_conditions{
+
+        &__discounts{
+
+          &__second{
+            font-size: 30px;
+          }
+
+          &__first{
+            font-size: 30px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 345px) {
+
+  .coop{
+
+    &__imgBackGround{
+      height: 200px;
+    }
+  }
+}

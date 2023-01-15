@@ -95,7 +95,7 @@
 }
 
 .swiper{
-  width: 100vw;
+  width: 100%;
   height: 400px !important;
 
   &__slide {
@@ -205,11 +205,12 @@
 @media screen and (max-width: 1400px) {
 
   .new{
-
     height: auto !important;
   }
 
   .swiper{
+    width: 100%;
+    height: 350px !important;
 
     &__slide{
 
@@ -222,11 +223,18 @@
 
 @media screen and (max-width: 1050px) {
 
+  .new{
+    height: 300px !important;
+  }
+
   .swiper{
+    width: 100%;
+    height: 300px !important;
 
     &__slide{
 
       &__wrapper{
+        width: 700px;
       }
 
       &__title {
@@ -253,25 +261,16 @@
       }
     }
   }
-
-  .new{
-    height: auto !important;
-  }
-
-  .swiper{
-
-    &__slide{
-
-      &__wrapper{
-        width: 700px;
-      }
-    }
-  }
 }
 
 @media screen and (max-width: 575px) {
 
+  .new{
+    height: 520px !important;
+  }
+
   .swiper{
+    height: 520px !important;
 
     &__slide{
 
@@ -314,10 +313,6 @@
       }
     }
   }
-
-  .new{
-    height: 520px !important;
-  }
 }
 
 @media screen and (max-width: 450px) {
@@ -327,6 +322,7 @@
   }
 
   .swiper{
+    height: 420px !important;
 
     &__slide{
 
