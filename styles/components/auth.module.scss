@@ -115,3 +115,33 @@
     }
   }
 }
+
+@media screen and (max-width: 700px) {
+  .auth{
+
+    &__form {
+      width: 100%;
+      font-size: 14px;
+
+      &__container{
+        gap: 30px;
+
+        & button{
+          font-size: 14px;
+        }
+
+        & h1{
+          font-size: 28px;
+        }
+
+        & h2{
+          font-size: 18px;
+        }
+
+        & input{
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
