@@ -423,12 +423,12 @@ const Catalog: React.FC<ICatalogProps> = () => {
                 <h1>
                   {(types.length > 0 && types.join(', ') || types[0]) || t('title')}
                 </h1>
-                {(width === 'tablet' || width === 'mobile') && <p onClick={()=>setShowFilters(true)}>Фильтры
+                {(width === 'mobile') && <p onClick={()=>setShowFilters(true)}>Фильтры
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 2.6C1 2.03995 1 1.75992 1.10899 1.54601C1.20487 1.35785 1.35785 1.20487 1.54601 1.10899C1.75992 1 2.03995 1 2.6 1H17.4C17.9601 1 18.2401 1 18.454 1.10899C18.6422 1.20487 18.7951 1.35785 18.891 1.54601C19 1.75992 19 2.03995 19 2.6V4.33726C19 4.58185 19 4.70414 18.9724 4.81923C18.9479 4.92127 18.9075 5.01881 18.8526 5.10828C18.7908 5.2092 18.7043 5.29568 18.5314 5.46863L12.4686 11.5314C12.2957 11.7043 12.2092 11.7908 12.1474 11.8917C12.0925 11.9812 12.0521 12.0787 12.0276 12.1808C12 12.2959 12 12.4182 12 12.6627V15L8 19V12.6627C8 12.4182 8 12.2959 7.97237 12.1808C7.94787 12.0787 7.90747 11.9812 7.85264 11.8917C7.7908 11.7908 7.70432 11.7043 7.53137 11.5314L1.46863 5.46863C1.29568 5.29568 1.2092 5.2092 1.14736 5.10828C1.09253 5.01881 1.05213 4.92127 1.02763 4.81923C1 4.70414 1 4.58185 1 4.33726V2.6Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </p>}
-                {(width === 'tablet' || width === 'mobile') && <div className={s.catalog__header__top__filters + ` ${showFilters && s.catalog__header__top__filters__active}`}>
+                {(width === 'mobile') && <div className={s.catalog__header__top__filters + ` ${showFilters && s.catalog__header__top__filters__active}`}>
                   <svg className={s.catalog__header__top__close} onClick={() => setShowFilters(false)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4.14648 20.2635L20.4099 4" stroke="black"/>
                     <path d="M4 4.14648L20.2635 20.4099" stroke="black"/>
@@ -536,7 +536,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                 </div>
               </div>
             </div>
-            <div className={s.catalog__seen}>
+            {width !== 'mobile' && <div className={s.catalog__seen}>
               <h1>{t('seen')}</h1>
               {seen.length > 0
                 ? (width !== 'mobile' ? (<div className={s.catalog__seen__cards}>
@@ -544,31 +544,31 @@ const Catalog: React.FC<ICatalogProps> = () => {
                       {seen[0] ? <Card product={seen[0]}/> : <div></div>}
                     </div>}
                     <div className={s.catalog__seen__cards__card}>
-                      {seen[1] ? <Card product={seen[1]} /> : <div></div>}
+                      {seen[1] ? <Card product={seen[1]}/> : <div></div>}
                     </div>
                     <div className={s.catalog__seen__cards__card}>
-                      {seen[2] ? <Card product={seen[2]} /> : <div></div>}
+                      {seen[2] ? <Card product={seen[2]}/> : <div></div>}
                     </div>
                     <div className={s.catalog__seen__cards__card}>
-                      {seen[3] ? <Card product={seen[3]} /> : <div></div>}
+                      {seen[3] ? <Card product={seen[3]}/> : <div></div>}
                     </div>
-                </div>)
+                  </div>)
                   :
-                (<Swiper
-                  className={s.new}
-                  modules={[Navigation, Pagination]}
-                  pagination={{
-                    clickable: true,
-                    bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`
-                  }}
-                  slidesPerView={1}
-                >
-                  {displaySlides(seen)}
-                </Swiper>))
+                  (<Swiper
+                    className={s.new}
+                    modules={[Navigation, Pagination]}
+                    pagination={{
+                      clickable: true,
+                      bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`
+                    }}
+                    slidesPerView={1}
+                  >
+                    {displaySlides(seen)}
+                  </Swiper>))
                 : <p className={s.catalog__seen__not_found}>
                   {t('seen_nothing')}
-                </p> }
-            </div>
+                </p>}
+            </div>}
           </div>
         </Container>
       </div>

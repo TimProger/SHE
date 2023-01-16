@@ -45,7 +45,9 @@ const Favorites: React.FC = () => {
   useEffect(()=>{
     const comp = Storage.get('favs_compliment')
     if(!comp){
-      setCompliment(true)
+      if(products.length > 0){
+        setCompliment(true)
+      }
     }
   }, [])
 

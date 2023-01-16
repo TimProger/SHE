@@ -102,6 +102,40 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
   const removeFromFavsHandler = () => {
     dispatch(removeFromFavs(product.more))
   }
+  const [width, setWidth] = useState<string>('desktop')
+
+  const resize = (e: any) => {
+    if(window){
+      if(window.innerWidth > 1050){
+        setWidth('desktop')
+      }else if(window.innerWidth <= 1050 && window.innerWidth > 700) {
+        setWidth('tablet')
+      }else if(window.innerWidth <= 700) {
+        setWidth('mobile')
+      }else{
+        setWidth('desktop')
+      }
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('resize', resize)
+    if(window){
+      if(window.innerWidth > 1050){
+        setWidth('desktop')
+      }else if(window.innerWidth <= 1050 && window.innerWidth > 700) {
+        setWidth('tablet')
+      }else if(window.innerWidth <= 700) {
+        setWidth('mobile')
+      }else{
+        setWidth('desktop')
+      }
+    }
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
 
   return (
     <div className={s.card}>
@@ -110,6 +144,12 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           <img src={image ? `${API_BASE_URL}${`${image}`.split('').shift() === '/' ? '' : '/'}${image}` : `${Stock.src}`} alt={name} />
         </Link>
         <div className={s.card__content__info}>
+          {width === 'mobile' && <svg onClick={isBasket ? killProductFromBasketHandler : removeFromFavsHandler}
+                                      className={s.card__close} width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                      xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.34314 12.6567L12.6568 1.34303" stroke="#A0A0A0"/>
+            <path d="M1.34314 1.34326L12.6568 12.657" stroke="#A0A0A0"/>
+          </svg>}
           <h2>{name}</h2>
           <p className={s.card__content__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
             <span style={{background: product.color}} className={s.card__content__info__color__block} />
@@ -121,10 +161,12 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
         </div>
       </div>
       <div className={s.card__price}>
-        <svg onClick={isBasket ? killProductFromBasketHandler : removeFromFavsHandler} className={s.card__price__remove} width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {width !== 'mobile' && <svg onClick={isBasket ? killProductFromBasketHandler : removeFromFavsHandler}
+              className={s.card__price__remove} width="14" height="14" viewBox="0 0 14 14" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
           <path d="M1.34314 12.6567L12.6568 1.34303" stroke="#A0A0A0"/>
           <path d="M1.34314 1.34326L12.6568 12.657" stroke="#A0A0A0"/>
-        </svg>
+        </svg>}
         <div className={s.card__price__text}>
           {discount ? <h2 className={s.card__price__text__discount}>{(product.price*(product.count || 1)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h2> : ''}
           <h1 className={s.card__price__text__price}>{(product.price - (discount ? (product.price/100)*discount : 0)*(product.count || 1)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h1>

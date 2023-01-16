@@ -302,7 +302,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
               </div>
             </div>
           </div>
-          <div className={popupState ? s.popup_active : s.popup} onMouseOver={()=>setPopupState(true)} onMouseLeave={()=>setPopupState(false)}>
+          <div className={popupState ? s.popup_active : s.popup} onMouseOver={()=>width === 'mobile' ? setPopupState(true) : ''} onMouseLeave={()=>width === 'mobile' ? setPopupState(false) : ''}>
             <div className={s.popup_active__container}>
               {width === 'mobile' ? (<>
                 <ul className={s.popup_active__list}>

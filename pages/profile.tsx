@@ -173,7 +173,9 @@ const Profile: React.FC = () => {
   useEffect(()=>{
     const comp = Storage.get('profile_compliment')
     if(!comp){
-      setCompliment(true)
+      if(user && user.discount){
+        setCompliment(true)
+      }
     }
   }, [])
 

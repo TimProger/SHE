@@ -20,6 +20,8 @@
 
     &__header{
       width: 100%;
+      position: absolute;
+      display: flex;
     }
 
     &__block{
@@ -92,6 +94,36 @@
           border-radius: 50%;
         }
       }
+    }
+  }
+
+  &__new{
+
+    &__block{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      padding: 15px;
+      background: $block-main;
+      color: $text-thrd;
+      z-index: $z-index-base;
+      user-select: none;
+    }
+  }
+
+  &__hit{
+
+    &__block{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      padding: 15px;
+      background: $block-frth;
+      color: $text-thrd;
+      z-index: $z-index-base;
+      user-select: none;
     }
   }
 }

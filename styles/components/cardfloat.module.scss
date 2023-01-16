@@ -124,3 +124,27 @@
     }
   }
 }
+
+@media screen and (max-width: 700px) {
+  .card{
+    flex-direction: column;
+
+    &__close{
+      align-self: flex-end;
+      cursor: pointer;
+    }
+
+    &__price{
+      width: 100%;
+      flex-direction: row-reverse;
+    }
+
+    &__content{
+      width: 100%;
+
+      &__image{
+        width: 185px;
+      }
+    }
+  }
+}
