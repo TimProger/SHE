@@ -482,7 +482,7 @@
     &__header{
 
       &__bottom{
-        flex-direction: column;
+        flex-direction: column-reverse;
         align-items: flex-start;
         gap: 10px;
       }
@@ -500,6 +500,73 @@
 
           &__div{
             width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+
+  .catalog{
+
+    &__container{
+
+      &__products{
+
+        &__footer{
+          flex-direction: column-reverse;
+          align-items: flex-start;
+          gap: 10px;
+        }
+      }
+
+      &__filters{
+
+        &__block{
+
+          &__open{
+            height: 160px !important;
+          }
+        }
+
+        &__mobile{
+          display: flex !important;
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+
+    &__header{
+
+      &__top{
+
+        &__close{
+          position: fixed;
+          top: 40px;
+          transition: all 0.5s;
+          right: 50px;
+          cursor: pointer;
+          z-index: 9;
+        }
+
+        &__filters{
+          position: fixed;
+          width: 100vw;
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          left: 0;
+          top: 0;
+          clip: rect(auto, auto, 0, auto);
+          transition: clip 0.3s ease-in;
+          background: $block-thrd;
+          z-index: 9;
+
+          &__active{
+            clip: rect(auto, auto, 100vh, auto);
           }
         }
       }

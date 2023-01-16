@@ -268,6 +268,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setFiltered(false)
         if(usedFilters.category.length > 0 || usedFilters.color.length > 0 || usedFilters.collection.length > 0 || usedFilters.type.length > 0) setFiltered(true)
+        setShowFilters(false)
       })
   }
 
@@ -353,7 +354,13 @@ const Catalog: React.FC<ICatalogProps> = () => {
   const [open, setOpen] = useState<boolean[]>(filters.map((el)=>false))
 
   const openHandler = (index: number) => {
-    open[index] = !open[index]
+    for (let i=0;i<filters.length;i++){
+      if(i===index){
+        open[i] = !open[i]
+      }else{
+        open[i] = false
+      }
+    }
     setOpen([...open])
   }
   const [width, setWidth] = useState<string>('desktop')
@@ -401,6 +408,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
     })
   }
 
+  const [showFilters, setShowFilters] = useState<boolean>(false)
+
   return (
     <Layout>
       <Head>
@@ -414,17 +423,47 @@ const Catalog: React.FC<ICatalogProps> = () => {
                 <h1>
                   {(types.length > 0 && types.join(', ') || types[0]) || t('title')}
                 </h1>
-                {(width === 'tablet' || width === 'mobile') && <p>Фильтры
+                {(width === 'tablet' || width === 'mobile') && <p onClick={()=>setShowFilters(true)}>Фильтры
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 2.6C1 2.03995 1 1.75992 1.10899 1.54601C1.20487 1.35785 1.35785 1.20487 1.54601 1.10899C1.75992 1 2.03995 1 2.6 1H17.4C17.9601 1 18.2401 1 18.454 1.10899C18.6422 1.20487 18.7951 1.35785 18.891 1.54601C19 1.75992 19 2.03995 19 2.6V4.33726C19 4.58185 19 4.70414 18.9724 4.81923C18.9479 4.92127 18.9075 5.01881 18.8526 5.10828C18.7908 5.2092 18.7043 5.29568 18.5314 5.46863L12.4686 11.5314C12.2957 11.7043 12.2092 11.7908 12.1474 11.8917C12.0925 11.9812 12.0521 12.0787 12.0276 12.1808C12 12.2959 12 12.4182 12 12.6627V15L8 19V12.6627C8 12.4182 8 12.2959 7.97237 12.1808C7.94787 12.0787 7.90747 11.9812 7.85264 11.8917C7.7908 11.7908 7.70432 11.7043 7.53137 11.5314L1.46863 5.46863C1.29568 5.29568 1.2092 5.2092 1.14736 5.10828C1.09253 5.01881 1.05213 4.92127 1.02763 4.81923C1 4.70414 1 4.58185 1 4.33726V2.6Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </p>}
+                {(width === 'tablet' || width === 'mobile') && <div className={s.catalog__header__top__filters + ` ${showFilters && s.catalog__header__top__filters__active}`}>
+                  <svg className={s.catalog__header__top__close} onClick={() => setShowFilters(false)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.14648 20.2635L20.4099 4" stroke="black"/>
+                    <path d="M4 4.14648L20.2635 20.4099" stroke="black"/>
+                  </svg>
+                  <div className={s.catalog__container__filters + ` ${s.catalog__container__filters__mobile}`}>
+                    {filters.length > 0 && filters.map((el, index)=>{
+                      return <div className={s.catalog__container__filters__block}>
+                        <div onClick={()=>openHandler(index)} className={s.catalog__container__filters__block__header}>
+                          <h3>{el.name_lang}</h3>
+                          <svg style={{transform: open[index] ? 'rotate(180deg)' : 'rotate(0deg)'}} width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.1223 1.38952L6.3941 5.53084C6.33781 5.57999 6.27683 5.61473 6.21116 5.63505C6.14549 5.65569 6.07513 5.66602 6.00008 5.66602C5.92503 5.66602 5.85467 5.65569 5.789 5.63505C5.72333 5.61473 5.66235 5.57999 5.60606 5.53084L0.863757 1.38952C0.732418 1.27482 0.666748 1.13145 0.666748 0.959411C0.666748 0.787367 0.737108 0.639902 0.87783 0.517014C1.01855 0.394126 1.18273 0.332683 1.37035 0.332683C1.55798 0.332683 1.72216 0.394126 1.86288 0.517014L6.00008 4.12992L10.1373 0.517014C10.2686 0.402319 10.4304 0.344971 10.6225 0.344971C10.815 0.344971 10.9816 0.406415 11.1223 0.529303C11.2631 0.65219 11.3334 0.795559 11.3334 0.95941C11.3334 1.12326 11.2631 1.26663 11.1223 1.38952Z" fill="#A0A0A0"/>
+                          </svg>
+                        </div>
+                        <div className={s.catalog__container__filters__block__container + ` ${open[index] ? s.catalog__container__filters__block__open : s.catalog__container__filters__block__closed}`}>
+                          {el.option.map((elem, index)=>{
+                            return <div className={s.catalog__container__filters__block__option}>
+                              {/* @ts-ignore */}
+                              <input checked={usedFilters[`${el.name}`].includes(elem.id)} onChange={(e)=>toggleFilter(e.target.value, el.name)} type="checkbox" value={elem.id} name={el.name+'i'+index} id={el.name+'i'+index}/>
+                              {elem.color &&  <span style={{background: elem.color}} className={s.catalog__container__filters__block__color} /> }
+                              <label htmlFor={el.name+'i'+index}>{elem.name}</label>
+                            </div>
+                          })}
+                        </div>
+                      </div>
+                    })}
+                    <Button className={s.catalog__container__filters__button__apply} onClick={()=>useFilters()} text={t('filters.button')} />
+                    {filtered && <Button style_type={'outer'} className={s.catalog__container__filters__button + ` ${s.catalog__container__filters__button__clear}`} onClick={()=>clearFilters()} text={t('filters.clear')} />}
+                  </div>
+                </div>}
               </div>
               <div className={s.catalog__header__bottom}>
                 <div className={s.catalog__sort}>
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {width === 'mobile' && <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.3334 8.33268V12.3327M8.33335 10.3327H12.3334M9.93335 5.66602H10.7334C11.2934 5.66602 11.5734 5.66602 11.7873 5.55702C11.9755 5.46115 12.1285 5.30817 12.2244 5.12001C12.3334 4.90609 12.3334 4.62607 12.3334 4.06602V3.26602C12.3334 2.70596 12.3334 2.42594 12.2244 2.21203C12.1285 2.02386 11.9755 1.87088 11.7873 1.77501C11.5734 1.66602 11.2934 1.66602 10.7334 1.66602H9.93335C9.3733 1.66602 9.09327 1.66602 8.87936 1.77501C8.6912 1.87088 8.53822 2.02386 8.44235 2.21203C8.33335 2.42594 8.33335 2.70596 8.33335 3.26602V4.06602C8.33335 4.62607 8.33335 4.90609 8.44235 5.12001C8.53822 5.30817 8.6912 5.46115 8.87936 5.55702C9.09327 5.66602 9.3733 5.66602 9.93335 5.66602ZM3.26669 5.66602H4.06669C4.62674 5.66602 4.90677 5.66602 5.12068 5.55702C5.30884 5.46115 5.46182 5.30817 5.55769 5.12001C5.66669 4.90609 5.66669 4.62607 5.66669 4.06602V3.26602C5.66669 2.70596 5.66669 2.42594 5.55769 2.21203C5.46182 2.02386 5.30884 1.87088 5.12068 1.77501C4.90677 1.66602 4.62674 1.66602 4.06669 1.66602H3.26669C2.70663 1.66602 2.42661 1.66602 2.2127 1.77501C2.02453 1.87088 1.87155 2.02386 1.77568 2.21203C1.66669 2.42594 1.66669 2.70596 1.66669 3.26602V4.06602C1.66669 4.62607 1.66669 4.90609 1.77568 5.12001C1.87155 5.30817 2.02453 5.46115 2.2127 5.55702C2.42661 5.66602 2.70663 5.66602 3.26669 5.66602ZM3.26669 12.3327H4.06669C4.62674 12.3327 4.90677 12.3327 5.12068 12.2237C5.30884 12.1278 5.46182 11.9748 5.55769 11.7867C5.66669 11.5728 5.66669 11.2927 5.66669 10.7327V9.93268C5.66669 9.37263 5.66669 9.0926 5.55769 8.87869C5.46182 8.69053 5.30884 8.53755 5.12068 8.44168C4.90677 8.33268 4.62674 8.33268 4.06669 8.33268H3.26669C2.70663 8.33268 2.42661 8.33268 2.2127 8.44168C2.02453 8.53755 1.87155 8.69053 1.77568 8.87869C1.66669 9.0926 1.66669 9.37263 1.66669 9.93268V10.7327C1.66669 11.2927 1.66669 11.5728 1.77568 11.7867C1.87155 11.9748 2.02453 12.1278 2.2127 12.2237C2.42661 12.3327 2.70663 12.3327 3.26669 12.3327Z" stroke="#A0A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  </svg>}
                   <p style={{marginLeft: 10}}>{locale === 'ru' ? 'До' : 'To'}:</p> <Dropdown name={'limit'} type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
                 </div>
                 <div className={s.catalog__sort}>
@@ -469,10 +508,17 @@ const Catalog: React.FC<ICatalogProps> = () => {
                 </div>
                 <div className={s.catalog__container__products__footer}>
                   <div className={s.catalog__sort}>
-                    {locale === 'ru' ? 'До' : 'To'}: <Dropdown name={'limit'} type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
+                    {width === 'mobile' && <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10.3334 8.33268V12.3327M8.33335 10.3327H12.3334M9.93335 5.66602H10.7334C11.2934 5.66602 11.5734 5.66602 11.7873 5.55702C11.9755 5.46115 12.1285 5.30817 12.2244 5.12001C12.3334 4.90609 12.3334 4.62607 12.3334 4.06602V3.26602C12.3334 2.70596 12.3334 2.42594 12.2244 2.21203C12.1285 2.02386 11.9755 1.87088 11.7873 1.77501C11.5734 1.66602 11.2934 1.66602 10.7334 1.66602H9.93335C9.3733 1.66602 9.09327 1.66602 8.87936 1.77501C8.6912 1.87088 8.53822 2.02386 8.44235 2.21203C8.33335 2.42594 8.33335 2.70596 8.33335 3.26602V4.06602C8.33335 4.62607 8.33335 4.90609 8.44235 5.12001C8.53822 5.30817 8.6912 5.46115 8.87936 5.55702C9.09327 5.66602 9.3733 5.66602 9.93335 5.66602ZM3.26669 5.66602H4.06669C4.62674 5.66602 4.90677 5.66602 5.12068 5.55702C5.30884 5.46115 5.46182 5.30817 5.55769 5.12001C5.66669 4.90609 5.66669 4.62607 5.66669 4.06602V3.26602C5.66669 2.70596 5.66669 2.42594 5.55769 2.21203C5.46182 2.02386 5.30884 1.87088 5.12068 1.77501C4.90677 1.66602 4.62674 1.66602 4.06669 1.66602H3.26669C2.70663 1.66602 2.42661 1.66602 2.2127 1.77501C2.02453 1.87088 1.87155 2.02386 1.77568 2.21203C1.66669 2.42594 1.66669 2.70596 1.66669 3.26602V4.06602C1.66669 4.62607 1.66669 4.90609 1.77568 5.12001C1.87155 5.30817 2.02453 5.46115 2.2127 5.55702C2.42661 5.66602 2.70663 5.66602 3.26669 5.66602ZM3.26669 12.3327H4.06669C4.62674 12.3327 4.90677 12.3327 5.12068 12.2237C5.30884 12.1278 5.46182 11.9748 5.55769 11.7867C5.66669 11.5728 5.66669 11.2927 5.66669 10.7327V9.93268C5.66669 9.37263 5.66669 9.0926 5.55769 8.87869C5.46182 8.69053 5.30884 8.53755 5.12068 8.44168C4.90677 8.33268 4.62674 8.33268 4.06669 8.33268H3.26669C2.70663 8.33268 2.42661 8.33268 2.2127 8.44168C2.02453 8.53755 1.87155 8.69053 1.77568 8.87869C1.66669 9.0926 1.66669 9.37263 1.66669 9.93268V10.7327C1.66669 11.2927 1.66669 11.5728 1.77568 11.7867C1.87155 11.9748 2.02453 12.1278 2.2127 12.2237C2.42661 12.3327 2.70663 12.3327 3.26669 12.3327Z" stroke="#A0A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>}
+                    <p style={{marginLeft: 10}}>{locale === 'ru' ? 'До' : 'To'}:</p> <Dropdown name={'limit'} type={'limit'} handler={(e: MouseEvent, value: string)=>onToggleLimitClick(e, +value)} value={limit} options={limitArr} />
                   </div>
                   <div className={s.catalog__sort}>
-                    {locale === 'ru' ? 'Сортировать по' : 'Sort by'}: <Dropdown name={'sort'} type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
+                    {width !== 'mobile' ? (locale === 'ru' ? 'Сортировать по:' : 'Sort by:') :
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.66669 3L3.66669 1M3.66669 1L1.66669 3M3.66669 1V10.3333M8.33335 11L10.3334 13M10.3334 13L12.3334 11M10.3334 13V3.66667" stroke="#A0A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    } <p style={{marginLeft: 10}}>{locale === 'ru' ? 'По:' : 'By:'}</p> <Dropdown name={'sort'} type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
                   </div>
                 </div>
                 <div className={s.catalog__container__products__pages}>
