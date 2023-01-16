@@ -297,6 +297,12 @@ const Auth: React.FC<IAuthProps> = () => {
   return (
     <div onClick={outsideClickHandler} className={s.auth + ' ' + (showAuth ? s.auth__active : '')}>
       <div onClick={insideClickHandler} className={s.auth__form}>
+        <svg className={s.auth__form__close + ' ' + (showAuth ? s.auth__form__close__active : '')} onClick={() => {
+          dispatch(toggleShowAuth(false))
+        }} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.14648 20.2635L20.4099 4" stroke="black"/>
+          <path d="M4 4.14648L20.2635 20.4099" stroke="black"/>
+        </svg>
         <div className={s.auth__form__container}>
           {page === 1 && <p className={s.auth__form__container__back} onClick={() => handleClick()}>
             <svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
