@@ -266,7 +266,7 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
       .then((res) => {
         setShow(false)
         window.scrollTo({ top: 200, behavior: 'smooth' });
-        setPhone('')
+        setPhone('+7 ')
         setName('')
         setEmail('')
         setMessage('')

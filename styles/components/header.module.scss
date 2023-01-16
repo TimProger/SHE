@@ -297,7 +297,7 @@
   &__semilist_active {
     display: flex;
     flex-direction: column;
-    width: 272px;
+    width: 100px;
 
     & li {
       margin-bottom: 30px;
@@ -327,7 +327,7 @@
     }
 
     & li:last-child{
-      margin-bottom: 0px;
+      margin-bottom: 0;
     }
 
     & a {
@@ -495,6 +495,10 @@
           }
         }
 
+        & a{
+          width: 100px;
+        }
+
         &__list{
           position: absolute;
           clip: rect(auto, auto, 0, auto);
@@ -503,7 +507,7 @@
           display: flex;
           flex-direction: column;
           overflow-y: auto;
-          max-height: 310px;
+          max-height: 280px;
           max-width: 80%;
           gap: 10px;
 
@@ -514,7 +518,7 @@
         }
 
         &__active{
-          clip: rect(auto, auto, 310px, auto);
+          clip: rect(auto, auto, 280px, auto);
         }
       }
 
