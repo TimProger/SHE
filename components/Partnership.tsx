@@ -13,6 +13,7 @@ import {onToggleLanguageClick} from "../utils/changeCurrentLanguage";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
+import {toggleShowAuth} from "../store/Slices/Profile.slice";
 
 interface IPartnershipProps {
   show: boolean;
@@ -217,6 +218,12 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
   return (
     <div onClick={outsideClickHandler} className={s.partnership + ' ' + (show ? s.partnership__active : '')}>
       <div onClick={insideClickHandler} className={s.partnership__form}>
+        <svg className={s.partnership__form__close + ' ' + (show ? s.partnership__form__close__active : '')} onClick={() => {
+          setShow(false)
+        }} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.14648 20.2635L20.4099 4" stroke="black"/>
+          <path d="M4 4.14648L20.2635 20.4099" stroke="black"/>
+        </svg>
         <div className={s.partnership__form__container}>
           <h1>{t('partnership.title')}</h1>
           <p>{t('partnership.paragraph_1')}</p>
