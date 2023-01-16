@@ -14,6 +14,7 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 import {toggleShowAuth} from "../store/Slices/Profile.slice";
+import {removeAllProductFromBasket} from "../store/Slices/Basket.slice";
 
 interface IPartnershipProps {
   show: boolean;
@@ -22,8 +23,14 @@ interface IPartnershipProps {
 
 interface IPartnershipErrors {
   phone: string;
-  code: string;
+  name: string;
+  email: string,
+  message: string,
 }
+
+const validEmailRegex = RegExp(
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+);
 
 const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
   const dispatch = useAppDispatch()
@@ -88,12 +95,12 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
   const [email, setEmail] = useState<string>('')
   const [message, setMessage] = useState<string>('')
   const [code, setCode] = useState('')
-  const [isError, setIsError] = useState<boolean>(false);
   const [errors, setErrors] = useState<IPartnershipErrors>({
     phone: '',
-    code: '',
+    name: '',
+    email: '',
+    message: ''
   })
-  const [page, setPage] = useState<number>(0)
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(()=>{
@@ -194,13 +201,37 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
 
     setPhone(prev => prev = formattedPhone);
     if(formattedPhone.length === phoneLen+15){
-      setCode('')
-      setIsDisabled(false)
+      setErrors(prev => Object.assign(prev, {phone: null}))
     }else{
-      setIsDisabled(true)
+      setErrors(prev => Object.assign(prev, {phone: locale === 'ru' ? 'Введите номер телефона' : 'Enter valid phone number'}))
     }
+  }
 
-    isError && setIsError(false);
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value)
+    if(e.target.value.length <= 0){
+      setErrors(prev => Object.assign(prev, {name: locale === 'ru' ? 'Введите имя' : 'Enter name'}))
+    }else{
+      setErrors(prev => Object.assign(prev, {name: null}))
+    }
+  }
+
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+    if(!validEmailRegex.test(e.target.value)){
+      setErrors(prev => Object.assign(prev, {email: locale === 'ru' ? 'Введите почту' : 'Enter email'}))
+    }else{
+      setErrors(prev => Object.assign(prev, {email: null}))
+    }
+  }
+
+  const onChangeMessage = (e: ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value)
+    if(e.target.value.length <= 0){
+      setErrors(prev => Object.assign(prev, {message: locale === 'ru' ? 'Введите сообщение' : 'Enter message'}))
+    }else{
+      setErrors(prev => Object.assign(prev, {message: null}))
+    }
   }
 
   const outsideClickHandler = () => {
@@ -211,8 +242,38 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
     e.stopPropagation()
   }
 
-  const authHandler = () => {
+  useEffect(()=>{
     setIsDisabled(true)
+    if (errors.phone || phone.length <= 14) return
+    if (errors.email || email.length <= 0) return
+    if (errors.name || name.length <= 0) return
+    if (errors.message || message.length <= 0) return
+    console.log(errors)
+    setIsDisabled(false)
+
+  },[phone, name, email, message])
+
+  const authHandler = () => {
+    console.log(name, phone, email, message)
+    const data = new FormData()
+
+    data.append('Email', email);
+    data.append('Phone', phone.replace(/\s/g, '').replace(/\+/, ''));
+    data.append('Name', name);
+    data.append('message', message);
+
+    $api.post(`/opt/`, data)
+      .then((res) => {
+        setShow(false)
+        window.scrollTo({ top: 200, behavior: 'smooth' });
+        setPhone('')
+        setName('')
+        setEmail('')
+        setMessage('')
+        alert(locale === 'ru' ? 'Вы успешно отправили заявку на партнёрство!' : 'You have successfully submitted your partnership application!')
+      })
+      .catch((res)=>{
+      })
   }
 
   return (
@@ -232,17 +293,16 @@ const Partnership: React.FC<IPartnershipProps> = ({show, setShow}) => {
             <h2>{t('partnership.inputs.phone')}</h2>
             <input value={phone} onChange={onChangePhone} type="text"/>
             <h2>{t('partnership.inputs.name')}</h2>
-            <input value={name} placeholder={t('partnership.inputs.name_pl')} onChange={(e)=>{setName(e.currentTarget.value)}} type="text"/>
+            <input value={name} placeholder={t('partnership.inputs.name_pl')} onChange={onChangeName} type="text"/>
             <h2>Email</h2>
-            <input value={email} placeholder={'info@tmshe.ru'} onChange={(e)=>{setEmail(e.currentTarget.value)}} type="email"/>
+            <input value={email} placeholder={'info@tmshe.ru'} onChange={onChangeEmail} type="email"/>
             <h2>{t('partnership.inputs.message')}</h2>
-            <input value={message} placeholder={t('partnership.inputs.message_pl')} onChange={(e)=>{setMessage(e.currentTarget.value)}} type="text"/>
+            <input value={message} placeholder={t('partnership.inputs.message_pl')} onChange={onChangeMessage} type="text"/>
           </div>
           <div className={s.partnership__form__container__button}>
             <Button disabled={isDisabled} onClick={authHandler} text={t('partnership.button')} />
             <p>
               {errors.phone && <p>{errors.phone}</p>}
-              {errors.code && <p>{errors.code}</p>}
             </p>
           </div>
         </div>
