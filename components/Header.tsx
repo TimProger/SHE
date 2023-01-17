@@ -14,6 +14,9 @@ import {useTranslation} from "next-i18next";
 import {toggleShowAuth} from "../store/Slices/Profile.slice";
 import useOnclickOutside from "react-cool-onclickoutside";
 import {setProducts} from "../store/Slices/Product.slice";
+import Card from "./Card";
+import {IProduct} from "../types/Product.types";
+import axios from "axios";
 
 interface IHeaderProps {
 }
@@ -149,6 +152,15 @@ const Header: React.FC<IHeaderProps> = ({}) => {
       window.removeEventListener('resize', resize)
     }
   }, [])
+
+  const [dayProduct, setDayProduct] = useState<null | IProduct>(null)
+
+  useEffect(()=>{
+    $api.get(`${locale}/product/favorite_product/`)
+      .then((res)=>{
+        setDayProduct(res.data)
+      })
+  },[])
 
   return (
     <>
@@ -303,64 +315,74 @@ const Header: React.FC<IHeaderProps> = ({}) => {
             </div>
           </div>
           <div className={popupState ? s.popup_active : s.popup} onMouseOver={()=>width === 'mobile' ? setPopupState(true) : ''} onMouseLeave={()=>width === 'mobile' ? setPopupState(false) : ''}>
-            <div className={s.popup_active__container}>
-              {width === 'mobile' ? (<>
-                <ul className={s.popup_active__list}>
-                  <div className={s.popup_active__list__main}>
-                    <Link href="/" locale={router.locale}>{t('header.home')}</Link>
-                    <Dropdown className={s.dropdown} handler={(e: MouseEvent, value: string)=>onToggleLanguageClick(e, router, value)} value={router.locale || 'ru'} options={router.locales || []} />
-                  </div>
-                  <div className={s.popup_active__list__catalog}>{
-                    catalogState ? <Link
-                      onClick={() => {
-                        setCatalogState(false)
-                        setPopupState(false)
-                      }}
-                      href="/catalog"
-                      locale={router.locale}>{t('header.catalogue')}</Link>
-                    : <a style={{cursor: 'pointer'}} onClick={() => setCatalogState(true)}>{t('header.catalogue')}</a>}
-                    <svg className={s.popup_active__list__catalog__svg} onClick={() => setCatalogState(prev => !prev)} style={{transform: catalogState ? 'rotate(180deg)' : 'rotate(0deg)'}} width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.6834 1.58525L8.59103 7.79723C8.5066 7.87097 8.41513 7.92307 8.31662 7.95355C8.21812 7.98452 8.11258 8 8 8C7.88742 8 7.78188 7.98452 7.68338 7.95355C7.58487 7.92307 7.4934 7.87097 7.40897 7.79723L0.295514 1.58525C0.0985045 1.41321 -2.97318e-07 1.19816 -3.08598e-07 0.940093C-3.19879e-07 0.682028 0.105541 0.46083 0.316622 0.276498C0.527704 0.0921664 0.773966 9.19843e-07 1.05541 9.07541e-07C1.33685 8.95239e-07 1.58311 0.0921664 1.79419 0.276498L8 5.69585L14.2058 0.276498C14.4028 0.104455 14.6454 0.0184329 14.9336 0.0184329C15.2224 0.0184329 15.4723 0.110599 15.6834 0.294931C15.8945 0.479263 16 0.694316 16 0.940092C16 1.18587 15.8945 1.40092 15.6834 1.58525Z" fill="#A0A0A0"/>
-                    </svg>
-                  </div>
-                  <div className={s.popup_active__list__catalog__container + ' ' + (catalogState && s.popup_active__list__catalog__container__active)}>
-                    <div className={s.popup_active__list__catalog__list + ' ' + (catalogState && s.popup_active__list__catalog__active)}>
-                      {headerState.length > 0 && headerState.map((el, index) => {
-                        return <Dropdown handler={() => {
-                          setCatalogState(false)
-                          setPopupState(false)
-                        }} type={'header'} name={el.name} value={el.name} options={el.collection} />
-                      })}
+            <div className={s.popup_active__container__flex}>
+              <div className={s.popup_active__container}>
+                {width === 'mobile' ? (<>
+                  <ul className={s.popup_active__list}>
+                    <div className={s.popup_active__list__main}>
+                      <Link href="/" locale={router.locale}>{t('header.home')}</Link>
+                      <Dropdown className={s.dropdown} handler={(e: MouseEvent, value: string)=>onToggleLanguageClick(e, router, value)} value={router.locale || 'ru'} options={router.locales || []} />
                     </div>
+                    <div className={s.popup_active__list__catalog}>{
+                      catalogState ? <Link
+                          onClick={() => {
+                            setCatalogState(false)
+                            setPopupState(false)
+                          }}
+                          href="/catalog"
+                          locale={router.locale}>{t('header.catalogue')}</Link>
+                        : <a style={{cursor: 'pointer'}} onClick={() => setCatalogState(true)}>{t('header.catalogue')}</a>}
+                      <svg className={s.popup_active__list__catalog__svg} onClick={() => setCatalogState(prev => !prev)} style={{transform: catalogState ? 'rotate(180deg)' : 'rotate(0deg)'}} width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.6834 1.58525L8.59103 7.79723C8.5066 7.87097 8.41513 7.92307 8.31662 7.95355C8.21812 7.98452 8.11258 8 8 8C7.88742 8 7.78188 7.98452 7.68338 7.95355C7.58487 7.92307 7.4934 7.87097 7.40897 7.79723L0.295514 1.58525C0.0985045 1.41321 -2.97318e-07 1.19816 -3.08598e-07 0.940093C-3.19879e-07 0.682028 0.105541 0.46083 0.316622 0.276498C0.527704 0.0921664 0.773966 9.19843e-07 1.05541 9.07541e-07C1.33685 8.95239e-07 1.58311 0.0921664 1.79419 0.276498L8 5.69585L14.2058 0.276498C14.4028 0.104455 14.6454 0.0184329 14.9336 0.0184329C15.2224 0.0184329 15.4723 0.110599 15.6834 0.294931C15.8945 0.479263 16 0.694316 16 0.940092C16 1.18587 15.8945 1.40092 15.6834 1.58525Z" fill="#A0A0A0"/>
+                      </svg>
+                    </div>
+                    <div className={s.popup_active__list__catalog__container + ' ' + (catalogState && s.popup_active__list__catalog__container__active)}>
+                      <div className={s.popup_active__list__catalog__list + ' ' + (catalogState && s.popup_active__list__catalog__active)}>
+                        {headerState.length > 0 && headerState.map((el, index) => {
+                          return <Dropdown handler={() => {
+                            setCatalogState(false)
+                            setPopupState(false)
+                          }} type={'header'} name={el.name} value={el.name} options={el.collection} />
+                        })}
+                      </div>
+                    </div>
+                    <Link href="/favorites" locale={router.locale}>{locale === 'ru' ? 'Избранное' : 'Favorites'}</Link>
+                    <Link href="/coop" locale={router.locale}>{t('header.coop')}</Link>
+                    <Link href="/about" locale={router.locale}>{t('header.about')}</Link>
+                    <Link href="/contacts" locale={router.locale}>{t('header.contacts')}</Link>
+                  </ul>
+                </>) : (<><ul className={s.popup_active__list}>
+                  {headerState.length > 0 && headerState.map((el, index) => {
+                    return <li key={index}
+                               className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel}
+                               onClick={() => setPopupState(false)} onMouseOver={() => setPopupArr(el.collection)}>
+                      <Link
+                        href={`/catalog?category=${el.id}`}>{el.name}</Link>
+                      {el.collection.length > 0 &&
+                        <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M1.39001 0.877758L5.53133 5.60599C5.58048 5.66228 5.61522 5.72326 5.63554 5.78893C5.65618 5.8546 5.6665 5.92496 5.6665 6.00001C5.6665 6.07506 5.65618 6.14542 5.63554 6.21109C5.61522 6.27676 5.58048 6.33774 5.53133 6.39403L1.39001 11.1363C1.27531 11.2677 1.13194 11.3333 0.959899 11.3333C0.787856 11.3333 0.64039 11.263 0.517503 11.1223C0.394615 10.9815 0.333171 10.8174 0.333171 10.6297C0.333171 10.4421 0.394615 10.2779 0.517503 10.1372L4.13041 6.00001L0.517502 1.86281C0.402806 1.73147 0.345459 1.56973 0.345459 1.3776C0.345459 1.18509 0.406902 1.01848 0.52979 0.877758C0.652678 0.737037 0.796047 0.666676 0.959898 0.666676C1.12375 0.666676 1.26712 0.737037 1.39001 0.877758Z"
+                            fill="black"/>
+                        </svg>}
+                    </li>
+                  })}
+                </ul>
+                  <ul onMouseLeave={()=>setPopupArr([])} className={popupArr.length > 0 ? s.popup_active__semilist_active :  s.popup_active__semilist}>
+                    {popupArr.map((el, index)=>{
+                      return <li key={index} onClick={()=>setPopupState(false)}>
+                        <Link href={`/catalog?collection=${el.master_id}`}>{el.name}</Link>
+                      </li>
+                    })}
+                  </ul></>)}
+              </div>
+              {width !== 'mobile' && dayProduct && <div className={s.popup_active__day}>
+                <div className={s.popup_active__day__container}>
+                  <h2>Товар дня</h2>
+                  <div className={s.popup_active__day__container__card}>
+                    <Card day={true} className={'day'} product={dayProduct}/>
                   </div>
-                  <Link href="/favorites" locale={router.locale}>{locale === 'ru' ? 'Избранное' : 'Favorites'}</Link>
-                  <Link href="/coop" locale={router.locale}>{t('header.coop')}</Link>
-                  <Link href="/about" locale={router.locale}>{t('header.about')}</Link>
-                  <Link href="/contacts" locale={router.locale}>{t('header.contacts')}</Link>
-                </ul>
-              </>) : (<><ul className={s.popup_active__list}>
-              {headerState.length > 0 && headerState.map((el, index) => {
-                return <li key={index}
-                  className={popupPage == 0 ? s.popup_active__list__link : s.popup_active__list__linkDisabel}
-                  onClick={() => setPopupState(false)} onMouseOver={() => setPopupArr(el.collection)}>
-                  <Link
-                    href={`/catalog?category=${el.id}`}>{el.name}</Link>
-                  {el.collection.length > 0 &&
-                    <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M1.39001 0.877758L5.53133 5.60599C5.58048 5.66228 5.61522 5.72326 5.63554 5.78893C5.65618 5.8546 5.6665 5.92496 5.6665 6.00001C5.6665 6.07506 5.65618 6.14542 5.63554 6.21109C5.61522 6.27676 5.58048 6.33774 5.53133 6.39403L1.39001 11.1363C1.27531 11.2677 1.13194 11.3333 0.959899 11.3333C0.787856 11.3333 0.64039 11.263 0.517503 11.1223C0.394615 10.9815 0.333171 10.8174 0.333171 10.6297C0.333171 10.4421 0.394615 10.2779 0.517503 10.1372L4.13041 6.00001L0.517502 1.86281C0.402806 1.73147 0.345459 1.56973 0.345459 1.3776C0.345459 1.18509 0.406902 1.01848 0.52979 0.877758C0.652678 0.737037 0.796047 0.666676 0.959898 0.666676C1.12375 0.666676 1.26712 0.737037 1.39001 0.877758Z"
-                    fill="black"/>
-                    </svg>}
-                </li>
-              })}
-                </ul>
-                <ul onMouseLeave={()=>setPopupArr([])} className={popupArr.length > 0 ? s.popup_active__semilist_active :  s.popup_active__semilist}>
-              {popupArr.map((el, index)=>{
-                return <li key={index} onClick={()=>setPopupState(false)}>
-                <Link href={`/catalog?collection=${el.master_id}`}>{el.name}</Link>
-                </li>
-              })}
-                </ul></>)}
+                </div>
+              </div>}
             </div>
           </div>
         </div>

@@ -283,11 +283,38 @@
   overflow: hidden;
 
   &__container {
-    width: 1400px;
+    width: 900px;
     display: flex;
-    margin: 0 auto;
-    padding: 50px 0px;
+    margin: 0;
+    padding: 50px 0;
     border-top: 1px solid $block-main;
+
+    &__flex{
+      width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__day{
+    width: 500px;
+    height: 100%;
+    border-top: 1px solid #FFCBCC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__container{
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      height: 360px;
+
+      &__card{
+        position: relative;
+      }
+    }
   }
 
   &__semilist {
@@ -369,8 +396,16 @@
 
   .popup_active{
 
+    &__day{
+      width: 400px;
+    }
+
     &__container{
-      width: 1000px;
+      width: 600px;
+
+      &__flex{
+        width: 1000px;
+      }
     }
   }
 }
@@ -382,8 +417,17 @@
 
   .popup_active{
 
+    &__day{
+      width: 300px;
+      justify-content: flex-end;
+    }
+
     &__container{
-      width: 700px;
+      width: 400px;
+
+      &__flex{
+        width: 700px;
+      }
     }
   }
 }
@@ -506,13 +550,12 @@
 
         &__list{
           position: absolute;
-          clip: rect(auto, auto, 0, auto);
-          transition: clip 0.3s ease-in;
+          transition: height 0.3s ease-in;
           overflow: hidden;
           display: flex;
           flex-direction: column;
           overflow-y: auto;
-          max-height: 280px;
+          height: 0;
           max-width: 80%;
           gap: 10px;
 
@@ -523,7 +566,7 @@
         }
 
         &__active{
-          clip: rect(auto, auto, 280px, auto);
+          height: 280px;
         }
       }
 

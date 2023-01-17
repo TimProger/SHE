@@ -151,12 +151,12 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
             <path d="M1.34314 1.34326L12.6568 12.657" stroke="#A0A0A0"/>
           </svg>}
           <h2>{name}</h2>
-          <p className={s.card__content__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
+          {product.color && <p className={s.card__content__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
             <span style={{background: product.color}} className={s.card__content__info__color__block} />
-          </p>
-          <p className={s.card__content__info__size}>{locale === 'ru' ? 'Объём, мл' : 'Size, ml'}:
+          </p>}
+          {product.ml && <p className={s.card__content__info__size}>{locale === 'ru' ? 'Объём, г.' : 'Size, g.'}:
             <span>{product.ml}</span>
-          </p>
+          </p>}
           <p className={s.card__content__info__articul}>{locale === 'ru' ? 'Артикул' : 'Article'}: {article}</p>
         </div>
       </div>

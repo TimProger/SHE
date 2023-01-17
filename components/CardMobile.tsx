@@ -78,8 +78,8 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
           </h2>
           <div className={s.card__content__footer}>
             <div className={s.card__content__footer__info}>
-              <p>{product.product_more.map(el=>el.ml).join('/')} {locale === 'ru' ? 'мл' : 'ml'}</p>
-              <span style={{background: product.color}} className={s.card__content__footer__color} />
+              {product.product_more[0].ml && <p>{product.product_more.map(el=>el.ml).join('/')} {locale === 'ru' ? 'г.' : 'g.'}</p>}
+              {product.color && <span style={{background: product.color}} className={s.card__content__footer__color} />}
             </div>
             <div className={s.card__content__footer__price}>{locale === 'ru' ? 'от' : 'from'} {product.product_more[0].price} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</div>
           </div>

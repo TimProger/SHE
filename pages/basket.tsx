@@ -524,7 +524,7 @@ const Basket: React.FC = () => {
                 return <div className={s.order__orders__products__product}>
                   <div>
                     <Link href={`${locale}/product/${el.product_id}`}><h3>{el.name}</h3></Link>
-                    <p>{locale ==='ru' ? 'мл' : 'ml'}: {el.ml}</p>
+                    <p>{locale ==='ru' ? 'г.' : 'g.'}: {el.ml}</p>
                     <p>x{products[index].count}</p>
                   </div>
                   <h3>{(el.price*(products[index].count || 1)).toFixed(2)} {el.price_currency === 'RUB' ? '₽' : '$'}</h3>

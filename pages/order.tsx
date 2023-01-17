@@ -81,7 +81,7 @@ const Order: React.FC = () => {
                       <p className={s.order__products__product__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
                         <span style={{background: el.color}} className={s.order__products__product__info__color__block} />
                       </p>
-                      <p className={s.order__products__product__info__size}>{locale === 'ru' ? 'Объём, мл' : 'Size, ml'}:
+                      <p className={s.order__products__product__info__size}>{locale === 'ru' ? 'Объём, г.' : 'Size, g.'}:
                         <span>{el.ml}</span>
                       </p>
                       <p className={s.order__products__product__info__articul}>{locale === 'ru' ? 'Артикул' : 'Article'}: <span>{el.article}</span></p>

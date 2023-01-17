@@ -12,9 +12,10 @@ import {useRouter} from "next/router";
 interface ICardProps {
   product: IProduct;
   className?: string;
+  day?: true
 }
 
-const Card: React.FC<ICardProps> = ({product, className}) => {
+const Card: React.FC<ICardProps> = ({product, className, day}) => {
   const dispatch = useAppDispatch()
   const {locale} = useRouter()
   const [more, setMore] = useState<IProductMore>(product.product_more[0])
@@ -74,6 +75,7 @@ const Card: React.FC<ICardProps> = ({product, className}) => {
                 </svg>
               </div>
               <div className={s.card__header__new}>
+                {day && <div className={s.card__day__block}>{locale === 'ru' ? 'Товар дня' : 'Day\'s product'}</div>}
                 {is_new && <div className={s.card__new__block}>New</div>}
                 {is_hit && <div className={s.card__hit__block}>Hit</div>}
                 {!!discount && <div className={s.card__header__new__discount}>-{discount}%</div>}
@@ -95,8 +97,8 @@ const Card: React.FC<ICardProps> = ({product, className}) => {
         <div className={s.card__content}>
           <div className={s.card__content__footer}>
             <div className={s.card__content__footer__info}>
-              <p>{product.product_more.map(el=>el.ml).join('/')} {locale === 'ru' ? 'мл' : 'ml'}</p>
-              <span style={{background: product.color}} className={s.card__content__footer__color} />
+              {product.product_more[0].ml && <p>{product.product_more.map(el => el.ml).join('/')} {locale === 'ru' ? 'г.' : 'g.'}</p>}
+              {product.color && <span style={{background: product.color}} className={s.card__content__footer__color} />}
             </div>
             <div>{locale === 'ru' ? 'от' : 'from'} {product.product_more[0].price} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</div>
           </div>
