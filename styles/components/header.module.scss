@@ -309,7 +309,7 @@
       display: flex;
       justify-content: space-between;
       flex-direction: column;
-      height: 360px;
+      height: 460px;
 
       &__card{
         position: relative;
@@ -420,6 +420,10 @@
     &__day{
       width: 300px;
       justify-content: flex-end;
+
+      &__container{
+        height: 360px;
+      }
     }
 
     &__container{

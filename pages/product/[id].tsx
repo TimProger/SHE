@@ -83,6 +83,10 @@ const Product: React.FC<IProductProps> = ({product}) => {
   },[product])
 
   useEffect(()=>{
+    setMainImage(`${API_BASE_URL}/${product.images[0].image}`)
+  },[product])
+
+  useEffect(()=>{
     const includes = fav.products.filter((el)=>el.more === more.id)
     if(includes[0]){
       setIsFav(true)
@@ -287,22 +291,22 @@ const Product: React.FC<IProductProps> = ({product}) => {
                   <h1 className={s.container__product__product__info__name}>{product.name}</h1>
                   <p className={s.container__product__product__info__about}>{product.about_title}</p>
                 </div>}
-                <p className={s.container__product__product__info__color}>{t('color')}: <span>{product.color_name}</span> <span style={{background: product.color}} className={s.container__product__product__info__color__block} />
+                <p className={s.container__product__product__info__color}>{t('color')}: {product.color_name === '-' ? '' : <span>{product.color_name}</span>} <span style={{background: product.color}} className={s.container__product__product__info__color__block} />
                 </p>
-                <div className={s.container__product__product__info__size}>
+                {product.product_more[0].ml ? <div className={s.container__product__product__info__size}>
                   <p>{t('ml')}:</p>
                   <div className={s.container__product__product__info__size__container}>
-                    {product.product_more.map((el)=>{
+                    {product.product_more.map((el) => {
                       return <div key={el.id}
                                   className={more.ml === el.ml
                                     ? s.container__product__product__info__size__container__active
                                     : ''}
-                                  onClick={()=>setMore(el)}>
+                                  onClick={() => setMore(el)}>
                         {el.ml}
                       </div>
                     })}
                   </div>
-                </div>
+                </div> : ''}
                 <div className={s.container__product__product__info__price}>
                   <p>{more.price} {more.price_currency === 'RUB' ? '₽' : '$'}</p>
                 </div>
@@ -353,8 +357,8 @@ const Product: React.FC<IProductProps> = ({product}) => {
                       <p><span>{t('producer')}: </span>™SHE</p>
                       <p><span>{t('collection')}: </span>{product.type}</p>
                       <p><span>{t('country')}: </span>{locale === 'ru' ? 'Россия' : 'Russian'}</p>
-                      <p><span>{t('color')}: </span>{product.color_name}</p>
-                      <p><span>{t('ml')}: </span>{product.product_more.map((el)=>el.ml).join(' / ')}</p>
+                      <p><span>{t('color')}: </span>{product.color_name === '-' ? '' : product.color_name}<span style={{background: product.color}} className={s.container__product__product__info__color__block} /></p>
+                      {product.product_more[0].ml ? <p><span>{t('ml')}: </span>{product.product_more.map((el)=>el.ml).join(' / ')}</p> : ''}
                     </div>
                     <div className={s.container__product__info__content__title}>
                       {product.about_text.split(/\r?\n/).map((el, index)=>{
