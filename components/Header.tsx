@@ -191,7 +191,9 @@ const Header: React.FC<IHeaderProps> = ({}) => {
               </div>}
               {width !== 'mobile' && <Dropdown className={s.dropdown}
                          handler={(e: MouseEvent, value: string) => onToggleLanguageClick(e, router, value)}
-                         value={router.locale || 'ru'} options={router.locales || []}/>}
+                         value={router.locale || 'ru'}
+                         options={router.locales || []}
+                         name={'lang'} />}
               <div className={s.top__btns}>
                 <div className={`${s.top__btns__btn} ${s.top__btns__btn__search}`}>
                   <div className={s.top__btns__btn__container}>
@@ -314,14 +316,18 @@ const Header: React.FC<IHeaderProps> = ({}) => {
               </div>
             </div>
           </div>
-          <div className={popupState ? s.popup_active : s.popup} onMouseOver={()=>width === 'mobile' ? setPopupState(true) : ''} onMouseLeave={()=>width === 'mobile' ? setPopupState(false) : ''}>
+          <div className={popupState ? s.popup_active : s.popup} onMouseOver={()=>width !== 'mobile' ? setPopupState(true) : ''} onMouseLeave={()=>width !== 'mobile' ? setPopupState(false) : ''}>
             <div className={s.popup_active__container__flex}>
               <div className={s.popup_active__container}>
                 {width === 'mobile' ? (<>
                   <ul className={s.popup_active__list}>
                     <div className={s.popup_active__list__main}>
                       <Link href="/" locale={router.locale}>{t('header.home')}</Link>
-                      <Dropdown className={s.dropdown} handler={(e: MouseEvent, value: string)=>onToggleLanguageClick(e, router, value)} value={router.locale || 'ru'} options={router.locales || []} />
+                      <Dropdown className={s.dropdown}
+                                handler={(e: MouseEvent, value: string)=>onToggleLanguageClick(e, router, value)}
+                                value={router.locale || 'ru'}
+                                options={router.locales || []}
+                                name={'lang'} />
                     </div>
                     <div className={s.popup_active__list__catalog}>{
                       catalogState ? <Link
