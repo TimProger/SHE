@@ -10,6 +10,7 @@ import {useRouter} from "next/router";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {getUser} from "../store/ActionCreators/Profile.ac";
 import {getBasket, getBasketNoAuth} from "../store/ActionCreators/Basket.ac";
+import {deleteAllCookies} from "../utils/deleteAllCookies";
 
 const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
 
@@ -52,6 +53,14 @@ const WrappedApp: FC<AppProps> = ({Component, pageProps}) => {
       }
     }
   }, [profileState.isAuth])
+
+  useEffect(()=>{
+    if(document){
+      if(!Storage.get('cleared')){
+        deleteAllCookies()
+      }
+    }
+  },[])
 
   return <Component {...pageProps} />
 };
