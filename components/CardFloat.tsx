@@ -9,6 +9,7 @@ import {addToBasket, removeFromBasket, killProduct} from "../store/Slices/Basket
 import {removeFromFavs} from "../store/Slices/Fav.slice";
 import Stock from '../public/images/stock.png'
 import Link from "next/link";
+import {sendMetrik} from "../utils/metriks";
 
 interface ICardProps {
   product: IBasketProductFull
@@ -44,8 +45,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
   } = product
 
   const addToBasketHandler = () => {
-    // @ts-ignore
-    window.yaCounter92105532.reachGoal('add_basket');
+    sendMetrik('reachGoal', 'add_basket')
     if(user.isAuth){
       $api.patch(`${locale}/basket/${product.id}/`, {
         count: product.count + 1

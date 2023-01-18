@@ -18,6 +18,7 @@ import s from "../../styles/pages/product.module.scss";
 import Link from "next/link";
 import Button from "../../components/Button";
 import axios from "axios";
+import {sendMetrik} from "../../utils/metriks";
 
 interface IProductProps {
   product: IProduct;
@@ -118,8 +119,7 @@ const Product: React.FC<IProductProps> = ({product}) => {
   }, [basket.products, more])
 
   const addToBasketHandler = () => {
-    // @ts-ignore
-    window.yaCounter92105532.reachGoal('add_basket');
+    sendMetrik('reachGoal', 'add_basket')
     if(user.isAuth){
       const includes = basket.products.filter((el)=>el.more === more.id)
       if(includes[0]){

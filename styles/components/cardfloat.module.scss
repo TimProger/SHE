@@ -142,8 +142,17 @@
     &__content{
       width: 100%;
 
+      &__info{
+
+        & h2{
+          font-size: 24px;
+        }
+      }
+
       &__image{
         width: 185px;
+        display: flex;
+        align-items: flex-end;
       }
     }
   }

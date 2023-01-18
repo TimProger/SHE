@@ -22,6 +22,7 @@ import visa_logo from '../public/images/visa_logo.png'
 import jcb_logo from '../public/images/jcb_logo.png'
 import ms_logo from '../public/images/ms_logo.png'
 import {Storage} from "../utils/storage";
+import {sendMetrik} from "../utils/metriks";
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -645,8 +646,7 @@ const Basket: React.FC = () => {
       .then(()=>{
         $api.post(`/${locale}/order/buy/`, order_data)
           .then((res) => {
-            // @ts-ignore
-            window.yaCounter92105532.reachGoal('buy');
+            sendMetrik('reachGoal', 'buy')
             dispatch(removeAllProductFromBasket())
             push(`order/?order_id=${res.data.order_id.split('-')[1]}`)
           })
