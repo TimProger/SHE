@@ -645,6 +645,8 @@ const Basket: React.FC = () => {
       .then(()=>{
         $api.post(`/${locale}/order/buy/`, order_data)
           .then((res) => {
+            // @ts-ignore
+            window.yaCounter92105532.reachGoal('buy');
             dispatch(removeAllProductFromBasket())
             push(`order/?order_id=${res.data.order_id.split('-')[1]}`)
           })

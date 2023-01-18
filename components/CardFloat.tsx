@@ -44,6 +44,8 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
   } = product
 
   const addToBasketHandler = () => {
+    // @ts-ignore
+    window.yaCounter92105532.reachGoal('add_basket');
     if(user.isAuth){
       $api.patch(`${locale}/basket/${product.id}/`, {
         count: product.count + 1

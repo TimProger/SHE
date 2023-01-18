@@ -118,6 +118,8 @@ const Product: React.FC<IProductProps> = ({product}) => {
   }, [basket.products, more])
 
   const addToBasketHandler = () => {
+    // @ts-ignore
+    window.yaCounter92105532.reachGoal('add_basket');
     if(user.isAuth){
       const includes = basket.products.filter((el)=>el.more === more.id)
       if(includes[0]){
