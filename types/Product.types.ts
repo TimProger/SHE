@@ -6,6 +6,7 @@ export interface IProductShort {
 export interface ISlide {
   id: number;
   title: string;
+  about: string;
   image: null | string;
   data_start: Date | string;
   data_finish: Date | string;

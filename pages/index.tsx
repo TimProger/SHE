@@ -15,6 +15,7 @@ import Card from "../components/Card";
 import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
+import Link from "next/link";
 
 interface IMainProps {
   slides: ISlide[],
@@ -87,7 +88,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
           lazy={true}
           loop={true}
           autoplay={{
-            delay: 5000,
+            delay: 125000,
             disableOnInteraction: false,
           }}
           slidesPerView={1}
@@ -108,14 +109,19 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
                   <div className={s.swiper__slide__title}>
                     <h1 className={s.swiper__slide__title__h1}>{el.title}</h1>
                   </div>
+                  <div className={s.swiper__slide__about}>
+                    <span></span>
+                    {el.about && el.about !== '-' ? <p>{el.about}</p> : ''}
+                  </div>
                   <div className={s.swiper__slide__footer}>
                     {el.data_finish && <p className={s.swiper__slide__footer__date}>
                       {t('sale')} {new Date(el.data_finish).toLocaleString().split(', ')[0]}
                     </p>}
-                    {el.link && <a href={el.link} className={s.swiper__slide__footer__btn}>
+                    {el.link && <Link href={el.link} className={s.swiper__slide__footer__btn}>
                       {t('more')}
-                    </a>}
+                    </Link>}
                   </div>
+                  <p></p>
                 </div>
               </SwiperSlide>
             )
