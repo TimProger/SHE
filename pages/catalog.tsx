@@ -306,6 +306,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     const data = new FormData()
     push(`/catalog`)
 
+
     data.append('order', sort.value)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
