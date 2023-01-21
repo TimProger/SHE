@@ -31,7 +31,7 @@ interface IUsedFilters {
 }
 
 const Catalog: React.FC<ICatalogProps> = () => {
-  const { locale, query } = useRouter()
+  const { locale, query, push } = useRouter()
   const { t } = useTranslation('catalog')
 
   const [types, setTypes] = useState<string[]>([])
@@ -124,17 +124,38 @@ const Catalog: React.FC<ICatalogProps> = () => {
         usedFilters.type = []
         if(query.category){
           data.append('category', `${query.category}`)
-          usedFilters.category = [+`${query.category}`]
+          if(query.category.includes(',')){
+            usedFilters.category = `${query.category}`.split(',').map((el)=>+el)
+          }else{
+            usedFilters.category = [+`${query.category}`]
+          }
           setFiltered(true)
         }
         if(query.collection){
           data.append('collection', `${query.collection}`)
-          usedFilters.collection = [+`${query.collection}`]
+          if(query.collection.includes(',')){
+            usedFilters.collection = `${query.collection}`.split(',').map((el)=>+el)
+          }else{
+            usedFilters.collection = [+`${query.collection}`]
+          }
           setFiltered(true)
         }
         if(query.type){
           data.append('type', `${query.type}`)
-          usedFilters.type = [+`${query.type}`]
+          if(query.type.includes(',')){
+            usedFilters.type = `${query.type}`.split(',').map((el)=>+el)
+          }else{
+            usedFilters.type = [+`${query.type}`]
+          }
+          setFiltered(true)
+        }
+        if(query.color){
+          data.append('color', `${query.color}`)
+          if(query.color.includes(',')){
+            usedFilters.color = `${query.color}`.split(',').map((el)=>+el)
+          }else{
+            usedFilters.color = [+`${query.color}`]
+          }
           setFiltered(true)
         }
         $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
@@ -260,6 +281,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
+    push(`/catalog?${usedFilters.category.length > 0 ? `&category=${usedFilters.category}` : ''}${usedFilters.color.length > 0 ? `&color=${usedFilters.color}` : ''}${usedFilters.collection.length > 0 ? `&collection=${usedFilters.collection}` : ''}${usedFilters.type.length > 0 ? `&type=${usedFilters.type}` : ''}`)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
@@ -282,6 +304,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
       max_price: null
     })
     const data = new FormData()
+    push(`/catalog`)
+
     data.append('order', sort.value)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
