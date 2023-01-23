@@ -124,7 +124,7 @@
 
       & p{
         width: 40%;
-        height: 95px;
+        height: 100px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: break-spaces;
@@ -310,6 +310,7 @@
 
         &__h1 {
           width: 100%;
+          font-size: 24px;
         }
       }
 
@@ -364,6 +365,22 @@
       &__wrapper{
         width: 350px;
         padding: 0 20px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+
+  .swiper{
+
+    &__slide{
+
+      &__about{
+
+        & p{
+          height: 0;
+        }
       }
     }
   }

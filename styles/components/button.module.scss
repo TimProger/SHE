@@ -37,3 +37,10 @@
     background: $text-sec;
   }
 }
+
+@media screen and (max-width: 300px) {
+  .button{
+    padding: 15px 20px;
+    font-size: 12px !important;
+  }
+}

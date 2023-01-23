@@ -20,7 +20,7 @@
     opacity: 1 !important;
 
     & .modal__block{
-      top: 20px !important;
+      top: 20px;
     }
   }
 
@@ -41,15 +41,14 @@
     border-radius: 20px;
 
     &__close{
-      position: fixed;
+      position: relative;
+      left: 520px;
       top: 0;
-      right: 150px;
       transition: all 0.5s;
       z-index: 9;
       cursor: pointer;
 
       &__active{
-        top: 50px !important;
       }
     }
 
@@ -87,24 +86,21 @@
 }
 
 @media screen and (max-width: 1050px) {
-  .auth{
+  .modal{
 
-    &__form {
+    &__block {
       width: 600px;
       font-size: 16px;
+
+      &__close{
+        left: 380px;
+        top: -10px;
+      }
 
       &__container{
 
         & h1{
-          font-size: 35px;
-        }
-
-        & h2{
           font-size: 20px;
-        }
-
-        & input{
-          font-size: 18px;
         }
       }
     }
@@ -112,11 +108,24 @@
 }
 
 @media screen and (max-width: 700px) {
-  .auth{
+  .modal{
 
-    &__form {
+    &__block {
+      top: 0 !important;
       width: 100%;
       font-size: 14px;
+      border-radius: 0;
+      height: 100%;
+      padding: 20px;
+      justify-content: flex-start;
+
+      &__close{
+        left: 280px;
+        top: -10px;
+
+        &__active{
+        }
+      }
 
       &__container{
         gap: 30px;
@@ -126,7 +135,7 @@
         }
 
         & h1{
-          font-size: 28px;
+          font-size: 20px;
         }
 
         & h2{
@@ -135,6 +144,46 @@
 
         & input{
           font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .modal{
+
+    &__block {
+
+      &__close{
+        left: 220px;
+        top: -10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .modal{
+
+    &__block {
+
+      &__close{
+        left: 180px;
+        top: -10px;
+      }
+
+      &__container{
+
+        & button{
+        }
+
+        & h1{
+          font-size: 16px;
+        }
+
+        & p{
+          font-size: 12px;
         }
       }
     }

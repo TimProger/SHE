@@ -89,7 +89,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
           lazy={true}
           loop={true}
           autoplay={{
-            delay: 5000,
+            delay: 15000,
             disableOnInteraction: false,
           }}
           slidesPerView={1}
