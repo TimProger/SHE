@@ -16,6 +16,7 @@ import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
 import Link from "next/link";
+import {setModal, toggleShowModal} from "../store/Slices/Profile.slice";
 
 interface IMainProps {
   slides: ISlide[],
@@ -117,7 +118,16 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
                     {el.data_finish && <p className={s.swiper__slide__footer__date}>
                       {t('sale')} {new Date(el.data_finish).toLocaleString().split(', ')[0]}
                     </p>}
-                    {el.link && <Link href={el.link} className={s.swiper__slide__footer__btn}>
+                    {el.link && <Link onClick={(e)=>{
+                      e.preventDefault()
+                      dispatch(toggleShowModal(true))
+                      dispatch(setModal({
+                        type: 'default',
+                        title: el.title,
+                        desc: el.about,
+                        link: el.link,
+                      }))
+                    }} href={''} className={s.swiper__slide__footer__btn}>
                       {t('more')}
                     </Link>}
                   </div>

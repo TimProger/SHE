@@ -8,6 +8,9 @@
     "contacts": "Contacts",
     "search": "Search"
   },
+  "modal": {
+    "button_1": "Let's go shopping!"
+  },
   "auth": {
     "title": "Authorization",
     "paragraph_1":  "Enter your phone number to login or register",

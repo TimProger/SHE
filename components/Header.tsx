@@ -17,6 +17,7 @@ import {setProducts} from "../store/Slices/Product.slice";
 import Card from "./Card";
 import {IProduct} from "../types/Product.types";
 import axios from "axios";
+import Modal from "./Modal";
 
 interface IHeaderProps {
 }
@@ -165,6 +166,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
   return (
     <>
       <Auth />
+      <Modal />
       {popupState && <div className={s.header__placeholder}></div>}
       <header className={s.header + ' ' + (popupState && s.header__active)}>
         <div className={s.wrapper}>

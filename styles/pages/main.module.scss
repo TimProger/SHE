@@ -124,6 +124,10 @@
 
       & p{
         width: 40%;
+        height: 95px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: break-spaces;
       }
     }
 

@@ -8,8 +8,15 @@ interface IProfileState {
   error: string | null;
   user: IUser | null;
   isAuth: boolean;
-  history: IProduct[] | null,
-  showAuth: boolean
+  history: IProduct[] | null;
+  showAuth: boolean;
+  showModal: boolean;
+  modal: {
+    type: string;
+    title: string;
+    desc: string;
+    link: string;
+  }
 }
 
 const initialState: IProfileState = {
@@ -18,7 +25,14 @@ const initialState: IProfileState = {
   user: null,
   isAuth: false,
   history: null,
-  showAuth: false
+  showAuth: false,
+  showModal: false,
+  modal: {
+    type: '',
+    title: '',
+    desc: '',
+    link: '',
+  }
 }
 
 export const profileSlice = createSlice({
@@ -41,6 +55,17 @@ export const profileSlice = createSlice({
     },
     toggleShowAuth: (state: IProfileState, action: PayloadAction<boolean>) => {
       state.showAuth = action.payload
+    },
+    toggleShowModal: (state: IProfileState, action: PayloadAction<boolean>) => {
+      state.showModal = action.payload
+    },
+    setModal: (state: IProfileState, action: PayloadAction<{
+      type: string;
+      title: string;
+      desc: string;
+      link: string;
+    }>) => {
+      state.modal = action.payload
     }
   },
   extraReducers: {
@@ -60,6 +85,6 @@ export const profileSlice = createSlice({
   }
 })
 
-export const { exit, setImage, setUser, toggleShowAuth } = profileSlice.actions
+export const { exit, setImage, setUser, toggleShowAuth, toggleShowModal, setModal } = profileSlice.actions
 
 export default profileSlice.reducer
