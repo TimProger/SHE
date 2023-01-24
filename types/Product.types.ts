@@ -6,6 +6,7 @@ export interface IProductShort {
 export interface ISlide {
   id: number;
   title: string;
+  more_text: string;
   about: string;
   image: null | string;
   data_start: Date | string;
@@ -65,6 +66,9 @@ export interface IProduct {
   about_text: string;
   about_title: string;
   ml: number;
+  link_video: string;
+  name_video: string;
+  text_video: string;
 }
 
 export interface IBasketProduct {

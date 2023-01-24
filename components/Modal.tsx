@@ -29,6 +29,7 @@ const Modal: React.FC<IModalProps> = () => {
 
   const handleClick = () => {
     push(`${modal.link}`)
+    dispatch(toggleShowModal(false))
   }
 
   return (

@@ -42,7 +42,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
   const [searchValue, setSearchValue] = useState('')
   const [showSearch, setShowSearch] = useState(false)
   const ref = useOnclickOutside((e: any) => {
-    if(e.target.classList[0] === 'searchbtn'){
+    if(e.target.classList && e.target.classList[0] === 'searchbtn'){
       return
     }
     setShowSearch(false)
@@ -89,25 +89,6 @@ const Header: React.FC<IHeaderProps> = ({}) => {
   const [popupState, setPopupState] = useState(false);
   const [popupArr, setPopupArr] = useState<IHeaderStateCollection[]>([]);
   const [popupPage, setPopupPage] = useState(0)
-  const [catalog, setCatalog] = useState(false)
-
-  // useEffect(()=>{
-  //   if(typeof window === undefined) return
-  //   const handleScroll = () => {
-  //     if(scrollValue > window.pageYOffset){
-  //       document.querySelector(`.${s.header}`)?.classList.remove(s.header__close)
-  //     }else{
-  //       setPopupState(false)
-  //       document.querySelector(`.${s.header}`)?.classList.add(s.header__close)
-  //     }
-  //     scrollValue = +window.pageYOffset
-  //   }
-  //   window.addEventListener('scroll', handleScroll)
-  //
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // },[])
 
   const [basketCount, setBasketCount] = useState(0)
 
@@ -385,7 +366,7 @@ const Header: React.FC<IHeaderProps> = ({}) => {
               </div>
               {width !== 'mobile' && dayProduct && <div className={s.popup_active__day}>
                 <div className={s.popup_active__day__container}>
-                  <h2>Товар дня</h2>
+                  <h2>{locale === 'ru' ? 'Товар дня' : 'Product of the Day'}</h2>
                   <div className={s.popup_active__day__container__card}>
                     <Card day={true} className={'day'} product={dayProduct}/>
                   </div>

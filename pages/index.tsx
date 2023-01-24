@@ -89,7 +89,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
           lazy={true}
           loop={true}
           autoplay={{
-            delay: 15000,
+            delay: 5000,
             disableOnInteraction: false,
           }}
           slidesPerView={1}
@@ -124,7 +124,7 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
                       dispatch(setModal({
                         type: 'default',
                         title: el.title,
-                        desc: el.about,
+                        desc: el.more_text,
                         link: el.link,
                       }))
                     }} href={''} className={s.swiper__slide__footer__btn}>

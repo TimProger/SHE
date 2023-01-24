@@ -24,12 +24,12 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [open, setOpen] = useState(false)
   const ref = useOnclickOutside((e: any) => {
     if(type !== "counties") {
-      if (e.target.classList[1] === name?.split(' ').join('') || e.target.tagName === 'svg') {
+      if ((e.target.classList && e.target.classList.length > 0 && e.target.classList[1] === name?.split(' ').join('')) || e.target.tagName === 'svg') {
         return
       }
       setOpen(false);
     }else{
-      if(e.target.classList[0] === s.dropdown_form__block || e.target.tagName === 'svg'){
+      if((e.target.classList && e.target.classList.length > 0 && e.target.classList[0] === s.dropdown_form__block) || e.target.tagName === 'svg'){
         return
       }
       setOpen(false);

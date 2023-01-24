@@ -42,7 +42,7 @@ const Contacts: React.FC = () => {
               </div>
               <div className={s.contacts__email}>
                 <h2>Email</h2>
-                <p>info@tmshe.ru</p>
+                <p>tm-she@yandex.ru</p>
               </div>
               <div className={s.contacts__address}>
                 <h2>{t('title3')}</h2>

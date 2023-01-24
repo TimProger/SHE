@@ -185,11 +185,15 @@ const Product: React.FC<IProductProps> = ({product}) => {
 
   const [infoPage, setInfoPage] = useState(1);
   const [width, setWidth] = useState<string>('desktop')
+  const [windowWidth, setWindowWidth] = useState<number>(0)
 
   const resize = (e: any) => {
     if(window){
-      if(window.innerWidth > 1050){
+      setWindowWidth(window.innerWidth)
+      if(window.innerWidth > 1400){
         setWidth('desktop')
+      }else if(window.innerWidth <= 1400 && window.innerWidth > 1050) {
+        setWidth('desktop_short')
       }else if(window.innerWidth <= 1050 && window.innerWidth > 700) {
         setWidth('tablet')
       }else if(window.innerWidth <= 700) {
@@ -203,6 +207,7 @@ const Product: React.FC<IProductProps> = ({product}) => {
   useEffect(()=>{
     window.addEventListener('resize', resize)
     if(window){
+      setWindowWidth(window.innerWidth)
       if(window.innerWidth > 1050){
         setWidth('desktop')
       }else if(window.innerWidth <= 1050 && window.innerWidth > 700) {
@@ -346,7 +351,8 @@ const Product: React.FC<IProductProps> = ({product}) => {
               <div className={s.container__product__info__menu}>
                 <div className={s.container__product__info__menu__wrapper}>
                   <p style={{borderBottom : infoPage == 1 ? '1px solid black' : 'none'}} onClick={()=> setInfoPage(1)}>{locale === "ru" ? 'Информация' : 'Information'}</p>
-                  {/*<p style={{borderBottom : infoPage == 2 ? '1px solid black' : 'none'}} onClick={()=> setInfoPage(2)}>Видео</p>*/}
+                  {product.link_video && <p style={{borderBottom: infoPage == 2 ? '1px solid black' : 'none'}}
+                      onClick={() => setInfoPage(2)}>{locale === "ru" ? 'Видео' : 'Video'}</p>}
                 </div>
               </div>
               <div className={s.container__product__info__content}>
@@ -369,8 +375,16 @@ const Product: React.FC<IProductProps> = ({product}) => {
                     </div>
                   </div>
                   :
-                  <div>
-
+                  <div className={s.container__product__video}>
+                    <h3>{product.name_video}</h3>
+                    <p>{product.text_video}</p>
+                    {product.link_video && <iframe
+                      width={width === 'desktop' ? 1400 : width === 'desktop_short' ? 1000 : width === 'tablet' ? 700 : window.innerWidth - 40}
+                      height={windowWidth > 1050 ? 600 : (windowWidth > 700 && windowWidth < 1050) ? 405 : 305}
+                      src={`${product.link_video}`}
+                      frameBorder="0"
+                      allow="clipboard-write;"
+                      allowFullScreen></iframe>}
                   </div>
                 }
               </div>

@@ -7,6 +7,12 @@
   gap: 30px;
   margin-top: 50px;
 
+  &__video{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
   &__info {
     margin-top: 40px;
 
