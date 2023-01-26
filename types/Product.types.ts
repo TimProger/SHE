@@ -26,6 +26,7 @@ export interface IBasketProductFull{
   buy_now: boolean;
   count: number;
   discount: number | null;
+  distribution_count: number;
   more: number;
   id: number;
   image: string;
@@ -76,6 +77,7 @@ export interface IBasketProduct {
   more: number
   count: number;
   product?: number;
+  product_id?: number;
 }
 
 export interface IFavProduct {

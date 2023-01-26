@@ -10,6 +10,12 @@
   "toCatalogue": "To the catalog",
   "title_1": "Recipient",
   "auth": "To make an order you must be logged in",
+  "copy": {
+    "title": "Share basket",
+    "about": "Your shopping cart has been shared with you. You can view the contents and select the action to take with your cart.",
+    "button_1": "Replace products",
+    "button_2": "Insert with your products"
+  },
   "order": {
     "title": "Address",
     "inputs": {

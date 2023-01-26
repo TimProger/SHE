@@ -1,7 +1,8 @@
 {
   "title": "Profile",
   "exit": "Exit",
-  "status": "Client",
+  "status_1": "Client",
+  "status_2": "Distributor",
   "order_status": {
     "status_0": "Created",
     "status_1": "Pending payment",

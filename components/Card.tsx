@@ -97,10 +97,10 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
         <div className={s.card__content}>
           <div className={s.card__content__footer}>
             <div className={s.card__content__footer__info}>
-              {product.product_more[0].ml ? <p>{product.product_more.map(el => el.ml).join('/')} {locale === 'ru' ? 'г.' : 'g.'}</p> : ''}
+              {product.product_more[0] && product.product_more[0].ml ? <p>{product.product_more.map(el => el.ml).join('/')} {locale === 'ru' ? 'г.' : 'g.'}</p> : ''}
               {product.color ? <span style={{background: product.color}} className={s.card__content__footer__color} /> : ''}
             </div>
-            <div>{locale === 'ru' ? 'от' : 'from'} {product.product_more[0].price} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</div>
+            <div>{locale === 'ru' ? 'от' : 'from'} {product.product_more[0] ? product.product_more[0].price : product.price} {product.product_more[0] && product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</div>
           </div>
         </div>
       </div>

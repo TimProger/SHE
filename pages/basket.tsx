@@ -7,7 +7,7 @@ import {useAppDispatch} from "../hooks/useTypedDispatch";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {IBasketProductFull} from "../types/Product.types";
 import {$api} from "../http/api";
-import {removeAllProductFromBasket, setBasket} from "../store/Slices/Basket.slice";
+import {removeAllProductFromBasket, setBasket, setShowCopy, setShowCopyData} from "../store/Slices/Basket.slice";
 import s from "../styles/pages/basket.module.scss";
 import CardFloat from "../components/CardFloat";
 import Button from "../components/Button";
@@ -23,13 +23,15 @@ import jcb_logo from '../public/images/jcb_logo.png'
 import ms_logo from '../public/images/ms_logo.png'
 import {Storage} from "../utils/storage";
 import {sendMetrik} from "../utils/metriks";
+import CopyBasket from "../components/CopyBasket";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 );
 
 const Basket: React.FC = () => {
-  const { push, locale } = useRouter()
+  const { push, locale, query } = useRouter()
   const { t } = useTranslation('basket')
   const dispatch = useAppDispatch()
 
@@ -43,6 +45,7 @@ const Basket: React.FC = () => {
   const [page, setPage] = useState<number>(0)
   const [totalCountNew, setTotalCount] = useState<number>(0)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
+  const [oldPrice, setOldPrice] = useState<number>(0)
 
   useEffect(()=>{
     if(products.length === 0){
@@ -91,7 +94,15 @@ const Basket: React.FC = () => {
       $api.get<number>(`/${locale}/basket/price/`)
         .then((res)=>{
           let totalC = 0
+          setOldPrice(0)
           selected.map((el)=>{
+            if(el.discount){
+              const price = el.price * (el.count || 1)
+              setOldPrice(prev => +(prev + price).toFixed(2))
+            }else if(user.user && user.user.distribution && el.distribution_count){
+              const price = el.price * (el.count || 1)
+              setOldPrice(prev => +(prev + price).toFixed(2))
+            }
             totalC += (el.count || 1)
           })
           setTotalCount(totalC)
@@ -406,6 +417,24 @@ const Basket: React.FC = () => {
     }
   },[page])
 
+  const [copied, setCopied] = useState<boolean>(false)
+
+  const copyBasketHandler = () => {
+    navigator.clipboard.writeText(`https://tm-she.com/${locale}/basket?copy=${products.map((el, index)=>[el.more, el.count]).join(';')}`)
+    setCopied(true)
+  }
+
+  const ref = useOnclickOutside((e: any) => {
+    setCopied(false)
+  });
+
+  useEffect(()=>{
+    if(query.copy){
+      dispatch(setShowCopyData(`${query.copy}`.split(';')))
+      dispatch(setShowCopy(true))
+    }
+  },[query])
+
   const returnPages = () => {
     switch (page){
       case 0:
@@ -413,6 +442,9 @@ const Basket: React.FC = () => {
           <div className={s.basket__header}>
             <h1>{t('title')}</h1>
             <div className={s.basket__header__btns}>
+              {!copied
+                ? <p className={s.basket__header__btns__btn} onClick={copyBasketHandler}>Копировать</p>
+                : <p ref={ref} style={{color: '#44B571'}} className={s.basket__header__btns__btn} onClick={copyBasketHandler}>Скопировано</p>}
               <div onClick={removeAllProductFromBasketHandler} className={s.basket__header__btns__btn}>{t('clear')}</div>
               <div onClick={selectAllProductHandler} className={s.basket__header__btns__btn}>{t('selectAll')}</div>
             </div>
@@ -677,8 +709,8 @@ const Basket: React.FC = () => {
     }
   }
 
-
-  return (
+  return (<>
+    <CopyBasket />
     <Layout>
       <Head>
         <title>{`${t('title')} | ™SHE`.replace('<!-\- -->','')}</title>
@@ -688,11 +720,20 @@ const Basket: React.FC = () => {
           <div className={s.basket}>
             {returnPages()}
             <div className={s.basket__info}>
-              {page !== 2 ? <h1 className={s.basket__info__text}>
+              {page !== 2 ? <div className={s.basket__info__price__container}>
+                {oldPrice > 0 && <h2 className={s.basket__info__text}>
+                  {oldPrice} {locale === 'ru' ? '₽' : '$'}
+                </h2>}
+                <h1 className={s.basket__info__text}>
                 {t('total')} {totalCountNew} {t('productsToBuy')}: <div>{totalPriceNew} {locale === 'ru' ? '₽' : '$'}</div>
-              </h1>:<h1 className={s.basket__info__text}>
-                {totalPriceNew} {locale === 'ru' ? '₽' : '$'}
-              </h1>}
+              </h1></div>:<div className={s.basket__info__price__container}>
+                {oldPrice > 0 && <h2 className={s.basket__info__text}>
+                  {oldPrice} {locale === 'ru' ? '₽' : '$'}
+                </h2>}
+                  <h1 className={s.basket__info__text}>
+                    {totalPriceNew} {locale === 'ru' ? '₽' : '$'}
+                  </h1>
+                </div>}
               {isAuth
                 ? (page === 0
                   ? <Button text={t('buy')} onClick={handleClick}/>
@@ -710,6 +751,7 @@ const Basket: React.FC = () => {
         </Container>
       </div>
     </Layout>
+    </>
   )
 };
 

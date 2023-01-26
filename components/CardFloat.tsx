@@ -35,7 +35,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     }else{
       setIsInBasket(false)
     }
-  }, [products])
+  }, [products, product, product.count])
 
   const {
     discount,
@@ -93,11 +93,11 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     if(user.isAuth){
       $api.delete(`${locale}/basket/${product.id}`)
         .then((res)=>{
-          dispatch(killProduct(product.id))
+          dispatch(killProduct(product.more))
         })
         .catch(()=>{})
     }else{
-      dispatch(killProduct(product.id))
+      dispatch(killProduct(product.more))
     }
   }
 
@@ -171,12 +171,12 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
         </svg>}
         <div className={s.card__price__text}>
           {discount ? <h2 className={s.card__price__text__discount}>{(product.price*(product.count || 1)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h2> : ''}
-          <h1 className={s.card__price__text__price}>{(product.price - (discount ? (product.price/100)*discount : 0)*(product.count || 1)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h1>
+          <h1 className={s.card__price__text__price}>{(product.price*(product.count || 1) - (discount ? (product.price/100)*discount : 0)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h1>
         </div>
         {isBasket
           ? <div className={s.card__price__button}>
           <div onClick={removeFromBasketHandler}>-</div>
-          {user.isAuth ? product.count : basket && basket.count}
+          {user.isAuth ? product.count : (basket && basket.count)}
           <div onClick={addToBasketHandler}>+</div>
         </div> : <p></p>
         //   : <svg onClick={isInBasket ? removeFromBasketHandler : addToBasketHandler} className={s.card__price__basket} width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">

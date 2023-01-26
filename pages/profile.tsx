@@ -335,7 +335,7 @@ const Profile: React.FC = () => {
                 </div>
                 <div>
                   <h2>{firstName || user?.first_name || t('pages.info.inputs.first')} {lastName || user?.last_name || t('pages.info.inputs.last')}</h2>
-                  <p>{t('status')}</p>
+                  <p>{user && user.distribution ? t('status_2') : t('status_1')}</p>
                 </div>
               </div>
             </div>

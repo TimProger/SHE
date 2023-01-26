@@ -171,7 +171,6 @@ const Product: React.FC<IProductProps> = ({product}) => {
     }else{
       dispatch(removeFromBasket(more.id))
     }
-
   }
 
   const toggleFavHandler = () => {

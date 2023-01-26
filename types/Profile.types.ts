@@ -7,4 +7,5 @@ export interface IUser {
   user_image: string;
   session_id: string | null;
   discount: number | null;
+  distribution: boolean;
 }
