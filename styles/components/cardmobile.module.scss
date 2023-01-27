@@ -19,9 +19,10 @@
     height: 200px;
 
     &__header{
-      width: 100%;
       position: absolute;
       display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
 
     &__block{
@@ -46,6 +47,9 @@
     align-items: flex-end;
 
     &__header{
+      display: flex;
+      gap: 10px;
+      align-items: center;
 
       &__fav{
 
@@ -58,6 +62,20 @@
 
           & path{
             stroke: none
+          }
+        }
+      }
+
+      &__basket{
+
+        & svg{
+          cursor: pointer;
+        }
+
+        &__active svg{
+
+          & path{
+            fill: $block-main;
           }
         }
       }
@@ -78,22 +96,44 @@
         font-weight: 800;
       }
 
+      &__color{
+        height: 12px;
+        width: 12px;
+        margin-left: 5px;
+        display: flex;
+        align-items: center;
+        font-weight: lighter;
+        color: #A0A0A0;
+        border-radius: 50%;
+      }
+
       &__info{
         display: flex;
         align-items: center;
         gap: 3px;
 
-        & span{
+        & p{
           display: flex;
           align-items: center;
-          margin-left: 5px;
-          font-weight: lighter;
-          color: #A0A0A0;
-          height: 12px;
-          width: 12px;
-          border-radius: 50%;
+          gap: 3px;
         }
       }
+    }
+  }
+
+  &__not_available{
+
+    &__block{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 25px;
+      padding: 5px;
+      background: $block-disabled;
+      color: $text-thrd;
+      z-index: $z-index-base;
+      user-select: none;
+      font-size: 10px;
     }
   }
 
@@ -103,7 +143,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 30px;
+      height: 35px;
       padding: 15px;
       background: $block-main;
       color: $text-thrd;
@@ -118,7 +158,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 30px;
+      height: 35px;
       padding: 15px;
       background: $block-frth;
       color: $text-thrd;
@@ -148,7 +188,6 @@
       height: 150px;
 
       &__header{
-        width: 100%;
       }
 
       &__block{

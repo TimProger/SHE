@@ -55,12 +55,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 30px;
-      padding: 15px;
+      height: 25px;
+      padding: 10px;
       background: $block-disabled;
       color: $text-thrd;
       z-index: $z-index-base;
       user-select: none;
+      font-size: 12px;
     }
   }
 
@@ -126,6 +127,13 @@
         stroke: none
       }
     }
+
+    .card__header__basket__active svg{
+
+      & path{
+        fill: $block-main;
+      }
+    }
   }
 
   &__hit{
@@ -172,6 +180,32 @@
           stroke: none
         }
       }
+    }
+
+    &__basket{
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      z-index: 1;
+
+      & svg{
+        fill: $block-thrd;
+      }
+
+      &__active svg{
+
+        & path{
+          fill: $block-main;
+        }
+      }
+    }
+
+    &__icons{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1;
     }
 
     &__new{
