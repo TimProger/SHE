@@ -152,6 +152,7 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
             <path d="M1.34314 12.6567L12.6568 1.34303" stroke="#A0A0A0"/>
             <path d="M1.34314 1.34326L12.6568 12.657" stroke="#A0A0A0"/>
           </svg>}
+          {product.availability <= 0 && <div className={s.card__content__info__not_available}>{locale === 'ru' ? 'Нет в наличии' : 'Not available'}</div>}
           <h2>{name}</h2>
           {product.color && <p className={s.card__content__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
             <span style={{background: product.color}} className={s.card__content__info__color__block} />
@@ -170,8 +171,8 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           <path d="M1.34314 1.34326L12.6568 12.657" stroke="#A0A0A0"/>
         </svg>}
         <div className={s.card__price__text}>
-          {discount ? <h2 className={s.card__price__text__discount}>{(product.price*(product.count || 1)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h2> : ''}
-          <h1 className={s.card__price__text__price}>{(product.price*(product.count || 1) - (discount ? (product.price/100)*discount : 0)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h1>
+          {discount ? <h3 className={s.card__price__text__discount}>{(product.price*(product.count || 1)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h3> : ''}
+          <h2 className={s.card__price__text__price}>{(product.price*(product.count || 1) - (discount ? (product.price/100)*discount : 0)).toFixed(2)} {product.price_currency === 'RUB' ? '₽' : '$'}</h2>
         </div>
         {isBasket
           ? <div className={s.card__price__button}>

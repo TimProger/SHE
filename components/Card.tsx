@@ -75,9 +75,10 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
                 </svg>
               </div>
               <div className={s.card__header__new}>
+                {more.availability <= 0 && <div className={s.card__not_available__block}>{locale === 'ru' ? 'Нет в наличии' : 'Not available'}</div>}
                 {day && <div className={s.card__day__block}>{locale === 'ru' ? 'Товар дня' : 'Day\'s product'}</div>}
-                {is_new && <div className={s.card__new__block}>New</div>}
-                {is_hit && <div className={s.card__hit__block}>Hit</div>}
+                {more.availability > 0 && is_new && <div className={s.card__new__block}>New</div>}
+                {more.availability > 0 && is_hit && <div className={s.card__hit__block}>Hit</div>}
                 {!!discount && <div className={s.card__header__new__discount}>-{discount}%</div>}
               </div>
             </div>

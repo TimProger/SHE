@@ -31,6 +31,20 @@
       display: flex;
       justify-content: space-around;
       flex-direction: column;
+      align-items: flex-start;
+
+      &__not_available{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 20px;
+        padding: 5px;
+        background: $block-disabled;
+        color: $text-thrd;
+        z-index: $z-index-base;
+        user-select: none;
+        font-size: 10px;
+      }
 
       &__size {
         display: flex;
@@ -147,6 +161,11 @@
         & h2{
           font-size: 24px;
         }
+
+        &__articul {
+          display: none;
+        }
+
       }
 
       &__image{

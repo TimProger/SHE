@@ -19,9 +19,11 @@ export interface IProductMore {
   ml: number;
   price_currency: string;
   price: number;
+  availability: number,
 }
 
 export interface IBasketProductFull{
+  availability: number;
   article: string;
   buy_now: boolean;
   count: number;

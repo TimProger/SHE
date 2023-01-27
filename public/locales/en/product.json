@@ -4,7 +4,10 @@
   "producer": "Producer",
   "collection": "Collection",
   "country": "Country",
-  "addToBasket": "Add to basket",
+  "buttons": {
+    "add": "Add to basket",
+    "disabled": "Not available"
+  },
   "inBasket": "In basket",
   "info": "Information",
   "video": "Video",

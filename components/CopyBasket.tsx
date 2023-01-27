@@ -96,9 +96,32 @@ const CopyBasket: React.FC<ICopyBasketProps> = () => {
             })}
           </div>
           <div className={s.copy__block__container__button}>
-            <Button onClick={()=>{
-              dispatch(setBasket(newProducts))
-              dispatch(setShowCopy(false))
+            <Button onClick={async ()=>{
+              if(isAuth){
+                Promise.all(products.map(async (el)=>{
+                  return await $api.delete(`${locale}/basket/${el.id}/`)
+                }))
+                  .then(()=>{
+                    Promise.all(newProducts.map((el)=>{
+                      return $api.post(`${locale}/basket/`, {
+                        product: el.more
+                      }).then(async (res)=>{
+                        if(el.count > 1){
+                          return await $api.patch(`${locale}/basket/${res.data.id}/`, {
+                            count: el.count
+                          })
+                        }
+                      })
+                    }))
+                      .then((res)=>{
+                        dispatch(setBasket(newProducts))
+                        dispatch(setShowCopy(false))
+                      })
+                  })
+              }else{
+                dispatch(setBasket(newProducts))
+                dispatch(setShowCopy(false))
+              }
               push('/basket')
             }} text={t('copy.button_1')} />
             <Button onClick={async ()=>{

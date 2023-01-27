@@ -59,7 +59,7 @@ const Basket: React.FC = () => {
         .then((res)=>{
           if(res.data){
             setNewProducts(res.data.length > 0 ? res.data : [])
-            setSelected([...res.data.filter((el)=> el.buy_now)])
+            setSelected([...res.data.filter((el) => el.availability > 0 && el.buy_now)])
           }
         }).catch((e)=>{
         setNewProducts([])
@@ -75,7 +75,7 @@ const Basket: React.FC = () => {
                 el.count = products[index].count
                 return el
               }))
-              setSelected([...res.data])
+              setSelected([...res.data.filter((el)=>el.availability > 0)])
             }
           }).catch((e)=>{
           setNewProducts([])
@@ -136,6 +136,9 @@ const Basket: React.FC = () => {
 
   const selectHandler = (product: IBasketProductFull) => {
     const includes = selected.find((el)=>el.more === product.more)
+    if(product.availability <= 0){
+      return;
+    }
     if(!includes){
       if(user.isAuth){
         $api.patch(`${locale}/basket/${product.id}/`, {
@@ -443,8 +446,8 @@ const Basket: React.FC = () => {
             <h1>{t('title')}</h1>
             <div className={s.basket__header__btns}>
               {!copied
-                ? <p className={s.basket__header__btns__btn} onClick={copyBasketHandler}>Копировать</p>
-                : <p ref={ref} style={{color: '#44B571'}} className={s.basket__header__btns__btn} onClick={copyBasketHandler}>Скопировано</p>}
+                ? <p className={s.basket__header__btns__btn} onClick={copyBasketHandler}>{locale === 'ru' ? 'Копировать' : 'Copy'}</p>
+                : <p ref={ref} style={{color: '#44B571'}} className={s.basket__header__btns__btn} onClick={copyBasketHandler}>{locale === 'ru' ? 'Копировать' : 'Copy'}</p>}
               <div onClick={removeAllProductFromBasketHandler} className={s.basket__header__btns__btn}>{t('clear')}</div>
               <div onClick={selectAllProductHandler} className={s.basket__header__btns__btn}>{t('selectAll')}</div>
             </div>
@@ -454,7 +457,7 @@ const Basket: React.FC = () => {
               return <div className={s.basket__products__card}>
                 <input
                   onChange={()=>selectHandler(el)}
-                  checked={selected.indexOf(el) !== -1}
+                  checked={selected.indexOf(el) !== -1 && el.availability > 0}
                   type={'checkbox'} />
                 <CardFloat product={el} isBasket={true} />
               </div>
@@ -584,7 +587,8 @@ const Basket: React.FC = () => {
               <img src={ms_logo.src} alt="ms_logo"/>
               <img src={visa_logo.src} alt="visa_logo"/>
               <img src={jcb_logo.src} alt="jcb_logo"/>
-            </div> : payment === 'cash' ? <p className={s.order__orders__payment__text}>{t('order.about_payment')}</p> : <p></p>}
+            </div> : ''}
+              {/*// payment === 'cash' ? <p className={s.order__orders__payment__text}>{t('order.about_payment')}</p> : <p></p>}*/}
           </div>
         </div>)
       case 2:

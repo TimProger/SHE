@@ -49,6 +49,21 @@
     }
   }
 
+  &__not_available{
+
+    &__block{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      padding: 15px;
+      background: $block-disabled;
+      color: $text-thrd;
+      z-index: $z-index-base;
+      user-select: none;
+    }
+  }
+
   &__day{
 
     &__block{
