@@ -122,6 +122,11 @@ const Catalog: React.FC<ICatalogProps> = () => {
         usedFilters.category = []
         usedFilters.collection = []
         usedFilters.type = []
+        let page1: number = 1
+        if(query.page){
+          setPage(+`${query.page}`)
+        }
+        page1 = query.page ? +`${query.page}` : +`${page}`
         if(query.category){
           data.append('category', `${query.category}`)
           if(query.category.includes(',')){
@@ -158,7 +163,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
           }
           setFiltered(true)
         }
-        $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
+        $api.post(`${locale}/product/catalog/values/${limit}/${page1}/`, data)
           .then((res)=>{
             setPages(Math.ceil(res.data.count_pages))
             setProducts(res.data.data)
@@ -281,7 +286,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
-    push(`/catalog?${usedFilters.category.length > 0 ? `&category=${usedFilters.category}` : ''}${usedFilters.color.length > 0 ? `&color=${usedFilters.color}` : ''}${usedFilters.collection.length > 0 ? `&collection=${usedFilters.collection}` : ''}${usedFilters.type.length > 0 ? `&type=${usedFilters.type}` : ''}`)
+    setPage(1)
+    push(`/catalog?page=${1}${usedFilters.category.length > 0 ? `&category=${usedFilters.category}` : ''}${usedFilters.color.length > 0 ? `&color=${usedFilters.color}` : ''}${usedFilters.collection.length > 0 ? `&collection=${usedFilters.collection}` : ''}${usedFilters.type.length > 0 ? `&type=${usedFilters.type}` : ''}`)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
@@ -320,6 +326,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
 
   const togglePageHandler = (el: number) =>{
     setPage(el)
+    push(`/catalog?page=${el}${usedFilters.category.length > 0 ? `&category=${usedFilters.category}` : ''}${usedFilters.color.length > 0 ? `&color=${usedFilters.color}` : ''}${usedFilters.collection.length > 0 ? `&collection=${usedFilters.collection}` : ''}${usedFilters.type.length > 0 ? `&type=${usedFilters.type}` : ''}`)
     changePage(el)
   }
 
