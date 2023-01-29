@@ -17,6 +17,7 @@ import visa_logo from "../public/images/visa_logo.png";
 import jcb_logo from "../public/images/jcb_logo.png";
 import {Storage} from "../utils/storage";
 import Compliment from "../components/Compliment";
+import Image from "next/image";
 
 const About: React.FC = () => {
 
@@ -52,28 +53,56 @@ const About: React.FC = () => {
                 {t('paragraph_1')}
               </div>
               <div className={s.about__first__img}>
-                <img src={img1.src} alt="img0" />
+                <Image
+                  src={img1.src}
+                  alt="img0"
+                  width={200}
+                  height={200} />
               </div>
               <h1 className={s.about__first__title}>{t('title2')}</h1>
               <div className={s.about__first__text}>{t('paragraph_2')}
               </div>
               <div className={s.about__first__img}>
-                <img src={img2.src} alt="img1" />
+                <Image
+                  src={img2.src}
+                  alt="img1"
+                  width={200}
+                  height={200} />
               </div>
               <div className={s.about__payment__about}>
                 <h1>{t('payment__info.title')}</h1>
                 <p>{t('payment__info.about')}</p>
                 <div className={s.about__payment__imgs}>
-                  <img src={mir_logo.src} alt="mir_logo"/>
-                  <img src={ms_logo.src} alt="ms_logo"/>
-                  <img src={visa_logo.src} alt="visa_logo"/>
-                  <img src={jcb_logo.src} alt="jcb_logo"/>
+                  <Image
+                    src={mir_logo.src}
+                    alt="mir_logo"
+                    width={200}
+                    height={200} />
+                  <Image
+                    src={ms_logo.src}
+                    alt="ms_logo"
+                    width={200}
+                    height={200} />
+                  <Image
+                    src={visa_logo.src}
+                    alt="visa_logo"
+                    width={200}
+                    height={200} />
+                  <Image
+                    src={jcb_logo.src}
+                    alt="jcb_logo"
+                    width={200}
+                    height={200} />
                 </div>
               </div>
             </div>
             <div className={s.about__second}>
               <div className={s.about__first__img}>
-                <img src={img3.src} alt="img2" />
+                <Image
+                  src={img3.src}
+                  alt="img2"
+                  width={200}
+                  height={200}  />
               </div>
               <h1 className={s.about__first__title}>
                 {t('title3')}
@@ -81,7 +110,11 @@ const About: React.FC = () => {
               <div className={s.about__first__text}>{t('paragraph_3')}
               </div>
               <div className={s.about__first__img}>
-                <img src={img4.src} alt="img3" />
+                <Image
+                  src={img4.src}
+                  alt="img3"
+                  width={200}
+                  height={200}  />
               </div>
               <h1 className={s.about__first__title}>
                 {t('title4')}

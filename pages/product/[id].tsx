@@ -13,6 +13,7 @@ import {addToBasket, removeFromBasket} from "../../store/Slices/Basket.slice";
 import {toggleFav} from "../../store/Slices/Fav.slice";
 import Layout from "../../components/Layout";
 import Head from "next/head";
+import Image from "next/image";
 import Container from "../../components/Container";
 import s from "../../styles/pages/product.module.scss";
 import Link from "next/link";
@@ -251,14 +252,17 @@ const Product: React.FC<IProductProps> = ({product}) => {
               <div className={s.container__product__product__images}>
                 {width === 'desktop' && <div className={s.container__product__product__images__slider}>
                   {product.images.map((el, index) => {
-                    return <img
+                    return <Image
                       className={mainImage === `${API_BASE_URL}/${el.image}`
                         ? s.container__product__product__images__slider__active
                         : ''}
                       onClick={() => setMainImage(`${API_BASE_URL}/${el.image}`)}
                       src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
                       key={index}
-                      alt={'img'}/>
+                      alt={'img'}
+                      width={200}
+                      height={200}
+                    />
                   })}
                 </div>}
                 <div className={s.container__product__product__images__main}>
@@ -278,15 +282,21 @@ const Product: React.FC<IProductProps> = ({product}) => {
                       </div>
                     </div>
                   </div>
-                  <img src={mainImage}  alt={product.name}/>
+                  <Image
+                    src={mainImage}
+                    alt={product.name}
+                    width={200}
+                    height={200}/>
                 </div>
               </div>
               {width === 'mobile' && <div className={s.container__product__product__images__slider}>
                 {product.images.map((el, index) => {
-                  return <img
+                  return <Image
                     className={mainImage === `${API_BASE_URL}/${el.image}`
                       ? s.container__product__product__images__slider__active
                       : ''}
+                    width={200}
+                    height={200}
                     onClick={() => setMainImage(`${API_BASE_URL}/${el.image}`)}
                     src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
                     key={index}
@@ -338,10 +348,12 @@ const Product: React.FC<IProductProps> = ({product}) => {
             </div>
             {width === 'tablet' && <div className={s.container__product__product__images__slider}>
               {product.images.map((el, index) => {
-                return <img
+                return <Image
                   className={mainImage === `${API_BASE_URL}/${el.image}`
                     ? s.container__product__product__images__slider__active
                     : ''}
+                  width={200}
+                  height={200}
                   onClick={() => setMainImage(`${API_BASE_URL}/${el.image}`)}
                   src={el.image ? `${API_BASE_URL}/${el.image}` : Stock.src}
                   key={index}

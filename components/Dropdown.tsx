@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {useRouter} from "next/router";
 import useOnclickOutside from "react-cool-onclickoutside";
 import Link from "next/link";
+import Image from "next/image";
 
 interface DropdownProps {
   value: string | any;
@@ -48,7 +49,11 @@ const Dropdown: React.FC<DropdownProps> = ({
         <div onClick={showOptions} className={s.dropdown_form + ` ${className}`}>
           <div className={s.dropdown_form__container}>
             <div className={s.dropdown_form__block}>
-              <img src={value.img} alt={value.title}/>
+              <Image
+                width={200}
+                height={200}
+                src={value.img}
+                alt={value.title}/>
               {value.title}
             </div>
             <svg className={'btn'} style={{transform: open ? 'rotate(180deg)' : 'rotate(0deg)'}} width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +70,11 @@ const Dropdown: React.FC<DropdownProps> = ({
                   }}
                   className={s.dropdown_form__block} key={index}>
                   <div>
-                    <img src={el.img} alt={el.title}/>
+                    <Image
+                      width={200}
+                      height={200}
+                      src={el.img}
+                      alt={el.title}/>
                     {el.title}
                   </div>
                 </div>

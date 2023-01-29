@@ -59,7 +59,9 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
   const addToBasketHandler = () => {
     sendMetrik('reachGoal', 'add_basket')
     if(user.isAuth){
-      $api.post(`${locale}/basket/${product.id}/`)
+      $api.post(`${locale}/basket/`, {
+        product: more.id
+      })
         .then((res)=>{
           dispatch(addToBasket(res.data))
         })

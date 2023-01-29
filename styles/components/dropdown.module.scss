@@ -155,6 +155,11 @@
     padding: 5px 15px;
     background: $block-thrd;
 
+    & img{
+      width: auto;
+      height: 20px;
+    }
+
     & div{
       display: flex;
       align-items: center;

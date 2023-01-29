@@ -39,6 +39,10 @@
             display: flex;
             align-items: center;
             margin-bottom: 50px;
+
+            & svg{
+                min-width: 100px;
+            }
         }
 
         &__doc {
@@ -47,6 +51,10 @@
             text-decoration-line: underline;
             display: flex;
             align-items: center;
+
+            & svg{
+                min-width: 100px;
+            }
         }
     }
 
@@ -59,6 +67,10 @@
             display: flex;
             align-items: center;
             text-decoration-line: underline;
+
+            & svg{
+                min-width: 100px;
+            }
         }
     }
 

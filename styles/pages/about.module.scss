@@ -25,6 +25,11 @@
     &__imgs{
       display: flex;
       gap: 20px;
+
+      & img{
+        width: auto;
+        height: 20px;
+      }
     }
 
     &__col_1{
@@ -82,6 +87,7 @@
 
       & img{
         width: 100%;
+        height: auto;
       }
     }
   }

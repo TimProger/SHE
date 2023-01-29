@@ -10,6 +10,7 @@ import Stock from "../public/images/stock.png";
 import {useRouter} from "next/router";
 import {sendMetrik} from "../utils/metriks";
 import {addToBasket, killProduct, removeFromBasket} from "../store/Slices/Basket.slice";
+import Image from "next/image";
 
 interface ICardProps {
   product: IProduct;
@@ -72,7 +73,9 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
   const addToBasketHandler = () => {
     sendMetrik('reachGoal', 'add_basket')
     if(user.isAuth){
-      $api.post(`${locale}/basket/${product.id}/`)
+      $api.post(`${locale}/basket/`, {
+        product: more.id
+      })
         .then((res)=>{
           dispatch(addToBasket(res.data))
         })
@@ -136,7 +139,10 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
               </div>
             </div>
             <Link draggable={false} href={'/product/'+id} className={s.card__image}>
-              <img draggable={false} src={
+              <Image draggable={false}
+                     width={200}
+                     height={200}
+                     src={
                 images.filter((el)=>el.show)[0]
                   ? `${API_BASE_URL}/${images.filter((el)=>el.show)[0].image}`
                   : images[0]
