@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import s from '../styles/components/cardmobile.module.scss'
 import Link from "next/link";
-import {IProduct, IProductImage, IProductMore} from "../types/Product.types";
+import {IBasketProduct, IProduct, IProductImage, IProductMore} from "../types/Product.types";
 import {$api, API_BASE_URL} from "../http/api";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {toggleFav} from "../store/Slices/Fav.slice";
@@ -10,6 +10,7 @@ import Stock from "../public/images/stock.png";
 import {useRouter} from "next/router";
 import {sendMetrik} from "../utils/metriks";
 import {addToBasket, killProduct} from "../store/Slices/Basket.slice";
+import Image from "next/image";
 
 interface ICardProps {
   product: IProduct;
@@ -22,6 +23,7 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
   const [more, setMore] = useState<IProductMore>(product.product_more[0])
 
   const [isFav, setIsFav] = useState<boolean>(false)
+  const [basketProduct, setBasketProduct] = useState<null | IBasketProduct>()
 
   const {products} = useTypedSelector(state => state.fav)
 
@@ -79,9 +81,9 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
 
   const removeFromBasketHandler = () => {
     if(user.isAuth){
-      $api.delete(`${locale}/basket/${product.id}`)
+      $api.delete(`${locale}/basket/${basketProduct?.id}`)
         .then((res)=>{
-          dispatch(killProduct(product.id))
+          dispatch(killProduct(more.id))
         })
         .catch(()=>{})
     }else{
@@ -93,6 +95,7 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
     const includes = basket.products.find((el) => el.more === more.id)
     if(includes){
       setIsInBasket(true)
+      setBasketProduct(includes)
     }else{
       setIsInBasket(false)
     }
@@ -108,7 +111,10 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
             {more.availability > 0 && is_hit && <div className={s.card__hit__block}>Hit</div>}
           </div>
           <Link draggable={false} href={'/product/'+id} className={s.card__image__block}>
-            <img draggable={false} src={
+            <Image
+              width={200}
+              height={200}
+              draggable={false} src={
               images.filter((el)=>el.show)[0]
                 ? `${API_BASE_URL}/${images.filter((el)=>el.show)[0].image}`
                 : images[0]

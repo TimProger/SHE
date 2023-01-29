@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import s from '../styles/components/card.module.scss'
 import Link from "next/link";
-import {IProduct, IProductImage, IProductMore} from "../types/Product.types";
+import {IBasketProduct, IProduct, IProductImage, IProductMore} from "../types/Product.types";
 import {$api, API_BASE_URL} from "../http/api";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {toggleFav} from "../store/Slices/Fav.slice";
@@ -25,6 +25,7 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
   const [mainImage, setMainImage] = useState<IProductImage | null>(null)
 
   const [isFav, setIsFav] = useState<boolean>(false)
+  const [basketProduct, setBasketProduct] = useState<null | IBasketProduct>()
 
   const {products} = useTypedSelector(state => state.fav)
 
@@ -93,9 +94,9 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
 
   const removeFromBasketHandler = () => {
     if(user.isAuth){
-      $api.delete(`${locale}/basket/${product.id}`)
+      $api.delete(`${locale}/basket/${basketProduct?.id}`)
         .then((res)=>{
-          dispatch(killProduct(product.id))
+          dispatch(killProduct(more.id))
         })
         .catch(()=>{})
     }else{
@@ -107,6 +108,7 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
     const includes = basket.products.find((el) => el.more === more.id)
     if(includes){
       setIsInBasket(true)
+      setBasketProduct(includes)
     }else{
       setIsInBasket(false)
     }

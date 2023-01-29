@@ -10,6 +10,7 @@ import {removeFromFavs} from "../store/Slices/Fav.slice";
 import Stock from '../public/images/stock.png'
 import Link from "next/link";
 import {sendMetrik} from "../utils/metriks";
+import Image from "next/image";
 
 interface ICardProps {
   product: IBasketProductFull
@@ -143,7 +144,10 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
     <div className={s.card}>
       <div className={s.card__content}>
         <Link href={`${locale}/product/${product.product_id}`} className={s.card__content__image}>
-          <img src={image ? `${API_BASE_URL}${`${image}`.split('').shift() === '/' ? '' : '/'}${image}` : `${Stock.src}`} alt={name} />
+          <Image
+            width={200}
+            height={200}
+            src={image ? `${API_BASE_URL}${`${image}`.split('').shift() === '/' ? '' : '/'}${image}` : `${Stock.src}`} alt={name} />
         </Link>
         <div className={s.card__content__info}>
           {width === 'mobile' && <svg onClick={isBasket ? killProductFromBasketHandler : removeFromFavsHandler}

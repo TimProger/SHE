@@ -10,6 +10,7 @@ import s from "../styles/pages/coop.module.scss";
 import Container from "../components/Container";
 import coopDescriptionImg from "../public/images/coopDescription.png";
 import Button from "../components/Button";
+import Image from "next/image";
 
 const Coop: React.FC = () => {
 
@@ -59,7 +60,11 @@ const Coop: React.FC = () => {
               </div>
               <div className={s.coop__body__request}>
                 <div className={s.coop__body__request__img}>
-                  <img src={coopDescriptionImg.src} alt="coopDescriptionImage" />
+                  <Image
+                    width={200}
+                    height={250}
+                    src={coopDescriptionImg.src}
+                    alt="coopDescriptionImage" />
                 </div>
                 <h2 className={s.coop__body__request__title}>{t('title2')}</h2>
                 <div className={s.coop__body__special_conditions__description}>{t('paragraph_2')}
