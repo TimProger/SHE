@@ -318,7 +318,9 @@ const Product: React.FC<IProductProps> = ({product}) => {
                                   className={more.ml === el.ml
                                     ? s.container__product__product__info__size__container__active
                                     : ''}
-                                  onClick={() => setMore(el)}>
+                                  onClick={() => setMore(el)}
+                                  style={{textDecoration: el.availability <= 0 ? 'line-through' : 'none'}}
+                      >
                         {el.ml}
                       </div>
                     })}
