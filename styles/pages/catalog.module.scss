@@ -337,15 +337,15 @@
     }
 
     &__sort{
-      font-size: 13px;
+      font-size: 12px;
     }
 
     &__container{
 
       &__filters{
-        width: 243px;
-        max-width: 243px;
-        min-width: 243px;
+        width: 443px;
+        max-width: 443px;
+        min-width: 443px;
         display: none;
 
         &__block{
@@ -454,6 +454,13 @@
 
     &__container{
 
+      &__filters {
+        width: 243px;
+        max-width: 243px;
+        min-width: 243px;
+        display: none;
+      }
+
       &__products{
         width: 100%;
 
@@ -507,7 +514,7 @@
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1050px) {
 
   .catalog{
 
