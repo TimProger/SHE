@@ -37,14 +37,17 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
   }
 
   useEffect(()=>{
+    setMore(product.product_more[0])
+  },[product])
+
+  useEffect(()=>{
     const includes = products.filter((el)=>el.product_id === product.id)
-    console.log(products, product)
     if(products.includes(includes[0])){
       setIsFav(true)
     }else{
       setIsFav(false)
     }
-  }, [products])
+  }, [products, product])
 
   const {
     is_new,
@@ -99,7 +102,7 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
     }else{
       setIsInBasket(false)
     }
-  },[basket.products])
+  },[basket.products, more])
 
   return (
     <div className={s.card + ` ${is_new ? s.card__new : ''} ${is_hit && s.card__hit} ${className ? className : ''}`}>

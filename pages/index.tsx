@@ -80,7 +80,8 @@ const Main: React.FC<IMainProps> = ({slides, slidesNew, slidesHit}) => {
       <Head>
         <title>{`${t('title')} | ™SHE`.replace('<!-\- -->','')}</title>
         <meta name="description" content={t('meta.description')} />
-        <meta property="og:title" content={t('meta.description')} />
+        <meta property="og:title" content={`${t('title')} | ™SHE`.replace('<!-\- -->','')} />
+        <meta property="og:description" content={t('meta.description')} />
       </Head>
       <div>
         <Swiper

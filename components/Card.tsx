@@ -49,7 +49,7 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
     }else{
       setIsFav(false)
     }
-  }, [products])
+  }, [products, product])
 
   const {
     is_new,
@@ -146,6 +146,8 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
               <Image draggable={false}
                      width={200}
                      height={200}
+                     priority={true}
+                     loading={"eager"}
                      src={
                 images.filter((el)=>el.show)[0]
                   ? `${API_BASE_URL}/${images.filter((el)=>el.show)[0].image}`
