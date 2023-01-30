@@ -85,7 +85,7 @@ const Product: React.FC<IProductProps> = ({product}) => {
   },[product])
 
   useEffect(()=>{
-    setMainImage(`${API_BASE_URL}/${product.images[0].image}`)
+    setMainImage(product.images[0] ? `${API_BASE_URL}/${product.images[0].image}` : `${Stock.src}`)
   },[product])
 
   useEffect(()=>{

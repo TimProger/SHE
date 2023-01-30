@@ -39,6 +39,10 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
   }
 
   useEffect(()=>{
+    setMore(product.product_more[0])
+  },[product])
+
+  useEffect(()=>{
     const includes = products.filter((el)=>el.product_id === product.id)
     if(products.includes(includes[0])){
       setIsFav(true)
@@ -53,8 +57,6 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
     discount,
     images,
     name,
-    price,
-    color,
     id
   } = product
 
@@ -112,7 +114,7 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
     }else{
       setIsInBasket(false)
     }
-  },[basket.products])
+  },[basket.products, more])
 
   return (
     <div className={s.card + ` ${is_new ? s.card__new : ''} ${is_hit && s.card__hit} ${className ? className : ''}`}>
@@ -159,7 +161,7 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
         <div className={s.card__content}>
           <div className={s.card__content__footer}>
             <div className={s.card__content__footer__info}>
-              {product.product_more[0].ml && <p>{product.product_more.map((el, index)=><><span style={{textDecoration: el.availability <= 0 ? 'line-through' : 'none'}}>{el.ml}</span>{index !== product.product_more.length-1 ? '/' : ''}</>)} {locale === 'ru' ? 'г.' : 'g.'}</p>}
+              {product.product_more[0].ml ? <p>{product.product_more.map((el, index)=><><span style={{textDecoration: el.availability <= 0 ? 'line-through' : 'none'}}>{el.ml}</span>{index !== product.product_more.length-1 ? '/' : ''}</>)} {locale === 'ru' ? 'г.' : 'g.'}</p> : ''}
               {product.color ? <span style={{background: product.color}} className={s.card__content__footer__color} /> : ''}
             </div>
             <div>{locale === 'ru' ? 'от' : 'from'} {product.product_more[0] ? product.product_more[0].price : product.price} {product.product_more[0] && product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</div>
