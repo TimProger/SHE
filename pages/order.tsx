@@ -54,6 +54,41 @@ const Order: React.FC = () => {
     asyncEffect()
   }, [query, locale, profile.isAuth])
 
+  const [width, setWidth] = useState<string>('desktop')
+
+  const resize = (e: any) => {
+    if(window){
+      if(window.innerWidth > 1050){
+        setWidth('desktop')
+      }else if(window.innerWidth <= 1050 && window.innerWidth > 700) {
+        setWidth('tablet')
+      }else if(window.innerWidth <= 700) {
+        setWidth('mobile')
+      }else{
+        setWidth('desktop')
+      }
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('resize', resize)
+    if(window){
+      if(window.innerWidth > 1050){
+        setWidth('desktop')
+      }else if(window.innerWidth <= 1050 && window.innerWidth > 700) {
+        setWidth('tablet')
+      }else if(window.innerWidth <= 700) {
+        setWidth('mobile')
+      }else{
+        setWidth('desktop')
+      }
+    }
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
   return (
     <Layout>
       <Head>
@@ -77,19 +112,24 @@ const Order: React.FC = () => {
                       <img src={el.image ? `${API_BASE_URL}${`${el.image}`.split('').shift() === '/' ? '' : '/'}${el.image}` : `${Stock.src}`} alt={el.name} />
                     </div>
                     <div className={s.order__products__product__info}>
-                      <div><h3>{el.name}</h3><p>x{el.count || 1}</p></div>
+                      <div className={s.order__products__product__info__name}><h3>{el.name}</h3><p>x{el.count || 1}</p></div>
                       <p className={s.order__products__product__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
                         <span style={{background: el.color}} className={s.order__products__product__info__color__block} />
                       </p>
                       <p className={s.order__products__product__info__size}>{locale === 'ru' ? 'Объём, г.' : 'Size, g.'}:
                         <span>{el.ml}</span>
                       </p>
-                      <p className={s.order__products__product__info__articul}>{locale === 'ru' ? 'Артикул' : 'Article'}: <span>{el.article}</span></p>
+                      {width === 'mobile' ? <h2
+                        className={s.order__products__product__info__price}
+                      >{(el.money * (el.count || 1)).toFixed(2)}{done.price_currency === 'RUB' ? '₽' : '$'}</h2> : <p
+                        className={s.order__products__product__info__articul}
+                      >{locale === 'ru' ? 'Артикул' : 'Article'}: <span>{el.article}</span>
+                      </p>}
                     </div>
                   </div>
-                  <div className={s.order__products__product__price}>
-                    <h2>{(el.money * (el.count || 1)).toFixed(2)} {done.price_currency === 'RUB' ? '₽' : '$'}</h2>
-                  </div>
+                  {width !== 'mobile' ? <div className={s.order__products__product__price}>
+                    <h2>{(el.money * (el.count || 1)).toFixed(2)}{done.price_currency === 'RUB' ? '₽' : '$'}</h2>
+                  </div> : ''}
                 </div></Link>
               })}
             </div>
@@ -98,7 +138,7 @@ const Order: React.FC = () => {
                 className={s.order__delivery}>{t('order.inputs.delivery')}: <span>{done.delivery_id === 2 ? t('order.inputs.delivery_2') : t('order.inputs.delivery_1')}</span>
               </h3>
               <h2
-                className={s.order__price}>{t('order.total_price')}: <span>{done.sum.toFixed(2)} {done.price_currency === 'RUB' ? '₽' : '$'}</span>
+                className={s.order__price}>{t('order.total_price')}: <span>{done.sum.toFixed(2)}{done.price_currency === 'RUB' ? '₽' : '$'}</span>
               </h2>
             </div>
             {done.pay_online && done.status === 0 &&<div className={s.order__confirming}>

@@ -308,7 +308,7 @@ const Basket: React.FC = () => {
   const [house, setHouse] = useState('')
   const [apart, setApart] = useState('')
   const [delivery, setDelivery] = useState('2')
-  const [payment, setPayment] = useState('cash')
+  const [payment, setPayment] = useState('card')
   const [done, setDone] = useState<any | null>(null)
 
   useEffect(()=>{
@@ -537,7 +537,12 @@ const Basket: React.FC = () => {
             </div>
             <div className={s.order__delivery}>
               <h2>{t('order.inputs.delivery')}</h2>
-              <div className={s.order__delivery__radios} onChange={(e: ChangeEvent<HTMLInputElement>)=>setDelivery(e.target.value)}>
+              <div className={s.order__delivery__radios} onChange={(e: ChangeEvent<HTMLInputElement>)=>{
+                setDelivery(e.target.value)
+                if(e.target.value === '2'){
+                  setPayment('card')
+                }
+              }}>
                 <div>
                   <input checked={delivery === "1"} type="radio" value="1" name="delivery" id={'self'}/>
                   <label htmlFor="self">{t('order.inputs.radio_1')}</label>
