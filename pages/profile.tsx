@@ -179,6 +179,24 @@ const Profile: React.FC = () => {
     }
   }, [])
 
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+
+  const resize = (e: any) => {
+    if(window){
+      let currentHideNav = (window.innerWidth <= 700);
+      currentHideNav ? setIsMobile(true) : setIsMobile(false)
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('resize', resize)
+    resize(null)
+
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
   const displayPage = () => {
     switch (page){
       case 1:
@@ -225,7 +243,7 @@ const Profile: React.FC = () => {
                   <h2>{t('pages.orders.order.active')}</h2>
                   {ordersActive.map((el, index) => {
                     return <Link href={`/order?${el.pay_online ? `orderId=${el.pay_online}` : `order_id=${el.order_id.split('-')[1]}`}`}><div className={s.profile__pages__page__products__active__product}>
-                      <div>
+                      <div className={s.profile__pages__page__products__active__product__container}>
                         <div className={s.profile__pages__page__products__active__product__imgs}>
                           {el.order_list.map((elem, index)=>{
                             if(index > 3) return
@@ -240,12 +258,18 @@ const Profile: React.FC = () => {
                           <p>{t('pages.orders.order.info.date')}: <span>{new Date(el.data_order).toLocaleString().split(', ').join(' ')}</span></p>
                           <p>{t('pages.orders.order.info.quantity')}: <span>{el.count_product}</span></p>
                           <p>{t('pages.orders.order.info.delivery')}: <span>{el.delivery_id === 2 ? t('pages.orders.order.info.delivery_2') : t('pages.orders.order.info.delivery_1')}</span></p>
+                          {isMobile
+                            ? <>
+                              <p>{locale === 'ru' ? 'Статус' : 'Status'}: <span>{t(`order_status.status_${el.status}`)}</span></p>
+                              <h1>{el.sum.toFixed(2)}{el.price_currency === 'RUB' ? '₽' : '$'}</h1>
+                          </>
+                            : ''}
                         </div>
                       </div>
-                      <div className={s.profile__pages__page__products__active__product__price}>
+                      {!isMobile ? <div className={s.profile__pages__page__products__active__product__price}>
                         <h2>{t(`order_status.status_${el.status}`)}</h2>
-                        <h1>{el.sum.toFixed(2)} {el.price_currency === 'RUB' ? '₽' : '$'}</h1>
-                      </div>
+                        <h1>{el.sum.toFixed(2)}{el.price_currency === 'RUB' ? '₽' : '$'}</h1>
+                      </div> : ''}
                     </div></Link>
                   })}
                 </div>
@@ -294,24 +318,6 @@ const Profile: React.FC = () => {
     setIsSuccess(false)
   },[page])
 
-  const [isMobile, setIsMobile] = useState<boolean>(false)
-
-  const resize = (e: any) => {
-    if(window){
-      let currentHideNav = (window.innerWidth <= 700);
-      currentHideNav ? setIsMobile(true) : setIsMobile(false)
-    }
-  }
-
-  useEffect(()=>{
-    window.addEventListener('resize', resize)
-    resize(null)
-
-    return () => {
-      window.removeEventListener('resize', resize)
-    }
-  }, [])
-
   return (
     <Layout>
       <Head>
@@ -342,9 +348,9 @@ const Profile: React.FC = () => {
             <div className={s.profile__pages}>
               <div className={s.profile__pages__navbar}>
                 <div className={s.profile__pages__navbar__wrapper}>
-                  <p style={{borderBottom : page == 1 ? '1px solid black' : 'none'}} onClick={()=> setPage(1)}>{t('btns.info')}</p>
-                  <p style={{borderBottom : page == 2 ? '1px solid black' : 'none'}} onClick={()=> setPage(2)}>{t('btns.orders')}</p>
-                  <p style={{borderBottom : page == 3 ? '1px solid black' : 'none'}} onClick={()=> setPage(3)}>{t('btns.settings')}</p>
+                  <p style={isMobile ? {borderLeft: page == 1 ? '1px solid black' : '1px solid #00000000'} : {borderBottom: page == 1 ? '1px solid black' : '1px solid #00000000'}} onClick={()=> setPage(1)}>{t('btns.info')}</p>
+                  <p style={isMobile ? {borderLeft: page == 2 ? '1px solid black' : '1px solid #00000000'} : {borderBottom: page == 2 ? '1px solid black' : '1px solid #00000000'}} onClick={()=> setPage(2)}>{t('btns.orders')}</p>
+                  <p style={isMobile ? {borderLeft: page == 3 ? '1px solid black' : '1px solid #00000000'} : {borderBottom: page == 3 ? '1px solid black' : '1px solid #00000000'}} onClick={()=> setPage(3)}>{t('btns.settings')}</p>
                 </div>
               </div>
               <div className={s.profile__pages__page}>

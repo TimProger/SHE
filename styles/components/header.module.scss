@@ -345,7 +345,6 @@
     flex-direction: column;
     height: 516px;
     overflow-y: auto;
-    margin-right: 32px;
 
     & li {
       position: relative;
@@ -387,6 +386,7 @@
 
 .dropdown{
   display: flex !important;
+  margin-right: 30px !important;
 }
 
 @media screen and (max-width: 1400px) {
@@ -494,7 +494,6 @@
       width: 700px;
       align-items: flex-start;
       gap: 20px;
-      padding: 0 20px;
       overflow: hidden;
       overflow-y: auto;
 

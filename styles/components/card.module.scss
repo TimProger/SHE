@@ -125,7 +125,6 @@
       fill: $block-main;
 
       & path{
-        stroke: none
       }
     }
 
@@ -151,7 +150,13 @@
       fill: $block-frth;
 
       & path{
-        stroke: none
+      }
+    }
+
+    .card__header__basket__active svg{
+
+      & path{
+        fill: $block-frth;
       }
     }
   }
@@ -178,7 +183,6 @@
         fill: $block-main;
 
         & path{
-          stroke: none
         }
       }
     }
