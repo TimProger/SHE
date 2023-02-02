@@ -158,9 +158,9 @@ const CardFloat: React.FC<ICardProps> = ({product, isBasket = false}) => {
           </svg>}
           {product.availability <= 0 && <div className={s.card__content__info__not_available}>{locale === 'ru' ? 'Нет в наличии' : 'Not available'}</div>}
           <h2>{name}</h2>
-          {product.color && <p className={s.card__content__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
+          {product.color ? <p className={s.card__content__info__color}>{locale === 'ru' ? 'Оттенок' : 'Color'}:
             <span style={{background: product.color}} className={s.card__content__info__color__block} />
-          </p>}
+          </p> : ''}
           {product.ml ? <p className={s.card__content__info__size}>{locale === 'ru' ? 'Объём, г.' : 'Size, g.'}:
             <span>{product.ml}</span>
           </p> : ''}

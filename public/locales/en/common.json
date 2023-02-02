@@ -14,7 +14,7 @@
   "auth": {
     "title": "Authorization",
     "paragraph_1":  "Enter your phone number to login or register",
-    "paragraph_2":  "Your phone will receive a call. Enter 4 digits that we will pronounce.",
+    "paragraph_2":  "Your phone will receive a call. Enter the last 4 digits of the number.",
     "input_1":  "Phone",
     "input_2":  "Enter four digits",
     "button_1": "Confirm phone",

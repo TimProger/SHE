@@ -576,10 +576,10 @@ const Basket: React.FC = () => {
                 </div>
               </div>
               <div className={s.order__orders__payment__radio}>
-                <div>
+                {delivery !== '2' ? <div>
                   <input checked={payment === 'cash'} type="radio" value="cash" name="payment" id={'cash'}/>
                   <label htmlFor="cash">{t('order.inputs.radio_4')}</label>
-                </div>
+                </div> : ''}
               </div>
             </div>
             {payment === 'card' ? <div className={s.order__orders__payment__images}>

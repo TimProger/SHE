@@ -572,6 +572,19 @@
   }
 }
 
+@media screen and (max-width: 1400px) {
+
+  .popup_active{
+
+    &__day {
+
+      &__container{
+        height: 360px;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 700px) {
 
   .top{
