@@ -9,7 +9,7 @@
   "title_6": "Refunded",
   "title_7": "Completed",
   "empty": "Basket is empty",
-  "confirming_1": "The manager will check the order from 15 to 45 minutes.",
+  "confirming_1": "The manager will check the order from 15 to 45 minutes, from 10AM to 8PM.",
   "confirming_2": "After confirming the order, a button for payment will appear.",
   "order": {
     "title": "Address",
