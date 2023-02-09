@@ -24,6 +24,7 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
 
   const [isFav, setIsFav] = useState<boolean>(false)
   const [basketProduct, setBasketProduct] = useState<null | IBasketProduct>()
+  const [isNone, setIsNone] = useState<boolean>(false)
 
   const {products} = useTypedSelector(state => state.fav)
 
@@ -37,10 +38,26 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
   }
 
   useEffect(()=>{
+    const none = product.product_more.filter((el)=>{
+      return el.availability <= 0
+    })
+    if(none.length === product.product_more.length){
+      setIsNone(true)
+    }else{
+      setIsNone(false)
+    }
     setMore(product.product_more[0])
   },[product])
 
   useEffect(()=>{
+    const none = product.product_more.filter((el)=>{
+      return el.availability <= 0
+    })
+    if(none.length === product.product_more.length){
+      setIsNone(true)
+    }else{
+      setIsNone(false)
+    }
     const includes = products.filter((el)=>el.product_id === product.id)
     if(products.includes(includes[0])){
       setIsFav(true)
@@ -109,9 +126,9 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
       <div className={s.card__container}>
         <div className={s.card__image}>
           <div className={s.card__image__header}>
-            {more.availability <= 0 && <div className={s.card__not_available__block}>{locale === 'ru' ? 'Нет в наличии' : 'Not available'}</div>}
-            {more.availability > 0 && is_new && <div className={s.card__new__block}>New</div>}
-            {more.availability > 0 && is_hit && <div className={s.card__hit__block}>Hit</div>}
+            {isNone && <div className={s.card__not_available__block}>{locale === 'ru' ? 'Нет в наличии' : 'Not available'}</div>}
+            {!isNone && is_new && <div className={s.card__new__block}>New</div>}
+            {!isNone && is_hit && <div className={s.card__hit__block}>Hit</div>}
           </div>
           <Link draggable={false} href={'/product/'+id} className={s.card__image__block}>
             <Image
@@ -143,7 +160,7 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
           </h2>
           <div className={s.card__content__footer}>
             <div className={s.card__content__footer__info}>
-              {product.product_more[0].ml && <p>{product.product_more.map((el, index)=><><span style={{textDecoration: el.availability <= 0 ? 'line-through' : 'none'}}>{el.ml}</span>{index !== product.product_more.length-1 ? '/' : ''}</>)} {locale === 'ru' ? 'г.' : 'g.'}</p>}
+              {product.product_more[0].ml ? <p>{product.product_more.map((el, index)=><><span style={{textDecoration: el.availability <= 0 ? 'line-through' : 'none'}}>{el.ml}</span>{index !== product.product_more.length-1 ? '/' : ''}</>)} {locale === 'ru' ? 'г.' : 'g.'}</p> : ''}
               {product.color && <span style={{background: product.color}} className={s.card__content__footer__color} />}
             </div>
             <div className={s.card__content__footer__price}>{locale === 'ru' ? 'от' : 'from'} {product.product_more[0].price} {product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</div>

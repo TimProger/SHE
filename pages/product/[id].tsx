@@ -285,11 +285,11 @@ const Product: React.FC<IProductProps> = ({product}) => {
                       </div>
                     </div>
                   </div>
-                  <Image
+                  <img
                     src={mainImage}
                     alt={product.name}
                     width={200}
-                    height={200}/>
+                    height={200} />
                 </div>
               </div>
               {width === 'mobile' && <div className={s.container__product__product__images__slider}>
