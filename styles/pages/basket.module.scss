@@ -133,11 +133,14 @@
     gap: 50px;
 
     &__price{
+      width: 100%;
 
       &__container{
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        width: 100%;
+        gap: 40px;
 
         & h2{
           color: $text-sec;
@@ -154,6 +157,29 @@
       & div{
         min-width: 150px;
         text-align: end;
+      }
+    }
+
+    &__cdek{
+      display: flex;
+      gap: 100px;
+      width: 100%;
+      justify-content: space-between;
+
+      &__text{
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+      }
+
+      &__price{
+        min-width: 150px;
+        text-align: end;
+      }
+
+      & span{
+        color: $text-sec;
+        font-size: 18px;
       }
     }
 

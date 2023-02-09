@@ -25,6 +25,8 @@ import {Storage} from "../utils/storage";
 import {sendMetrik} from "../utils/metriks";
 import CopyBasket from "../components/CopyBasket";
 import useOnclickOutside from "react-cool-onclickoutside";
+import {number} from "prop-types";
+import {getSearch} from "../store/ActionCreators/Product.ac";
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -307,9 +309,10 @@ const Basket: React.FC = () => {
   const [street, setStreet] = useState('')
   const [house, setHouse] = useState('')
   const [apart, setApart] = useState('')
-  const [delivery, setDelivery] = useState('2')
-  const [payment, setPayment] = useState('card')
+  const [delivery, setDelivery] = useState('1')
+  const [payment, setPayment] = useState('cash')
   const [done, setDone] = useState<any | null>(null)
+  const [cdekPrice, setCdekPrice] = useState<number>(0)
 
   useEffect(()=>{
     if(window){
@@ -324,6 +327,35 @@ const Basket: React.FC = () => {
       }
     }
   },[])
+
+  let typingTimer: string | number | NodeJS.Timeout | undefined
+  let doneTypingInterval = 1000;
+  function doneTyping(){
+    if(city.length > 1){
+      $api.post(`${locale}/order/cdek_order/`, {
+        city: city
+      })
+        .then((res)=>{
+          setCdekPrice(res.data.total_sum.toFixed(2))
+        })
+        .catch((err)=>{
+          setCdekPrice(0)
+        })
+    }
+  }
+  useEffect(()=>{
+    if(city.length > 1){
+      $api.post(`${locale}/order/cdek_order/`, {
+        city: city
+      })
+        .then((res)=>{
+          setCdekPrice(res.data.total_sum.toFixed(2))
+        })
+        .catch((err)=>{
+          setCdekPrice(0)
+        })
+    }
+  },[locale, page])
 
   const onChangeArea = (e: ChangeEvent<HTMLInputElement>) => {
     setArea(e.target.value)
@@ -514,7 +546,19 @@ const Basket: React.FC = () => {
               </div>
               <div className={s.order__inputs__container}>
                 <h3>{t('order.inputs.city')}</h3>
-                <input className={errors.city ? s.order__inputs__input_error : ''} value={city} onChange={onChangeCity} placeholder={t('order.inputs.city_pl')} type="text"/>
+                <input
+                  onKeyUp={(e)=>{
+                    clearTimeout(typingTimer);
+                    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+                  }}
+                  onKeyDown={(e)=>{
+                    clearTimeout(typingTimer);
+                  }}
+                  className={errors.city ? s.order__inputs__input_error : ''}
+                  value={city}
+                  onChange={onChangeCity}
+                  placeholder={t('order.inputs.city_pl')}
+                  type="text"/>
                 <p>{errors.city ? errors.city : ''}</p>
               </div>
               <div className={s.order__inputs__container}>
@@ -547,10 +591,10 @@ const Basket: React.FC = () => {
                   <input checked={delivery === "1"} type="radio" value="1" name="delivery" id={'self'}/>
                   <label htmlFor="self">{t('order.inputs.radio_1')}</label>
                 </div>
-                <div>
-                  <input checked={delivery === "2"} type="radio" value="2" name="delivery" id={'transport'}/>
-                  <label htmlFor="transport">{t('order.inputs.radio_2')}</label>
-                </div>
+                {/*<div>*/}
+                {/*  <input checked={delivery === "2"} type="radio" value="2" name="delivery" id={'transport'}/>*/}
+                {/*  <label htmlFor="transport">{t('order.inputs.radio_2')}</label>*/}
+                {/*</div>*/}
               </div>
               <p>{t('order.about_delivery')}</p>
             </div>
@@ -574,12 +618,12 @@ const Basket: React.FC = () => {
             </div>
             <h2>{t('order.payment_methods')}</h2>
             <div className={s.order__orders__payment} onChange={(e: ChangeEvent<HTMLInputElement>)=>setPayment(e.target.value)}>
-              <div className={s.order__orders__payment__radio}>
-                <div>
-                  <input checked={payment === 'card'} type="radio" value="card" name="payment" id={'card'}/>
-                  <label htmlFor="card">{t('order.inputs.radio_3')}</label>
-                </div>
-              </div>
+              {/*<div className={s.order__orders__payment__radio}>*/}
+              {/*  <div>*/}
+              {/*    <input checked={payment === 'card'} type="radio" value="card" name="payment" id={'card'}/>*/}
+              {/*    <label htmlFor="card">{t('order.inputs.radio_3')}</label>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
               <div className={s.order__orders__payment__radio}>
                 {delivery !== '2' ? <div>
                   <input checked={payment === 'cash'} type="radio" value="cash" name="payment" id={'cash'}/>
@@ -729,20 +773,22 @@ const Basket: React.FC = () => {
           <div className={s.basket}>
             {returnPages()}
             <div className={s.basket__info}>
-              {page !== 2 ? <div className={s.basket__info__price__container}>
+              <div className={s.basket__info__price__container}>
+                {delivery === '2' && <h1 className={s.basket__info__cdek}>
+                  <div className={s.basket__info__cdek__text}>{locale === 'ru' ? 'Цена доставки' : 'Delivery price'}
+                    <span>{locale === 'ru' ? '(Цена может незначительно измениться)' : '(Price could be changed)'}</span>
+                  </div>
+                  <div className={s.basket__info__cdek__price}>
+                    {cdekPrice}{locale === 'ru' ? '₽' : '$'}
+                  </div>
+                </h1>}
                 {oldPrice > 0 && <h2 className={s.basket__info__text}>
-                  {oldPrice} {locale === 'ru' ? '₽' : '$'}
+                  {oldPrice}{locale === 'ru' ? '₽' : '$'}
                 </h2>}
                 <h1 className={s.basket__info__text}>
-                {t('total')} {totalCountNew} {t('productsToBuy')}: <div>{totalPriceNew} {locale === 'ru' ? '₽' : '$'}</div>
-              </h1></div>:<div className={s.basket__info__price__container}>
-                {oldPrice > 0 && <h2 className={s.basket__info__text}>
-                  {oldPrice} {locale === 'ru' ? '₽' : '$'}
-                </h2>}
-                  <h1 className={s.basket__info__text}>
-                    {totalPriceNew} {locale === 'ru' ? '₽' : '$'}
-                  </h1>
-                </div>}
+                  {t('total')} {totalCountNew} {t('productsToBuy')}: <div>{totalPriceNew}{locale === 'ru' ? '₽' : '$'}</div>
+                </h1>
+              </div>
               {isAuth
                 ? (page === 0
                   ? <Button text={t('buy')} onClick={handleClick}/>

@@ -78,9 +78,12 @@ const Product: React.FC<IProductProps> = ({product}) => {
 
   useEffect(()=>{
     const id = more.id
+    const avaible = product.product_more.filter((el)=>el.availability > 0)
     const moreNew = product.product_more.filter((el, index) => el.id === id)
-    if(moreNew[0]){
-      setMore(moreNew[0])
+    if(avaible[0]){
+      setMore(avaible[0])
+    }else{
+      setMore(product.product_more[0])
     }
   },[product])
 

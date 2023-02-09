@@ -21,8 +21,9 @@ interface ICardProps {
 const Card: React.FC<ICardProps> = ({product, className, day}) => {
   const dispatch = useAppDispatch()
   const {locale} = useRouter()
-  const [more, setMore] = useState<IProductMore>(product.product_more[0])
+  const [more, setMore] = useState<IProductMore>(product.product_more[product.product_more.length-1])
   const [mainImage, setMainImage] = useState<IProductImage | null>(null)
+  const [isNone, setIsNone] = useState<boolean>(false)
 
   const [isFav, setIsFav] = useState<boolean>(false)
   const [basketProduct, setBasketProduct] = useState<null | IBasketProduct>()
@@ -39,10 +40,26 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
   }
 
   useEffect(()=>{
-    setMore(product.product_more[0])
+    const none = product.product_more.filter((el)=>{
+      return el.availability <= 0
+    })
+    if(none.length === product.product_more.length){
+      setIsNone(true)
+    }else{
+      setIsNone(false)
+    }
+    setMore(product.product_more[product.product_more.length-1])
   },[product])
 
   useEffect(()=>{
+    const none = product.product_more.filter((el)=>{
+      return el.availability <= 0
+    })
+    if(none.length === product.product_more.length){
+      setIsNone(true)
+    }else{
+      setIsNone(false)
+    }
     const includes = products.filter((el)=>el.product_id === product.id)
     if(products.includes(includes[0])){
       setIsFav(true)
@@ -135,11 +152,11 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
                 </div>
               </div>
               <div className={s.card__header__new}>
-                {more.availability <= 0 && <div className={s.card__not_available__block}>{locale === 'ru' ? 'Нет в наличии' : 'Not available'}</div>}
+                {isNone ? <div className={s.card__not_available__block}>{locale === 'ru' ? 'Нет в наличии' : 'Not available'}</div> : ''}
                 {day && <div className={s.card__day__block}>{locale === 'ru' ? 'Товар дня' : 'Day\'s product'}</div>}
-                {more.availability > 0 && is_new && <div className={s.card__new__block}>New</div>}
-                {more.availability > 0 && is_hit && <div className={s.card__hit__block}>Hit</div>}
-                {!!discount && <div className={s.card__header__new__discount}>-{discount}%</div>}
+                {!isNone ? is_new && <div className={s.card__new__block}>New</div> : ''}
+                {!isNone ? is_hit && <div className={s.card__hit__block}>Hit</div> : ''}
+                {!!discount ? <div className={s.card__header__new__discount}>-{discount}%</div> : ''}
               </div>
             </div>
             <Link draggable={false} href={'/product/'+id} className={s.card__image}>
@@ -166,7 +183,7 @@ const Card: React.FC<ICardProps> = ({product, className, day}) => {
               {product.product_more[0].ml ? <p>{product.product_more.map((el, index)=><><span style={{textDecoration: el.availability <= 0 ? 'line-through' : 'none'}}>{el.ml}</span>{index !== product.product_more.length-1 ? '/' : ''}</>)} {locale === 'ru' ? 'г.' : 'g.'}</p> : ''}
               {product.color ? <span style={{background: product.color}} className={s.card__content__footer__color} /> : ''}
             </div>
-            <div>{locale === 'ru' ? 'от' : 'from'} {product.product_more[0] ? product.product_more[0].price : product.price} {product.product_more[0] && product.product_more[0].price_currency === 'RUB' ? '₽' : '$'}</div>
+            <div>{locale === 'ru' ? 'от' : 'from'} {more ? more.price : product.price} {more && more.price_currency === 'RUB' ? '₽' : '$'}</div>
           </div>
         </div>
       </div>
