@@ -54,8 +54,9 @@
       height: 80%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 50px;
+      justify-content: space-between;
+      overflow-y: auto;
+      padding: 0 20px;
 
       & p{
         color: $text-sec;
@@ -138,20 +139,26 @@
         gap: 30px;
 
         &__button{
-          font-size: 14px;
           width: 100%;
+
+          & button{
+            font-size: 12px;
+            padding: 10px 15px;
+          }
         }
 
         & h1{
-          font-size: 28px;
+          font-size: 20px;
         }
 
         & h2{
           font-size: 18px;
+          margin-top: 10px;
         }
 
         & input{
           font-size: 14px;
+          padding: 15px 10px;
         }
       }
     }

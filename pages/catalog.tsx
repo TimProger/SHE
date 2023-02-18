@@ -165,7 +165,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
         }
         $api.post(`${locale}/product/catalog/values/${limit}/${page1}/`, data)
           .then((res)=>{
-            setPages(Math.floor(res.data.count_pages))
+            setPages(Math.ceil(res.data.count_pages))
             setProducts(res.data.data)
           })
       })
@@ -181,7 +181,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
       .then((res)=>{
-        setPages(Math.floor(res.data.count_pages))
+        setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
       })
   }
@@ -196,7 +196,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
-        setPages(Math.floor(res.data.count_pages))
+        setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
       })
   }
@@ -215,7 +215,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
-        setPages(Math.floor(res.data.count_pages))
+        setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
       })
   }
@@ -291,7 +291,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
-        setPages(Math.floor(res.data.count_pages))
+        setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setFiltered(false)
@@ -317,7 +317,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
-        setPages(Math.floor(res.data.count_pages))
+        setPages(Math.ceil(res.data.count_pages))
         setProducts(res.data.data)
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setFiltered(false)

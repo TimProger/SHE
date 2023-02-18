@@ -60,18 +60,22 @@ const Footer: React.FC<IFooterProps> = ({}) => {
               <Link href={'/policy'}>{t('footer.links.info_link4')}</Link><br/><br/> {/* Политика конфиденциальности */}
             </td>
             <td>
-              <Link style={{textDecoration: 'underline'}} href={'tel:8-915-565-2027'}>{t('footer.links.contacts_link1')}</Link><br/><br/>
-              <Link style={{textDecoration: 'underline'}} href={'mailto:tm-she@yandex.ru'}>{t('footer.links.contacts_link2')}</Link><br/><br/>
-              <Link style={{textDecoration: 'underline'}} href={'https://yandex.ru/maps/-/CCUjULH9GB'} passHref>{t('footer.links.contacts_link3')}</Link><br/><br/>
+              <Link target="_blank" style={{textDecoration: 'underline'}} href={'tel:8-915-565-2027'}>{t('footer.links.contacts_link1')}</Link><br/><br/>
+              <Link target="_blank" style={{textDecoration: 'underline'}} href={'mailto:tm-she@yandex.ru'}>{t('footer.links.contacts_link2')}</Link><br/><br/>
+              <Link target="_blank" style={{textDecoration: 'underline'}} href={'https://yandex.ru/maps/-/CCUjULH9GB'} passHref>{t('footer.links.contacts_link3')}</Link><br/><br/>
             </td>
             <td>
               <Link
+                target="_blank"
                 href={'https://rutube.ru/channel/27054689/'}>{t('footer.links.video_link1')}</Link><br/><br/> {/* Наш канал */}
               <Link
+                target="_blank"
                 href={'https://rutube.ru/video/33b7749d5677c7bbed20d7f23a13586d/'}>{t('footer.links.video_link2')}</Link><br/><br/> {/* Работа с Aqua base */}
               <Link
+                target="_blank"
                 href={'https://rutube.ru/plst/207013/'}>{t('footer.links.video_link3')}</Link><br/><br/> {/* Обзор прочных баз */}
               <Link
+                target="_blank"
                 href={'https://rutube.ru/video/715c2ecb343286db32df95ac8150038b/?playlist=207007'}>{t('footer.links.video_link4')}</Link><br/><br/> {/* Дизайны */}
             </td>
           </tr>
@@ -92,15 +96,15 @@ const Footer: React.FC<IFooterProps> = ({}) => {
           <div>
             <h3>{t('footer.titles.contacts')}</h3>
             <Link style={{textDecoration: 'underline'}} href={'tel:8-915-565-2027'}>{t('footer.links.contacts_link1')}</Link>
-            <Link style={{textDecoration: 'underline'}} href={'mailto:tm-she@yandex.ru'}>{t('footer.links.contacts_link2')}</Link>
-            <Link style={{textDecoration: 'underline'}} href={'https://yandex.ru/maps/-/CCUjULH9GB'}>{t('footer.links.contacts_link3')}</Link>
+            <Link target="_blank" style={{textDecoration: 'underline'}} href={'mailto:tm-she@yandex.ru'}>{t('footer.links.contacts_link2')}</Link>
+            <Link target="_blank" style={{textDecoration: 'underline'}} href={'https://yandex.ru/maps/-/CCUjULH9GB'}>{t('footer.links.contacts_link3')}</Link>
           </div>
           <div>
             <h3>{t('footer.titles.video')}</h3>
-            <Link href={'https://rutube.ru/channel/27054689/'}>{t('footer.links.video_link1')}</Link>
-            <Link href={'https://rutube.ru/video/33b7749d5677c7bbed20d7f23a13586d/'}>{t('footer.links.video_link2')}</Link>
-            <Link href={'https://rutube.ru/plst/207013/'}>{t('footer.links.video_link3')}</Link>
-            <Link href={'https://rutube.ru/video/715c2ecb343286db32df95ac8150038b/?playlist=207007'}>{t('footer.links.video_link4')}</Link>
+            <Link target="_blank" href={'https://rutube.ru/channel/27054689/'}>{t('footer.links.video_link1')}</Link>
+            <Link target="_blank" href={'https://rutube.ru/video/33b7749d5677c7bbed20d7f23a13586d/'}>{t('footer.links.video_link2')}</Link>
+            <Link target="_blank" href={'https://rutube.ru/plst/207013/'}>{t('footer.links.video_link3')}</Link>
+            <Link target="_blank" href={'https://rutube.ru/video/715c2ecb343286db32df95ac8150038b/?playlist=207007'}>{t('footer.links.video_link4')}</Link>
           </div>
         </div>}
       </div>

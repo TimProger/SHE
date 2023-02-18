@@ -22,7 +22,6 @@ import visa_logo from '../public/images/visa_logo.png'
 import jcb_logo from '../public/images/jcb_logo.png'
 import ms_logo from '../public/images/ms_logo.png'
 import {Storage} from "../utils/storage";
-import {sendMetrik} from "../utils/metriks";
 import CopyBasket from "../components/CopyBasket";
 import useOnclickOutside from "react-cool-onclickoutside";
 import {number} from "prop-types";
@@ -731,7 +730,6 @@ const Basket: React.FC = () => {
       .then(()=>{
         $api.post(`/${locale}/order/buy/`, order_data)
           .then((res) => {
-            sendMetrik('reachGoal', 'buy')
             dispatch(removeAllProductFromBasket())
             push(`order/?order_id=${res.data.order_id.split('-')[1]}`)
           })

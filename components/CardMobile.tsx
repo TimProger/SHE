@@ -8,7 +8,6 @@ import {toggleFav} from "../store/Slices/Fav.slice";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
 import Stock from "../public/images/stock.png";
 import {useRouter} from "next/router";
-import {sendMetrik} from "../utils/metriks";
 import {addToBasket, killProduct} from "../store/Slices/Basket.slice";
 import Image from "next/image";
 
@@ -79,7 +78,6 @@ const CardMobile: React.FC<ICardProps> = ({product, className}) => {
   const [isInBasket, setIsInBasket] = useState<boolean>(false)
 
   const addToBasketHandler = () => {
-    sendMetrik('reachGoal', 'add_basket')
     if(user.isAuth){
       $api.post(`${locale}/basket/`, {
         product: more.id
