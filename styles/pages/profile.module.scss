@@ -392,5 +392,13 @@
         }
       }
     }
+
+    &__info{
+
+      &__info{
+        flex-direction: column;
+        text-align: center;
+      }
+    }
   }
 }

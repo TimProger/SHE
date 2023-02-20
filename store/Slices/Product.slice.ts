@@ -5,13 +5,15 @@ import {getSearch} from "../ActionCreators/Product.ac";
 interface IProductState {
   isLoading: boolean;
   error: string | null;
-  products: IProduct[] | null
+  products: IProduct[] | null;
+  headerMobileDropdown: string | null;
 }
 
 const initialState: IProductState = {
   isLoading: false,
   error: null,
-  products: null
+  products: null,
+  headerMobileDropdown: null
 }
 
 export const productSlice = createSlice({
@@ -20,6 +22,9 @@ export const productSlice = createSlice({
   reducers: {
     setProducts: (state: IProductState, action: PayloadAction<IProduct[] | null>) => {
       state.products = action.payload
+    },
+    setHeaderDropdown: (state: IProductState, action: PayloadAction<string | null>) => {
+      state.headerMobileDropdown = action.payload
     }
   },
   extraReducers: {
@@ -39,6 +44,6 @@ export const productSlice = createSlice({
   }
 })
 
-export const { setProducts } = productSlice.actions
+export const { setProducts, setHeaderDropdown } = productSlice.actions
 
 export default productSlice.reducer

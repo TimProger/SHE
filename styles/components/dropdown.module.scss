@@ -87,6 +87,7 @@
 
 
   &__selected{
+    text-decoration: none;
 
     &__open{
       color: $block-main !important;
@@ -229,11 +230,23 @@
     font-size: 16px !important;
 
     &__options{
-      margin-top: 33.1px;
+      margin-top: 28.1px;
     }
 
     &__open{
       height: 287px !important;
+    }
+
+    &__block{
+      font-size: 13px;
+
+      & img{
+        height: 13px;
+      }
+
+      & div{
+        padding: 0 0 3px 0;
+      }
     }
   }
 }

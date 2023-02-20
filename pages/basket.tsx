@@ -609,20 +609,20 @@ const Basket: React.FC = () => {
                   <div>
                     <Link href={`${locale}/product/${el.product_id}`}><h3>{el.name}</h3></Link>
                     <p>{locale ==='ru' ? 'г.' : 'g.'}: {el.ml}</p>
-                    <p>x{products[index].count}</p>
+                    <p>x{selected[index].count}</p>
                   </div>
-                  <h3>{(el.price*(products[index].count || 1)).toFixed(2)} {el.price_currency === 'RUB' ? '₽' : '$'}</h3>
+                  <h3>{(el.price*(selected[index].count || 1)).toFixed(2)} {el.price_currency === 'RUB' ? '₽' : '$'}</h3>
                 </div>
               }) : <p>{t('empty')}</p>}
             </div>
             <h2>{t('order.payment_methods')}</h2>
             <div className={s.order__orders__payment} onChange={(e: ChangeEvent<HTMLInputElement>)=>setPayment(e.target.value)}>
-              {/*<div className={s.order__orders__payment__radio}>*/}
-              {/*  <div>*/}
-              {/*    <input checked={payment === 'card'} type="radio" value="card" name="payment" id={'card'}/>*/}
-              {/*    <label htmlFor="card">{t('order.inputs.radio_3')}</label>*/}
-              {/*  </div>*/}
-              {/*</div>*/}
+              <div className={s.order__orders__payment__radio}>
+                <div>
+                  <input checked={payment === 'card'} type="radio" value="card" name="payment" id={'card'}/>
+                  <label htmlFor="card">{t('order.inputs.radio_3')}</label>
+                </div>
+              </div>
               <div className={s.order__orders__payment__radio}>
                 {delivery !== '2' ? <div>
                   <input checked={payment === 'cash'} type="radio" value="cash" name="payment" id={'cash'}/>
