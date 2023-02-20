@@ -62,7 +62,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   switch (type){
     case 'counties':
       return (
-        <div onClick={showOptions} className={s.dropdown_form + ` ${className}`}>
+        <div onMouseUp={showOptions} onTouchEnd={showOptions} className={s.dropdown_form + ` ${className}`}>
           <div className={s.dropdown_form__container}>
             <div className={s.dropdown_form__block}>
               <Image
