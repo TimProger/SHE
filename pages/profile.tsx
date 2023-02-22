@@ -242,7 +242,7 @@ const Profile: React.FC = () => {
                 <div className={s.profile__pages__page__products__active}>
                   <h2>{t('pages.orders.order.active')}</h2>
                   {ordersActive.map((el, index) => {
-                    return <Link href={`/order?${el.pay_online ? `orderId=${el.pay_online}` : `order_id=${el.order_id.split('-')[1]}`}`}><div className={s.profile__pages__page__products__active__product}>
+                    return <Link href={`/order?order_id=${el.order_id.split('-')[1]}`}><div className={s.profile__pages__page__products__active__product}>
                       <div className={s.profile__pages__page__products__active__product__container}>
                         <div className={s.profile__pages__page__products__active__product__imgs}>
                           {el.order_list.map((elem, index)=>{

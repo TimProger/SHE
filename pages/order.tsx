@@ -5,7 +5,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useRouter} from "next/router";
 import {useAppDispatch} from "../hooks/useTypedDispatch";
 import {useTypedSelector} from "../hooks/useTypedSelector";
-import {IBasketProductFull, IOrder} from "../types/Product.types";
+import {IOrder} from "../types/Product.types";
 import {$api, API_BASE_URL} from "../http/api";
 import s from "../styles/pages/order.module.scss";
 import Link from "next/link";
@@ -19,7 +19,6 @@ import Button from "../components/Button";
 const Order: React.FC = () => {
   const { push, locale, query } = useRouter()
   const { t } = useTranslation('order')
-  const dispatch = useAppDispatch()
 
   const profile = useTypedSelector(state => state.profile)
 
@@ -30,20 +29,11 @@ const Order: React.FC = () => {
       if(typeof window !== undefined) {
         if (Storage.get('accessToken')) {
           if(profile.isAuth){
-            if (query.orderId) {
-              $api.get(`${locale}/order/my_orders/?bank_id=${query.orderId}`)
-                .then((res) => {
-                  setDone(res.data)
-                })
-                .catch((res) => {
-                  push('/')
-                })
-            } else if (query.order_id) {
+            if (query.order_id) {
               $api.get(`${locale}/order/my_orders/?id=${query.order_id}`)
                 .then((res) => {
                   setDone(res.data)
                 })
-            } else {
             }
           }
         } else {

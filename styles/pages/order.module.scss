@@ -91,6 +91,8 @@
 
       &__price{
         height: 160px;
+        display: flex;
+        align-items: flex-end;
       }
 
       &:hover h3, &:hover h1{
@@ -102,15 +104,18 @@
         gap: 20px;
         align-items: center;
         height: 165px;
+        overflow: hidden;
       }
 
       &__image{
-        width: 200px;
-        height: 200px;
+        width: 165px;
+        min-width: 165px;
+        height: 170px;
         overflow: hidden;
 
         & img{
           width: 100%;
+          object-position: 1px top;
         }
       }
 
