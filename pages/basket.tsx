@@ -329,7 +329,7 @@ const Basket: React.FC = () => {
 
   let typingTimer: string | number | NodeJS.Timeout | undefined
   let doneTypingInterval = 1000;
-  function doneTyping(){
+  function doneTyping(){ // Запрос за ценой доставки в зависимости от города
     if(city.length > 1){
       $api.post(`${locale}/order/cdek_order/`, {
         city: city
@@ -403,16 +403,65 @@ const Basket: React.FC = () => {
     }
   }
 
+  const checkErrors = (mark: boolean = false): boolean => {
+    let isErrors = false
+    if (errors.email || email.length <= 0) {
+      if(mark){
+        errors.email = locale === 'ru' ? 'Введите корректный Email' : 'Enter valid Email'
+      }
+      isErrors = true
+    }
+    if (errors.first || firstName.length <= 0) {
+      if(mark){
+        errors.first = locale === 'ru' ? 'Введите имя' : 'Enter firstname'
+      }
+      isErrors = true
+    }
+    if (errors.last || lastName.length <= 0) {
+      if(mark){
+        errors.last = locale === 'ru' ? 'Введите фамилию' : 'Enter lastname'
+      }
+      isErrors = true
+    }
+    if (errors.area || area.length <= 0) {
+      if(mark){
+        errors.area = locale === 'ru' ? 'Введите область' : 'Enter area'
+      }
+      isErrors = true
+    }
+    if (errors.city || city.length <= 0) {
+      if(mark){
+        errors.city = locale === 'ru' ? 'Введите город' : 'Enter city'
+      }
+      isErrors = true
+    }
+    if (errors.street || street.length <= 0) {
+      if(mark){
+        errors.street = locale === 'ru' ? 'Введите улицу' : 'Enter street'
+      }
+      isErrors = true
+    }
+    if (errors.house || house.length <= 0) {
+      if(mark){
+        errors.street = locale === 'ru' ? 'Введите улицу' : 'Enter street'
+      }
+      isErrors = true
+    }
+    if (errors.apart || apart.length <= 0) {
+      if(mark){
+        errors.house = locale === 'ru' ? 'Введите квартиру' : 'Enter house'
+      }
+      isErrors = true
+    }
+    if(mark){
+      setErrors(JSON.parse(JSON.stringify(errors)))
+    }
+    return isErrors
+  }
+
   useEffect(()=>{
     setIsDisabled(true)
-    if (errors.email || email.length <= 0) return
-    if (errors.phone || phoneUpd.length <= 0) return
-    if (errors.first || firstName.length <= 0) return
-    if (errors.last || lastName.length <= 0) return
-    if (errors.area || area.length <= 0) return
-    if (errors.city || city.length <= 0) return
-    if (errors.house || house.length <= 0) return
-    if (errors.apart || apart.length <= 0) return
+    if(checkErrors()) return
     setIsDisabled(false)
 
   },[errors, email, phoneUpd, firstName, lastName, area, city, street, house, apart])
@@ -425,27 +474,8 @@ const Basket: React.FC = () => {
         setIsDisabled(false)
         break
       case 1:
-        if (errors.email || email.length <= 0) {
-          return
-        }
-        if (errors.first || firstName.length <= 0) {
-          return
-        }
-        if (errors.last || lastName.length <= 0) {
-          return
-        }
-        if (errors.area || area.length <= 0) {
-          return
-        }
-        if (errors.city || city.length <= 0) {
-          return
-        }
-        if (errors.house || house.length <= 0) {
-          return
-        }
-        if (errors.apart || apart.length <= 0) {
-          return
-        }
+        const isErrors = checkErrors()
+        if(isErrors) return
         setIsDisabled(false)
         break
     }
@@ -668,39 +698,9 @@ const Basket: React.FC = () => {
   const handleScrollTop = () => {
     window.scrollTo({ top: 200, behavior: 'smooth' });
     setIsDisabled(false)
-    if (email.length <= 0) {
-      errors.email = locale === 'ru' ? 'Введите корректный Email' : 'Enter valid Email'
+    if(checkErrors(true)) {
       setIsDisabled(true)
     }
-    if (firstName.length <= 0) {
-      errors.first = locale === 'ru' ? 'Введите имя' : 'Enter firstname'
-      setIsDisabled(true)
-    }
-    if (lastName.length <= 0) {
-      errors.last = locale === 'ru' ? 'Введите фамилию' : 'Enter lastname'
-      setIsDisabled(true)
-    }
-    if (area.length <= 0) {
-      errors.area = locale === 'ru' ? 'Введите область' : 'Enter area'
-      setIsDisabled(true)
-    }
-    if (city.length <= 0) {
-      errors.city = locale === 'ru' ? 'Введите город' : 'Enter city'
-      setIsDisabled(true)
-    }
-    if (house.length <= 0) {
-      errors.street = locale === 'ru' ? 'Введите улицу' : 'Enter street'
-      setIsDisabled(true)
-    }
-    if (house.length <= 0) {
-      errors.house = locale === 'ru' ? 'Введите квартиру' : 'Enter house'
-      setIsDisabled(true)
-    }
-    if (apart.length <= 0) {
-      errors.apart = locale === 'ru' ? 'Введите номер квартиры' : 'Enter the apartment number'
-      setIsDisabled(true)
-    }
-    setErrors(JSON.parse(JSON.stringify(errors)))
   }
 
   const makeOrder = () => {
@@ -713,9 +713,9 @@ const Basket: React.FC = () => {
     profile_data.append('last_name', lastName);
 
 
-    const fullAdress = `${area} ${city} ${street} ${house} ${apart}`
-    order_data.append('address', fullAdress);
-    order_data.append('pay_online', payment === "card" ? 'True' :'False');
+    const fullAddress = `${area} ${city} ${street} ${house} ${apart}`
+    order_data.append('address', fullAddress);
+    order_data.append('pay_online', payment === "card" ? 'True' : 'False');
     order_data.append('delivery', delivery);
 
     Storage.set('address', JSON.stringify({
@@ -754,7 +754,13 @@ const Basket: React.FC = () => {
         break;
       case 1:
         if(isAuth){
-          makeOrder()
+          const isErrors = checkErrors(true)
+          if(isErrors){
+            window.scrollTo({ top: 200, behavior: 'smooth' });
+            return;
+          }else{
+            makeOrder()
+          }
         }
         break;
     }
