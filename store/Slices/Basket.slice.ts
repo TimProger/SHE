@@ -63,8 +63,18 @@ export const basketSlice = createSlice({
       }
     },
 
-    removeAllProductFromBasket: (state: IBasketState) => {
-      state.products = []
+    removeAllProductFromBasket: (state: IBasketState, action: PayloadAction<undefined | number[]>) => {
+      if(action.payload){
+        action.payload.map((el)=>{
+          const includes = state.products.find(elem => elem.more === el)
+          if(includes){
+            const index = state.products.indexOf(includes)
+            state.products.splice(index, 1)
+          }
+        })
+      }else{
+        state.products = []
+      }
       Storage.set('basket', JSON.stringify([]))
     },
 
