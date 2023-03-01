@@ -204,7 +204,6 @@
   }
 
   &__logo{
-    background: url(../../public/images/logo.png);
     height: 70px;
     width: 156px;
     position: relative;
@@ -435,7 +434,8 @@
     }
 
     & a{
-      height: 30px;
+      height: auto;
+      min-height: 30px;
       width: auto;
     }
 
@@ -539,6 +539,7 @@
           & div{
             width: 100%;
             padding-right: 5px;
+            font-size: 16px;
           }
         }
 
