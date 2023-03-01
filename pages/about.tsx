@@ -59,7 +59,7 @@ const About: React.FC = () => {
                   width={200}
                   height={200} />
               </div>
-              <h1 className={s.about__first__title}>{t('title2')}</h1>
+              <h2 className={s.about__first__title}>{t('title2')}</h2>
               <div className={s.about__first__text}>{t('paragraph_2')}
               </div>
               <div className={s.about__first__img}>
@@ -70,7 +70,7 @@ const About: React.FC = () => {
                   height={200} />
               </div>
               <div className={s.about__payment__about}>
-                <h1>{t('payment__info.title')}</h1>
+                <h2>{t('payment__info.title')}</h2>
                 <p>{t('payment__info.about')}</p>
                 <div className={s.about__payment__imgs}>
                   <Image
@@ -104,9 +104,9 @@ const About: React.FC = () => {
                   width={200}
                   height={200}  />
               </div>
-              <h1 className={s.about__first__title}>
+              <h2 className={s.about__first__title}>
                 {t('title3')}
-              </h1>
+              </h2>
               <div className={s.about__first__text}>{t('paragraph_3')}
               </div>
               <div className={s.about__first__img}>
@@ -116,9 +116,9 @@ const About: React.FC = () => {
                   width={200}
                   height={200}  />
               </div>
-              <h1 className={s.about__first__title}>
+              <h2 className={s.about__first__title}>
                 {t('title4')}
-              </h1>
+              </h2>
               <div className={s.about__first__text}>{t('paragraph_4')}
               </div>
             </div>

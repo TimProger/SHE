@@ -261,14 +261,14 @@ const Profile: React.FC = () => {
                           {isMobile
                             ? <>
                               <p>{locale === 'ru' ? 'Статус' : 'Status'}: <span>{t(`order_status.status_${el.status}`)}</span></p>
-                              <h1>{el.sum.toFixed(2)}{el.price_currency === 'RUB' ? '₽' : '$'}</h1>
+                              <h3>{el.sum.toFixed(2)}{el.price_currency === 'RUB' ? '₽' : '$'}</h3>
                           </>
                             : ''}
                         </div>
                       </div>
                       {!isMobile ? <div className={s.profile__pages__page__products__active__product__price}>
                         <h2>{t(`order_status.status_${el.status}`)}</h2>
-                        <h1>{el.sum.toFixed(2)}{el.price_currency === 'RUB' ? '₽' : '$'}</h1>
+                        <h3>{el.sum.toFixed(2)}{el.price_currency === 'RUB' ? '₽' : '$'}</h3>
                       </div> : ''}
                     </div></Link>
                   })}
@@ -290,7 +290,7 @@ const Profile: React.FC = () => {
                       </div>
                       <div className={s.profile__pages__page__products__active__product__price}>
                         <h2>{t(`order_status.status_${el.status}`)}</h2>
-                        <h1>{el.sum.toFixed(2)} {locale === 'ru' ? '₽' : '$'}</h1>
+                        <h3>{el.sum.toFixed(2)} {locale === 'ru' ? '₽' : '$'}</h3>
                       </div>
                     </div>
                   })}

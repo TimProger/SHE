@@ -550,7 +550,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.66669 3L3.66669 1M3.66669 1L1.66669 3M3.66669 1V10.3333M8.33335 11L10.3334 13M10.3334 13L12.3334 11M10.3334 13V3.66667" stroke="#A0A0A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
-                    } <p style={{marginLeft: 10}}>{locale === 'ru' ? 'По:' : 'By:'}</p> <Dropdown name={'sort'} type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
+                    } <p style={{marginLeft: 10}}></p> <Dropdown name={'sort'} type={'sort'} handler={(e: MouseEvent, value: {name: string, value: string})=>onToggleSortClick(e, value)} value={sort} options={sortArr} />
                   </div>
                 </div>
                 <div className={s.catalog__container__products__pages}>
@@ -569,7 +569,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
               </div>
             </div>
             {width !== 'mobile' && <div className={s.catalog__seen}>
-              <h1>{t('seen')}</h1>
+              <h2>{t('seen')}</h2>
               {seen.length > 0
                 ? (width !== 'mobile' ? (<div className={s.catalog__seen__cards}>
                     {width === 'desktop' && <div className={s.catalog__seen__cards__card}>

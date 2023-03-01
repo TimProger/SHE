@@ -129,7 +129,7 @@
               height: auto;
             }
 
-            &:hover h2, &:hover h1{
+            &:hover h1, &:hover h2, &:hover h3{
               color: $block-main !important;
             }
 
@@ -169,6 +169,11 @@
               flex-direction: column;
               justify-content: space-between;
               align-items: flex-end;
+
+              & h3{
+
+                font-size: 22px;
+              }
             }
 
             &__info{

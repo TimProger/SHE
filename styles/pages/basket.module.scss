@@ -215,9 +215,6 @@
     padding-bottom: 20px;
     border-bottom: 1px solid $block-main;
 
-    & h1{
-
-    }
     & p{
       font-weight: bold;
 
@@ -393,6 +390,10 @@
     padding-bottom: 20px;
     border-bottom: 1px solid $block-main;
     margin-bottom: 20px;
+
+    & h2{
+      font-size: 28px;
+    }
 
     &__btns{
       display: flex;

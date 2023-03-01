@@ -538,7 +538,7 @@ const Basket: React.FC = () => {
               {t('back')}
             </p>
             <div className={s.order__header}>
-              <h1>{t('title_1')}</h1>
+              <h2>{t('title_1')}</h2>
             </div>
             <div className={s.order__inputs}>
               <div className={s.order__inputs__container}>
@@ -565,7 +565,7 @@ const Basket: React.FC = () => {
           </div>
           <div>
             <div className={s.order__header}>
-              <h1>{t('order.title')}</h1>
+              <h2>{t('order.title')}</h2>
             </div>
             <div className={s.order__inputs}>
               <div className={s.order__inputs__container}>
@@ -630,7 +630,7 @@ const Basket: React.FC = () => {
           </div>
           <div className={s.order__orders}>
             <div className={s.order__header}>
-              <h1>{t('order.payment')}</h1>
+              <h2>{t('order.payment')}</h2>
             </div>
             <h2>{t('order.products')}</h2>
             <div className={s.order__orders__products}>

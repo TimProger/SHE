@@ -109,7 +109,7 @@ const Main: React.FC<IMainProps> = ({ slides, slidesNew, slidesHit }) => {
                 <div className={s.swiper__slide__wrapper}>
                   <p></p>
                   <div className={s.swiper__slide__title}>
-                    <h1 className={s.swiper__slide__title__h1}>{el.title}</h1>
+                    <h2 className={s.swiper__slide__title__h1}>{el.title}</h2>
                   </div>
                   <div className={s.swiper__slide__about}>
                     {el.about && el.about !== '-' ? <p>{el.about}</p> : ''}
@@ -141,7 +141,7 @@ const Main: React.FC<IMainProps> = ({ slides, slidesNew, slidesHit }) => {
           <div className={s.container__products}>
             <div className={s.container__products__header}>
               <div className={s.container__products__title}>
-                <h1>{t('news')}</h1>
+                <h2>{t('news')}</h2>
                 <div className={s.new__block}>New</div>
               </div>
               <div className={s.container__products__title__arrows}>
@@ -184,7 +184,7 @@ const Main: React.FC<IMainProps> = ({ slides, slidesNew, slidesHit }) => {
           <div className={s.container__products}>
             <div className={s.container__products__header}>
               <div className={s.container__products__title}>
-                <h1>{t('hits')}</h1>
+                <h2>{t('hits')}</h2>
                 <div className={s.hit__block}>Hit</div>
               </div>
               <div className={s.container__products__title__arrows}>
