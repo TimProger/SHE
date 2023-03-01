@@ -548,20 +548,26 @@ const Catalog: React.FC<ICatalogProps> = () => {
                           />
                         )} />
                         <div className={s.catalog__container__filters__block__container__inputs}>
-                          <input
-                            onChange={(e)=>toggleFilter(`${e.target.value},${usedFilters.price[1]}`, 'price')}
-                            type="number"
-                            min={0}
-                            max={usedFilters.price[1]-1}
-                            step={10}
-                            value={usedFilters.price[0]} />
-                          <input
-                            onChange={(e)=>toggleFilter(`${usedFilters.price[0]},${+e.target.value > priceMax ? priceMax : e.target.value}`, 'price')}
-                            type="number"
-                            min={usedFilters.price[0]+1}
-                            max={priceMax}
-                            step={10}
-                            value={usedFilters.price[1]} />
+                          <div>
+                            <p>{locale==='ru'?'от':'from'}</p>
+                            <input
+                              onChange={(e)=>toggleFilter(`${e.target.value},${usedFilters.price[1]}`, 'price')}
+                              type="number"
+                              min={0}
+                              max={usedFilters.price[1]-1}
+                              step={10}
+                              value={usedFilters.price[0]} />
+                          </div>
+                          <div>
+                            <p>{locale==='ru'?'до':'to'}</p>
+                            <input
+                              onChange={(e)=>toggleFilter(`${usedFilters.price[0]},${+e.target.value > priceMax ? priceMax : e.target.value}`, 'price')}
+                              type="number"
+                              min={usedFilters.price[0]+1}
+                              max={priceMax}
+                              step={10}
+                              value={usedFilters.price[1]} />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -657,20 +663,26 @@ const Catalog: React.FC<ICatalogProps> = () => {
                       />
                     )} />
                     <div className={s.catalog__container__filters__block__container__inputs}>
-                      <input
-                        onChange={(e)=>toggleFilter(`${e.target.value},${usedFilters.price[1]}`, 'price')}
-                        type="number"
-                        min={0}
-                        max={usedFilters.price[1]-1}
-                        step={10}
-                        value={usedFilters.price[0]} />
-                      <input
-                        onChange={(e)=>toggleFilter(`${usedFilters.price[0]},${+e.target.value > priceMax ? priceMax : e.target.value}`, 'price')}
-                        type="number"
-                        min={usedFilters.price[0]+1}
-                        max={priceMax}
-                        step={10}
-                        value={usedFilters.price[1]} />
+                      <div>
+                        <p>{locale==='ru'?'от':'from'}</p>
+                        <input
+                          onChange={(e)=>toggleFilter(`${e.target.value},${usedFilters.price[1]}`, 'price')}
+                          type="number"
+                          min={0}
+                          max={usedFilters.price[1]-1}
+                          step={10}
+                          value={usedFilters.price[0]} />
+                      </div>
+                      <div>
+                        <p>{locale==='ru'?'до':'to'}</p>
+                        <input
+                          onChange={(e)=>toggleFilter(`${usedFilters.price[0]},${+e.target.value > priceMax ? priceMax : e.target.value}`, 'price')}
+                          type="number"
+                          min={usedFilters.price[0]+1}
+                          max={priceMax}
+                          step={10}
+                          value={usedFilters.price[1]} />
+                      </div>
                     </div>
                   </div>
                 </div>
