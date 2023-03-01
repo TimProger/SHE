@@ -26,14 +26,6 @@ body {
   min-height: 100vh;
 }
 
-.swiper_list{
-
-   & .swiper-wrapper{
-     display: flex;
-     gap: 16px;
-   }
- }
-
 .swiper-pagination-bullet {
   background: $block-thrd !important;
   border: 1px solid $block-sec;

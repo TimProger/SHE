@@ -51,10 +51,10 @@ const Main: React.FC<IMainProps> = ({ slides, slidesNew, slidesHit }) => {
       let currentHideNav = (window.innerWidth <= 575);
       currentHideNav ? setIsMobile(true) : setIsMobile(false)
       if (window.innerWidth > 1050) {
-        setSliderCount(4)
+        setSliderCount(3.83)
         setPagination(false)
       } else if (window.innerWidth <= 1050 && window.innerWidth > 700) {
-        setSliderCount(3)
+        setSliderCount(2.85)
         setPagination(false)
       } else if (window.innerWidth <= 700 && window.innerWidth > 575) {
         setSliderCount(2)
@@ -112,14 +112,10 @@ const Main: React.FC<IMainProps> = ({ slides, slidesNew, slidesHit }) => {
                     <h1 className={s.swiper__slide__title__h1}>{el.title}</h1>
                   </div>
                   <div className={s.swiper__slide__about}>
-                    <span></span>
                     {el.about && el.about !== '-' ? <p>{el.about}</p> : ''}
                   </div>
                   <div className={s.swiper__slide__footer}>
-                    {el.data_finish && <p className={s.swiper__slide__footer__date}>
-                      {t('sale')} {new Date(el.data_finish).toLocaleString().split(', ')[0]}
-                    </p>}
-                    {el.link && <Link onClick={(e) => {
+                    {el.link ? <Link onClick={(e) => {
                       e.preventDefault()
                       dispatch(toggleShowModal(true))
                       dispatch(setModal({
@@ -130,7 +126,10 @@ const Main: React.FC<IMainProps> = ({ slides, slidesNew, slidesHit }) => {
                       }))
                     }} href={''} className={s.swiper__slide__footer__btn}>
                       {t('more')}
-                    </Link>}
+                    </Link> : <span></span>}
+                    {el.data_finish ? <p className={s.swiper__slide__footer__date}>
+                      {t('sale')} {new Date(el.data_finish).toLocaleString().split(', ')[0]}
+                    </p> : <span></span>}
                   </div>
                   <p></p>
                 </div>
@@ -168,7 +167,7 @@ const Main: React.FC<IMainProps> = ({ slides, slidesNew, slidesHit }) => {
               className={`${s.swiper} swiper_list`}
               modules={[Navigation, Pagination]}
               navigation={true}
-              spaceBetween={0}
+              spaceBetween={4}
               pagination={pagination && {
                 clickable: true,
                 bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`
