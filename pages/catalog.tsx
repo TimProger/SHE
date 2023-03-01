@@ -17,6 +17,7 @@ import Button from "../components/Button";
 import CardMobile from "../components/CardMobile";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Pagination} from "swiper";
+import {getTrackBackground, Range} from "react-range";
 
 interface ICatalogProps {
 }
@@ -26,8 +27,7 @@ interface IUsedFilters {
   color: number[];
   collection: number[];
   type: number[];
-  min_price: number | null;
-  max_price: number | null;
+  price: number[];
 }
 
 const Catalog: React.FC<ICatalogProps> = () => {
@@ -39,13 +39,13 @@ const Catalog: React.FC<ICatalogProps> = () => {
   const [pages, setPages] = useState<number>(1)
   const [filters, setFilters] = useState<IFilter[]>([])
   const [products, setProducts] = useState<IProduct[]>([])
+  const [priceMax, setPriceMax] = useState<number>(50000)
   const [usedFilters, setUsedFilters] = useState<IUsedFilters>({
     category: [],
     color: [],
     collection: [],
     type: [],
-    min_price: null,
-    max_price: null
+    price: [0, priceMax],
   })
   const [filtered, setFiltered] = useState<boolean>(false)
   const [limit, setLimit] = useState<number>(20)
@@ -127,6 +127,16 @@ const Catalog: React.FC<ICatalogProps> = () => {
           setPage(+`${query.page}`)
         }
         page1 = query.page ? +`${query.page}` : +`${page}`
+        if(query.min){
+          data.append('price_min', `${query.min}`)
+          usedFilters.price[0] = +`${query.min}`
+          setFiltered(true)
+        }
+        if(query.max){
+          data.append('price_max', `${query.max}`)
+          usedFilters.price[1] = +`${query.max}`
+          setFiltered(true)
+        }
         if(query.category){
           data.append('category', `${query.category}`)
           if(query.category.includes(',')){
@@ -178,6 +188,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
+    data.append('price_min', `${usedFilters.price[0]}`)
+    data.append('price_max', `${usedFilters.price[1]}`)
     window.scrollTo({ top: 0, behavior: 'smooth' });
     $api.post(`${locale}/product/catalog/values/${limit}/${page}/`, data)
       .then((res)=>{
@@ -193,6 +205,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
+    data.append('price_min', `${usedFilters.price[0]}`)
+    data.append('price_max', `${usedFilters.price[1]}`)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
@@ -212,6 +226,8 @@ const Catalog: React.FC<ICatalogProps> = () => {
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
+    data.append('price_min', `${usedFilters.price[0]}`)
+    data.append('price_max', `${usedFilters.price[1]}`)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
@@ -268,15 +284,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
         }
         break;
       case 'price':
-        if(!usedFilters.type.includes(+value)){
-          usedFilters.type.push(+value)
-        }else{
-          const index = usedFilters.type.indexOf(+value)
-          usedFilters.type.splice(index, 1)
-        }
+        usedFilters.price = [...value.split(',').map(el=>+el)]
         break;
     }
-    setUsedFilters(Object.assign({}, usedFilters))
+    setUsedFilters(JSON.parse(JSON.stringify(usedFilters)))
   }
 
   const useFilters = () => {
@@ -286,8 +297,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
     if(usedFilters.color.length > 0) data.append('color', usedFilters.color.join(','))
     if(usedFilters.collection.length > 0) data.append('collection', usedFilters.collection.join(','))
     if(usedFilters.type.length > 0) data.append('type', usedFilters.type.join(','))
+    data.append('price_min', `${usedFilters.price[0]}`)
+    data.append('price_max', `${usedFilters.price[1]}`)
     setPage(1)
-    push(`/catalog?page=${1}${usedFilters.category.length > 0 ? `&category=${usedFilters.category}` : ''}${usedFilters.color.length > 0 ? `&color=${usedFilters.color}` : ''}${usedFilters.collection.length > 0 ? `&collection=${usedFilters.collection}` : ''}${usedFilters.type.length > 0 ? `&type=${usedFilters.type}` : ''}`)
+    push(`/catalog?min=${usedFilters.price[0]}&max=${usedFilters.price[1]}&page=${1}${usedFilters.category.length > 0 ? `&category=${usedFilters.category}` : ''}${usedFilters.color.length > 0 ? `&color=${usedFilters.color}` : ''}${usedFilters.collection.length > 0 ? `&collection=${usedFilters.collection}` : ''}${usedFilters.type.length > 0 ? `&type=${usedFilters.type}` : ''}`)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
         setPage(1)
@@ -295,7 +308,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
         setProducts(res.data.data)
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setFiltered(false)
-        if(usedFilters.category.length > 0 || usedFilters.color.length > 0 || usedFilters.collection.length > 0 || usedFilters.type.length > 0) setFiltered(true)
+        if(usedFilters.category.length > 0 ||
+          usedFilters.color.length > 0 ||
+          usedFilters.collection.length > 0 ||
+          usedFilters.type.length > 0) setFiltered(true)
         setShowFilters(false)
       })
   }
@@ -306,13 +322,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
       color: [],
       collection: [],
       type: [],
-      min_price: null,
-      max_price: null
+      price: [0, priceMax],
     })
     const data = new FormData()
     push(`/catalog`)
-
-
     data.append('order', sort.value)
     $api.post(`${locale}/product/catalog/values/${limit}/1/`, data)
       .then((res)=>{
@@ -326,7 +339,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
 
   const togglePageHandler = (el: number) =>{
     setPage(el)
-    push(`/catalog?page=${el}${usedFilters.category.length > 0 ? `&category=${usedFilters.category}` : ''}${usedFilters.color.length > 0 ? `&color=${usedFilters.color}` : ''}${usedFilters.collection.length > 0 ? `&collection=${usedFilters.collection}` : ''}${usedFilters.type.length > 0 ? `&type=${usedFilters.type}` : ''}`)
+    push(`/catalog?min=${usedFilters.price[0]}&max=${usedFilters.price[1]}&page=${el}${usedFilters.category.length > 0 ? `&category=${usedFilters.category}` : ''}${usedFilters.color.length > 0 ? `&color=${usedFilters.color}` : ''}${usedFilters.collection.length > 0 ? `&collection=${usedFilters.collection}` : ''}${usedFilters.type.length > 0 ? `&type=${usedFilters.type}` : ''}`)
     changePage(el)
   }
 
@@ -386,7 +399,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
   const [open, setOpen] = useState<boolean[]>(filters.map((el)=>false))
 
   const openHandler = (index: number) => {
-    for (let i=0;i<filters.length;i++){
+    for (let i=0;i<=filters.length;i++){
       if(i===index){
         open[i] = !open[i]
       }else{
@@ -470,7 +483,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                       return <div className={s.catalog__container__filters__block}>
                         <div onClick={()=>openHandler(index)} className={s.catalog__container__filters__block__header}>
                           <h3>{el.name_lang}</h3>
-                          <svg style={{transform: open[index] ? 'rotate(180deg)' : 'rotate(0deg)'}} width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <svg style={{transition: 'all 0.2s', transform: open[index] ? 'rotate(180deg)' : 'rotate(0deg)'}} width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11.1223 1.38952L6.3941 5.53084C6.33781 5.57999 6.27683 5.61473 6.21116 5.63505C6.14549 5.65569 6.07513 5.66602 6.00008 5.66602C5.92503 5.66602 5.85467 5.65569 5.789 5.63505C5.72333 5.61473 5.66235 5.57999 5.60606 5.53084L0.863757 1.38952C0.732418 1.27482 0.666748 1.13145 0.666748 0.959411C0.666748 0.787367 0.737108 0.639902 0.87783 0.517014C1.01855 0.394126 1.18273 0.332683 1.37035 0.332683C1.55798 0.332683 1.72216 0.394126 1.86288 0.517014L6.00008 4.12992L10.1373 0.517014C10.2686 0.402319 10.4304 0.344971 10.6225 0.344971C10.815 0.344971 10.9816 0.406415 11.1223 0.529303C11.2631 0.65219 11.3334 0.795559 11.3334 0.95941C11.3334 1.12326 11.2631 1.26663 11.1223 1.38952Z" fill="#A0A0A0"/>
                           </svg>
                         </div>
@@ -486,6 +499,72 @@ const Catalog: React.FC<ICatalogProps> = () => {
                         </div>
                       </div>
                     })}
+                    <div className={s.catalog__container__filters__block}>
+                      <div onClick={()=>openHandler(filters.length)} className={s.catalog__container__filters__block__header}>
+                        <h3>{locale === 'ru' ? 'Цена' : 'Price'}</h3>
+                        <svg style={{transition: 'all 0.2s', transform: open[filters.length] ? 'rotate(180deg)' : 'rotate(0deg)'}} width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M11.1223 1.38952L6.3941 5.53084C6.33781 5.57999 6.27683 5.61473 6.21116 5.63505C6.14549 5.65569 6.07513 5.66602 6.00008 5.66602C5.92503 5.66602 5.85467 5.65569 5.789 5.63505C5.72333 5.61473 5.66235 5.57999 5.60606 5.53084L0.863757 1.38952C0.732418 1.27482 0.666748 1.13145 0.666748 0.959411C0.666748 0.787367 0.737108 0.639902 0.87783 0.517014C1.01855 0.394126 1.18273 0.332683 1.37035 0.332683C1.55798 0.332683 1.72216 0.394126 1.86288 0.517014L6.00008 4.12992L10.1373 0.517014C10.2686 0.402319 10.4304 0.344971 10.6225 0.344971C10.815 0.344971 10.9816 0.406415 11.1223 0.529303C11.2631 0.65219 11.3334 0.795559 11.3334 0.95941C11.3334 1.12326 11.2631 1.26663 11.1223 1.38952Z" fill="#A0A0A0"/>
+                        </svg>
+                      </div>
+                      <div className={s.catalog__container__filters__block__container + ` ${open[filters.length] ? s.catalog__container__filters__block__price : s.catalog__container__filters__block__closed}`}>
+                        <Range
+                          onChange={(values) => {
+                            toggleFilter(values.join(','), 'price')
+                          }}
+                          values={usedFilters.price}
+                          min={0}
+                          max={priceMax}
+                          renderTrack={({ props, children }) => (
+                            <div
+                              {...props}
+                              style={{
+                                ...props.style,
+                                height: '1px',
+                                width: '90%',
+                                alignSelf: 'center',
+                                backgroundColor: '#000',
+                                marginTop: '10px',
+                                background: getTrackBackground({
+                                  values: usedFilters.price,
+                                  colors: ['#ccc', '#000', '#ccc'],
+                                  min: 0,
+                                  max: priceMax,
+                                  rtl: false
+                                }),
+                              }}
+                            >
+                              {children}
+                            </div>
+                          )} renderThumb={({ props }) => (
+                          <div
+                            {...props}
+                            style={{
+                              ...props.style,
+                              height: '12px',
+                              width: '12px',
+                              borderRadius: '50%',
+                              backgroundColor: '#000',
+                            }}
+                          />
+                        )} />
+                        <div className={s.catalog__container__filters__block__container__inputs}>
+                          <input
+                            onChange={(e)=>toggleFilter(`${e.target.value},${usedFilters.price[1]}`, 'price')}
+                            type="number"
+                            min={0}
+                            max={usedFilters.price[1]-1}
+                            step={10}
+                            value={usedFilters.price[0]} />
+                          <input
+                            onChange={(e)=>toggleFilter(`${usedFilters.price[0]},${+e.target.value > priceMax ? priceMax : e.target.value}`, 'price')}
+                            type="number"
+                            min={usedFilters.price[0]+1}
+                            max={priceMax}
+                            step={10}
+                            value={usedFilters.price[1]} />
+                        </div>
+                      </div>
+                    </div>
                     <Button className={s.catalog__container__filters__button__apply} onClick={()=>useFilters()} text={t('filters.button')} />
                     {filtered && <Button style_type={'outer'} className={s.catalog__container__filters__button + ` ${s.catalog__container__filters__button__clear}`} onClick={()=>clearFilters()} text={t('filters.clear')} />}
                   </div>
@@ -513,7 +592,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                   return <div className={s.catalog__container__filters__block}>
                     <div onClick={()=>openHandler(index)} className={s.catalog__container__filters__block__header}>
                       <h3>{el.name_lang}</h3>
-                      <svg style={{transform: open[index] ? 'rotate(180deg)' : 'rotate(0deg)'}} width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg style={{transition: 'all 0.2s', transform: open[index] ? 'rotate(180deg)' : 'rotate(0deg)'}} width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.1223 1.38952L6.3941 5.53084C6.33781 5.57999 6.27683 5.61473 6.21116 5.63505C6.14549 5.65569 6.07513 5.66602 6.00008 5.66602C5.92503 5.66602 5.85467 5.65569 5.789 5.63505C5.72333 5.61473 5.66235 5.57999 5.60606 5.53084L0.863757 1.38952C0.732418 1.27482 0.666748 1.13145 0.666748 0.959411C0.666748 0.787367 0.737108 0.639902 0.87783 0.517014C1.01855 0.394126 1.18273 0.332683 1.37035 0.332683C1.55798 0.332683 1.72216 0.394126 1.86288 0.517014L6.00008 4.12992L10.1373 0.517014C10.2686 0.402319 10.4304 0.344971 10.6225 0.344971C10.815 0.344971 10.9816 0.406415 11.1223 0.529303C11.2631 0.65219 11.3334 0.795559 11.3334 0.95941C11.3334 1.12326 11.2631 1.26663 11.1223 1.38952Z" fill="#A0A0A0"/>
                       </svg>
                     </div>
@@ -529,6 +608,72 @@ const Catalog: React.FC<ICatalogProps> = () => {
                     </div>
                   </div>
                 })}
+                <div className={`${s.catalog__container__filters__block}`}>
+                  <div onClick={()=>openHandler(filters.length)} className={s.catalog__container__filters__block__header}>
+                    <h3>{locale === 'ru' ? 'Цена' : 'Price'}</h3>
+                    <svg style={{transition: 'all 0.2s', transform: open[filters.length] ? 'rotate(180deg)' : 'rotate(0deg)'}} width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M11.1223 1.38952L6.3941 5.53084C6.33781 5.57999 6.27683 5.61473 6.21116 5.63505C6.14549 5.65569 6.07513 5.66602 6.00008 5.66602C5.92503 5.66602 5.85467 5.65569 5.789 5.63505C5.72333 5.61473 5.66235 5.57999 5.60606 5.53084L0.863757 1.38952C0.732418 1.27482 0.666748 1.13145 0.666748 0.959411C0.666748 0.787367 0.737108 0.639902 0.87783 0.517014C1.01855 0.394126 1.18273 0.332683 1.37035 0.332683C1.55798 0.332683 1.72216 0.394126 1.86288 0.517014L6.00008 4.12992L10.1373 0.517014C10.2686 0.402319 10.4304 0.344971 10.6225 0.344971C10.815 0.344971 10.9816 0.406415 11.1223 0.529303C11.2631 0.65219 11.3334 0.795559 11.3334 0.95941C11.3334 1.12326 11.2631 1.26663 11.1223 1.38952Z" fill="#A0A0A0"/>
+                    </svg>
+                  </div>
+                  <div className={s.catalog__container__filters__block__container + ` ${open[filters.length] ? s.catalog__container__filters__block__price : s.catalog__container__filters__block__closed}`}>
+                    <Range
+                      onChange={(values) => {
+                        toggleFilter(values.join(','), 'price')
+                      }}
+                      values={usedFilters.price}
+                      min={0}
+                      max={priceMax}
+                      renderTrack={({ props, children }) => (
+                      <div
+                        {...props}
+                        style={{
+                          ...props.style,
+                          height: '1px',
+                          width: '90%',
+                          alignSelf: 'center',
+                          backgroundColor: '#000',
+                          marginTop: '10px',
+                          background: getTrackBackground({
+                            values: usedFilters.price,
+                            colors: ['#ccc', '#000', '#ccc'],
+                            min: 0,
+                            max: priceMax,
+                            rtl: false
+                          }),
+                        }}
+                      >
+                        {children}
+                      </div>
+                    )} renderThumb={({ props }) => (
+                      <div
+                        {...props}
+                        style={{
+                          ...props.style,
+                          height: '12px',
+                          width: '12px',
+                          borderRadius: '50%',
+                          backgroundColor: '#000',
+                        }}
+                      />
+                    )} />
+                    <div className={s.catalog__container__filters__block__container__inputs}>
+                      <input
+                        onChange={(e)=>toggleFilter(`${e.target.value},${usedFilters.price[1]}`, 'price')}
+                        type="number"
+                        min={0}
+                        max={usedFilters.price[1]-1}
+                        step={10}
+                        value={usedFilters.price[0]} />
+                      <input
+                        onChange={(e)=>toggleFilter(`${usedFilters.price[0]},${+e.target.value > priceMax ? priceMax : e.target.value}`, 'price')}
+                        type="number"
+                        min={usedFilters.price[0]+1}
+                        max={priceMax}
+                        step={10}
+                        value={usedFilters.price[1]} />
+                    </div>
+                  </div>
+                </div>
                 <Button className={s.catalog__container__filters__button__apply} onClick={()=>useFilters()} text={t('filters.button')} />
                 {filtered && <Button style_type={'outer'} className={s.catalog__container__filters__button + ` ${s.catalog__container__filters__button__clear}`} onClick={()=>clearFilters()} text={t('filters.clear')} />}
               </div>

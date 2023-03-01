@@ -104,12 +104,34 @@
           height: 0;
           overflow: hidden;
           overflow-y: auto;
+
+          &__inputs{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            & input{
+              width: 30%;
+              height: 40px;
+              outline: none;
+              border: none;
+              border-bottom: 1px solid $text-sec;
+              text-align: center;
+            }
+          }
         }
 
         &__open{
           opacity: 1;
           flex-direction: column;
           height: 275px !important;
+        }
+
+        &__price{
+          opacity: 1;
+          flex-direction: column;
+          height: 80px !important;
+          overflow: hidden;
         }
 
         &__closed{
