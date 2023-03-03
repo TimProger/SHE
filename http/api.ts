@@ -1,4 +1,4 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
+import axios, {AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from "axios";
 import {Storage} from "../utils/storage";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 
@@ -17,7 +17,7 @@ const $api = axios.create({
     }
 });
 
-const authInterceptor = (config: AxiosRequestConfig) => {
+const authInterceptor = (config: InternalAxiosRequestConfig) => {
     if(config.headers){
         config.headers.Authorization = Storage.get("accessToken");
     }
