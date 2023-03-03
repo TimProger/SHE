@@ -40,16 +40,17 @@ const Catalog: React.FC<ICatalogProps> = () => {
   const [filters, setFilters] = useState<IFilter[]>([])
   const [products, setProducts] = useState<IProduct[]>([])
   const [priceMax, setPriceMax] = useState<number>(50000)
+  const [priceMin, setPriceMin] = useState<number>(0)
   const [usedFilters, setUsedFilters] = useState<IUsedFilters>({
     category: [],
     color: [],
     collection: [],
     type: [],
-    price: [0, priceMax],
+    price: [priceMin, priceMax],
   })
   const [filtered, setFiltered] = useState<boolean>(false)
-  const [limit, setLimit] = useState<number>(20)
-  const [limitArr, setLimitArr] = useState<number[]>([20, 40, 60]);
+  const [limit, setLimit] = useState<number>(21)
+  const [limitArr, setLimitArr] = useState<number[]>([21, 42, 63]);
   const [sortArr, setSortArr] = useState<{
     name: string;
     value: string;
@@ -130,11 +131,15 @@ const Catalog: React.FC<ICatalogProps> = () => {
         if(query.min){
           data.append('price_min', `${query.min}`)
           usedFilters.price[0] = +`${query.min}`
+          open[filters.length] = true
+          setOpen([...open])
           setFiltered(true)
         }
         if(query.max){
           data.append('price_max', `${query.max}`)
           usedFilters.price[1] = +`${query.max}`
+          open[filters.length] = true
+          setOpen([...open])
           setFiltered(true)
         }
         if(query.category){
@@ -176,6 +181,20 @@ const Catalog: React.FC<ICatalogProps> = () => {
         $api.post(`${locale}/product/catalog/values/${limit}/${page1}/`, data)
           .then((res)=>{
             setPages(Math.ceil(res.data.count_pages))
+            setPriceMax(Math.ceil(res.data.price_max))
+            setPriceMin(Math.ceil(res.data.price_min))
+            if(res.data.price_min && usedFilters.price[0] < res.data.price_min){
+              usedFilters.price[0] = res.data.price_min
+            }
+            if(res.data.price_max && usedFilters.price[1] > res.data.price_max){
+              usedFilters.price[1] = res.data.price_max
+              if(usedFilters.price[1] < usedFilters.price[0] && usedFilters.price[0] < res.data.price_max){
+                usedFilters.price[1] = usedFilters.price[0]+1
+              }else if(usedFilters.price[1] < usedFilters.price[0]){
+                usedFilters.price[0] = usedFilters.price[1]-1
+              }
+            }
+            setUsedFilters(Object.assign({}, usedFilters))
             setProducts(res.data.data)
           })
       })
@@ -305,8 +324,14 @@ const Catalog: React.FC<ICatalogProps> = () => {
       .then((res)=>{
         setPage(1)
         setPages(Math.ceil(res.data.count_pages))
+        if(res.data.price_max){
+          setPriceMax(res.data.price_max)
+        }
+        if(res.data.price_min){
+          setPriceMin(res.data.price_min)
+        }
         setProducts(res.data.data)
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 280, behavior: 'smooth' });
         setFiltered(false)
         if(usedFilters.category.length > 0 ||
           usedFilters.color.length > 0 ||
@@ -322,7 +347,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
       color: [],
       collection: [],
       type: [],
-      price: [0, priceMax],
+      price: [priceMin, priceMax],
     })
     const data = new FormData()
     push(`/catalog`)
@@ -331,6 +356,10 @@ const Catalog: React.FC<ICatalogProps> = () => {
       .then((res)=>{
         setPage(1)
         setPages(Math.ceil(res.data.count_pages))
+        setPriceMax(res.data.price_max)
+        setPriceMin(res.data.price_min)
+        usedFilters.price = [res.data.price_min, res.data.price_max]
+        setUsedFilters(Object.assign({}, usedFilters))
         setProducts(res.data.data)
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setFiltered(false)
@@ -512,7 +541,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                             toggleFilter(values.join(','), 'price')
                           }}
                           values={usedFilters.price}
-                          min={0}
+                          min={priceMin}
                           max={priceMax}
                           renderTrack={({ props, children }) => (
                             <div

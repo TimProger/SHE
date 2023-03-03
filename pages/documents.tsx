@@ -53,6 +53,14 @@ const Documents: React.FC = () => {
                 </svg>
                 <Link target="_blank" href={`https://disk.yandex.ru/d/KhLBKzljL9llUA`}>{t('title7')}</Link>
               </div>
+              <div className={s.documents__certificates__doc}>
+                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M30.5 4H12C10.8954 4 10 4.89543 10 6V43C10 44.1046 10.8954 45 12 45H39C40.1046 45 41 44.1046 41 43V12.9995L30.5 4Z" fill="#BC1919"/>
+                  <path d="M30.2991 14.3376C29.6448 14.4194 29.0919 13.8567 29.1851 13.2039L30.5001 3.99835L41 13L30.2991 14.3376Z" fill="#740E0E"/>
+                  <path d="M18.82 24.98C20.02 24.98 20.91 24.17 20.91 22.99C20.91 21.81 20.02 21 18.82 21H14.09V28H15.47V24.98H18.82ZM18.82 22.28C19.26 22.28 19.52 22.56 19.52 22.99C19.52 23.42 19.26 23.7 18.82 23.7H15.47V22.28H18.82ZM29.7643 24.52C29.7643 22.26 28.0843 21 25.6543 21H22.2443V28H25.6543C28.0843 28 29.7643 26.78 29.7643 24.52ZM28.3543 24.52C28.3543 25.95 27.3043 26.68 25.8043 26.72H23.6243V22.28H25.6543C27.2343 22.28 28.3543 23.05 28.3543 24.52ZM36.8482 24.8V23.52H32.6282V22.28H37.2682V21H31.2482V28H32.6282V24.8H36.8482Z" fill="white"/>
+                </svg>
+                <Link target="_blank" href={`https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FGov4UQjxONhkwPbJN6O22anRzjsXoK2zvDfbzOqKZnnXnuO3A0ryQAuLNd%2B3z00QW5aDQ4kMZEXE%2BwNjbq78ug%3D%3D%3A%2FСВИДЕТЕЛЬСТВО_О_ПРИСВОЕНИИ_ДИАПАЗОНА_УНИКАЛЬНЫХ_ИДЕНТИФИКАЦИОННЫХ.pdf&name=СВИДЕТЕЛЬСТВО_О_ПРИСВОЕНИИ_ДИАПАЗОНА_УНИКАЛЬНЫХ_ИДЕНТИФИКАЦИОННЫХ.pdf&nosw=1`}>{t('title8')}</Link>
+              </div>
             </div>
             <div className={s.documents__cataloge}>
               <h2>{t('title3')}</h2>
