@@ -60,10 +60,11 @@
     }
   },
   "not_found": {
-    "title": "We still working on it!",
-    "paragraph_1": "The mobile version of the site is currently unavailable. We're working on it.",
-    "paragraph_2": "You can go to the old version of the site by clicking the button below",
-    "button": "Go to"
+    "title": "Page not found."
+  },
+  "error_page": {
+    "title": "An unknown error occurred.",
+    "paragraph": "We apologize for the discomfort we have caused."
   },
   "compliments": {
     "profile": {

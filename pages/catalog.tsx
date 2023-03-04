@@ -130,14 +130,14 @@ const Catalog: React.FC<ICatalogProps> = () => {
         page1 = query.page ? +`${query.page}` : +`${page}`
         if(query.min){
           data.append('price_min', `${query.min}`)
-          usedFilters.price[0] = +`${query.min}`
+          usedFilters.price[0] = Math.ceil(+`${query.min}`)
           open[filters.length] = true
           setOpen([...open])
           setFiltered(true)
         }
         if(query.max){
           data.append('price_max', `${query.max}`)
-          usedFilters.price[1] = +`${query.max}`
+          usedFilters.price[1] = Math.ceil(+`${query.max}`)
           open[filters.length] = true
           setOpen([...open])
           setFiltered(true)

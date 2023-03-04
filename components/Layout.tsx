@@ -52,6 +52,7 @@ const Layout: React.FC<IMainLayoutProps>
       <Head>
         <title>{title}</title>
         <meta name="keywords" content={keywords || "SHE, ™SHE, Гель, Лак, Лаки, Gel, Дёшево, Купить"} />
+        <meta property="og:image" content="https://sun9-79.userapi.com/impg/BalbHuM36BNsr5p2rdLHAiEo4RbQ0A_QtNmZzw/uWVFy_QFnpg.jpg?size=1500x1129&quality=96&sign=ddf0a732001a791dcef220ae2b1f7a60&type=album"/>
         <link rel="icon" type="image/png" sizes="16x16" href={icon_16.src} />
         <link rel="icon" type="image/png" sizes="24x24" href={icon_24.src} />
         <link rel="icon" type="image/png" sizes="32x32" href={icon_32.src} />
