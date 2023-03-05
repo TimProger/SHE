@@ -197,6 +197,12 @@ const Catalog: React.FC<ICatalogProps> = () => {
             setUsedFilters(Object.assign({}, usedFilters))
             setProducts(res.data.data)
           })
+          .catch(e=>{
+
+          })
+      })
+      .catch(e=>{
+
       })
   },[locale, query])
 
