@@ -31,7 +31,7 @@ interface IUsedFilters {
 }
 
 const Catalog: React.FC<ICatalogProps> = () => {
-  const { locale, query, push } = useRouter()
+  const { locale, query, push, isReady } = useRouter()
   const { t } = useTranslation('catalog')
 
   const [types, setTypes] = useState<string[]>([])
@@ -124,10 +124,13 @@ const Catalog: React.FC<ICatalogProps> = () => {
         usedFilters.collection = []
         usedFilters.type = []
         let page1: number = 1
+        if(!isReady) return
         if(query.page){
           setPage(+`${query.page}`)
+        }else{
+          setPage(1)
         }
-        page1 = query.page ? +`${query.page}` : +`${page}`
+        page1 = query.page ? +`${query.page}` : 1
         if(query.min){
           data.append('price_min', `${query.min}`)
           usedFilters.price[0] = Math.ceil(+`${query.min}`)
@@ -183,15 +186,14 @@ const Catalog: React.FC<ICatalogProps> = () => {
             setPages(Math.ceil(res.data.count_pages))
             setPriceMax(Math.ceil(res.data.price_max))
             setPriceMin(Math.ceil(res.data.price_min))
-            if(res.data.price_min && usedFilters.price[0] < res.data.price_min){
+            if(res.data.price_min){
               usedFilters.price[0] = res.data.price_min
             }
-            if(res.data.price_max && usedFilters.price[1] > res.data.price_max){
-              usedFilters.price[1] = res.data.price_max
-              if(usedFilters.price[1] < usedFilters.price[0] && usedFilters.price[0] < res.data.price_max){
+            if(res.data.price_max){
+              if(res.data.price_max < usedFilters.price[0]){
                 usedFilters.price[1] = usedFilters.price[0]+1
-              }else if(usedFilters.price[1] < usedFilters.price[0]){
-                usedFilters.price[0] = usedFilters.price[1]-1
+              }else{
+                usedFilters.price[1] = res.data.price_max
               }
             }
             setUsedFilters(Object.assign({}, usedFilters))
@@ -590,7 +592,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                               type="number"
                               min={0}
                               max={usedFilters.price[1]-1}
-                              step={10}
+                              step={1}
                               value={usedFilters.price[0]} />
                           </div>
                           <div>
@@ -600,7 +602,7 @@ const Catalog: React.FC<ICatalogProps> = () => {
                               type="number"
                               min={usedFilters.price[0]+1}
                               max={priceMax}
-                              step={10}
+                              step={1}
                               value={usedFilters.price[1]} />
                           </div>
                         </div>

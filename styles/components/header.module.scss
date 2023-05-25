@@ -37,8 +37,6 @@
     border-bottom: 1px solid $block-main;
   }
 
-
-
   &__btns{
     display: flex;
     align-items: center;
@@ -208,6 +206,15 @@
     width: 156px;
     position: relative;
     top: 30px;
+
+    &__container{
+      transition: all 0.5s;
+      overflow: hidden;
+
+      &__active{
+        display: none;
+      }
+    }
   }
 }
 
@@ -588,6 +595,19 @@
 @media screen and (max-width: 700px) {
 
   .top{
+
+    &__btns{
+      &__btn{
+        &__results{
+          width: 180px !important;
+        }
+        &__search{
+          &__active{
+            width: 180px !important;
+          }
+        }
+      }
+    }
 
     &__nav{
       padding: 0 20px;
