@@ -15,6 +15,7 @@ SHE™ - это платформа для продажи гелей-лаков, 
 ## Установка и запуск проекта
 
 1. Клонируйте репозиторий SHE™ на свой локальный компьютер:
-   ```bash git clone https://github.com/your_username/SHE.git```
+
+```git clone https://github.com/your_username/SHE.git```
 3. Перейдите в папку с проектом:
 4. Установите зависимости:
