@@ -1,34 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SHE™ - Платформа для продажи гелей-лаков
 
-## Getting Started
+![SHE™ Logo](link_to_logo.png) <!-- Замените `link_to_logo.png` на ссылку на логотип проекта -->
 
-First, run the development server:
+SHE™ - это платформа для продажи гелей-лаков, разработанная с использованием технологий Next.js, SCSS, Redux Toolkit и i18next. Этот проект предоставляет пользователям возможность искать и покупать гелевые лаки онлайн с удобным интерфейсом и интуитивно понятным опытом использования.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Основные возможности
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Поиск гелей-лаков по различным параметрам, таким как цвет, оттенок, бренд и т.д.
+- Просмотр подробной информации о каждом геле-лаке, включая цену, описание, фотографии и отзывы пользователей.
+- Добавление выбранных товаров в корзину и оформление заказа с выбором способа доставки и оплаты.
+- Аутентификация пользователей для доступа к их профилю, истории заказов и возможности оставлять отзывы.
+- Поддержка мультиязычности для удобства пользователей из разных стран и регионов.
 
-You can start editing the page by modifying `pages/Header.tsx`. The page auto-updates as you edit the file.
+## Установка и запуск проекта
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Клонируйте репозиторий SHE™ на свой локальный компьютер:
+   ```bash git clone https://github.com/your_username/SHE.git```
+3. Перейдите в папку с проектом:
+4. Установите зависимости:
