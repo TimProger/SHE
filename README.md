@@ -14,7 +14,7 @@ SHE™ - это платформа для продажи гелей-лаков, 
 
 1. Клонируйте репозиторий SHE™ на свой локальный компьютер:
 
-    ```git clone https://github.com/your_username/SHE.git```
+    ```git clone https://github.com/TimProger/SHE.git```
    
 2. Перейдите в папку с проектом:
 
